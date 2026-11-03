@@ -8,7 +8,7 @@ import { Scheda } from "@/componenti/Scheda";
 import { vetrine, CATEGORIE, ETICHETTA_CAT } from "@/lib/catalogo";
 import { tr } from "@/lib/i18n";
 
-const CATFOTO: string[] = ["caschi", "giacche", "accessori", "manutenzione"];
+const CATFOTO: string[] = ["caschi", "giacche", "pantaloni", "gilet", "guanti", "stivali", "protezioni", "accessori", "manutenzione"];
 type K = keyof typeof home.it;
 const Html = ({ t, tag: Tag = "span" }: { t: string; tag?: "span" | "p" | "h3" }) => <Tag dangerouslySetInnerHTML={{ __html: t }} />;
 
