@@ -4,7 +4,7 @@ Database: schema/ruolo dedicato su Supabase (vedi sotto). App: Vercel (Next.js).
 
 Variabili d'ambiente su Vercel:
 - `DATABASE_URL` — stringa «Transaction pooler» di Supabase con l'utente dedicato `motonova_app.<ref>`
-- `SITO_URL=https://motonova.com`
+- `SITO_URL=https://motonova.online`
 - `CHIAVE_GIRO` — stringa casuale (la stessa usata dal cron)
 - `SMTP_*` (facoltativo), `PAYMOB_API_KEY` (quando disponibile)
 

@@ -1,6 +1,6 @@
-motonova.com, www.motonova.com {
+motonova.online, www.motonova.online {
 	encode gzip
-	@www host www.motonova.com
-	redir @www https://motonova.com{uri} permanent
+	@www host www.motonova.online
+	redir @www https://motonova.online{uri} permanent
 	reverse_proxy app:3000
 }
