@@ -3,11 +3,12 @@ import { lingua } from "@/lib/contesto";
 import { href } from "@/lib/i18n";
 import home from "../../dati/home.json";
 import { ScenaHero } from "@/componenti/ScenaHero";
-import { Cornice } from "@/componenti/Sagoma";
+import { Cornice, Sagoma } from "@/componenti/Sagoma";
 import { Scheda } from "@/componenti/Scheda";
 import { vetrine, CATEGORIE, ETICHETTA_CAT } from "@/lib/catalogo";
 import { tr } from "@/lib/i18n";
 
+const CATFOTO: string[] = ["caschi", "giacche", "accessori", "manutenzione"];
 type K = keyof typeof home.it;
 const Html = ({ t, tag: Tag = "span" }: { t: string; tag?: "span" | "p" | "h3" }) => <Tag dangerouslySetInnerHTML={{ __html: t }} />;
 
@@ -39,9 +40,10 @@ export default async function Home() {
 
       <section className="foglio sezione" aria-label={T("worldH")}>
         <p className="etichetta-sez mono">{l === "en" ? "Categories" : l === "ar" ? "الفئات" : "Categorie"}</p>
-        <div className="cat-griglia">
+        <div className="cat-scorri" role="list">
           {CATEGORIE.map((c, i) => (
-            <Link key={c} className="cat-tile" href={href(l, `/negozio?cat=${c}`)}>
+            <Link key={c} role="listitem" className={"cat-card" + (CATFOTO.includes(c) ? "" : " senza")} href={href(l, `/negozio?cat=${c}`)}>
+              {CATFOTO.includes(c) ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/immagini/cat-${c}.webp`} alt="" loading="lazy" /> : <Sagoma categoria={c} />}
               <span className="cat-n mono" dir="ltr">{String(i + 1).padStart(2, "0")}</span>
               <span className="cat-nome">{tr(l, ETICHETTA_CAT[c])}</span>
               <svg className="cat-freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg>
