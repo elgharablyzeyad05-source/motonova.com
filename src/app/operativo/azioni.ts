@@ -71,7 +71,10 @@ export async function salvaProdottoAction(f: FormData) {
   const nome = t(f, "nome"); const marcaNome = t(f, "marca");
   if (nome.length < 3) ko("prodotti", "Scrivi il nome del prodotto", back);
   if (!marcaNome) ko("prodotti", "Scrivi la marca", back);
-  const prezzo = egpToPiastre(t(f, "prezzo")); if (!(prezzo > 0)) ko("prodotti", "Prezzo non valido (in EGP, es. 5920)", back);
+  const tipoScelto = t(f, "tipo") === "SECOND_LIFE";
+  const partenza = tipoScelto && t(f, "partenza") ? egpToPiastre(t(f, "partenza")) : NaN;
+  const prezzo = tipoScelto ? partenza : egpToPiastre(t(f, "prezzo"));
+  if (!(prezzo > 0)) ko("prodotti", tipoScelto ? "Scrivi il prezzo di partenza dell'asta (in EGP)" : "Scrivi il prezzo (in EGP, es. 5920)", back);
   const prima = t(f, "prezzoPrima") ? egpToPiastre(t(f, "prezzoPrima")) : null;
   if (prima !== null && !(prima > prezzo)) ko("prodotti", "Il prezzo di prima deve essere più alto del prezzo", back);
   let taglie; try { taglie = leggiTaglie(t(f, "taglie")); } catch (e) { return ko("prodotti", (e as Error).message, back); }
@@ -102,6 +105,14 @@ export async function salvaProdottoAction(f: FormData) {
         let slug = slugDi(`${marcaNome} ${nome}`); if (await tx.prodotto.findUnique({ where: { slug } })) slug += "-" + Math.random().toString(36).slice(2, 6);
         pid = nuovoId(); await tx.prodotto.create({ data: { id: pid, slug, ...dati } });
       }
+      // Asta: se il pezzo è da asta e non ne ha ancora una, la apro subito con i dati del modulo.
+      if (tipo === "SECOND_LIFE" && !(await tx.asta.findUnique({ where: { prodottoId: pid } }))) {
+        const riserva = t(f, "riserva") ? egpToPiastre(t(f, "riserva")) : 0;
+        const giorni = Math.round(Number(t(f, "giorni") || 7));
+        if (!(riserva >= 0) || !(giorni >= 1 && giorni <= 30)) throw new Error("Controlla la riserva e la durata (da 1 a 30 giorni)");
+        const inizio = new Date();
+        await tx.asta.create({ data: { id: nuovoId(), prodottoId: pid, inizio, fine: new Date(inizio.getTime() + giorni * 864e5), partenza: prezzo, riserva, stato: "APERTA" } });
+      }
       for (const v of taglie) {
         const e = await tx.variante.findUnique({ where: { prodottoId_taglia: { prodottoId: pid, taglia: v.taglia } } });
         if (e) {
@@ -112,7 +123,7 @@ export async function salvaProdottoAction(f: FormData) {
     });
     await salvaFoto(pid, f.getAll("foto").filter((x): x is File => x instanceof File));
   } catch (e) { return ko("prodotti", (e as Error).message, pid ? `&modifica=${pid}` : back); }
-  revalidatePath("/", "layout"); ok("prodotti", id ? "Prodotto salvato" : "Prodotto creato");
+  revalidatePath("/", "layout"); ok(tipo === "SECOND_LIFE" ? "aste" : "prodotti", id ? "Salvato" : tipo === "SECOND_LIFE" ? "Asta aperta: è già sul sito" : "Prodotto pubblicato");
 }
 
 // ---------- coupon ----------

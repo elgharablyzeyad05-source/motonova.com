@@ -11,42 +11,86 @@ import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, e
 export const metadata = { title: "Operativo", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
-const TABS = ["ordini", "chat", "prodotti", "clienti", "coupon", "aste", "posta", "iscritti"] as const;
+const TABS = ["oggi", "ordini", "chat", "prodotti", "aste", "clienti", "altro", "coupon", "posta", "iscritti"] as const;
 const STILI = ["sport", "street", "adventure", "touring", "urban"];
 const NOME_STATO: Record<string, string> = { DA_CONFERMARE: "Da confermare", CONFERMATO: "Confermato", PREPARAZIONE: "In preparazione", SPEDITO: "Spedito", CONSEGNATO: "Consegnato", ANNULLATO: "Annullato" };
 const fmt = new Intl.DateTimeFormat("it-IT", { dateStyle: "short", timeStyle: "short", timeZone: "Africa/Cairo" });
 const dt = (d: Date | null) => (d ? d.toISOString().slice(0, 16) : "");
 
+const ALTRO = ["coupon", "posta", "iscritti"];
+const NOME_TAB: Record<string, string> = { oggi: "Oggi", ordini: "Ordini", chat: "Messaggi", prodotti: "Prodotti", aste: "Aste", clienti: "Clienti", altro: "Altro" };
+
 export default async function Operativo({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
   // Chi non è amministratore vede una pagina inesistente, non un invito ad accedere.
   if (!(await richiediAdmin())) notFound();
   const q = await searchParams;
-  const tab = (TABS as readonly string[]).includes(q.tab ?? "") ? q.tab! : "ordini";
-  const daLeggere = await db.messaggio.count({ where: { daStaff: false, letto: false } });
+  const tab = (TABS as readonly string[]).includes(q.tab ?? "") ? q.tab! : "oggi";
+  const [daLeggere, daGestire] = await Promise.all([
+    db.messaggio.count({ where: { daStaff: false, letto: false } }),
+    db.ordine.count({ where: { stato: { in: ["DA_CONFERMARE", "CONFERMATO", "PREPARAZIONE"] } } }),
+  ]);
+  const attivo = (t: string) => t === tab || (t === "altro" && ALTRO.includes(tab));
+  const badge: Record<string, number> = { ordini: daGestire, chat: daLeggere };
   return (
     <div className="foglio sezione operativo">
       <h1 style={{ marginBottom: 6 }}>Operativo</h1>
-      <nav style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "16px 0 24px" }}>
-        {TABS.map((t) => <Link key={t} href={`/operativo?tab=${t}`} className={`tasto piccolo ${t === tab ? "" : "vuoto"}`}>{t}{t === "chat" && daLeggere > 0 ? ` (${daLeggere})` : ""}</Link>)}
+      <nav className="op-nav" aria-label="Sezioni">
+        {Object.keys(NOME_TAB).map((t) => <Link key={t} href={`/operativo?tab=${t}`} className={`tasto piccolo ${attivo(t) ? "" : "vuoto"}`}>{NOME_TAB[t]}{badge[t] > 0 ? <b className="op-badge">{badge[t]}</b> : null}</Link>)}
       </nav>
+      {ALTRO.includes(tab) || tab === "altro" ? <nav className="op-sub" aria-label="Altro">
+        {[["coupon", "Codici sconto"], ["posta", "Email inviate"], ["iscritti", "Newsletter"]].map(([t, n]) => <Link key={t} href={`/operativo?tab=${t}`} aria-current={t === tab ? "page" : undefined}>{n}</Link>)}
+      </nav> : null}
       {q.ok && <p className="nota ok" role="status" style={{ marginBottom: 18 }}>{q.ok}</p>}
       {q.err && <p className="nota" role="alert" style={{ marginBottom: 18 }}><b>{q.err}</b></p>}
-      {tab === "ordini" && <Ordini />}
+      {tab === "oggi" && <Oggi />}
+      {tab === "ordini" && <Ordini tutti={q.tutti === "1"} />}
       {tab === "chat" && <Chat conv={q.conv} />}
-      {tab === "prodotti" && <Prodotti modifica={q.modifica} />}
+      {tab === "prodotti" && <Prodotti modifica={q.modifica} tipo={q.tipo} />}
       {tab === "clienti" && <Clienti />}
       {tab === "coupon" && <Coupon />}
       {tab === "aste" && <Aste />}
       {tab === "posta" && <PostaLog />}
       {tab === "iscritti" && <Iscritti />}
+      {tab === "altro" && <p className="tenue">Scegli sopra: codici sconto, email inviate o newsletter.</p>}
     </div>
   );
 }
 
-async function Ordini() {
-  const ordini = await db.ordine.findMany({ orderBy: { creato: "desc" }, take: 100, include: { righe: true } });
-  if (!ordini.length) return <p className="tenue">Nessun ordine.</p>;
-  return <div>{ordini.map((o) => (
+async function Oggi() {
+  const adesso = new Date();
+  const [daConf, inPrep, bloccoAtt, daLeggere, asta, prodotti] = await Promise.all([
+    db.ordine.count({ where: { stato: "DA_CONFERMARE" } }),
+    db.ordine.count({ where: { stato: { in: ["CONFERMATO", "PREPARAZIONE"] } } }),
+    db.ordine.count({ where: { stato: "DA_CONFERMARE", bloccoScade: { not: null }, bloccoPagato: false } }),
+    db.messaggio.count({ where: { daStaff: false, letto: false } }),
+    db.asta.findFirst({ where: { stato: "APERTA", fine: { gt: adesso } }, orderBy: { fine: "asc" }, include: { prodotto: true, offerte: true } }),
+    db.prodotto.findMany({ where: { attivo: true }, include: { varianti: true } }),
+  ]);
+  const esauriti = prodotti.filter((p) => p.varianti.every((v) => v.giacenza - v.impegnati <= 0)).length;
+  const sa = asta ? statoDa(asta) : null;
+  return <>
+    <div className="op-azioni">
+      <Link className="tasto" href="/operativo?tab=prodotti&modifica=nuovo">+ Nuovo prodotto</Link>
+      <Link className="tasto" href="/operativo?tab=prodotti&modifica=nuovo&tipo=asta">+ Nuova asta</Link>
+    </div>
+    <div className="op-carte">
+      <Link href="/operativo?tab=ordini" className={"op-carta" + (daConf > 0 ? " urgente" : "")}><span className="mono">Ordini nuovi</span><b>{daConf}</b><small>{daConf > 0 ? "da confermare" : "nessuno in attesa"}</small></Link>
+      <Link href="/operativo?tab=ordini" className="op-carta"><span className="mono">In lavorazione</span><b>{inPrep}</b><small>da preparare o spedire</small></Link>
+      <Link href="/operativo?tab=chat" className={"op-carta" + (daLeggere > 0 ? " urgente" : "")}><span className="mono">Messaggi</span><b>{daLeggere}</b><small>{daLeggere > 0 ? "da leggere" : "tutto letto"}</small></Link>
+      <Link href="/operativo?tab=prodotti" className="op-carta"><span className="mono">Prodotti</span><b>{prodotti.length}</b><small>{esauriti > 0 ? `${esauriti} esauriti` : "tutti disponibili"}</small></Link>
+    </div>
+    {bloccoAtt > 0 && <p className="nota avviso" style={{ margin: "18px 0" }}><b>{bloccoAtt} blocco/i prezzo</b> in attesa dell&apos;acconto di 800 EGP. <Link style={{ textDecoration: "underline" }} href="/operativo?tab=ordini">Vai agli ordini</Link></p>}
+    <h2 style={{ margin: "28px 0 12px", fontSize: 22 }}>Asta della settimana</h2>
+    {asta && sa ? <Link href="/operativo?tab=aste" className="op-carta larga"><span className="mono">In corso · chiude {fmt.format(asta.fine)}</span><b>{asta.prodotto.nome}</b><small>Offerta attuale {egp(sa.prezzo)} · {sa.offerenti} offerenti</small></Link>
+      : <p className="nota">Nessuna asta aperta. <Link style={{ textDecoration: "underline" }} href="/operativo?tab=prodotti&modifica=nuovo&tipo=asta">Crea la prossima</Link> — il sito mostra intanto il pezzo coperto.</p>}
+  </>;
+}
+
+async function Ordini({ tutti }: { tutti: boolean }) {
+  const ordini = await db.ordine.findMany({ where: tutti ? {} : { stato: { notIn: ["CONSEGNATO", "ANNULLATO"] } }, orderBy: { creato: "desc" }, take: 100, include: { righe: true } });
+  const sel = <p style={{ margin: "0 0 14px" }}><Link className="tasto piccolo vuoto" href={`/operativo?tab=ordini${tutti ? "" : "&tutti=1"}`}>{tutti ? "Mostra solo da gestire" : "Mostra anche consegnati e annullati"}</Link></p>;
+  if (!ordini.length) return <>{sel}<p className="tenue">{tutti ? "Nessun ordine." : "Nessun ordine da gestire."}</p></>;
+  return <div>{sel}{ordini.map((o) => (
     <article key={o.id} className="filetto" style={{ padding: "16px 0" }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
         <b dir="ltr">{o.numero}</b><span className="mono">{fmt.format(o.creato)} · {NOME_STATO[o.stato]}</span><b className="tab">{egp(o.totale)}</b>
@@ -70,8 +114,8 @@ async function Ordini() {
   ))}</div>;
 }
 
-async function Prodotti({ modifica }: { modifica?: string }) {
-  if (modifica) return <FormProdotto id={modifica} />;
+async function Prodotti({ modifica, tipo }: { modifica?: string; tipo?: string }) {
+  if (modifica) return <FormProdotto id={modifica} tipoIniziale={tipo === "asta" ? "SECOND_LIFE" : undefined} />;
   const ps = await db.prodotto.findMany({ orderBy: { creato: "desc" }, include: { marca: true, varianti: true } });
   return <>
     <p style={{ marginBottom: 16 }}><Link className="tasto" href="/operativo?tab=prodotti&modifica=nuovo">+ Nuovo prodotto</Link></p>
@@ -85,38 +129,53 @@ async function Prodotti({ modifica }: { modifica?: string }) {
     </tbody></table></>;
 }
 
-async function FormProdotto({ id }: { id: string }) {
-  const p = id === "nuovo" ? null : await db.prodotto.findUnique({ where: { id }, include: { marca: true, varianti: true, foto: { orderBy: { ordine: "asc" } } } });
+async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: string }) {
+  const p = id === "nuovo" ? null : await db.prodotto.findUnique({ where: { id }, include: { marca: true, varianti: true, foto: { orderBy: { ordine: "asc" } }, asta: true } });
   if (id !== "nuovo" && !p) notFound();
+  const marche = await db.marca.findMany({ orderBy: { nome: "asc" } });
   const taglie = p?.varianti.map((v) => `${v.taglia}:${v.giacenza}`).join(", ") ?? "";
+  const tipo = p?.tipo ?? tipoIniziale ?? "NUOVO";
+  const astaNuova = tipo === "SECOND_LIFE" && !p?.asta;
   return <>
-    <form action={salvaProdottoAction} encType="multipart/form-data" style={{ maxWidth: 680 }}>
+    <form action={salvaProdottoAction} encType="multipart/form-data" className="form-prod" style={{ maxWidth: 680 }}>
       {p && <input type="hidden" name="id" value={p.id} />}
+      <h2 style={{ fontSize: 22, margin: "0 0 16px" }}>{p ? "Modifica" : tipo === "SECOND_LIFE" ? "Nuova asta" : "Nuovo prodotto"}</h2>
+      <fieldset className="campo scelta-tipo"><legend>Come lo vendi?</legend>
+        <label><input type="radio" name="tipo" id="tipo-nuovo" value="NUOVO" defaultChecked={tipo === "NUOVO"} /> Vendita normale</label>
+        <label><input type="radio" name="tipo" id="tipo-asta" value="SECOND_LIFE" defaultChecked={tipo === "SECOND_LIFE"} /> Asta (un solo pezzo)</label>
+      </fieldset>
+      <div className="campo"><label htmlFor="foto">Foto (puoi sceglierne più d&apos;una)</label><input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp" multiple /></div>
       <div className="campo"><label htmlFor="nome">Nome</label><input id="nome" name="nome" defaultValue={p?.nome} required /></div>
-      <div className="campo"><label htmlFor="marca">Marca</label><input id="marca" name="marca" defaultValue={p?.marca.nome} required /></div>
-      <div className="campo"><label htmlFor="sottotitolo">Sottotitolo</label><input id="sottotitolo" name="sottotitolo" defaultValue={p?.sottotitolo} /></div>
+      <div className="campo"><label htmlFor="marca">Marca</label><input id="marca" name="marca" list="elenco-marche" defaultValue={p?.marca.nome} required /><datalist id="elenco-marche">{marche.map((m) => <option key={m.id} value={m.nome} />)}</datalist></div>
       <div className="campo"><label htmlFor="categoria">Categoria</label><select id="categoria" name="categoria" defaultValue={p?.categoria ?? ""} required><option value="">—</option>{CATEGORIE.map((c) => <option key={c}>{c}</option>)}</select></div>
-      <div className="campo"><label htmlFor="tipo">Tipo</label><select id="tipo" name="tipo" defaultValue={p?.tipo ?? "NUOVO"}><option value="NUOVO">Nuovo</option><option value="SECOND_LIFE">Second Life (pezzo unico, asta)</option></select></div>
-      <div className="campo"><label htmlFor="sottocategoria">Sottocategoria (es. Integrali, Modulari, Racing)</label><input id="sottocategoria" name="sottocategoria" defaultValue={p?.sottocategoria ?? ""} /></div>
-      <div className="campo"><label htmlFor="colore">Colore</label><input id="colore" name="colore" defaultValue={p?.colore ?? ""} /></div>
-      <div className="campo"><label htmlFor="genere">Genere (Uomo, Donna, Unisex)</label><input id="genere" name="genere" defaultValue={p?.genere ?? ""} /></div>
-      <div className="campo"><label htmlFor="materiale">Materiale (es. Pelle, Tessuto)</label><input id="materiale" name="materiale" defaultValue={p?.materiale ?? ""} /></div>
-      <div className="campo"><label htmlFor="certificazione">Certificazione (es. CE livello 2, ECE 22.06)</label><input id="certificazione" name="certificazione" defaultValue={p?.certificazione ?? ""} /></div>
-      <div className="campo"><label htmlFor="moto">Moto compatibili (facoltativo)</label><input id="moto" name="moto" defaultValue={p?.moto ?? ""} /></div>
-      <div className="campo"><label htmlFor="specs">Caratteristiche tecniche (una per riga, «Nome: valore»)</label><textarea id="specs" name="specs" rows={4} defaultValue={((p?.specs as [string, string][] | null) ?? []).map(([k, v]) => `${k}: ${v}`).join("\n")} /></div>
-      <fieldset className="campo"><legend>Stili</legend>{STILI.map((s) => <label key={s} style={{ marginInlineEnd: 14 }}><input type="checkbox" name="stili" value={s} defaultChecked={p?.stili.includes(s)} /> {s}</label>)}</fieldset>
-      <div className="campo"><label htmlFor="prezzo">Prezzo (EGP)</label><input id="prezzo" name="prezzo" inputMode="decimal" defaultValue={p ? p.prezzo / 100 : ""} required /></div>
-      <div className="campo"><label><input type="checkbox" name="trattabile" defaultChecked={p?.trattabile ?? false} /> Permetti al cliente di trattare il prezzo (solo prodotti nuovi)</label></div>
-      <div className="campo"><label htmlFor="prezzoMinimo">Prezzo minimo accettato (EGP) — obbligatorio se la trattativa è attiva; il prezzo sopra è il massimo pubblicato</label><input id="prezzoMinimo" name="prezzoMinimo" inputMode="decimal" defaultValue={p?.prezzoMinimo ? p.prezzoMinimo / 100 : ""} /></div>
-      <div className="campo"><label htmlFor="prezzoPrima">Prezzo di prima (EGP, solo se in offerta)</label><input id="prezzoPrima" name="prezzoPrima" inputMode="decimal" defaultValue={p?.prezzoPrima ? p.prezzoPrima / 100 : ""} /></div>
-      <div className="campo"><label htmlFor="taglie">Taglie e pezzi</label><input id="taglie" name="taglie" placeholder="S:3, M:6, L:4" defaultValue={taglie} required /></div>
-      <div className="campo"><label htmlFor="descrizione">Descrizione (un paragrafo per riga)</label><textarea id="descrizione" name="descrizione" rows={5} defaultValue={p?.descrizione.join("\n")} /></div>
-      <div className="campo"><label htmlFor="nota">Nota</label><input id="nota" name="nota" defaultValue={p?.nota} /></div>
-      <div className="campo"><label htmlFor="luogo">Luogo (Second Life)</label><input id="luogo" name="luogo" defaultValue={p?.luogo} /></div>
-      <div className="campo"><label htmlFor="grado">Grado (Second Life)</label><input id="grado" name="grado" defaultValue={p?.grado ?? ""} /></div>
-      <div className="campo"><label htmlFor="foto">Aggiungi foto (JPG, PNG o WebP)</label><input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp" multiple /></div>
-      <label className="campo" style={{ display: "block" }}><input type="checkbox" name="attivo" defaultChecked={p ? p.attivo : true} /> In vendita (togli la spunta per ritirarlo)</label>
-      <button className="tasto salva-prodotto">Salva</button> <Link className="tasto vuoto" href="/operativo?tab=prodotti">Indietro</Link>
+      <div className="campo solo-nuovo"><label htmlFor="prezzo">Prezzo (EGP)</label><input id="prezzo" name="prezzo" inputMode="decimal" defaultValue={p ? p.prezzo / 100 : ""} /></div>
+      <div className="campo"><label htmlFor="taglie">Taglie e pezzi <span className="lieve">— es. «M:3, L:5». Per l&apos;asta una sola, es. «L:1»</span></label><input id="taglie" name="taglie" placeholder="S:3, M:6, L:4" defaultValue={taglie} required /></div>
+      <div className="solo-asta">
+        <div className="campo"><label htmlFor="partenza">Prezzo di partenza (EGP)</label><input id="partenza" name="partenza" inputMode="decimal" defaultValue={p?.asta ? p.asta.partenza / 100 : ""} /></div>
+        <div className="campo"><label htmlFor="riserva">Riserva segreta (EGP, facoltativa)</label><input id="riserva" name="riserva" inputMode="decimal" defaultValue={p?.asta?.riserva ? p.asta.riserva / 100 : ""} /></div>
+        {astaNuova || !p ? <div className="campo"><label htmlFor="giorni">Durata (giorni)</label><input id="giorni" name="giorni" inputMode="numeric" defaultValue={7} /></div> : <p className="tenue">L&apos;asta di questo pezzo è già stata creata: la gestisci nella scheda Aste.</p>}
+      </div>
+      <div className="campo solo-nuovo"><label><input type="checkbox" name="trattabile" defaultChecked={p?.trattabile ?? false} /> Il cliente può trattare il prezzo</label></div>
+      <div className="campo solo-nuovo"><label htmlFor="prezzoMinimo">Prezzo minimo accettato (EGP) <span className="lieve">— solo se la trattativa è attiva; il prezzo sopra è il massimo pubblicato</span></label><input id="prezzoMinimo" name="prezzoMinimo" inputMode="decimal" defaultValue={p?.prezzoMinimo ? p.prezzoMinimo / 100 : ""} /></div>
+      <div className="campo"><label htmlFor="descrizione">Descrizione</label><textarea id="descrizione" name="descrizione" rows={4} defaultValue={p?.descrizione.join("\n")} /></div>
+      <label className="campo" style={{ display: "block" }}><input type="checkbox" name="attivo" defaultChecked={p ? p.attivo : true} /> Visibile sul sito (togli la spunta per ritirarlo)</label>
+      <details className="altri-dettagli">
+        <summary>Altri dettagli (facoltativi)</summary>
+        <div className="campo"><label htmlFor="sottotitolo">Sottotitolo</label><input id="sottotitolo" name="sottotitolo" defaultValue={p?.sottotitolo} /></div>
+        <div className="campo"><label htmlFor="sottocategoria">Sottocategoria (es. Integrali, Modulari, Racing)</label><input id="sottocategoria" name="sottocategoria" defaultValue={p?.sottocategoria ?? ""} /></div>
+        <div className="campo"><label htmlFor="colore">Colore</label><input id="colore" name="colore" defaultValue={p?.colore ?? ""} /></div>
+        <div className="campo"><label htmlFor="genere">Genere (Uomo, Donna, Unisex)</label><input id="genere" name="genere" defaultValue={p?.genere ?? ""} /></div>
+        <div className="campo"><label htmlFor="materiale">Materiale (es. Pelle, Tessuto)</label><input id="materiale" name="materiale" defaultValue={p?.materiale ?? ""} /></div>
+        <div className="campo"><label htmlFor="certificazione">Certificazione (es. CE livello 2, ECE 22.06)</label><input id="certificazione" name="certificazione" defaultValue={p?.certificazione ?? ""} /></div>
+        <div className="campo"><label htmlFor="moto">Moto compatibili</label><input id="moto" name="moto" defaultValue={p?.moto ?? ""} /></div>
+        <div className="campo"><label htmlFor="specs">Caratteristiche tecniche (una per riga, «Nome: valore»)</label><textarea id="specs" name="specs" rows={4} defaultValue={((p?.specs as [string, string][] | null) ?? []).map(([k, v]) => `${k}: ${v}`).join("\n")} /></div>
+        <fieldset className="campo"><legend>Stili</legend>{STILI.map((s) => <label key={s} style={{ marginInlineEnd: 14 }}><input type="checkbox" name="stili" value={s} defaultChecked={p?.stili.includes(s)} /> {s}</label>)}</fieldset>
+        <div className="campo solo-nuovo"><label htmlFor="prezzoPrima">Prezzo di prima (EGP, solo se in offerta)</label><input id="prezzoPrima" name="prezzoPrima" inputMode="decimal" defaultValue={p?.prezzoPrima ? p.prezzoPrima / 100 : ""} /></div>
+        <div className="campo"><label htmlFor="nota">Nota</label><input id="nota" name="nota" defaultValue={p?.nota} /></div>
+        <div className="campo"><label htmlFor="luogo">Luogo</label><input id="luogo" name="luogo" defaultValue={p?.luogo} /></div>
+        <div className="campo"><label htmlFor="grado">Condizione / grado</label><input id="grado" name="grado" defaultValue={p?.grado ?? ""} /></div>
+      </details>
+      <div className="op-salva"><button className="tasto salva-prodotto">{p ? "Salva" : tipo === "SECOND_LIFE" ? "Crea e apri l'asta" : "Pubblica"}</button> <Link className="tasto vuoto" href="/operativo?tab=prodotti">Indietro</Link></div>
     </form>
     {p && p.foto.length > 0 && <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 28 }}>{p.foto.map((f) => (
       <form key={f.id} action={eliminaFotoAction}><input type="hidden" name="id" value={f.id} />
@@ -155,6 +214,7 @@ async function Aste() {
     db.prodotto.findMany({ where: { tipo: "SECOND_LIFE", asta: null } }),
   ]);
   return <>
+    <p style={{ marginBottom: 16 }}><Link className="tasto" href="/operativo?tab=prodotti&modifica=nuovo&tipo=asta">+ Nuova asta</Link></p>
     <table className="dati"><thead><tr><th>Pezzo</th><th>Stato</th><th>Chiude</th><th>Prezzo</th><th>Offerte</th><th>Vincitore</th></tr></thead><tbody>
       {aste.map((a) => { const s = statoDa(a); return <tr key={a.id}><td>{a.prodotto.nome}</td><td>{a.stato}</td><td>{fmt.format(a.fine)}</td><td className="tab">{egp(a.prezzoFinale ?? s.prezzo)}</td><td className="tab">{a.offerte.length}</td><td>{a.vincitore?.email ?? "—"}</td></tr>; })}
     </tbody></table>
