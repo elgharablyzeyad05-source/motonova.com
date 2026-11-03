@@ -191,6 +191,24 @@ table.dati th { font-family: var(--m); font-size: 10.5px; letter-spacing: .1em; 
   .cerca-testata input { width: 120px; }
   .mc-pop { top: auto; bottom: 84px; inset-inline: 12px; width: auto; }
 }
+/* freccia «torna in alto» */
+.su-in-alto { position: fixed; bottom: 18px; left: 50%; transform: translate(-50%, 14px); z-index: 170; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--inchiostro); background: var(--carta); color: var(--inchiostro); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; box-shadow: 0 6px 18px rgba(11,11,12,.18); padding: 0; cursor: pointer; }
+.su-in-alto.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.su-in-alto:hover { background: var(--inchiostro); color: var(--carta); }
+.su-in-alto svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* testata da telefono: ordinata, non resta incollata in cima */
+@media (max-width: 860px) {
+  .testata { position: static; }
+  .testata .riga { gap: 10px 12px; padding-block: 12px; min-height: 0; }
+  .testata .marchio { order: 1; }
+  .testata .lingue { order: 2; }
+  .testata .navi { order: 3; flex-basis: 100%; flex-wrap: nowrap; overflow-x: auto; gap: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; border-top: 1px solid var(--bordo); padding-top: 4px; }
+  .testata .navi::-webkit-scrollbar { display: none; }
+  .testata .navi a { white-space: nowrap; flex: none; }
+  .testata .cerca-testata { order: 4; flex-basis: 100%; }
+  .testata .cerca-testata input { width: 100%; }
+}
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
 /* homepage: l'unica stanza scura */
