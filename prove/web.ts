@@ -67,7 +67,7 @@ errori.length = 0;
 
 titolo("Lingue");
 await p.goto(B + "/ar"); verifica("arabo è rtl", (await p.locator("html").getAttribute("dir")) === "rtl");
-await p.goto(B + "/en/negozio"); verifica("inglese ok", (await p.locator("html").getAttribute("lang")) === "en");
+await p.goto(B + "/negozio"); verifica("inglese ok", (await p.locator("html").getAttribute("lang")) === "en");
 
 verifica("nessun errore in console", errori.length === 0, errori.slice(0, 3));
 await b.close(); fine("web");

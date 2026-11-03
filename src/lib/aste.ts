@@ -53,7 +53,7 @@ export async function offri(slug: string, utenteId: string, massimo: number, bas
     const u = await db.utente.findUnique({ where: { id: esito.sorpassato } });
     if (u) {
       const chiusura = new Intl.DateTimeFormat("it-IT", { dateStyle: "medium", timeStyle: "short", timeZone: "Africa/Cairo" }).format(esito.fine);
-      await inviaEmail("superato", u.email, "it", {
+      await inviaEmail("superato", u.email, "en", {
         nome: u.nome, pezzo: esito.nome, prezzoAttuale: egp(esito.dopo.prezzo),
         minimoPerRilanciare: egp(esito.dopo.minimoProssima), chiusura, linkAsta: `${base}/aste/${slug}`,
       }).catch(() => {});
@@ -90,7 +90,7 @@ export async function giro(base: string, adesso = new Date()) {
     if (r.venduta) {
       vendute++;
       const u = await db.utente.findUnique({ where: { id: r.vincitoreId } });
-      if (u) await inviaEmail("aggiudicato", u.email, "it", { nome: u.nome, pezzo: r.nome, prezzoFinale: egp(r.prezzo), linkCassa: `${base}/carrello` }).catch(() => {});
+      if (u) await inviaEmail("aggiudicato", u.email, "en", { nome: u.nome, pezzo: r.nome, prezzoFinale: egp(r.prezzo), linkCassa: `${base}/carrello` }).catch(() => {});
     } else invendute++;
   }
   return { aperte: aperte.count, chiuse: scadute.length, vendute, invendute };

@@ -106,7 +106,7 @@ export async function creaOrdine(
           pagamento: d.metodo, subtotale: t.subtotale, spedizione: t.spedizione, commissione: t.commissione,
           sconto: t.sconto, totale: t.totale, acconto: t.acconto, contanti: t.contanti, coupon: codice,
           bloccoScade: d.blocco ? new Date(Date.now() + BLOCCO_ATTESA_ACCONTO_ORE * 3600_000) : null,
-          lingua: ["it", "en", "ar"].includes(d.lingua) ? d.lingua : "it",
+          lingua: ["it", "en", "ar"].includes(d.lingua) ? d.lingua : "en",
           righe: {
             create: k.righe.map((r) => ({
               id: nuovoId(), varianteId: r.varianteId, nome: r.variante.prodotto.nome, marca: r.variante.prodotto.marca.nome,

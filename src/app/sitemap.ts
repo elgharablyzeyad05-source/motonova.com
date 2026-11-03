@@ -20,6 +20,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ogni pagina in tre lingue, con le alternative dichiarate: Google serve la lingua giusta
   return percorsi.flatMap(({ p, mod }) => LINGUE.map((l) => ({
     url: base + href(l, p), lastModified: mod,
-    alternates: { languages: Object.fromEntries(LINGUE.map((x) => [x, base + href(x, p)])) },
+    alternates: { languages: { ...Object.fromEntries(LINGUE.map((x) => [x, base + href(x, p)])), "x-default": base + href("en", p) } },
   })));
 }

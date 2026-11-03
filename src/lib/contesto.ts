@@ -2,8 +2,8 @@ import { headers } from "next/headers";
 import { èLingua, type Lingua } from "./i18n";
 
 export async function lingua(): Promise<Lingua> {
-  const x = (await headers()).get("x-lingua") ?? "it";
-  return èLingua(x) ? x : "it";
+  const x = (await headers()).get("x-lingua") ?? "en";
+  return èLingua(x) ? x : "en";
 }
 
 export { tx } from "./tx";

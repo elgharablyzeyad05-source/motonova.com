@@ -16,7 +16,7 @@ export async function inviaEmail(
   tipo: Chiave, a: string | null | undefined, lingua: string, vars: Record<string, string>,
 ): Promise<"INVIATA" | "NON_CONFIGURATA" | "ERRORE" | "SENZA_INDIRIZZO"> {
   if (!a) return "SENZA_INDIRIZZO";
-  const l: Lingua = lingua === "en" || lingua === "ar" ? lingua : "it";
+  const l: Lingua = lingua === "it" || lingua === "ar" ? lingua : "en";
   let t;
   try { t = render(tipo, l, vars); } catch (e) {
     await db.posta.create({ data: { a, oggetto: tipo, tipo, esito: "ERRORE", errore: String(e).slice(0, 300) } }).catch(() => {});

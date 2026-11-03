@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { lingua } from "@/lib/contesto";
+import { lingua, tx } from "@/lib/contesto";
+import { db } from "@/lib/db";
+import { statoDa } from "@/lib/aste";
+import { egp } from "@/lib/regole";
+import { Orologio } from "@/componenti/Orologio";
 import { href } from "@/lib/i18n";
 import home from "../../dati/home.json";
 import { ScenaHero } from "@/componenti/ScenaHero";
@@ -15,6 +19,10 @@ const Html = ({ t, tag: Tag = "span" }: { t: string; tag?: "span" | "p" | "h3" }
 export default async function Home() {
   const l = await lingua();
   const v = await vetrine().catch(() => ({ nuovi: [], offerte: [], piuVenduti: [], marche: [] }));
+  const _ = tx(l);
+  const adesso = new Date();
+  const asta = await db.asta.findFirst({ where: { stato: "APERTA", fine: { gt: adesso }, prodotto: { attivo: true } }, orderBy: { fine: "asc" }, include: { offerte: true, prodotto: { include: { marca: true, foto: { orderBy: { ordine: "asc" }, take: 1 } } } } }).catch(() => null);
+  const sa = asta ? statoDa(asta) : null;
   const T = (k: K): string => (l === "it" ? home.it : home[l])[k] ?? home.it[k];
   // Immagini editoriali: public/immagini. Dove manca il file resta la sagoma.
   const IMG: Record<string, string> = { casco: "/immagini/guida-casco.webp", manutenzione: "/immagini/guida-manutenzione.webp", itinerari: "/immagini/guida-itinerari.webp", "second-life": "/immagini/guida-usato.webp" };
@@ -35,6 +43,29 @@ export default async function Home() {
         </div>
       </ScenaHero>
 
+      <section className="asta-home" aria-label={_("Asta della settimana", "Auction of the week", "مزاد الأسبوع")}>
+        <div className="foglio asta-home-in">
+          <div className="asta-home-foto">
+            {asta?.prodotto.foto[0]?.grande ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/media/${asta.prodotto.foto[0].grande}`} alt={asta.prodotto.nome} /> : <Sagoma categoria={asta?.prodotto.categoria ?? "caschi"} />}
+          </div>
+          <div className="asta-home-testo">
+            <p className="asta-live mono"><i aria-hidden="true" />{asta ? _("Asta in corso", "Live auction", "مزاد جارٍ") : _("Ogni settimana", "Every week", "كل أسبوع")}</p>
+            <h2>{_("L'asta della settimana", "The auction of the week", "مزاد الأسبوع")}</h2>
+            {asta && sa ? (<>
+              <p className="asta-nome"><span className="mono">{asta.prodotto.marca.nome}</span> {asta.prodotto.nome}</p>
+              <div className="asta-dati">
+                <div><span className="mono">{_("Offerta attuale", "Current bid", "العرض الحالي")}</span><b className="tab">{egp(sa.prezzo)}</b></div>
+                <div><span className="mono">{_("Si chiude tra", "Ends in", "تنتهي خلال")}</span><b><Orologio fine={asta.fine.toISOString()} aperta aggiorna={false} chiusa={_("Chiusa", "Closed", "مغلق")} /></b></div>
+                <div><span className="mono">{_("Offerenti", "Bidders", "مزايدون")}</span><b className="tab">{sa.offerenti}</b></div>
+              </div>
+              <Link className="tasto" href={href(l, `/aste/${asta.prodotto.slug}`)}>{_("Fai la tua offerta →", "Place your bid →", "ضع عرضك ←")}</Link>
+            </>) : (<>
+              <p className="asta-nome">{_("Un pezzo raro, super premium o introvabile. Un solo esemplare, vince chi offre di più.", "One rare, super-premium or hard-to-find piece. A single item, the highest bidder wins.", "قطعة نادرة أو فاخرة جداً أو يصعب إيجادها. قطعة واحدة، يفوز صاحب أعلى عرض.")}</p>
+              <Link className="tasto" href={href(l, "/aste")}>{_("Scopri le aste →", "See the auctions →", "اكتشف المزادات ←")}</Link>
+            </>)}
+          </div>
+        </div>
+      </section>
       <section className="foglio manifesto"><p><Html t={T("maniText")} /></p><p className="manifesto-tag mono">MotoNova · Italia → Egitto</p></section>
 
 

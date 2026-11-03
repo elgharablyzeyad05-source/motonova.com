@@ -2,7 +2,8 @@ import en from "../../dati/lingua-en.json";
 import ar from "../../dati/lingua-ar.json";
 import contenuti from "../../dati/contenuti.json";
 
-export const LINGUE = ["it", "en", "ar"] as const;
+export const LINGUE = ["en", "it", "ar"] as const;
+export const LINGUA_BASE: Lingua = "en";
 export type Lingua = (typeof LINGUE)[number];
 
 export function èLingua(x: string): x is Lingua {
@@ -37,6 +38,6 @@ export function v(lingua: Lingua, voce: Voce, ...args: (string | number)[]): str
 export const DIR: Record<Lingua, "ltr" | "rtl"> = { it: "ltr", en: "ltr", ar: "rtl" };
 
 export function href(lingua: Lingua, percorso: string): string {
-  if (lingua === "it") return percorso;
+  if (lingua === LINGUA_BASE) return percorso;
   return percorso === "/" ? `/${lingua}` : `/${lingua}${percorso}`;
 }

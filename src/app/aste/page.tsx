@@ -8,7 +8,7 @@ import { statoDa } from "@/lib/aste";
 import { Cornice } from "@/componenti/Sagoma";
 import { Orologio } from "@/componenti/Orologio";
 
-export const metadata: Metadata = { title: "Second Life — aste" };
+export const metadata: Metadata = { title: "Aste — un pezzo raro a settimana" };
 export const dynamic = "force-dynamic";
 
 export default async function Aste() {
@@ -17,9 +17,9 @@ export default async function Aste() {
   const aperte = aste.filter((a) => a.stato === "APERTA" && a.fine > new Date());
   return (
     <div className="foglio sezione">
-      <span className="mono lieve">Second Life</span>
-      <h1 style={{ margin: "8px 0 14px" }}>{_("Pezzi unici, all'asta", "One-off pieces, at auction", "قطع فريدة بالمزاد")}</h1>
-      <p className="tenue" style={{ maxWidth: 620, marginBottom: 12 }}>{_("Equipaggiamento usato, selezionato e misurato a mano. Ogni difetto è dichiarato. Quando finisce, è finita.", "Used gear, selected and measured by hand. Every flaw is declared. When it's gone, it's gone.", "معدات مستعملة، مختارة ومقاسة يدوياً. كل عيب معلن. عندما ينتهي، ينتهي.")}</p>
+      <span className="mono lieve">{_("Aste", "Auctions", "المزادات")}</span>
+      <h1 style={{ margin: "8px 0 14px" }}>{_("L'asta della settimana", "The auction of the week", "مزاد الأسبوع")}</h1>
+      <p className="tenue" style={{ maxWidth: 620, marginBottom: 12 }}>{_("Ogni settimana un pezzo raro, super premium o introvabile. Un solo esemplare: vince chi offre di più. Ogni difetto, se c'è, è dichiarato.", "Every week one rare, super-premium or hard-to-find piece. A single item: the highest bidder wins. Any flaw is declared.", "كل أسبوع قطعة نادرة أو فاخرة جداً أو يصعب إيجادها. قطعة واحدة: يفوز صاحب أعلى عرض. أي عيب معلن.")}</p>
       <p style={{ marginBottom: 32 }}><Link className="mono" style={{ textDecoration: "underline" }} href={href(l, "/guide/second-life")}>{_("Perché vendiamo anche l'usato", "Why we also sell used", "لماذا نبيع المستعمل أيضاً")}</Link></p>
       {aperte.length === 0 ? <p className="nota">{_("Nessuna asta aperta in questo momento.", "No auctions open right now.", "لا توجد مزادات مفتوحة حالياً.")}</p> : (
         <div className="griglia">{aperte.map((a) => { const s = statoDa(a); return (

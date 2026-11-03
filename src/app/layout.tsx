@@ -10,11 +10,14 @@ import { FabCarrello } from "@/componenti/FabCarrello";
 import { ChatSito } from "@/componenti/ChatSito";
 import { SuInAlto } from "@/componenti/SuInAlto";
 
-export const metadata: Metadata = {
-  title: { default: "MotoNova — attrezzatura per motociclisti", template: "%s · MotoNova" },
-  description: "Caschi, giacche, guanti e protezioni scelti pezzo per pezzo, importati dall'Italia e consegnati in Egitto.",
-  metadataBase: new URL(process.env.SITO_URL ?? "http://localhost:3000"),
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const l = await lingua(); const _ = tx(l);
+  return {
+    title: { default: _("MotoNova — attrezzatura per motociclisti", "MotoNova — motorcycle gear", "موتونوفا — معدات الدراجات النارية"), template: "%s · MotoNova" },
+    description: _("Caschi, giacche, guanti e protezioni scelti pezzo per pezzo, importati dall'Italia e consegnati in Egitto.", "Helmets, jackets, gloves and protection chosen piece by piece, imported from Italy and delivered across Egypt.", "خوذ وجاكيتات وقفازات وحماية مختارة قطعة قطعة، مستوردة من إيطاليا وتُسلَّم في مصر."),
+    metadataBase: new URL(process.env.SITO_URL ?? "http://localhost:3000"),
+  };
+}
 export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
