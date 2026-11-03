@@ -32,12 +32,19 @@ export default async function Home() {
         </div>
       </ScenaHero>
 
-      <section className="foglio manifesto"><p><Html t={T("maniText")} /></p><p className="mono lieve" style={{ marginTop: 24 }}>MotoNova · Italia → Egitto</p></section>
+      <section className="foglio manifesto"><p><Html t={T("maniText")} /></p><p className="manifesto-tag mono">MotoNova · Italia → Egitto</p></section>
 
 
       <section className="foglio sezione" aria-label={T("worldH")}>
-        <div className="categorie-home" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          {CATEGORIE.map((c) => <Link key={c} className="tasto vuoto piccolo" href={href(l, `/negozio?cat=${c}`)}>{tr(l, ETICHETTA_CAT[c])}</Link>)}
+        <p className="etichetta-sez mono">{l === "en" ? "Categories" : l === "ar" ? "الفئات" : "Categorie"}</p>
+        <div className="cat-griglia">
+          {CATEGORIE.map((c, i) => (
+            <Link key={c} className="cat-tile" href={href(l, `/negozio?cat=${c}`)}>
+              <span className="cat-n mono" dir="ltr">{String(i + 1).padStart(2, "0")}</span>
+              <span className="cat-nome">{tr(l, ETICHETTA_CAT[c])}</span>
+              <svg className="cat-freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg>
+            </Link>
+          ))}
         </div>
       </section>
       {([["Nuovi arrivi", "New arrivals", "وصل حديثاً", v.nuovi], ["Più venduti", "Best sellers", "الأكثر مبيعاً", v.piuVenduti], ["Offerte", "Offers", "عروض", v.offerte]] as [string, string, string, typeof v.nuovi][]).filter(([, , , lista]) => lista.length > 0).map(([it, en, ar, lista]) => (
@@ -53,8 +60,8 @@ export default async function Home() {
         </section>
       )}
       <section className="foglio sezione" id="mondo">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 16, flexWrap: "wrap", marginBottom: 28 }}>
-          <h2>{T("worldH")}</h2><Link className="mono" style={{ textDecoration: "underline" }} href={href(l, "/negozio")}>{T("worldA")}</Link>
+        <div className="sez-testa">
+          <h2>{T("worldH")}</h2><Link className="tasto vuoto piccolo" href={href(l, "/negozio")}>{T("worldA")}</Link>
         </div>
         <div className="coppia">{guida("casco", "caschi", "w1Tag", "w1T", "w1D")}{guida("itinerari", "giacche", "w2Tag", "w2T", "w2D")}</div>
         <div className="coppia">{guida("manutenzione", "accessori", "w3Tag", "w3T", "w3D")}{guida("second-life", "protezioni", "w4Tag", "w4T", "w4D")}</div>
