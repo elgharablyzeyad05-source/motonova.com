@@ -1,0 +1,1461 @@
+{
+ "prodotti": [
+  {
+   "id": "agv-k6s",
+   "brand": "AGV",
+   "name": "K6 S Full-Face — Nardo Grey",
+   "sub": "calotta in tre misure",
+   "cat": "caschi",
+   "stili": [
+    "sport",
+    "street"
+   ],
+   "prezzo": 2836200,
+   "taglie": [
+    "XS",
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 7,
+   "nuovo": true,
+   "place": "Valenza, Italia",
+   "slug": "casco, 3/4, fondo chiaro",
+   "nota": "Carbo-aramide · ECE 22.06 · 1.180 g",
+   "specs": [
+    [
+     "Omologazione",
+     "ECE 22.06 · DOT"
+    ],
+    [
+     "Calotta",
+     "Composito carbonio–aramide–fibra, 3 misure"
+    ],
+    [
+     "Peso",
+     "1.180 g ± 50 g (taglia M)"
+    ],
+    [
+     "Interno",
+     "Smontabile e lavabile"
+    ],
+    [
+     "Visiera",
+     "Antigraffio, 190° orizzontali, Pinlock 120 incluso"
+    ],
+    [
+     "Ventilazione",
+     "5 prese, 2 estrattori"
+    ],
+    [
+     "Chiusura",
+     "Doppio anello a D"
+    ]
+   ],
+   "descr": [
+    "Il K6 S è la versione stradale di una calotta nata per le corse: composito carbo-aramidico laminato in tre misure, così una testa piccola riceve un guscio piccolo invece di uno grande imbottito. La differenza si sente nel peso e in come il casco reagisce al vento laterale sulla tangenziale.",
+    "La ventilazione qui conta più che in Europa. Cinque prese e due estrattori muovono aria dentro l'imbottitura alla velocità di marcia, e la presa sulla calotta si chiude del tutto per le mattine d'inverno sulla strada del deserto. L'interno è smontabile e lavabile — con la polvere del Cairo, mettilo in conto una volta al mese, non una volta a stagione.",
+    "Fornito con inserto Pinlock 120 già montato, visiera trasparente e cinque anni di garanzia dalla data di produzione."
+   ]
+  },
+  {
+   "id": "agv-tourmodular",
+   "brand": "AGV",
+   "name": "Tourmodular Balance",
+   "sub": "apribile, omologato P e J",
+   "cat": "caschi",
+   "stili": [
+    "touring"
+   ],
+   "prezzo": 3298000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 3,
+   "place": "Valenza, Italia",
+   "slug": "casco modulare, profilo",
+   "nota": "Modulare · P/J · intercom integrabile",
+   "specs": [
+    [
+     "Omologazione",
+     "ECE 22.06 · P/J"
+    ],
+    [
+     "Calotta",
+     "Fibra composita, 3 misure"
+    ],
+    [
+     "Peso",
+     "1.690 g ± 50 g"
+    ],
+    [
+     "Mentoniera",
+     "Apribile, omologata anche aperta"
+    ],
+    [
+     "Intercom",
+     "Predisposto AGV Insyde"
+    ],
+    [
+     "Visierino",
+     "Parasole interno"
+    ]
+   ]
+  },
+  {
+   "id": "shoei-nxr2",
+   "brand": "Shoei",
+   "name": "NXR2 Fastback",
+   "sub": "la calzata che non stanca",
+   "cat": "caschi",
+   "stili": [
+    "sport",
+    "street"
+   ],
+   "prezzo": 3184000,
+   "taglie": [
+    "S",
+    "M",
+    "L"
+   ],
+   "stock": 4,
+   "place": "Ibaraki, Giappone",
+   "slug": "casco sportivo, 3/4",
+   "nota": "AIM · visiera Pinlock inclusa",
+   "specs": [
+    [
+     "Omologazione",
+     "ECE 22.06"
+    ],
+    [
+     "Calotta",
+     "AIM multicomposito, 3 misure"
+    ],
+    [
+     "Peso",
+     "1.450 g ± 50 g"
+    ],
+    [
+     "Interno",
+     "Smontabile, guance a spessore variabile"
+    ],
+    [
+     "Visiera",
+     "CWR-F2, Pinlock EVO incluso"
+    ]
+   ]
+  },
+  {
+   "id": "nolan-n80",
+   "brand": "Nolan",
+   "name": "N80-8 Classic",
+   "sub": "il primo casco fatto bene",
+   "cat": "caschi",
+   "stili": [
+    "street",
+    "urban"
+   ],
+   "prezzo": 1486000,
+   "was": 1720000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 9,
+   "place": "Brembate, Italia",
+   "slug": "casco integrale, fronte",
+   "nota": "Composito · visierino parasole",
+   "specs": [
+    [
+     "Omologazione",
+     "ECE 22.06"
+    ],
+    [
+     "Calotta",
+     "Lexan composito, 2 misure"
+    ],
+    [
+     "Peso",
+     "1.550 g ± 50 g"
+    ],
+    [
+     "Visierino",
+     "Parasole interno a scomparsa"
+    ],
+    [
+     "Interno",
+     "Clima Comfort smontabile"
+    ]
+   ]
+  },
+  {
+   "id": "shark-spartan",
+   "brand": "Shark",
+   "name": "Spartan GT Pro Carbon",
+   "sub": "carbonio vero, non finitura",
+   "cat": "caschi",
+   "stili": [
+    "sport"
+   ],
+   "prezzo": 2492000,
+   "taglie": [
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 2,
+   "place": "Marsiglia, Francia",
+   "slug": "casco carbonio, dettaglio",
+   "nota": "Carbonio · ECE 22.06",
+   "specs": [
+    [
+     "Omologazione",
+     "ECE 22.06"
+    ],
+    [
+     "Calotta",
+     "Carbonio, 3 misure"
+    ],
+    [
+     "Peso",
+     "1.380 g ± 50 g"
+    ],
+    [
+     "Visierino",
+     "Parasole interno"
+    ],
+    [
+     "Chiusura",
+     "Micrometrica"
+    ]
+   ]
+  },
+  {
+   "id": "ls2-explorer",
+   "brand": "LS2",
+   "name": "Explorer Carbon Adventure",
+   "sub": "tre caschi in uno",
+   "cat": "caschi",
+   "stili": [
+    "adventure"
+   ],
+   "prezzo": 2188000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 5,
+   "place": "Shenzhen, Cina",
+   "slug": "casco adventure, frontino",
+   "nota": "Frontino removibile · predisposto occhiali",
+   "specs": [
+    [
+     "Omologazione",
+     "ECE 22.06"
+    ],
+    [
+     "Calotta",
+     "Carbonio"
+    ],
+    [
+     "Peso",
+     "1.450 g ± 50 g"
+    ],
+    [
+     "Configurazioni",
+     "Con frontino, senza frontino, con visiera"
+    ],
+    [
+     "Occhiali",
+     "Alloggio per maschera da enduro"
+    ]
+   ]
+  },
+  {
+   "id": "nolan-n702",
+   "brand": "Nolan",
+   "name": "N70-2 X Grandes Alpes",
+   "sub": "sei modi di portarlo",
+   "cat": "caschi",
+   "stili": [
+    "adventure",
+    "touring"
+   ],
+   "prezzo": 1720000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+   ],
+   "stock": 6,
+   "nuovo": true,
+   "place": "Brembate, Italia",
+   "slug": "casco crossover, profilo",
+   "nota": "Crossover · sei configurazioni",
+   "specs": [
+    [
+     "Omologazione",
+     "ECE 22.06 · P/J"
+    ],
+    [
+     "Calotta",
+     "Composito, 2 misure"
+    ],
+    [
+     "Peso",
+     "1.650 g ± 50 g"
+    ],
+    [
+     "Configurazioni",
+     "Sei, con e senza mentoniera e frontino"
+    ],
+    [
+     "Visierino",
+     "Parasole interno"
+    ]
+   ]
+  },
+  {
+   "id": "dainese-racing4",
+   "brand": "Dainese",
+   "name": "Racing 4 Perforated",
+   "sub": "pelle da pista, forata per il caldo",
+   "cat": "giacche",
+   "stili": [
+    "sport"
+   ],
+   "prezzo": 3648200,
+   "taglie": [
+    "46",
+    "48",
+    "50",
+    "52",
+    "54",
+    "56"
+   ],
+   "stock": 4,
+   "place": "Molvena, Italia",
+   "slug": "pelle, dettaglio cuciture",
+   "nota": "Vacchetta 1,2 mm · CE liv. 2 · forata",
+   "specs": [
+    [
+     "Materiale",
+     "Vacchetta 1,2 mm, pannelli forati"
+    ],
+    [
+     "Protezioni",
+     "Spalle e gomiti CE liv. 2 Pro-Armor"
+    ],
+    [
+     "Paraschiena",
+     "Tasca predisposta, protezione non inclusa"
+    ],
+    [
+     "Inserti",
+     "Elastici bi-elastici su braccia e schiena"
+    ],
+    [
+     "Chiusura",
+     "Zip di unione al pantalone"
+    ]
+   ],
+   "descr": [
+    "La Racing 4 è la giacca che Dainese costruisce per chi va forte: vacchetta da 1,2 millimetri, spessore che in caso di strisciata fa la differenza tra un graffio e una medicazione. La versione Perforated ha pannelli traforati su petto, braccia e schiena.",
+    "È la variante giusta per l'Egitto. La pelle piena a quaranta gradi diventa insopportabile in coda; forata, il flusso d'aria attraversa davvero il capo appena la moto si muove. Resta una giacca da guida, non da passeggio: stretta sui polsi, curva sui gomiti, scomoda a piedi e perfetta in sella.",
+    "Protezioni CE livello 2 su spalle e gomiti già montate. Il paraschiena va aggiunto: la tasca c'è, la protezione no — è la scelta più comune dei costruttori e il motivo per cui vendiamo il Nucleon a parte."
+   ]
+  },
+  {
+   "id": "alpinestars-tgp",
+   "brand": "Alpinestars",
+   "name": "T-GP Plus R V4 Air",
+   "sub": "tessuto che respira",
+   "cat": "giacche",
+   "stili": [
+    "street",
+    "sport"
+   ],
+   "prezzo": 1392000,
+   "was": 1690000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+   ],
+   "stock": 8,
+   "place": "Asolo, Italia",
+   "slug": "giacca tessuto, fronte",
+   "nota": "Tessuto traforato · protezioni incluse",
+   "specs": [
+    [
+     "Materiale",
+     "Poliestere traforato ad alta tenacità"
+    ],
+    [
+     "Protezioni",
+     "Spalle e gomiti CE liv. 1 inclusi"
+    ],
+    [
+     "Paraschiena",
+     "Tasca predisposta"
+    ],
+    [
+     "Regolazioni",
+     "Vita e polsi"
+    ],
+    [
+     "Fodera",
+     "Removibile"
+    ]
+   ]
+  },
+  {
+   "id": "revit-sand4",
+   "brand": "Rev'it",
+   "name": "Sand 4 H2O",
+   "sub": "tre strati per ogni clima",
+   "cat": "giacche",
+   "stili": [
+    "adventure",
+    "touring"
+   ],
+   "prezzo": 2760000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 3,
+   "place": "Oss, Paesi Bassi",
+   "slug": "giacca adventure, tre strati",
+   "nota": "Tre strati · impermeabile · ventilata",
+   "specs": [
+    [
+     "Materiale",
+     "Poliestere 600D con pannelli in rete"
+    ],
+    [
+     "Membrana",
+     "Idrorepellente removibile"
+    ],
+    [
+     "Termico",
+     "Fodera imbottita removibile"
+    ],
+    [
+     "Protezioni",
+     "Spalle e gomiti CE liv. 1, Seesoft"
+    ],
+    [
+     "Ventilazione",
+     "Prese su petto e schiena"
+    ]
+   ]
+  },
+  {
+   "id": "spidi-solarnet",
+   "brand": "Spidi",
+   "name": "Solar Net Urban",
+   "sub": "non sembra attrezzatura",
+   "cat": "giacche",
+   "stili": [
+    "urban"
+   ],
+   "prezzo": 1180000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 11,
+   "place": "Vicenza, Italia",
+   "slug": "giacca urban, indossata",
+   "nota": "Rete estiva · non sembra attrezzatura",
+   "specs": [
+    [
+     "Materiale",
+     "Rete tecnica ad alto flusso"
+    ],
+    [
+     "Protezioni",
+     "Spalle e gomiti CE liv. 1 Force-Tech"
+    ],
+    [
+     "Taglio",
+     "Corto, da città"
+    ],
+    [
+     "Paraschiena",
+     "Tasca predisposta"
+    ]
+   ]
+  },
+  {
+   "id": "dainese-ss3-new",
+   "brand": "Dainese",
+   "name": "Super Speed 3 Perforated",
+   "sub": "la pelle di tutti i giorni",
+   "cat": "giacche",
+   "stili": [
+    "sport",
+    "street"
+   ],
+   "prezzo": 2980000,
+   "taglie": [
+    "48",
+    "50",
+    "52",
+    "54"
+   ],
+   "stock": 2,
+   "place": "Molvena, Italia",
+   "slug": "pelle perforata, manica",
+   "nota": "Pelle traforata · CE liv. 2",
+   "specs": [
+    [
+     "Materiale",
+     "Vacchetta traforata"
+    ],
+    [
+     "Protezioni",
+     "Spalle e gomiti CE liv. 2"
+    ],
+    [
+     "Paraschiena",
+     "Tasca predisposta"
+    ],
+    [
+     "Inserti",
+     "Tessuto elastico su fianchi"
+    ]
+   ]
+  },
+  {
+   "id": "held-carese",
+   "brand": "Held",
+   "name": "Carese Evo Gore-Tex",
+   "sub": "quattro stagioni, davvero",
+   "cat": "giacche",
+   "stili": [
+    "touring",
+    "adventure"
+   ],
+   "prezzo": 3420000,
+   "taglie": [
+    "M",
+    "L",
+    "XL",
+    "XXL"
+   ],
+   "stock": 2,
+   "place": "Burgberg, Germania",
+   "slug": "giacca touring, quattro stagioni",
+   "nota": "Gore-Tex · quattro stagioni",
+   "specs": [
+    [
+     "Membrana",
+     "Gore-Tex laminata"
+    ],
+    [
+     "Materiale",
+     "Cordura e pelle su punti d'urto"
+    ],
+    [
+     "Protezioni",
+     "Spalle, gomiti e schiena SAS-TEC"
+    ],
+    [
+     "Ventilazione",
+     "Zip di aerazione ampie"
+    ],
+    [
+     "Regolazioni",
+     "Otto punti"
+    ]
+   ]
+  },
+  {
+   "id": "alpinestars-sp8",
+   "brand": "Alpinestars",
+   "name": "SP-8 V3",
+   "sub": "il guanto che si usa sempre",
+   "cat": "guanti",
+   "stili": [
+    "sport",
+    "street"
+   ],
+   "prezzo": 640000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 14,
+   "place": "Asolo, Italia",
+   "slug": "guanto pelle, palmo",
+   "nota": "Pelle e tessuto · protezione nocche",
+   "specs": [
+    [
+     "Materiale",
+     "Pelle bovina e tessuto elasticizzato"
+    ],
+    [
+     "Protezioni",
+     "Nocche in polimero, rinforzo palmo"
+    ],
+    [
+     "Omologazione",
+     "EN 13594 liv. 1"
+    ],
+    [
+     "Chiusura",
+     "Polsino e polso"
+    ]
+   ]
+  },
+  {
+   "id": "dainese-druid4",
+   "brand": "Dainese",
+   "name": "Druid 4 Racing",
+   "sub": "slider in titanio",
+   "cat": "guanti",
+   "stili": [
+    "sport"
+   ],
+   "prezzo": 1120000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 5,
+   "place": "Molvena, Italia",
+   "slug": "guanto racing, dorso",
+   "nota": "Canguro · slider in titanio",
+   "specs": [
+    [
+     "Materiale",
+     "Pelle di canguro sul palmo"
+    ],
+    [
+     "Protezioni",
+     "Nocche in carbonio, slider in titanio"
+    ],
+    [
+     "Omologazione",
+     "EN 13594 liv. 2"
+    ],
+    [
+     "Cuciture",
+     "Esterne sulle dita"
+    ]
+   ]
+  },
+  {
+   "id": "revit-sand4-g",
+   "brand": "Rev'it",
+   "name": "Sand 4 Gloves",
+   "sub": "aria dove serve",
+   "cat": "guanti",
+   "stili": [
+    "adventure",
+    "touring"
+   ],
+   "prezzo": 560000,
+   "taglie": [
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 9,
+   "place": "Oss, Paesi Bassi",
+   "slug": "guanto adventure, coppia",
+   "nota": "Ventilato · touchscreen",
+   "specs": [
+    [
+     "Materiale",
+     "Pelle di capra e rete"
+    ],
+    [
+     "Protezioni",
+     "Nocche TPU"
+    ],
+    [
+     "Omologazione",
+     "EN 13594 liv. 1"
+    ],
+    [
+     "Touchscreen",
+     "Indice e pollice"
+    ]
+   ]
+  },
+  {
+   "id": "spidi-flashr",
+   "brand": "Spidi",
+   "name": "Flash-R Evo",
+   "sub": "corto, estivo, sempre in tasca",
+   "cat": "guanti",
+   "stili": [
+    "street",
+    "urban"
+   ],
+   "prezzo": 480000,
+   "was": 590000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 12,
+   "place": "Vicenza, Italia",
+   "slug": "guanto corto, dorso",
+   "nota": "Corto · estivo · touchscreen",
+   "specs": [
+    [
+     "Materiale",
+     "Pelle e tessuto traforato"
+    ],
+    [
+     "Protezioni",
+     "Nocche rigide"
+    ],
+    [
+     "Omologazione",
+     "EN 13594 liv. 1"
+    ],
+    [
+     "Taglio",
+     "Corto, sotto la manica"
+    ]
+   ]
+  },
+  {
+   "id": "alpinestars-smx6",
+   "brand": "Alpinestars",
+   "name": "SMX-6 V3 Drystar",
+   "sub": "sportivo e impermeabile",
+   "cat": "stivali",
+   "stili": [
+    "sport",
+    "touring"
+   ],
+   "prezzo": 1444200,
+   "taglie": [
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+    "45"
+   ],
+   "stock": 6,
+   "place": "Asolo, Italia",
+   "slug": "stivale, profilo",
+   "nota": "Drystar impermeabile · CE",
+   "specs": [
+    [
+     "Membrana",
+     "Drystar impermeabile e traspirante"
+    ],
+    [
+     "Protezioni",
+     "Malleoli, tibia, tallone e punta"
+    ],
+    [
+     "Omologazione",
+     "EN 13634 liv. 2"
+    ],
+    [
+     "Chiusura",
+     "Micrometrica e zip"
+    ],
+    [
+     "Suola",
+     "Antiscivolo, cambio in gomma"
+    ]
+   ]
+  },
+  {
+   "id": "tcx-streetace",
+   "brand": "TCX",
+   "name": "Street Ace Waterproof",
+   "sub": "sembra una sneaker",
+   "cat": "stivali",
+   "stili": [
+    "urban"
+   ],
+   "prezzo": 780000,
+   "taglie": [
+    "40",
+    "41",
+    "42",
+    "43",
+    "44"
+   ],
+   "stock": 10,
+   "nuovo": true,
+   "place": "Montebelluna, Italia",
+   "slug": "scarpa urban, laterale",
+   "nota": "Sneaker omologata · impermeabile",
+   "specs": [
+    [
+     "Membrana",
+     "T-Dry impermeabile"
+    ],
+    [
+     "Protezioni",
+     "Malleoli e contrafforte"
+    ],
+    [
+     "Omologazione",
+     "EN 13634 liv. 1"
+    ],
+    [
+     "Chiusura",
+     "Lacci e velcro"
+    ],
+    [
+     "Aspetto",
+     "Da camminarci tutto il giorno"
+    ]
+   ]
+  },
+  {
+   "id": "sidi-adventure2",
+   "brand": "Sidi",
+   "name": "Adventure 2 Gore-Tex",
+   "sub": "lo stivale dei viaggi lunghi",
+   "cat": "stivali",
+   "stili": [
+    "adventure"
+   ],
+   "prezzo": 2960000,
+   "taglie": [
+    "41",
+    "42",
+    "43",
+    "44",
+    "45"
+   ],
+   "stock": 2,
+   "place": "Maser, Italia",
+   "slug": "stivale alto, enduro",
+   "nota": "Gore-Tex · alto · regolabile",
+   "specs": [
+    [
+     "Membrana",
+     "Gore-Tex"
+    ],
+    [
+     "Protezioni",
+     "Tibia, malleoli, tallone, punta"
+    ],
+    [
+     "Omologazione",
+     "EN 13634 liv. 2"
+    ],
+    [
+     "Regolazioni",
+     "Quattro fibbie sostituibili"
+    ],
+    [
+     "Suola",
+     "Tassellata, sostituibile"
+    ]
+   ]
+  },
+  {
+   "id": "forma-icepro",
+   "brand": "Forma",
+   "name": "Ice Pro Flow",
+   "sub": "per i quaranta gradi",
+   "cat": "stivali",
+   "stili": [
+    "sport",
+    "street"
+   ],
+   "prezzo": 1180000,
+   "taglie": [
+    "41",
+    "42",
+    "43",
+    "44"
+   ],
+   "stock": 0,
+   "place": "Montebelluna, Italia",
+   "slug": "stivale estivo, retro",
+   "nota": "Estivo ventilato · CE",
+   "specs": [
+    [
+     "Materiale",
+     "Microfibra traforata"
+    ],
+    [
+     "Protezioni",
+     "Malleoli e tallone"
+    ],
+    [
+     "Omologazione",
+     "EN 13634 liv. 1"
+    ],
+    [
+     "Ventilazione",
+     "Prese su collo e laterali"
+    ]
+   ]
+  },
+  {
+   "id": "alpinestars-nucleon",
+   "brand": "Alpinestars",
+   "name": "Nucleon KR-Cell Back",
+   "sub": "quello che quasi nessuno compra",
+   "cat": "protezioni",
+   "stili": [
+    "sport",
+    "street",
+    "adventure",
+    "touring",
+    "urban"
+   ],
+   "prezzo": 777200,
+   "taglie": [
+    "S",
+    "M",
+    "L"
+   ],
+   "stock": 8,
+   "place": "Asolo, Italia",
+   "slug": "paraschiena indossato",
+   "nota": "EN 1621-2 liv. 2 · 375 g",
+   "specs": [
+    [
+     "Omologazione",
+     "EN 1621-2 liv. 2"
+    ],
+    [
+     "Peso",
+     "375 g"
+    ],
+    [
+     "Materiale",
+     "Cella KR-Cell a memoria"
+    ],
+    [
+     "Attacco",
+     "Tasca giacca o bretelle incluse"
+    ],
+    [
+     "Ventilazione",
+     "Canali passanti"
+    ]
+   ],
+   "descr": [
+    "Il paraschiena è il pezzo che quasi nessuno compra e che quasi tutti dovrebbero avere. Le giacche hanno la tasca, ma dentro c'è quasi sempre un pezzo di gomma che serve solo a riempirla: non è omologato e non protegge.",
+    "Questo lo è: EN 1621-2 livello 2, il grado più alto della norma, con la forza residua trasmessa alla schiena tenuta sotto i 9 kN. Pesa 375 grammi e ha canali di ventilazione passanti, che al Cairo non è un dettaglio.",
+    "Si infila nella tasca della giacca oppure si indossa con le bretelle incluse, anche sotto una felpa. Verifica la taglia sulla lunghezza della schiena, non sulla taglia della giacca."
+   ]
+  },
+  {
+   "id": "dainese-proarmor",
+   "brand": "Dainese",
+   "name": "Pro-Armor Back 2.0",
+   "sub": "si piega con te",
+   "cat": "protezioni",
+   "stili": [
+    "sport",
+    "touring"
+   ],
+   "prezzo": 890000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 5,
+   "place": "Molvena, Italia",
+   "slug": "paraschiena, pannelli",
+   "nota": "EN 1621-2 liv. 2 · ventilato",
+   "specs": [
+    [
+     "Omologazione",
+     "EN 1621-2 liv. 2"
+    ],
+    [
+     "Struttura",
+     "Pannelli articolati"
+    ],
+    [
+     "Ventilazione",
+     "Superficie forata"
+    ],
+    [
+     "Attacco",
+     "Tasca giacca"
+    ]
+   ]
+  },
+  {
+   "id": "alpinestars-bionic",
+   "brand": "Alpinestars",
+   "name": "Bionic Action V2 Vest",
+   "sub": "schiena e petto insieme",
+   "cat": "protezioni",
+   "stili": [
+    "adventure",
+    "touring"
+   ],
+   "prezzo": 620000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 7,
+   "place": "Asolo, Italia",
+   "slug": "gilet protettivo, fronte",
+   "nota": "Gilet con schiena e petto",
+   "specs": [
+    [
+     "Omologazione",
+     "EN 1621-2 liv. 1 schiena"
+    ],
+    [
+     "Petto",
+     "Pannelli removibili"
+    ],
+    [
+     "Struttura",
+     "Gilet in rete elastica"
+    ],
+    [
+     "Uso",
+     "Sotto giacca o da solo"
+    ]
+   ]
+  },
+  {
+   "id": "alpinestars-techair5",
+   "brand": "Alpinestars",
+   "name": "Tech-Air 5 Airbag",
+   "sub": "si gonfia in 20 millesimi",
+   "cat": "protezioni",
+   "stili": [
+    "sport",
+    "street",
+    "touring"
+   ],
+   "prezzo": 4980000,
+   "taglie": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "stock": 1,
+   "nuovo": true,
+   "place": "Asolo, Italia",
+   "slug": "airbag, gilet tecnico",
+   "nota": "Airbag autonomo · si indossa sotto",
+   "specs": [
+    [
+     "Tipo",
+     "Airbag elettronico autonomo"
+    ],
+    [
+     "Copertura",
+     "Schiena, spalle, torace, fianchi"
+    ],
+    [
+     "Attivazione",
+     "Sensori integrati, nessun cavo alla moto"
+    ],
+    [
+     "Autonomia",
+     "30 ore di guida"
+    ],
+    [
+     "Uso",
+     "Sotto qualsiasi giacca con spazio sufficiente"
+    ]
+   ]
+  },
+  {
+   "id": "cardo-packtalk",
+   "brand": "Cardo",
+   "name": "Packtalk Edge Intercom",
+   "sub": "parlare senza urlare",
+   "cat": "accessori",
+   "stili": [
+    "touring",
+    "adventure",
+    "street"
+   ],
+   "prezzo": 1980000,
+   "taglie": [],
+   "stock": 6,
+   "place": "Israele",
+   "slug": "intercom, aggancio casco",
+   "nota": "Mesh 2.0 · audio JBL",
+   "specs": [
+    [
+     "Rete",
+     "Mesh 2.0, fino a 15 utenti"
+    ],
+    [
+     "Audio",
+     "Altoparlanti JBL 40 mm"
+    ],
+    [
+     "Autonomia",
+     "13 ore"
+    ],
+    [
+     "Impermeabilità",
+     "IP67"
+    ],
+    [
+     "Comandi",
+     "Voce e rotella"
+    ]
+   ]
+  },
+  {
+   "id": "dainese-dquad",
+   "brand": "Dainese",
+   "name": "D-Quad Backpack",
+   "sub": "28 litri, porta casco",
+   "cat": "accessori",
+   "stili": [
+    "urban",
+    "street"
+   ],
+   "prezzo": 690000,
+   "taglie": [],
+   "stock": 9,
+   "place": "Molvena, Italia",
+   "slug": "zaino, indossato",
+   "nota": "28 litri · porta casco",
+   "specs": [
+    [
+     "Capienza",
+     "28 litri"
+    ],
+    [
+     "Porta casco",
+     "Rete esterna"
+    ],
+    [
+     "Schienale",
+     "Imbottito e ventilato"
+    ],
+    [
+     "Cintura",
+     "Pettorale e ventrale"
+    ]
+   ]
+  },
+  {
+   "id": "oxford-mount",
+   "brand": "Oxford",
+   "name": "Quick Release Phone Mount",
+   "sub": "il telefono resta dov'è",
+   "cat": "accessori",
+   "stili": [
+    "urban",
+    "touring",
+    "adventure"
+   ],
+   "prezzo": 260000,
+   "taglie": [],
+   "stock": 20,
+   "place": "Oxfordshire, Regno Unito",
+   "slug": "supporto smartphone, manubrio",
+   "nota": "Sgancio rapido · antivibrazione",
+   "specs": [
+    [
+     "Attacco",
+     "Manubrio 22–32 mm"
+    ],
+    [
+     "Sgancio",
+     "Rapido, una mano"
+    ],
+    [
+     "Antivibrazione",
+     "Smorzatore incluso"
+    ],
+    [
+     "Compatibilità",
+     "Telefoni fino a 6,9\""
+    ]
+   ]
+  },
+  {
+   "id": "sl-dainese-ss3",
+   "brand": "Dainese",
+   "name": "Super Speed 3 Perforated",
+   "sub": "un pezzo solo, questo",
+   "cat": "giacche",
+   "stili": [
+    "sport",
+    "street"
+   ],
+   "prezzo": 1676200,
+   "was": 4344200,
+   "taglie": [
+    "52"
+   ],
+   "stock": 1,
+   "sl": true,
+   "grado": "Grado A−",
+   "place": "Molvena, Italia",
+   "slug": "il pezzo vero, non da catalogo",
+   "nota": "EU 52 · grado A− · segno di 3 cm al gomito",
+   "specs": [
+    [
+     "Materiale",
+     "Vacchetta traforata 1,2 mm"
+    ],
+    [
+     "Protezioni",
+     "Spalle e gomiti CE liv. 2"
+    ],
+    [
+     "Taglia",
+     "EU 52 — torace 104, manica 65, schiena 68"
+    ],
+    [
+     "Paraschiena",
+     "Non incluso"
+    ]
+   ],
+   "report": [
+    [
+     "Taglia",
+     "EU 52 — torace 104 cm, manica 65, schiena 68",
+     ""
+    ],
+    [
+     "Estetica",
+     "Segno leggero, gomito sinistro, circa 3 cm — pelle non lesionata",
+     "warn"
+    ],
+    [
+     "Pelle",
+     "Vacchetta 1,2 mm, morbida, nessuna screpolatura",
+     ""
+    ],
+    [
+     "Protezioni",
+     "Spalle e gomiti presenti, etichette CE EN 1621-1 leggibili",
+     "ok"
+    ],
+    [
+     "Paraschiena",
+     "Solo tasca — paraschiena non incluso",
+     "warn"
+    ],
+    [
+     "Caduta",
+     "Nessuna dichiarata, nessuna visibile",
+     "ok"
+    ]
+   ],
+   "descr": [
+    "Questa giacca esiste in un esemplare solo, ed è quello nelle foto. Non è una foto di catalogo: è il pezzo che riceverai, misurato a mano e fotografato com'è, difetti compresi.",
+    "Grado A−: usata poco, pelle ancora morbida, un segno di circa tre centimetri sul gomito sinistro dove la superficie è lucidata ma non lesionata. Le protezioni CE ci sono e le etichette si leggono.",
+    "Quando finisce, è finita. Il reso sui pezzi Second Life vale 14 giorni come sul nuovo, purché torni nelle stesse condizioni in cui è partita."
+   ]
+  },
+  {
+   "id": "sl-agv-corsa",
+   "brand": "AGV",
+   "name": "Corsa R Carbon",
+   "sub": "un pezzo solo, questo",
+   "cat": "caschi",
+   "stili": [
+    "sport"
+   ],
+   "prezzo": 1490000,
+   "was": 3890000,
+   "taglie": [
+    "M"
+   ],
+   "stock": 1,
+   "sl": true,
+   "grado": "Grado A",
+   "place": "Valenza, Italia",
+   "slug": "casco usato, condizione reale",
+   "nota": "Taglia M · grado A · interni nuovi",
+   "specs": [
+    [
+     "Omologazione",
+     "ECE 22.05"
+    ],
+    [
+     "Calotta",
+     "Carbonio 100%"
+    ],
+    [
+     "Taglia",
+     "M — 57/58 cm"
+    ],
+    [
+     "Interni",
+     "Sostituiti, nuovi"
+    ],
+    [
+     "Visiera",
+     "Originale, nessun graffio in campo visivo"
+    ]
+   ],
+   "report": [
+    [
+     "Taglia",
+     "M — circonferenza 57/58 cm",
+     ""
+    ],
+    [
+     "Calotta",
+     "Carbonio, nessun urto, nessuna abrasione",
+     "ok"
+    ],
+    [
+     "Interni",
+     "Sostituiti con ricambi originali, mai usati",
+     "ok"
+    ],
+    [
+     "Visiera",
+     "Originale, micro-graffi fuori dal campo visivo",
+     "warn"
+    ],
+    [
+     "Cinturino",
+     "Doppio anello a D, cuciture integre",
+     "ok"
+    ],
+    [
+     "Caduta",
+     "Nessuna dichiarata, nessuna visibile",
+     "ok"
+    ]
+   ],
+   "descr": [
+    "Un Corsa R in carbonio, taglia M, con gli interni già sostituiti con ricambi originali: è la parte che si consuma per prima e su questo esemplare è nuova.",
+    "Omologazione ECE 22.05, quella precedente all'attuale 22.06. Resta un casco pienamente legale e di livello alto, ma è giusto che tu lo sappia prima e non dopo: è il motivo principale del prezzo.",
+    "Un pezzo solo. I caschi usati li accettiamo solo senza cadute dichiarate né segni d'urto, e la calotta la fotografiamo da ogni lato."
+   ]
+  },
+  {
+   "id": "sl-alpinestars-gp",
+   "brand": "Alpinestars",
+   "name": "GP Plus R V3",
+   "sub": "un pezzo solo, questo",
+   "cat": "giacche",
+   "stili": [
+    "sport"
+   ],
+   "prezzo": 1290000,
+   "was": 3280000,
+   "taglie": [
+    "50"
+   ],
+   "stock": 1,
+   "sl": true,
+   "grado": "Grado B+",
+   "place": "Asolo, Italia",
+   "slug": "pelle usata, dettaglio",
+   "nota": "EU 50 · grado B+ · slider consumati",
+   "specs": [
+    [
+     "Materiale",
+     "Pelle bovina 1,3 mm"
+    ],
+    [
+     "Protezioni",
+     "Spalle e gomiti CE liv. 1"
+    ],
+    [
+     "Taglia",
+     "EU 50 — torace 100, manica 64"
+    ],
+    [
+     "Slider",
+     "Consumati, sostituibili"
+    ]
+   ],
+   "report": [
+    [
+     "Taglia",
+     "EU 50 — torace 100 cm, manica 64",
+     ""
+    ],
+    [
+     "Estetica",
+     "Pelle in ordine, nessuna abrasione profonda",
+     ""
+    ],
+    [
+     "Slider spalle",
+     "Consumati dall'uso in pista, sostituibili con ricambi",
+     "warn"
+    ],
+    [
+     "Protezioni",
+     "Spalle e gomiti presenti, CE liv. 1",
+     "ok"
+    ],
+    [
+     "Zip",
+     "Scorrevole, denti integri",
+     "ok"
+    ],
+    [
+     "Caduta",
+     "Nessuna dichiarata; usura da pista sugli slider",
+     "warn"
+    ]
+   ]
+  }
+ ],
+ "CAT_LABEL": {
+  "caschi": "Caschi",
+  "giacche": "Giacche",
+  "guanti": "Guanti",
+  "stivali": "Stivali e scarpe",
+  "protezioni": "Protezioni",
+  "accessori": "Accessori"
+ },
+ "STILE_LABEL": {
+  "sport": "Sport",
+  "street": "Street",
+  "adventure": "Adventure",
+  "touring": "Touring",
+  "urban": "Urban"
+ },
+ "TIPO_LABEL": {
+  "new": "Nuovo",
+  "sl": "Second Life"
+ }
+}

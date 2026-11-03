@@ -1,0 +1,654 @@
+[
+ {
+  "id": "taglie",
+  "occhiello": "Guida",
+  "titolo": "Come si prende la taglia giusta",
+  "sommario": "Comprare protezioni online senza provarle è il vero ostacolo. Non serve indovinare: serve un metro da sarta e cinque minuti.",
+  "tempo": "5 minuti",
+  "blocchi": [
+   {
+    "t": "p",
+    "v": "L'etichetta di una giacca italiana e quella di una giacca giapponese non dicono la stessa cosa, e la stessa marca cambia vestibilità tra una linea racing e una touring. Per questo su ogni scheda pubblichiamo le misure in centimetri e non solo la lettera: se il tuo metro dice 102 di torace, quel numero vale più di qualunque S, M o L."
+   },
+   {
+    "t": "h",
+    "v": "Il casco"
+   },
+   {
+    "t": "p",
+    "v": "Passa il metro attorno alla testa un dito sopra le sopracciglia, nel punto più largo, e tieni il nastro aderente ma non stretto. Quel numero è la tua taglia. Se cadi tra due misure prendi la più piccola: l'imbottitura cede di mezzo centimetro con l'uso, la calotta no."
+   },
+   {
+    "t": "tabella",
+    "intestazioni": [
+     "Taglia",
+     "Circonferenza"
+    ],
+    "righe": [
+     [
+      "XS",
+      "53–54 cm"
+     ],
+     [
+      "S",
+      "55–56 cm"
+     ],
+     [
+      "M",
+      "57–58 cm"
+     ],
+     [
+      "L",
+      "59–60 cm"
+     ],
+     [
+      "XL",
+      "61–62 cm"
+     ],
+     [
+      "XXL",
+      "63–64 cm"
+     ]
+    ]
+   },
+   {
+    "t": "nota",
+    "v": "Un casco della misura giusta all'inizio è scomodo: preme sulle guance e si sfila a fatica. Se entra facile e ruota quando muovi la testa, è troppo grande — ed è il difetto che conta, perché in caduta un casco largo se ne va."
+   },
+   {
+    "t": "h",
+    "v": "Giacche e tute"
+   },
+   {
+    "t": "p",
+    "v": "Misura il torace sotto le ascelle, con addosso quello che porteresti in moto. Poi controlla la manica dal centro della schiena al polso a braccio leggermente piegato: chi guida sportivo ha le braccia avanti, e una manica corta scopre il polso proprio dove serve."
+   },
+   {
+    "t": "tabella",
+    "intestazioni": [
+     "EU",
+     "Lettera",
+     "Torace"
+    ],
+    "righe": [
+     [
+      "46",
+      "XS",
+      "92 cm"
+     ],
+     [
+      "48",
+      "S",
+      "96 cm"
+     ],
+     [
+      "50",
+      "M",
+      "100 cm"
+     ],
+     [
+      "52",
+      "L",
+      "104 cm"
+     ],
+     [
+      "54",
+      "XL",
+      "108 cm"
+     ],
+     [
+      "56",
+      "XXL",
+      "112 cm"
+     ]
+    ]
+   },
+   {
+    "t": "p",
+    "v": "Una giacca da guida è stretta quando cammini e giusta quando sei in sella. Le protezioni devono restare su spalla e gomito anche alzando le braccia: se scivolano indietro la taglia è grande, per quanto comoda sembri."
+   },
+   {
+    "t": "h",
+    "v": "Guanti"
+   },
+   {
+    "t": "p",
+    "v": "Misura la circonferenza del palmo escludendo il pollice, alla base delle dita. Il guanto giusto non ha tessuto in eccesso sulla punta delle dita: quello spazio vuoto è quello che si arrotola quando la mano struscia."
+   },
+   {
+    "t": "tabella",
+    "intestazioni": [
+     "Taglia",
+     "Palmo"
+    ],
+    "righe": [
+     [
+      "S",
+      "20–21 cm"
+     ],
+     [
+      "M",
+      "22–23 cm"
+     ],
+     [
+      "L",
+      "24–25 cm"
+     ],
+     [
+      "XL",
+      "26–27 cm"
+     ]
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Stivali"
+   },
+   {
+    "t": "p",
+    "v": "Vale il tuo numero europeo abituale, ma prendi la misura a fine giornata con il calzino che useresti davvero. Se stai tra due numeri sali: uno stivale stretto diventa insopportabile dopo un'ora, e i lacci o le fibbie recuperano il gioco."
+   },
+   {
+    "t": "h",
+    "v": "Se sbagli comunque"
+   },
+   {
+    "t": "p",
+    "v": "Hai 14 giorni per cambiare taglia su tutto il catalogo nuovo, purché il pezzo non sia stato usato e abbia ancora i cartellini. I pezzi Second Life sono unici e li misuriamo a mano uno per uno: su quelli le misure pubblicate sono quelle vere del capo, non quelle nominali."
+   }
+  ],
+  "collegamenti": [
+   [
+    "Vai al negozio",
+    "negozio.html"
+   ],
+   [
+    "Spedizioni e resi",
+    "guida.html?g=spedizioni"
+   ]
+  ]
+ },
+ {
+  "id": "spedizioni",
+  "occhiello": "Servizio",
+  "titolo": "Spedizioni, consegna e resi",
+  "sommario": "Quanto costa, quanto ci mette, cosa puoi fare alla porta e come si torna indietro se il pezzo non va.",
+  "tempo": "4 minuti",
+  "blocchi": [
+   {
+    "t": "h",
+    "v": "Quanto ci mette e quanto costa"
+   },
+   {
+    "t": "p",
+    "v": "Spediamo in tutto l'Egitto. Il costo dipende dal governatorato e la consegna è gratuita sopra 4.000 EGP di ordine."
+   },
+   {
+    "t": "tabella",
+    "intestazioni": [
+     "Zona",
+     "Tempi",
+     "Costo"
+    ],
+    "righe": [
+     [
+      "Il Cairo, Giza, Qalyubia",
+      "Il giorno dopo",
+      "EGP 60"
+     ],
+     [
+      "Delta e Canale",
+      "2 giorni lavorativi",
+      "EGP 85"
+     ],
+     [
+      "Alto Egitto",
+      "3 giorni lavorativi",
+      "EGP 110"
+     ],
+     [
+      "Sinai, Mar Rosso, Matrouh, Nuova Valle",
+      "4–5 giorni lavorativi",
+      "EGP 150"
+     ]
+    ]
+   },
+   {
+    "t": "nota",
+    "v": "I prezzi che leggi sul sito comprendono già dazio e IVA egiziana. Alla consegna non ti verrà chiesto nessun importo doganale: è la differenza tra comprare da noi e ordinare da un sito europeo."
+   },
+   {
+    "t": "h",
+    "v": "La chiamata prima della spedizione"
+   },
+   {
+    "t": "p",
+    "v": "Ogni ordine viene confermato per telefono prima di partire. Non è burocrazia: in Egitto la maggior parte delle consegne si chiude al telefono, e un numero che risponde vale più di un indirizzo perfetto. Se non riusciamo a raggiungerti entro 48 ore l'ordine si annulla da solo e il pezzo torna disponibile."
+   },
+   {
+    "t": "h",
+    "v": "Cosa puoi fare quando arriva il corriere"
+   },
+   {
+    "t": "p",
+    "v": "Con il pagamento alla consegna apri la scatola prima di pagare. Puoi controllare il pezzo, provare una giacca, un guanto, uno stivale, e confrontarlo con quello che hai visto sull'annuncio."
+   },
+   {
+    "t": "p",
+    "v": "I caschi fanno eccezione e viaggiano sigillati: puoi ispezionare la scatola, l'etichetta di omologazione e la calotta, ma un casco indossato non si rifiuta alla porta. Si restituisce entro 14 giorni, mai usato e nella sua confezione."
+   },
+   {
+    "t": "lista",
+    "v": [
+     "Se rifiuti l'ordine alla porta non paghi nulla.",
+     "Dopo due rifiuti il pagamento alla consegna viene disattivato per il tuo numero.",
+     "Sopra 20.000 EGP il contrassegno richiede un acconto online, che viene rimborsato per intero se rifiuti."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Resi e cambi"
+   },
+   {
+    "t": "p",
+    "v": "Hai 14 giorni dalla consegna per restituire un pezzo nuovo: mai indossato, cartellini attaccati, confezione originale. Il rimborso arriva sullo stesso metodo con cui hai pagato, o in contanti se avevi scelto il contrassegno."
+   },
+   {
+    "t": "p",
+    "v": "Sui pezzi Second Life il reso vale 14 giorni come sul nuovo, ma il capo deve tornare nelle condizioni descritte nel rapporto: quel rapporto è il contratto, e per questo lo scriviamo nel dettaglio prima che tu compri."
+   },
+   {
+    "t": "lista",
+    "v": [
+     "Il cambio taglia non costa nulla: rispedisci e ti mandiamo l'altra misura.",
+     "Su un reso per ripensamento le spese di rientro sono a tuo carico.",
+     "Se il pezzo è arrivato difettoso o diverso dall'annuncio paghiamo noi il rientro, senza discussioni."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Cosa non si può restituire"
+   },
+   {
+    "t": "p",
+    "v": "Biancheria tecnica indossata, e qualunque pezzo che mostri segni d'uso su strada. Un casco che ha preso un urto non torna indietro e non viene rivenduto: va sostituito, ed è la ragione per cui una calotta costa quello che costa."
+   }
+  ],
+  "collegamenti": [
+   [
+    "Guida alle taglie",
+    "guida.html?g=taglie"
+   ],
+   [
+    "Vai al negozio",
+    "negozio.html"
+   ]
+  ]
+ },
+ {
+  "id": "casco",
+  "occhiello": "Guida",
+  "titolo": "Come scegliere il casco giusto",
+  "sommario": "Omologazione, calzata, peso e ventilazione. Cosa guardare davvero, e cosa conta poco.",
+  "tempo": "6 minuti",
+  "blocchi": [
+   {
+    "t": "h",
+    "v": "Prima l'omologazione"
+   },
+   {
+    "t": "p",
+    "v": "In Europa lo standard in vigore è ECE 22.06, e ha sostituito il 22.05. La differenza non è formale: gli urti si provano a tre velocità invece di una, si misurano le forze rotazionali — quelle che torcono il collo e il cervello, non solo quelle che schiacciano — e visiera e accessori si testano montati sul casco anziché separati."
+   },
+   {
+    "t": "p",
+    "v": "Un casco 22.05 resta legale e può essere ottimo, ma è giusto sapere che è stato provato con criteri più vecchi. Sui pezzi usati lo dichiariamo sempre: spesso è la ragione principale del prezzo."
+   },
+   {
+    "t": "nota",
+    "v": "Diffida di qualunque casco senza etichetta di omologazione cucita nel cinturino. Su ogni casco che vendiamo quell'etichetta la fotografiamo."
+   },
+   {
+    "t": "h",
+    "v": "Poi la calzata, che conta più del marchio"
+   },
+   {
+    "t": "p",
+    "v": "Un casco costoso della misura sbagliata protegge meno di uno economico che calza bene. La prova è semplice: indossalo, allaccialo, poi prova a ruotarlo con le mani. La pelle della fronte deve muoversi con il casco. Se il casco gira e la testa resta ferma, è grande."
+   },
+   {
+    "t": "p",
+    "v": "Poi scuoti la testa avanti e indietro con decisione. Il casco non deve muoversi per conto suo. E tienilo addosso almeno dieci minuti: i punti di pressione si sentono dopo, non subito, e un punto che preme diventa insopportabile dopo un'ora di strada."
+   },
+   {
+    "t": "h",
+    "v": "Il numero delle calotte"
+   },
+   {
+    "t": "p",
+    "v": "È il dettaglio che quasi nessuno guarda e che cambia molto. I caschi buoni sono costruiti su due o tre gusci di dimensione diversa per coprire tutte le taglie; quelli economici su uno solo, e le misure piccole si ottengono aggiungendo imbottitura dentro un guscio grande."
+   },
+   {
+    "t": "p",
+    "v": "Risultato: se hai una testa piccola, un casco a calotta unica ti mette in testa un oggetto più grande e più pesante del necessario, con più leva sul collo e più presa al vento laterale."
+   },
+   {
+    "t": "h",
+    "v": "Il peso, e dove lo senti"
+   },
+   {
+    "t": "p",
+    "v": "Un integrale sportivo sta tra 1.200 e 1.500 grammi; un modulare arriva a 1.700 perché ha una cerniera e un meccanismo in più. Duecento grammi sembrano nulla in mano e si sentono tutti dopo due ore di autostrada."
+   },
+   {
+    "t": "tabella",
+    "intestazioni": [
+     "Materiale",
+     "Peso indicativo",
+     "Note"
+    ],
+    "righe": [
+     [
+      "Termoplastico",
+      "1.500–1.700 g",
+      "Il più economico, ottimo rapporto qualità-prezzo"
+     ],
+     [
+      "Composito (fibre miste)",
+      "1.350–1.500 g",
+      "Il compromesso più diffuso"
+     ],
+     [
+      "Carbonio",
+      "1.200–1.400 g",
+      "Leggero e costoso, non necessariamente più sicuro"
+     ]
+    ]
+   },
+   {
+    "t": "h",
+    "v": "La ventilazione, che in Egitto non è un dettaglio"
+   },
+   {
+    "t": "p",
+    "v": "A quaranta gradi nel traffico del Cairo un casco chiuso diventa una serra. Cerca prese d'aria che si aprano e si chiudano davvero con i guanti, e almeno due estrattori dietro: senza estrattori l'aria entra e resta lì."
+   },
+   {
+    "t": "p",
+    "v": "Conta anche l'interno smontabile e lavabile. Con la polvere mettilo in conto una volta al mese, non una volta a stagione."
+   },
+   {
+    "t": "h",
+    "v": "Integrale, modulare o jet"
+   },
+   {
+    "t": "lista",
+    "v": [
+     "Integrale: la protezione migliore sulla mentoniera, che è la zona di impatto più frequente dopo la fronte.",
+     "Modulare: comodo in città e in viaggio, pesa di più. Verifica che sia omologato P/J, cioè utilizzabile anche aperto.",
+     "Jet: fresco e pratico, lascia scoperto tutto il viso. Onesto dirlo, visto cosa vendiamo."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Quando va cambiato"
+   },
+   {
+    "t": "p",
+    "v": "Dopo ogni urto, anche se sembra intatto: la calotta lavora deformandosi una volta sola. E comunque dopo cinque anni dalla data di produzione, che trovi stampata sotto l'imbottitura — i materiali invecchiano anche fermi."
+   }
+  ],
+  "collegamenti": [
+   [
+    "Vedi i caschi",
+    "negozio.html?cat=caschi"
+   ],
+   [
+    "Guida alle taglie",
+    "guida.html?g=taglie"
+   ]
+  ]
+ },
+ {
+  "id": "itinerari",
+  "occhiello": "Itinerari",
+  "titolo": "Le strade dei motociclisti in Egitto",
+  "sommario": "Dove si va davvero partendo dal Cairo, e cosa serve avere addosso su ciascuna di queste strade.",
+  "tempo": "5 minuti",
+  "blocchi": [
+   {
+    "t": "p",
+    "v": "Guidare in Egitto vuol dire due cose molto diverse: il traffico della capitale e il vuoto che comincia appena lo lasci. Sono due mondi che chiedono attrezzatura diversa, e quasi tutti gli errori di acquisto nascono dal comprare pensando solo al primo."
+   },
+   {
+    "t": "h",
+    "v": "Il Cairo, tutti i giorni"
+   },
+   {
+    "t": "p",
+    "v": "In città si procede a bassa velocità, si sta fermi molto e si scalda tutto: il motore, l'asfalto, chi guida. Qui conta la ventilazione più della protezione dal vento, e conta la visibilità: tra i furgoni un casco chiaro e una giacca con inserti riflettenti si vedono, uno nero no."
+   },
+   {
+    "t": "p",
+    "v": "Conta anche la polvere. Interni del casco lavabili e visiera antigraffio non sono un lusso: la sabbia fine si deposita ovunque e i micro-graffi sulla visiera diventano un problema serio contro il sole basso della sera."
+   },
+   {
+    "t": "h",
+    "v": "Cairo – Ain Sokhna, la fuga corta"
+   },
+   {
+    "t": "p",
+    "v": "È la gita classica del venerdì: poco più di un'ora di strada veloce per arrivare al Mar Rosso. Il tratto è dritto e scorrevole, il che significa velocità sostenute e vento costante. Qui una giacca da città traforata non basta più: serve qualcosa che regga il flusso d'aria senza gonfiarsi, e un casco che non diventi rumoroso a centoventi."
+   },
+   {
+    "t": "h",
+    "v": "La strada del deserto verso Alessandria"
+   },
+   {
+    "t": "p",
+    "v": "Lunga, monotona, ventosa. Il nemico non è la curva ma la stanchezza: due ore nella stessa posizione con il vento laterale che spinge. Su questo tipo di percorso un casco leggero e ben bilanciato fa una differenza fisica reale sul collo, e l'intercom smette di essere un giocattolo."
+   },
+   {
+    "t": "nota",
+    "v": "D'inverno, all'alba, nel deserto fa freddo davvero: la stessa strada che a mezzogiorno chiede tessuto traforato all'alba chiede una fodera termica. Le giacche a tre strati esistono per questo."
+   },
+   {
+    "t": "h",
+    "v": "Sinai e Mar Rosso, il viaggio lungo"
+   },
+   {
+    "t": "p",
+    "v": "Qui si entra nel territorio del vero viaggio: distanze importanti, rifornimenti radi, escursione termica ampia. Cambia la logica dell'attrezzatura — non più «quanto mi protegge» ma «quanto reggo a portarla addosso per otto ore». Stivali alti, guanti che non facciano sudare, e una giacca con tasche raggiungibili senza fermarsi."
+   },
+   {
+    "t": "lista",
+    "v": [
+     "Controlla sempre le condizioni di percorribilità e gli eventuali permessi prima di partire verso il Sinai: le regole cambiano nel tempo e vanno verificate.",
+     "Su tratte lunghe e isolate viaggiare in due mezzi è più sicuro che in uno.",
+     "Acqua più di quanta pensi ti serva, sempre."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Cosa comprare per prima cosa"
+   },
+   {
+    "t": "p",
+    "v": "Se guidi solo in città: casco ben ventilato, guanti corti estivi, giacca in rete con protezioni. Se esci dalla città anche solo una volta al mese, la giacca diventa la spesa che cambia di più — perché è l'unica che deve funzionare a quaranta gradi fermi e a centoventi all'ora."
+   }
+  ],
+  "collegamenti": [
+   [
+    "Vai al negozio",
+    "negozio.html"
+   ],
+   [
+    "Guida alle taglie",
+    "guida.html?g=taglie"
+   ]
+  ]
+ },
+ {
+  "id": "manutenzione",
+  "occhiello": "Manutenzione",
+  "titolo": "Il controllo prima di ogni viaggio",
+  "sommario": "Cinque minuti che evitano la maggior parte dei guai in strada. Si fa a moto ferma, da soli, senza attrezzi.",
+  "tempo": "4 minuti",
+  "blocchi": [
+   {
+    "t": "p",
+    "v": "Quasi nessun problema serio arriva senza preavviso. Le gomme si sgonfiano piano, le pastiglie si consumano gradualmente, una catena lenta lo è già da giorni. Il controllo prima di partire non serve a essere pignoli: serve a trovare le cose mentre sono ancora piccole."
+   },
+   {
+    "t": "h",
+    "v": "Le gomme, prima di tutto"
+   },
+   {
+    "t": "p",
+    "v": "La pressione si controlla a gomma fredda, non dopo aver guidato: una gomma calda legge più alta e ti fa credere che sia a posto. Guarda anche il battistrada e passa una mano sul fianco cercando tagli, bolle o corpi estranei incastrati."
+   },
+   {
+    "t": "p",
+    "v": "Con il caldo egiziano una pressione bassa si paga due volte: la gomma si flette di più, scalda di più, e si consuma in fretta proprio quando serve tenuta."
+   },
+   {
+    "t": "h",
+    "v": "Freni"
+   },
+   {
+    "t": "p",
+    "v": "Tira entrambe le leve a moto ferma: devono fare resistenza in un punto preciso e ripetibile. Se la leva va lunga o spugnosa c'è aria nell'impianto o le pastiglie sono al limite. Controlla anche il livello del liquido nel serbatoietto e il colore: scuro significa vecchio."
+   },
+   {
+    "t": "h",
+    "v": "Catena, se la tua moto ce l'ha"
+   },
+   {
+    "t": "p",
+    "v": "Deve avere gioco, ma non troppo: la misura giusta è sul libretto della moto e varia da modello a modello. Una catena troppo tesa consuma i cuscinetti, una troppo lenta può saltare. E deve essere lubrificata: con la sabbia va pulita e ingrassata molto più spesso che in Europa."
+   },
+   {
+    "t": "h",
+    "v": "Luci, specchi, olio"
+   },
+   {
+    "t": "lista",
+    "v": [
+     "Accendi tutto e fai il giro della moto: anabbagliante, abbagliante, stop anteriore e posteriore, frecce.",
+     "Regola gli specchi da seduto, con addosso la giacca che userai.",
+     "Controlla il livello dell'olio con la moto in piano, non sul cavalletto laterale."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "E l'attrezzatura"
+   },
+   {
+    "t": "p",
+    "v": "Il controllo vale anche per quello che indossi. Un cinturino del casco sfilacciato, una zip che non chiude, una protezione uscita dalla tasca durante un lavaggio: sono cose che scopri al momento sbagliato se non le guardi prima."
+   },
+   {
+    "t": "nota",
+    "v": "Se il casco ha preso un colpo, anche cadendo dal sedile, va sostituito. La calotta lavora deformandosi una volta sola, e il danno quasi sempre non si vede da fuori."
+   }
+  ],
+  "collegamenti": [
+   [
+    "Protezioni in negozio",
+    "negozio.html?cat=protezioni"
+   ],
+   [
+    "Come scegliere il casco",
+    "guida.html?g=casco"
+   ]
+  ]
+ },
+ {
+  "id": "second-life",
+  "occhiello": "Come lavoriamo",
+  "titolo": "Perché vendiamo anche l'usato",
+  "sommario": "Second Life è la parte del catalogo che ci costa più lavoro e ci fa guadagnare meno. Ecco perché esiste comunque.",
+  "tempo": "4 minuti",
+  "blocchi": [
+   {
+    "t": "p",
+    "v": "Una giacca in pelle di buona qualità dura più di chi la compra. Cambia la taglia, cambia la moto, cambia il tipo di guida — e un capo che ha ancora dieci anni davanti finisce in fondo a un armadio. Second Life è il tentativo di intercettare quei capi prima che diventino stracci."
+   },
+   {
+    "t": "h",
+    "v": "Cosa accettiamo"
+   },
+   {
+    "t": "p",
+    "v": "Solo pezzi senza cadute dichiarate né segni di impatto. Su caschi e protezioni siamo più rigidi che su qualunque altra cosa: un casco che ha lavorato non torna in vendita, punto. Sul resto guardiamo usura reale, integrità delle cuciture, presenza e leggibilità delle etichette CE."
+   },
+   {
+    "t": "h",
+    "v": "Come li descriviamo"
+   },
+   {
+    "t": "p",
+    "v": "Ogni pezzo ha un rapporto di condizione scritto prima che tu compri, con i difetti dichiarati uno per uno e le misure rilevate a mano sul capo disteso — non quelle nominali dell'etichetta. Le foto sono del pezzo vero: sugli annunci Second Life le immagini di catalogo sono vietate, perché renderebbero inutile tutto il resto."
+   },
+   {
+    "t": "tabella",
+    "intestazioni": [
+     "Grado",
+     "Cosa significa"
+    ],
+    "righe": [
+     [
+      "A",
+      "Come nuovo, nessun segno degno di nota"
+     ],
+     [
+      "A−",
+      "Un segno estetico isolato, dichiarato e fotografato"
+     ],
+     [
+      "B+",
+      "Uso leggero visibile, funzionalità intatta"
+     ],
+     [
+      "B",
+      "Uso evidente, nessun problema strutturale"
+     ],
+     [
+      "C",
+      "Danno estetico importante, prezzo di conseguenza"
+     ]
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Perché si comprano all'asta"
+   },
+   {
+    "t": "p",
+    "v": "Un pezzo unico non ha un prezzo di listino: ha il prezzo che qualcuno è disposto a pagare quel giorno. L'asta è il modo più onesto di scoprirlo, e il sistema a offerta delegata fa sì che chi vince paghi quanto serviva per battere il secondo, non il massimo che aveva dichiarato."
+   },
+   {
+    "t": "h",
+    "v": "Cosa ci guadagniamo"
+   },
+   {
+    "t": "p",
+    "v": "Poco, sinceramente. Un pezzo usato va ritirato, controllato, misurato, fotografato e descritto: è più lavoro di dieci caschi nuovi presi a scatola chiusa. Lo facciamo perché un mercato dell'usato serio è quello che permette a chi comincia di partire con attrezzatura vera invece che con il casco più economico dello scaffale."
+   },
+   {
+    "t": "nota",
+    "v": "Il reso sui pezzi Second Life vale 14 giorni come sul nuovo. L'unica condizione è che il capo torni nelle condizioni descritte nel rapporto — quel rapporto è il contratto."
+   }
+  ],
+  "collegamenti": [
+   [
+    "Vai alle aste",
+    "asta.html"
+   ],
+   [
+    "Second Life in negozio",
+    "negozio.html?tipo=sl"
+   ]
+  ]
+ }
+]

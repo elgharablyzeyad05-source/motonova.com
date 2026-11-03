@@ -1,0 +1,332 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Tutti gli importi sono interi in piastre (1 EGP = 100). Mai float.
+
+enum Ruolo {
+  CLIENTE
+  ADMIN
+}
+
+enum TipoProdotto {
+  NUOVO
+  SECOND_LIFE
+}
+
+enum StatoOrdine {
+  DA_CONFERMARE
+  CONFERMATO
+  PREPARAZIONE
+  SPEDITO
+  CONSEGNATO
+  ANNULLATO
+}
+
+enum Pagamento {
+  CONTRASSEGNO
+  CARTA
+  RATE
+}
+
+enum StatoAsta {
+  PROGRAMMATA
+  APERTA
+  CHIUSA
+}
+
+enum TipoCoupon {
+  PERCENTUALE
+  FISSO
+}
+
+enum EsitoPosta {
+  INVIATA
+  NON_CONFIGURATA
+  ERRORE
+}
+
+model Utente {
+  id           String       @id @default(cuid())
+  email        String       @unique
+  nome         String
+  telefono     String?
+  passwordHash String
+  ruolo        Ruolo        @default(CLIENTE)
+  garanzia     Boolean      @default(false)
+  creato       DateTime     @default(now())
+  sessioni     Sessione[]
+  carrello     Carrello?
+  ordini       Ordine[]
+  preferiti    Preferito[]
+  offerte      Offerta[]
+  aste         Asta[]       @relation("Vincitore")
+}
+
+model Sessione {
+  id       String   @id @default(cuid())
+  tokenHash String  @unique
+  utenteId String
+  utente   Utente   @relation(fields: [utenteId], references: [id], onDelete: Cascade)
+  scade    DateTime
+  creata   DateTime @default(now())
+}
+
+model Marca {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  nome        String     @unique
+  descrizione String?
+  prodotti    Prodotto[]
+}
+
+model Prodotto {
+  id          String       @id @default(cuid())
+  slug        String       @unique
+  marcaId     String
+  marca       Marca        @relation(fields: [marcaId], references: [id])
+  nome        String
+  sottotitolo String       @default("")
+  categoria   String
+  stili       String[]
+  tipo        TipoProdotto @default(NUOVO)
+  prezzo      Int
+  prezzoPrima Int?
+  nota        String       @default("")
+  luogo       String       @default("")
+  grado       String?
+  descrizione String[]
+  specs       Json         @default("[]")
+  report      Json?
+  attivo      Boolean      @default(true)
+  creato      DateTime     @default(now())
+  varianti    Variante[]
+  foto        Foto[]
+  preferiti   Preferito[]
+  asta        Asta?
+
+  @@index([categoria])
+  @@index([marcaId])
+}
+
+// Lo stock sta sulla variante (taglia), non sul prodotto.
+// Disponibile = giacenza - impegnati.
+model Variante {
+  id         String          @id @default(cuid())
+  prodottoId String
+  prodotto   Prodotto        @relation(fields: [prodottoId], references: [id], onDelete: Cascade)
+  taglia     String
+  giacenza   Int             @default(0)
+  impegnati  Int             @default(0)
+  righe      RigaCarrello[]
+  righeOrdine RigaOrdine[]
+
+  @@unique([prodottoId, taglia])
+}
+
+model Foto {
+  id         String   @id @default(cuid())
+  prodottoId String
+  prodotto   Prodotto @relation(fields: [prodottoId], references: [id], onDelete: Cascade)
+  grande     String
+  piccola    String
+  ordine     Int      @default(0)
+}
+
+model Carrello {
+  id       String         @id @default(cuid())
+  utenteId String?        @unique
+  utente   Utente?        @relation(fields: [utenteId], references: [id], onDelete: Cascade)
+  token    String?        @unique
+  coupon   String?
+  aggiornato DateTime     @default(now())
+  righe    RigaCarrello[]
+}
+
+model RigaCarrello {
+  id         String   @id @default(cuid())
+  carrelloId String
+  carrello   Carrello @relation(fields: [carrelloId], references: [id], onDelete: Cascade)
+  varianteId String
+  variante   Variante @relation(fields: [varianteId], references: [id], onDelete: Cascade)
+  quantita   Int      @default(1)
+  // Se la riga viene da un'asta vinta, il prezzo è quello battuto e la riga è unica.
+  prezzoAsta Int?
+
+  @@unique([carrelloId, varianteId])
+}
+
+// L'ordine congela nome, marca e prezzo: resta leggibile dopo un cambio di listino.
+model Ordine {
+  id           String        @id @default(cuid())
+  numero       String        @unique
+  // segreto nel link dell'email: il numero ordine si indovina, il token no
+  token        String
+  utenteId     String?
+  utente       Utente?       @relation(fields: [utenteId], references: [id])
+  email        String?
+  nome         String
+  telefono     String
+  governatorato String
+  zona         Int
+  indirizzo    String
+  note         String?
+  stato        StatoOrdine   @default(DA_CONFERMARE)
+  pagamento    Pagamento     @default(CONTRASSEGNO)
+  subtotale    Int
+  spedizione   Int
+  commissione  Int           @default(0)
+  sconto       Int           @default(0)
+  totale       Int
+  acconto      Int           @default(0)
+  contanti     Int           @default(0)
+  coupon       String?
+  lingua       String        @default("it")
+  creato       DateTime      @default(now())
+  righe        RigaOrdine[]
+  storia       StoriaOrdine[]
+  usi          UsoCoupon[]
+}
+
+model RigaOrdine {
+  id         String   @id @default(cuid())
+  ordineId   String
+  ordine     Ordine   @relation(fields: [ordineId], references: [id], onDelete: Cascade)
+  varianteId String?
+  variante   Variante? @relation(fields: [varianteId], references: [id], onDelete: SetNull)
+  nome       String
+  marca      String
+  taglia     String
+  prezzo     Int
+  quantita   Int
+}
+
+model StoriaOrdine {
+  id       String      @id @default(cuid())
+  ordineId String
+  ordine   Ordine      @relation(fields: [ordineId], references: [id], onDelete: Cascade)
+  stato    StatoOrdine
+  ts       DateTime    @default(now())
+}
+
+model Coupon {
+  id        String      @id @default(cuid())
+  codice    String      @unique
+  tipo      TipoCoupon
+  valore    Int
+  minimo    Int         @default(0)
+  inizio    DateTime?
+  fine      DateTime?
+  usiMax    Int?
+  usiFatti  Int         @default(0)
+  // Per chi ordina senza account il limite usa l'email: è un ostacolo, non una serratura.
+  perPersona Int?
+  attivo    Boolean     @default(true)
+  usi       UsoCoupon[]
+}
+
+model UsoCoupon {
+  id       String   @id @default(cuid())
+  couponId String
+  coupon   Coupon   @relation(fields: [couponId], references: [id])
+  chiave   String
+  ordineId String
+  ordine   Ordine   @relation(fields: [ordineId], references: [id], onDelete: Cascade)
+  sconto   Int
+  ts       DateTime @default(now())
+
+  @@index([couponId, chiave])
+}
+
+model Iscritto {
+  id     String   @id @default(cuid())
+  email  String   @unique
+  lingua String   @default("it")
+  creato DateTime @default(now())
+}
+
+model Preferito {
+  id           String   @id @default(cuid())
+  utenteId     String
+  utente       Utente   @relation(fields: [utenteId], references: [id], onDelete: Cascade)
+  prodottoId   String
+  prodotto     Prodotto @relation(fields: [prodottoId], references: [id], onDelete: Cascade)
+  // Il prezzo del giorno in cui è stato salvato: non si aggiorna mai.
+  prezzoSalvato Int
+  creato       DateTime @default(now())
+
+  @@unique([utenteId, prodottoId])
+}
+
+model Asta {
+  id          String    @id @default(cuid())
+  prodottoId  String    @unique
+  prodotto    Prodotto  @relation(fields: [prodottoId], references: [id], onDelete: Cascade)
+  inizio      DateTime
+  fine        DateTime
+  partenza    Int
+  riserva     Int       @default(0)
+  stato       StatoAsta @default(PROGRAMMATA)
+  vincitoreId String?
+  vincitore   Utente?   @relation("Vincitore", fields: [vincitoreId], references: [id])
+  prezzoFinale Int?
+  offerte     Offerta[]
+}
+
+// Ogni offerta è un MASSIMO segreto. Il prezzo esposto lo calcola il motore.
+model Offerta {
+  id       String   @id @default(cuid())
+  astaId   String
+  asta     Asta     @relation(fields: [astaId], references: [id], onDelete: Cascade)
+  utenteId String
+  utente   Utente   @relation(fields: [utenteId], references: [id])
+  massimo  Int
+  ts       DateTime @default(now())
+
+  @@index([astaId, utenteId])
+}
+
+model Posta {
+  id       String     @id @default(cuid())
+  a        String
+  oggetto  String
+  tipo     String
+  esito    EsitoPosta
+  errore   String?
+  ts       DateTime   @default(now())
+}
+
+// Chat del sito: una conversazione per visitatore, riconosciuta da un cookie casuale (salvato come hash).
+model Conversazione {
+  id        String      @id @default(cuid())
+  tokenHash String      @unique
+  utenteId  String?
+  nome      String?
+  creata    DateTime    @default(now())
+  ultimo    DateTime    @default(now())
+  messaggi  Messaggio[]
+}
+
+model Messaggio {
+  id              String        @id @default(cuid())
+  conversazioneId String
+  conversazione   Conversazione @relation(fields: [conversazioneId], references: [id], onDelete: Cascade)
+  daStaff         Boolean       @default(false)
+  testo           String
+  ts              DateTime      @default(now())
+  letto           Boolean       @default(false)
+
+  @@index([conversazioneId, ts])
+}
+
+// Le foto stanno nel database: gli host serverless (Vercel) non hanno un disco che resti.
+model Media {
+  percorso String   @id
+  dati     Bytes
+  creato   DateTime @default(now())
+}

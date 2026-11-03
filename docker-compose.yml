@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: motonova
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: motonova
+    volumes:
+      - dati_db:/var/lib/postgresql/data
+      - ./prisma/migrations/0001_init/migration.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+      - ./prisma/migrations/0002_chat/migration.sql:/docker-entrypoint-initdb.d/02-chat.sql:ro
+      - ./prisma/migrations/0003_media/migration.sql:/docker-entrypoint-initdb.d/03-media.sql:ro
+  app:
+    build: .
+    restart: always
+    depends_on: [db]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://motonova:${DB_PASSWORD}@db:5432/motonova
+  caddy:
+    image: caddy:2
+    restart: always
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_dati:/data
+    depends_on: [app]
+  giro:
+    image: curlimages/curl:8.10.1
+    restart: always
+    depends_on: [app]
+    env_file: .env
+    entrypoint: ["/bin/sh", "-c", "while true; do sleep 60; curl -s -H \"x-chiave: $$CHIAVE_GIRO\" http://app:3000/api/giro >/dev/null || true; done"]
+volumes: { dati_db: {}, caddy_dati: {} }
