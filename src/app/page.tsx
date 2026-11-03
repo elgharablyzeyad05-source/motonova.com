@@ -16,7 +16,7 @@ export default async function Home() {
   const v = await vetrine().catch(() => ({ nuovi: [], offerte: [], piuVenduti: [], marche: [] }));
   const T = (k: K): string => (l === "it" ? home.it : home[l])[k] ?? home.it[k];
   // Immagini editoriali: public/immagini. Dove manca il file resta la sagoma.
-  const IMG: Record<string, string> = { casco: "/immagini/guida-casco.webp", manutenzione: "/immagini/guida-manutenzione.webp" };
+  const IMG: Record<string, string> = { casco: "/immagini/guida-casco.webp", manutenzione: "/immagini/guida-manutenzione.webp", itinerari: "/immagini/guida-itinerari.webp", "second-life": "/immagini/guida-usato.webp" };
   const guida = (id: string, cat: string, tag: K, titolo: K, desc: K) => (
     <Link className="scheda" href={href(l, `/guide/${id}`)} key={id}>
       <Cornice categoria={cat} statica={IMG[id]} larga alt={T(titolo)} />
