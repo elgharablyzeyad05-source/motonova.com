@@ -8,7 +8,7 @@ import { Scheda } from "@/componenti/Scheda";
 import { vetrine, CATEGORIE, ETICHETTA_CAT } from "@/lib/catalogo";
 import { tr } from "@/lib/i18n";
 
-const CATFOTO: string[] = ["caschi", "giacche", "pantaloni", "gilet", "guanti", "stivali", "protezioni", "accessori", "manutenzione"];
+const CATFOTO: string[] = ["caschi", "giacche", "pantaloni", "tute", "gilet", "guanti", "stivali", "protezioni", "accessori", "manutenzione"];
 type K = keyof typeof home.it;
 const Html = ({ t, tag: Tag = "span" }: { t: string; tag?: "span" | "p" | "h3" }) => <Tag dangerouslySetInnerHTML={{ __html: t }} />;
 
@@ -43,7 +43,7 @@ export default async function Home() {
         <div className="cat-scorri" role="list">
           {CATEGORIE.map((c, i) => (
             <Link key={c} role="listitem" className={"cat-card" + (CATFOTO.includes(c) ? "" : " senza")} href={href(l, `/negozio?cat=${c}`)}>
-              {CATFOTO.includes(c) ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/immagini/cat-${c}.webp?v=2`} alt="" loading="lazy" /> : <Sagoma categoria={c} />}
+              {CATFOTO.includes(c) ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/immagini/cat-${c}.webp?v=3`} alt="" loading="lazy" /> : <Sagoma categoria={c} />}
               <span className="cat-n mono" dir="ltr">{String(i + 1).padStart(2, "0")}</span>
               <span className="cat-nome">{tr(l, ETICHETTA_CAT[c])}</span>
               <svg className="cat-freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg>
