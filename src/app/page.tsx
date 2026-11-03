@@ -43,7 +43,7 @@ export default async function Home() {
         <div className="cat-scorri" role="list">
           {CATEGORIE.map((c, i) => (
             <Link key={c} role="listitem" className={"cat-card" + (CATFOTO.includes(c) ? "" : " senza")} href={href(l, `/negozio?cat=${c}`)}>
-              {CATFOTO.includes(c) ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/immagini/cat-${c}.webp`} alt="" loading="lazy" /> : <Sagoma categoria={c} />}
+              {CATFOTO.includes(c) ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/immagini/cat-${c}.webp?v=2`} alt="" loading="lazy" /> : <Sagoma categoria={c} />}
               <span className="cat-n mono" dir="ltr">{String(i + 1).padStart(2, "0")}</span>
               <span className="cat-nome">{tr(l, ETICHETTA_CAT[c])}</span>
               <svg className="cat-freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg>
