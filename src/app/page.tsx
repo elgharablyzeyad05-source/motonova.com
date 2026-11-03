@@ -46,7 +46,7 @@ export default async function Home() {
       <section className="asta-home" aria-label={_("Asta della settimana", "Auction of the week", "مزاد الأسبوع")}>
         <div className="foglio asta-home-in">
           <div className="asta-home-foto">
-            {asta?.prodotto.foto[0]?.grande ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/media/${asta.prodotto.foto[0].grande}`} alt={asta.prodotto.nome} /> : /* eslint-disable-next-line @next/next/no-img-element */ <img src="/immagini/asta-attesa.webp" alt="" />}
+            {asta?.prodotto.foto[0]?.grande ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/media/${asta.prodotto.foto[0].grande}`} alt={asta.prodotto.nome} /> : /* eslint-disable-next-line @next/next/no-img-element */ <img src="/immagini/asta-attesa.webp?v=2" alt="" />}
           </div>
           <div className="asta-home-testo">
             <p className="asta-live mono"><i aria-hidden="true" />{asta ? _("Asta in corso", "Live auction", "مزاد جارٍ") : _("Ogni settimana", "Every week", "كل أسبوع")}</p>
