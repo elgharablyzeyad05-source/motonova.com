@@ -1,0 +1,307 @@
+[
+ {
+  "id": "contatti",
+  "occhiello": "Contatti",
+  "titolo": "Come raggiungerci",
+  "sommario": "Un negozio che vende protezioni deve essere raggiungibile da una persona vera. Qui c'è come.",
+  "tempo": "Risposta entro un giorno lavorativo",
+  "blocchi": [
+   {
+    "t": "p",
+    "v": "Se hai un dubbio su una taglia, su una omologazione o su un ordine già partito, scrivici prima di comprare. Rispondere a una domanda costa meno a tutti che gestire un reso."
+   },
+   {
+    "t": "h",
+    "v": "Scrivere"
+   },
+   {
+    "t": "tabella",
+    "intestazioni": [
+     "Canale",
+     "Recapito",
+     "Quando"
+    ],
+    "righe": [
+     [
+      "Chat sul sito",
+      "Il pulsante in basso a sinistra",
+      "Rispondiamo appena possibile"
+     ],
+     [
+      "Email",
+      "motonova2b@gmail.com",
+      "Risposta entro un giorno lavorativo"
+     ]
+    ]
+   },
+   {
+    "t": "nota",
+    "v": "Le taglie si risolvono meglio in chat che via email: ci scrivi due misure prese col metro e ti diciamo quale prendere, invece di scambiarci quattro messaggi."
+   },
+   {
+    "t": "h",
+    "v": "Chi siamo"
+   },
+   {
+    "t": "p",
+    "v": "MotoNova è un negozio di attrezzatura per motociclisti. Importiamo dall'Italia e consegniamo in Egitto. Non abbiamo un punto vendita fisico aperto al pubblico: tutto passa dal sito e dalla consegna."
+   },
+   {
+    "t": "tabella",
+    "intestazioni": [
+     "Dato",
+     "Valore"
+    ],
+    "righe": [
+     [
+      "Nome commerciale",
+      "MotoNova"
+     ],
+     [
+      "Sito",
+      "motonova.com"
+     ]
+    ]
+   }
+  ],
+  "collegamenti": [
+   [
+    "Spedizioni e resi",
+    "guida.html?g=spedizioni"
+   ],
+   [
+    "Termini di vendita",
+    "pagina.html?p=termini"
+   ]
+  ]
+ },
+ {
+  "id": "termini",
+  "occhiello": "Legale",
+  "titolo": "Termini di vendita",
+  "sommario": "Cosa succede quando ordini: chi vende, a che prezzo, come si paga, cosa si può restituire e cosa no.",
+  "tempo": "Ultimo aggiornamento: 3 novembre 2026",
+  "blocchi": [
+   {
+    "t": "nota",
+    "v": "Bozza. Questo testo descrive come intendiamo lavorare, ma non è ancora stato verificato da un legale né adeguato alla normativa egiziana. Non fa fede finché non è completo e firmato."
+   },
+   {
+    "t": "h",
+    "v": "Chi vende"
+   },
+   {
+    "t": "p",
+    "v": "Il venditore è MotoNova (motonova.com). Ordinando dal sito concludi un contratto di vendita con questo soggetto, non con i produttori dei prodotti."
+   },
+   {
+    "t": "h",
+    "v": "Prezzi e disponibilità"
+   },
+   {
+    "t": "p",
+    "v": "I prezzi sono in sterline egiziane e comprendono le imposte applicabili, salvo diversa indicazione sulla scheda prodotto. Le spese di spedizione sono calcolate al checkout e mostrate prima della conferma."
+   },
+   {
+    "t": "lista",
+    "v": [
+     "La disponibilità mostrata è aggiornata ma non garantita fino alla conferma dell'ordine.",
+     "Se un pezzo risulta esaurito dopo il tuo ordine, ti avvisiamo e rimborsiamo per intero: non sostituiamo con un modello diverso senza chiedertelo.",
+     "Un errore evidente di prezzo non ci obbliga a vendere a quel prezzo. Se succede ti chiamiamo prima di fare qualsiasi cosa."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Ordine e pagamento"
+   },
+   {
+    "t": "p",
+    "v": "L'ordine si conclude quando ricevi la conferma. Il pagamento avviene con i mezzi indicati al checkout: carta tramite il nostro fornitore di pagamento, oppure contrassegno alla consegna dove disponibile. I dati della carta non passano dai nostri sistemi e non vengono conservati da noi."
+   },
+   {
+    "t": "lista",
+    "v": [
+     "Sul contrassegno valgono le condizioni indicate nella guida Spedizioni: rifiuti ripetuti disattivano il contrassegno per quel numero di telefono.",
+     "Sopra una certa soglia il contrassegno richiede un acconto online, rimborsato per intero in caso di rifiuto."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Consegna"
+   },
+   {
+    "t": "p",
+    "v": "Spediamo in tutto l'Egitto. Tempi e costi sono nella guida Spedizioni e vengono confermati al checkout. I termini di consegna sono stime, non impegni contrattuali: se qualcosa va storto ti avvisiamo invece di farti aspettare in silenzio."
+   },
+   {
+    "t": "h",
+    "v": "Resi, cambi e difetti"
+   },
+   {
+    "t": "p",
+    "v": "Il cambio taglia è gratuito. Un reso per ripensamento è a tue spese. Se il pezzo arriva difettoso o diverso da quello descritto, il rientro lo paghiamo noi."
+   },
+   {
+    "t": "lista",
+    "v": [
+     "Il pezzo va restituito completo, con etichette e imballo, e nelle condizioni in cui è arrivato.",
+     "Un casco che ha preso un urto non si può rivendere: se è caduto, anche da fermo, dichiaralo — non lo riprendiamo come nuovo, ma non ti facciamo storie.",
+     "I pezzi Second Life sono unici e venduti all'asta: i difetti sono dichiarati nell'annuncio, quindi non valgono come motivo di reso. Un difetto NON dichiarato sì."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Garanzia"
+   },
+   {
+    "t": "p",
+    "v": "I prodotti nuovi hanno la garanzia del produttore nei termini previsti dalla legge applicabile. La garanzia copre i difetti di fabbricazione, non l'usura, i danni da caduta e le modifiche fatte dopo l'acquisto."
+   },
+   {
+    "t": "h",
+    "v": "Uso dei prodotti"
+   },
+   {
+    "t": "p",
+    "v": "L'attrezzatura riduce le conseguenze di una caduta, non la probabilità che avvenga, e nessun capo protegge in ogni circostanza. Vendiamo prodotti omologati e dichiariamo l'omologazione su ogni scheda; l'uso corretto — taglia giusta, chiusura allacciata, sostituzione dopo un impatto — resta responsabilità di chi guida."
+   },
+   {
+    "t": "h",
+    "v": "Controversie"
+   },
+   {
+    "t": "p",
+    "v": "Al contratto si applicano le norme a tutela del consumatore del paese in cui risiede e per ogni controversia è competente il foro del luogo di residenza o domicilio del consumatore. Prima di arrivarci, però, scrivici: quasi tutto si risolve parlando."
+   }
+  ],
+  "collegamenti": [
+   [
+    "Privacy",
+    "pagina.html?p=privacy"
+   ],
+   [
+    "Spedizioni e resi",
+    "guida.html?g=spedizioni"
+   ],
+   [
+    "Contatti",
+    "pagina.html?p=contatti"
+   ]
+  ]
+ },
+ {
+  "id": "privacy",
+  "occhiello": "Legale",
+  "titolo": "Dati personali",
+  "sommario": "Quali dati raccogliamo, perché, per quanto li teniamo e come si fa a farli cancellare.",
+  "tempo": "Ultimo aggiornamento: 3 novembre 2026",
+  "blocchi": [
+   {
+    "t": "nota",
+    "v": "Bozza. Descrive come intendiamo trattare i dati, ma va verificata da un legale e completata con i dati del titolare prima della pubblicazione."
+   },
+   {
+    "t": "h",
+    "v": "Chi tratta i dati"
+   },
+   {
+    "t": "p",
+    "v": "Il titolare del trattamento è il gestore del sito MotoNova, raggiungibile ai contatti indicati nella pagina Contatti. Per qualsiasi richiesta sui tuoi dati puoi scrivere a motonova2b@gmail.com."
+   },
+   {
+    "t": "h",
+    "v": "Cosa raccogliamo"
+   },
+   {
+    "t": "tabella",
+    "intestazioni": [
+     "Dato",
+     "Perché",
+     "Per quanto"
+    ],
+    "righe": [
+     [
+      "Nome e telefono",
+      "Consegnare l'ordine e avvisarti",
+      "Finché l'account è attivo"
+     ],
+     [
+      "Indirizzo",
+      "Spedire",
+      "Finché l'account è attivo"
+     ],
+     [
+      "Email",
+      "Conferme d'ordine e, se ti iscrivi, newsletter",
+      "Fino alla disiscrizione"
+     ],
+     [
+      "Storico ordini",
+      "Assistenza, resi, obblighi contabili",
+      "Il periodo previsto dalla legge"
+     ],
+     [
+      "Dati di pagamento",
+      "Non li riceviamo: restano al fornitore di pagamento",
+      "—"
+     ]
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Cosa non facciamo"
+   },
+   {
+    "t": "lista",
+    "v": [
+     "Non vendiamo i tuoi dati a nessuno.",
+     "Non usiamo i dati degli ordini per profilarti a fini pubblicitari presso terzi.",
+     "Non teniamo i numeri delle carte: il pagamento passa da un fornitore certificato."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "Chi altro li vede"
+   },
+   {
+    "t": "p",
+    "v": "Solo chi serve per farti arrivare il pacco e incassare: il corriere, il fornitore di pagamento, il servizio email e chi ospita il sito. Ognuno riceve il minimo necessario e non può usarlo per altro."
+   },
+   {
+    "t": "h",
+    "v": "Cosa puoi chiedere"
+   },
+   {
+    "t": "lista",
+    "v": [
+     "Sapere quali dati abbiamo su di te e riceverne copia.",
+     "Correggere quelli sbagliati.",
+     "Farli cancellare, salvo quelli che dobbiamo conservare per obblighi contabili.",
+     "Disiscriverti dalla newsletter in qualsiasi momento, con un clic, senza dover scrivere a nessuno."
+    ]
+   },
+   {
+    "t": "p",
+    "v": "Rispondiamo entro un mese. Se la richiesta è complessa te lo diciamo, invece di lasciarti senza risposta."
+   },
+   {
+    "t": "h",
+    "v": "Cookie"
+   },
+   {
+    "t": "p",
+    "v": "Usiamo quelli necessari a far funzionare il sito: il carrello, la lingua scelta, la sessione di chi è entrato nel proprio account. Se e quando aggiungeremo strumenti di statistica o di pubblicità, questa pagina verrà aggiornata prima, non dopo, e ti verrà chiesto il consenso."
+   }
+  ],
+  "collegamenti": [
+   [
+    "Termini di vendita",
+    "pagina.html?p=termini"
+   ],
+   [
+    "Contatti",
+    "pagina.html?p=contatti"
+   ]
+  ]
+ }
+]
