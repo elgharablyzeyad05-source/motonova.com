@@ -104,6 +104,7 @@ html[dir="rtl"] .tasto { letter-spacing: 0; font-size: 14px; text-transform: non
 .chip { display: inline-block; padding: 6px 10px; border: 1px solid var(--bordo); font-size: 12px; text-decoration: none; margin: 0 6px 6px 0; }
 .chip[aria-current="true"] { background: var(--inchiostro); color: var(--carta); border-color: var(--inchiostro); }
 .apri-filtri { display: none; }
+.tf-chk { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
 
 /* prodotto */
 .prodotto { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 64px); align-items: start; }
@@ -186,7 +187,8 @@ table.dati th { font-family: var(--m); font-size: 10.5px; letter-spacing: .1em; 
 @media (max-width: 860px) {
   .negozio, .prodotto, .due-col { grid-template-columns: 1fr; }
   .filtri { position: static; } .riepilogo { position: static; }
-  .negozio .filtri { display: none; } .negozio .filtri.aperti { display: block; }
+  .negozio .filtri { display: none; } .tf-chk:checked ~ .negozio .filtri { display: block; }
+  .tf-chk:focus-visible ~ .apri-filtri { outline: 2px solid var(--rosso); outline-offset: 2px; }
   .apri-filtri { display: inline-flex; margin-bottom: 14px; }
   .admin { grid-template-columns: 1fr; } .admin nav { position: static; height: auto; display: flex; flex-wrap: wrap; }
   .cerca-testata input { width: 120px; }

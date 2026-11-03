@@ -37,9 +37,10 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
            "Gear chosen piece by piece, imported from Italy and delivered in Egypt. Every listing states materials, certifications and real measurements.",
            "معدات مختارة قطعة قطعة، مستوردة من إيطاليا وتُسلَّم في مصر. كل بطاقة تذكر المواد والشهادات والمقاسات الحقيقية.")}
       </p>
-      <details className="apri-filtri-d" style={{ display: "none" }} />
+      <input type="checkbox" id="tf" className="tf-chk" aria-hidden="true" tabIndex={-1} />
+      <label htmlFor="tf" className="tasto vuoto apri-filtri">{_("Filtri", "Filters", "مرشحات")}{attivi > 0 ? ` · ${attivi}` : ""}</label>
       <div className="negozio">
-        <form className="filtri aperti" method="get" action={href(l, "/negozio")} aria-label={_("Filtri", "Filters", "مرشحات")}>
+        <form className="filtri" method="get" action={href(l, "/negozio")} aria-label={_("Filtri", "Filters", "مرشحات")}>
           <div className="campo"><label htmlFor="q">{_("Cerca", "Search", "بحث")}</label><input id="q" name="q" type="search" defaultValue={f.q} placeholder={_("Cerca casco, marca, modello…", "Search helmet, brand, model…", "ابحث عن خوذة، ماركة، موديل…")} /></div>
           <fieldset><legend>{_("Categoria", "Category", "الفئة")}</legend>
             {CATEGORIE.map((c) => { const n = opz.cat[c] ?? 0; return (
