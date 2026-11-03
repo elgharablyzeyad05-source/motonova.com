@@ -12,7 +12,8 @@
     "prova:aste": "tsx prove/aste.ts",
     "prova:coupon": "tsx prove/concorrenza.ts",
     "prova:web": "tsx prove/web.ts",
-    "prova:tutto": "tsx prove/aste.ts && tsx prove/concorrenza.ts && tsx prove/web.ts",
+    "prova:blocco": "tsx prove/blocco.ts",
+    "prova:tutto": "tsx prove/blocco.ts && tsx prove/aste.ts && tsx prove/concorrenza.ts && tsx prove/web.ts",
     "db:admin": "tsx prisma/admin.ts"
   },
   "dependencies": {

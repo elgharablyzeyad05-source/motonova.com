@@ -7,7 +7,7 @@ import { lingua, tx, baseUrl } from "@/lib/contesto";
 import { href } from "@/lib/i18n";
 import { cifra, confronta, creaSessione, chiudiSessione, tornaSicuro, utenteCorrente } from "@/lib/sessione";
 import * as carrelloLib from "@/lib/carrello";
-import { creaOrdine, emailConferma } from "@/lib/ordini";
+import { creaOrdine, emailConferma, confermaBlocco } from "@/lib/ordini";
 import { emailValida, egp, telefonoEgiziano, type Metodo } from "@/lib/regole";
 import { limita, azzera } from "@/lib/limite";
 import { offri } from "@/lib/aste";
@@ -138,7 +138,7 @@ export async function ordineAction(_prev: StatoCassa, f: FormData): Promise<Stat
   const u = await utenteCorrente();
   const r = await creaOrdine(k.id, {
     nome: valori.nome, telefono: valori.telefono, email: valori.email || u?.email, governatorato: valori.governatorato,
-    indirizzo: valori.indirizzo, note: valori.note, metodo: (valori.metodo || "CONTRASSEGNO") as Metodo, lingua: l, utenteId: u?.id,
+    indirizzo: valori.indirizzo, note: valori.note, metodo: (valori.metodo || "CONTRASSEGNO") as Metodo, lingua: l, utenteId: u?.id, blocco: testo(f, "blocco") === "1",
   });
   if (!r.ok) {
     const e = r.errore;
@@ -149,6 +149,13 @@ export async function ordineAction(_prev: StatoCassa, f: FormData): Promise<Stat
   // la conferma via email non deve mai far fallire l'ordine
   emailConferma(r.id, await baseUrl()).catch(() => {});
   redirect(href(l, `/ordine/${r.numero}`) + `?t=${r.token}` + (r.couponPerso ? "&codice=perso" : ""));
+}
+
+export async function confermaBloccoAction(f: FormData) {
+  const l = await lingua();
+  const numero = testo(f, "numero"); const t = testo(f, "t");
+  const r = await confermaBlocco(numero, t);
+  redirect(href(l, `/ordine/${numero}`) + `?t=${t}` + (r.ok ? "&blocco=ok" : `&blocco=errore`));
 }
 
 // ── account ─────────────────────────────────────────────────────────────────

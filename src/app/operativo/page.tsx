@@ -6,7 +6,7 @@ import { egp } from "@/lib/regole";
 import { prossimi } from "@/lib/ordini";
 import { CATEGORIE } from "@/lib/catalogo";
 import { statoDa } from "@/lib/aste";
-import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, statoOrdineAction } from "./azioni";
+import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, statoOrdineAction, accontoRicevutoAction } from "./azioni";
 
 export const metadata = { title: "Operativo", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
@@ -54,6 +54,12 @@ async function Ordini() {
       <p className="tenue" style={{ margin: "6px 0" }}>{o.nome} · <span dir="ltr">{o.telefono}</span> · {o.indirizzo}, {o.governatorato}{o.note ? ` · «${o.note}»` : ""}</p>
       <p className="tenue">{o.righe.map((r) => `${r.marca} ${r.nome} (${r.taglia}) ×${r.quantita}`).join(" · ")}</p>
       <p className="mono lieve" style={{ margin: "6px 0 10px" }}>{o.pagamento}{o.pagamento === "CONTRASSEGNO" ? ` · contanti alla consegna ${egp(o.contanti)}${o.acconto ? ` · acconto ${egp(o.acconto)}` : ""}` : ""}{o.coupon ? ` · coupon ${o.coupon} (−${egp(o.sconto)})` : ""}</p>
+      {o.bloccoScade && o.stato === "DA_CONFERMARE" && (
+        <p className="nota avviso" style={{ margin: "0 0 10px" }}>
+          <b>Blocco prezzo</b> · acconto {egp(o.acconto)} {o.bloccoPagato ? "ricevuto" : "DA RICEVERE"} · scade {fmt.format(o.bloccoScade)}
+          {!o.bloccoPagato && <form action={accontoRicevutoAction} style={{ display: "inline", marginInlineStart: 10 }}><input type="hidden" name="id" value={o.id} /><button className="tasto piccolo">Acconto ricevuto → parte il blocco di 48 ore</button></form>}
+        </p>
+      )}
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         {prossimi(o.stato).map((s) => (
           <form key={s} action={statoOrdineAction}><input type="hidden" name="id" value={o.id} /><input type="hidden" name="stato" value={s} />

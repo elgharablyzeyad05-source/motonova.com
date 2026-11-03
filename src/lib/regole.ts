@@ -15,6 +15,9 @@ export const COMMISSIONE_CONTRASSEGNO = 0.015;   // 1,5% su merce + spedizione
 export const COMMISSIONE_MINIMA = 2500;          // EGP 25
 export const ACCONTO_SOPRA = 2000000;            // EGP 20.000
 export const ACCONTO_PERCENTUALE = 0.2;
+export const ACCONTO_BLOCCO = 80000;               // EGP 800: blocca il prezzo trattato
+export const BLOCCO_ORE = 48;
+export const BLOCCO_ATTESA_ACCONTO_ORE = 6;        // senza acconto ricevuto il blocco decade presto
 export const RATE_OFFERTE = [3, 6, 9, 12] as const;
 
 export function zonaDi(governatorato: string): number {

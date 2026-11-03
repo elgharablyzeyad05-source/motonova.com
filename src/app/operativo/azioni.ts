@@ -5,7 +5,7 @@ import sharp from "sharp";
 import { db } from "@/lib/db";
 import { nuovoId } from "@/lib/id";
 import { richiediAdmin } from "@/lib/sessione";
-import { cambiaStato } from "@/lib/ordini";
+import { accontoRicevuto, cambiaStato } from "@/lib/ordini";
 import { leggiTaglie, slugDi } from "@/lib/regole";
 import { normalizza } from "@/lib/coupon";
 import type { StatoOrdine } from "@/generated/prisma/client";
@@ -15,6 +15,13 @@ const t = (f: FormData, k: string) => String(f.get(k) ?? "").trim();
 const egpToPiastre = (s: string) => { const n = Number(s.replace(",", ".")); return Number.isFinite(n) && n >= 0 ? Math.round(n * 100) : NaN; };
 const ok = (tab: string, msg: string): never => redirect(`/operativo?tab=${tab}&ok=${encodeURIComponent(msg)}`);
 const ko = (tab: string, msg: string, extra = ""): never => redirect(`/operativo?tab=${tab}${extra}&err=${encodeURIComponent(msg)}`);
+
+export async function accontoRicevutoAction(f: FormData) {
+  await admin();
+  const r = await accontoRicevuto(t(f, "id"));
+  if (!r.ok) ko("ordini", r.errore ?? "Errore");
+  revalidatePath("/operativo"); ok("ordini", "Acconto registrato: prezzo bloccato per 48 ore");
+}
 
 export async function statoOrdineAction(f: FormData) {
   await admin();

@@ -1,7 +1,7 @@
 import { randomBytes, randomInt, timingSafeEqual } from "node:crypto";
 import { db } from "./db";
 import { nuovoId } from "./id";
-import { totali, zonaDi, telefonoEgiziano, emailValida, egp, type Metodo } from "./regole";
+import { totali, zonaDi, telefonoEgiziano, emailValida, egp, ACCONTO_BLOCCO, BLOCCO_ORE, BLOCCO_ATTESA_ACCONTO_ORE, type Metodo } from "./regole";
 import { calcolaSconto, chiaveCliente, consuma, valutaCoupon } from "./coupon";
 import { inviaEmail } from "./posta";
 import type { StatoOrdine } from "@/generated/prisma/client";
@@ -19,7 +19,7 @@ export function prossimi(s: StatoOrdine): StatoOrdine[] {
 
 export type DatiOrdine = {
   nome: string; telefono: string; email?: string; governatorato: string; indirizzo: string; note?: string;
-  metodo: Metodo; lingua: string; utenteId?: string | null;
+  metodo: Metodo; lingua: string; utenteId?: string | null; blocco?: boolean;
 };
 
 export type Esaurito = { nome: string; taglia: string; disponibile: number };
@@ -56,6 +56,8 @@ export async function creaOrdine(
     include: { righe: { include: { variante: { include: { prodotto: { include: { marca: true } } } } } } },
   });
   if (!k || !k.righe.length) return { ok: false, errore: { vuoto: true } };
+  if (d.blocco && !k.righe.some((r) => r.prezzoPattuito !== null)) return { ok: false, errore: { campo: "metodo", messaggio: "Il blocco prezzo vale solo per i prodotti trattati" } };
+  if (d.blocco && d.metodo !== "CONTRASSEGNO") return { ok: false, errore: { campo: "metodo", messaggio: "Il blocco prezzo vale solo con pagamento alla consegna" } };
   // Un pezzo vinto all'asta non si paga alla porta: chi rifiuta ha già bloccato il pezzo per giorni.
   if (d.metodo === "CONTRASSEGNO" && k.righe.some((r) => r.prezzoAsta !== null)) {
     return { ok: false, errore: { campo: "metodo", messaggio: "I pezzi vinti all'asta si pagano online: il contrassegno non è disponibile per questo ordine" } };
@@ -93,6 +95,7 @@ export async function creaOrdine(
       }
 
       const t = totali(subtotale, zona, d.metodo, sconto);
+      if (d.blocco) { t.acconto = Math.min(ACCONTO_BLOCCO, t.totale); t.contanti = t.totale - t.acconto; }
       const numero = numeroOrdine();
       const token = randomBytes(16).toString("hex");
       const id = nuovoId();
@@ -102,6 +105,7 @@ export async function creaOrdine(
           governatorato: d.governatorato, zona, indirizzo, note: d.note?.trim() || null,
           pagamento: d.metodo, subtotale: t.subtotale, spedizione: t.spedizione, commissione: t.commissione,
           sconto: t.sconto, totale: t.totale, acconto: t.acconto, contanti: t.contanti, coupon: codice,
+          bloccoScade: d.blocco ? new Date(Date.now() + BLOCCO_ATTESA_ACCONTO_ORE * 3600_000) : null,
           lingua: ["it", "en", "ar"].includes(d.lingua) ? d.lingua : "it",
           righe: {
             create: k.righe.map((r) => ({
@@ -156,7 +160,7 @@ export async function cambiaStato(ordineId: string, nuovo: StatoOrdine): Promise
       for (const u of usi) await tx.$executeRaw`UPDATE "Coupon" SET "usiFatti" = GREATEST(0, "usiFatti" - 1) WHERE "id" = ${u.couponId}`;
       await tx.usoCoupon.deleteMany({ where: { ordineId } });
     }
-    await tx.ordine.update({ where: { id: ordineId }, data: { stato: nuovo } });
+    await tx.ordine.update({ where: { id: ordineId }, data: { stato: nuovo, bloccoScade: null } });
     await tx.storiaOrdine.create({ data: { id: nuovoId(), ordineId, stato: nuovo } });
     return { ok: true };
   });
@@ -165,4 +169,32 @@ export async function cambiaStato(ordineId: string, nuovo: StatoOrdine): Promise
 export function tokenValido(atteso: string, dato: string | undefined | null): boolean {
   if (!dato || dato.length !== atteso.length) return false;
   return timingSafeEqual(Buffer.from(atteso), Buffer.from(dato));
+}
+
+
+/** L'acconto è arrivato: da ora il prezzo è bloccato per 48 ore. */
+export async function accontoRicevuto(ordineId: string): Promise<{ ok: boolean; errore?: string }> {
+  const o = await db.ordine.findUnique({ where: { id: ordineId } });
+  if (!o || !o.bloccoScade || o.stato !== "DA_CONFERMARE") return { ok: false, errore: "Non è un blocco prezzo attivo" };
+  await db.ordine.update({ where: { id: ordineId }, data: { bloccoPagato: true, bloccoScade: new Date(Date.now() + BLOCCO_ORE * 3600_000) } });
+  return { ok: true };
+}
+
+/** Il cliente completa l'acquisto: da blocco diventa ordine normale, con l'acconto già detratto dal totale. */
+export async function confermaBlocco(numero: string, token: string): Promise<{ ok: boolean; errore?: string }> {
+  const o = await db.ordine.findUnique({ where: { numero } });
+  if (!o || !tokenValido(o.token, token)) return { ok: false, errore: "Ordine non trovato" };
+  if (!o.bloccoScade || o.stato !== "DA_CONFERMARE") return { ok: false, errore: "Nessun blocco attivo" };
+  if (!o.bloccoPagato) return { ok: false, errore: "Acconto non ancora ricevuto" };
+  if (o.bloccoScade.getTime() < Date.now()) return { ok: false, errore: "Il blocco è scaduto" };
+  await db.ordine.update({ where: { id: o.id }, data: { bloccoScade: null } });
+  return { ok: true };
+}
+
+/** Chiamato dal giro ogni minuto: i blocchi scaduti si annullano, i pezzi tornano in vendita, l'acconto resta al negozio. */
+export async function scadenzeBlocchi(adesso = new Date()): Promise<number> {
+  const scaduti = await db.ordine.findMany({ where: { bloccoScade: { lte: adesso }, stato: "DA_CONFERMARE" }, select: { id: true } });
+  let n = 0;
+  for (const { id } of scaduti) { const r = await cambiaStato(id, "ANNULLATO"); if (r.ok) n++; }
+  return n;
 }

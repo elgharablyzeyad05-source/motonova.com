@@ -8,8 +8,8 @@ import type { Lingua } from "@/lib/i18n";
 type Prefill = { nome: string; telefono: string; email: string };
 type RigaR = { nome: string; marca: string; taglia: string; quantita: number; prezzo: number };
 
-export function CassaForm({ l, righe, subtotale, sconto, codice, cartaAttiva, haAsta, prefill, erroreCoupon }: {
-  l: Lingua; righe: RigaR[]; subtotale: number; sconto: number; codice: string | null; cartaAttiva: boolean; haAsta: boolean; prefill: Prefill; erroreCoupon: string | null;
+export function CassaForm({ l, righe, subtotale, sconto, codice, cartaAttiva, haAsta, haPattuito, prefill, erroreCoupon }: {
+  l: Lingua; righe: RigaR[]; subtotale: number; sconto: number; codice: string | null; cartaAttiva: boolean; haAsta: boolean; haPattuito: boolean; prefill: Prefill; erroreCoupon: string | null;
 }) {
   const _ = tx(l);
   const [stato, azione, inCorso] = useActionState<StatoCassa, FormData>(ordineAction, {});
@@ -117,6 +117,12 @@ export function CassaForm({ l, righe, subtotale, sconto, codice, cartaAttiva, ha
             {erroreCoupon && <p className="nota avviso" role="alert" style={{ marginTop: 10 }}>{erroreCoupon}</p>}
           </div>
           <button type="submit" className="tasto pieno conferma-ordine" style={{ marginTop: 20 }} disabled={inCorso}>{inCorso ? _("Un attimo…", "One moment…", "لحظة…") : _("Conferma l'ordine", "Place order", "تأكيد الطلب")}</button>
+          {haPattuito && !haAsta && metodo === "CONTRASSEGNO" && (
+            <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid var(--linea, #333)" }}>
+              <p className="lieve" style={{ marginBottom: 10 }}>{_("Non puoi pagare adesso? Blocca il prezzo trattato per 48 ore con un acconto di EGP 800: viene detratto dal totale. Se poi non acquisti, l'acconto non viene rimborsato.", "Cannot pay now? Hold your negotiated price for 48 hours with an EGP 800 deposit: it is deducted from the total. If you then do not buy, the deposit is not refunded.", "لا يمكنك الدفع الآن؟ احجز السعر المتفق عليه لمدة 48 ساعة بعربون 800 جنيه: يُخصم من الإجمالي. وإذا لم تشترِ بعدها فلا يُسترد العربون.")}</p>
+              <button type="submit" name="blocco" value="1" className="tasto" disabled={inCorso}>{_("Blocca il prezzo per 48 ore — EGP 800", "Hold the price for 48 hours — EGP 800", "احجز السعر 48 ساعة — 800 جنيه")}</button>
+            </div>
+          )}
           <p className="mono lieve" style={{ marginTop: 12 }}>{_("Ti chiamiamo per confermare prima di spedire.", "We call you to confirm before shipping.", "نتصل بك للتأكيد قبل الشحن.")}</p>
         </aside>
       </form>

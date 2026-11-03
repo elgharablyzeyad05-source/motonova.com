@@ -1,0 +1,1 @@
+ALTER TABLE "Ordine" ADD COLUMN "bloccoScade" TIMESTAMP(3), ADD COLUMN "bloccoPagato" BOOLEAN NOT NULL DEFAULT false;

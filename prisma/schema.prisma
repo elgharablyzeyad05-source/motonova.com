@@ -196,6 +196,9 @@ model Ordine {
   totale       Int
   acconto      Int           @default(0)
   contanti     Int           @default(0)
+  // Blocco prezzo: acconto fisso che tiene i pezzi al prezzo trattato. Senza conferma entro la scadenza l'ordine si annulla e l'acconto non si rimborsa.
+  bloccoScade  DateTime?
+  bloccoPagato Boolean       @default(false)
   coupon       String?
   lingua       String        @default("it")
   creato       DateTime      @default(now())

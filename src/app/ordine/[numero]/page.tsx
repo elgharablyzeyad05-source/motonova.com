@@ -6,6 +6,7 @@ import { lingua, tx } from "@/lib/contesto";
 import { href } from "@/lib/i18n";
 import { egp, ZONE } from "@/lib/regole";
 import { FLUSSO, tokenValido } from "@/lib/ordini";
+import { confermaBloccoAction } from "@/app/azioni";
 import { utenteCorrente } from "@/lib/sessione";
 
 export const metadata: Metadata = { title: "Il tuo ordine", robots: { index: false, follow: false } };
@@ -34,6 +35,19 @@ export default async function Ordine({ params, searchParams }: { params: Promise
     <div className="foglio sezione" style={{ maxWidth: 820 }}>
       {nuovo && <div className="nota ok" role="status" style={{ marginBottom: 24 }}><b>{_("Ordine ricevuto. Grazie.", "Order received. Thank you.", "تم استلام الطلب. شكراً لك.")}</b>
         <p>{_("Ti chiamiamo per confermare prima di spedire.", "We will call you to confirm before shipping.", "سنتصل بك للتأكيد قبل الشحن.")}</p></div>}
+      {o.bloccoScade && o.stato === "DA_CONFERMARE" && (
+        <div className="nota avviso" role="status" style={{ marginBottom: 24 }}>
+          <b>{_("Prezzo bloccato", "Price on hold", "السعر محجوز")}</b>
+          {o.bloccoPagato ? <>
+            <p>{_(`Il tuo prezzo e i tuoi pezzi sono riservati fino a ${fmt.format(o.bloccoScade)}. Per completare l'acquisto conferma qui sotto: l'acconto di ${egp(o.acconto)} è già detratto, il resto si paga alla consegna.`, `Your price and pieces are held until ${fmt.format(o.bloccoScade)}. To complete the purchase, confirm below: the ${egp(o.acconto)} deposit is already deducted and the rest is paid on delivery.`, `سعرك وقطعك محجوزة حتى ${fmt.format(o.bloccoScade)}. لإتمام الشراء أكّد أدناه: تم خصم العربون ${egp(o.acconto)} والباقي يُدفع عند الاستلام.`)}</p>
+            <p className="lieve">{_("Se non confermi entro la scadenza il blocco decade e l'acconto non viene rimborsato.", "If you do not confirm before the deadline the hold lapses and the deposit is not refunded.", "إذا لم تؤكد قبل الموعد ينتهي الحجز ولا يُسترد العربون.")}</p>
+            <form action={confermaBloccoAction} style={{ marginTop: 12 }}><input type="hidden" name="numero" value={o.numero} /><input type="hidden" name="t" value={uno(sp.t)} />
+              <button className="tasto pieno">{_("Conferma l'acquisto", "Confirm purchase", "تأكيد الشراء")}</button></form>
+          </> : <p>{_(`Per attivare il blocco servono ${egp(o.acconto)} di acconto. Scrivici nella chat del sito: ti diamo le istruzioni. Se l'acconto non arriva entro ${fmt.format(o.bloccoScade)} il blocco decade.`, `To activate the hold we need a ${egp(o.acconto)} deposit. Write to us in the site chat for instructions. If the deposit does not arrive before ${fmt.format(o.bloccoScade)} the hold lapses.`, `لتفعيل الحجز نحتاج عربوناً قدره ${egp(o.acconto)}. راسلنا في دردشة الموقع لنرسل لك التعليمات. إذا لم يصل العربون قبل ${fmt.format(o.bloccoScade)} ينتهي الحجز.`)}</p>}
+        </div>
+      )}
+      {uno(sp.blocco) === "ok" && <div className="nota ok" role="status" style={{ marginBottom: 24 }}>{_("Acquisto confermato. Ti chiamiamo per la consegna.", "Purchase confirmed. We will call you about delivery.", "تم تأكيد الشراء. سنتصل بك بخصوص التسليم.")}</div>}
+      {uno(sp.blocco) === "errore" && <div className="nota avviso" role="alert" style={{ marginBottom: 24 }}>{_("Non è stato possibile confermare: il blocco potrebbe essere scaduto.", "Could not confirm: the hold may have expired.", "تعذّر التأكيد: ربما انتهى الحجز.")}</div>}
       {uno(sp.codice) === "perso" && <div className="nota avviso" role="status" style={{ marginBottom: 24 }}>
         {_("Il codice sconto non valeva più al momento dell'ordine: l'ordine è a prezzo pieno.", "The discount code was no longer valid when the order was placed: the order is at full price.", "لم يعد رمز الخصم صالحاً وقت الطلب: الطلب بالسعر الكامل.")}</div>}
       {o.email && <p className="mono lieve" style={{ marginBottom: 8 }}>{_("Conferma inviata a", "Confirmation sent to", "أُرسل التأكيد إلى")} {o.email}</p>}

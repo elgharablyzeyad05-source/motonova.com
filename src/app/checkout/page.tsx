@@ -32,7 +32,7 @@ export default async function Checkout({ searchParams }: { searchParams: Promise
       <h1 style={{ marginBottom: 28 }}>{_("Cassa", "Checkout", "إتمام الشراء")}</h1>
       <CassaForm l={l} subtotale={v.subtotale} sconto={v.coupon?.sconto ?? 0} codice={v.coupon?.codice ?? null}
         righe={v.righe.map((r) => ({ nome: r.nome, marca: r.marca, taglia: r.taglia, quantita: r.quantita, prezzo: r.prezzo }))}
-        cartaAttiva={Boolean(process.env.PAYMOB_API_KEY)} haAsta={v.righe.some((r) => r.unico)}
+        cartaAttiva={Boolean(process.env.PAYMOB_API_KEY)} haAsta={v.righe.some((r) => r.unico)} haPattuito={v.righe.some((r) => r.pattuito)}
         prefill={{ nome: u?.nome ?? "", telefono: u?.telefono ?? "", email: u?.email ?? "" }} erroreCoupon={errore} />
     </div>
   );
