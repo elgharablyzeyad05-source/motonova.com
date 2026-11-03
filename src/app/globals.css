@@ -197,17 +197,32 @@ table.dati th { font-family: var(--m); font-size: 10.5px; letter-spacing: .1em; 
 .su-in-alto:hover { background: var(--inchiostro); color: var(--carta); }
 .su-in-alto svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-/* testata da telefono: ordinata, non resta incollata in cima */
+/* menu da telefono: tre strisce → pannello scuro */
+.hamburger, .menu-tel { display: none; }
 @media (max-width: 860px) {
   .testata { position: static; }
-  .testata .riga { gap: 10px 12px; padding-block: 12px; min-height: 0; }
-  .testata .marchio { order: 1; }
-  .testata .lingue { order: 2; }
-  .testata .navi { order: 3; flex-basis: 100%; flex-wrap: nowrap; overflow-x: auto; gap: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; border-top: 1px solid var(--bordo); padding-top: 4px; }
-  .testata .navi::-webkit-scrollbar { display: none; }
-  .testata .navi a { white-space: nowrap; flex: none; }
-  .testata .cerca-testata { order: 4; flex-basis: 100%; }
-  .testata .cerca-testata input { width: 100%; }
+  .testata .riga { flex-wrap: nowrap; min-height: 0; padding-block: 12px; }
+  .testata .navi, .testata .cerca-testata, .testata .lingue { display: none; }
+  .hamburger { display: flex; flex-direction: column; justify-content: center; gap: 6px; width: 46px; height: 46px; padding: 0 11px; background: none; border: 1px solid var(--inchiostro); cursor: pointer; flex: none; }
+  .hamburger span { display: block; height: 2px; background: var(--inchiostro); }
+  .menu-tel { display: flex; flex-direction: column; position: fixed; inset: 0; z-index: 300; background: var(--inchiostro); color: var(--carta); padding: 14px clamp(16px, 5vw, 28px) 28px; overflow-y: auto; opacity: 0; visibility: hidden; transform: translateY(-12px); transition: opacity .22s, transform .22s, visibility 0s .22s; }
+  .menu-tel.aperto { opacity: 1; visibility: visible; transform: none; transition: opacity .22s, transform .22s; }
+  .menu-tel-testa { display: flex; align-items: center; justify-content: space-between; min-height: 46px; margin-bottom: 18px; }
+  .menu-tel-testa .mono { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; opacity: .6; }
+  .menu-tel-chiudi { width: 46px; height: 46px; background: none; border: 1px solid rgba(239,237,232,.5); color: var(--carta); display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
+  .menu-tel-chiudi svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+  .menu-tel-voci { display: flex; flex-direction: column; }
+  .menu-tel-voci a { color: var(--carta); text-decoration: none; font-family: var(--x); font-variation-settings: "wdth" 125, "wght" 900; font-size: clamp(30px, 9vw, 44px); letter-spacing: -.03em; text-transform: uppercase; line-height: 1; padding: 16px 0; border-bottom: 1px solid rgba(239,237,232,.16); opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .3s, color .15s; }
+  .menu-tel.aperto .menu-tel-voci a { opacity: 1; transform: none; }
+  .menu-tel-voci a[aria-current="page"] span { border-bottom: 3px solid var(--rosso); }
+  .menu-tel-voci a:active { color: var(--rosso); }
+  html[dir="rtl"] .menu-tel-voci a { letter-spacing: 0; text-transform: none; font-variation-settings: normal; font-weight: 800; }
+  .menu-tel-cerca { margin-top: 26px; }
+  .menu-tel-cerca input { width: 100%; background: transparent; color: var(--carta); border: 1px solid rgba(239,237,232,.5); padding: 14px 16px; font-size: 16px; }
+  .menu-tel-cerca input::placeholder { color: rgba(239,237,232,.55); }
+  .menu-tel-lingue { display: flex; gap: 8px; margin-top: 22px; }
+  .menu-tel-lingue a { padding: 10px 16px; border: 1px solid rgba(239,237,232,.4); color: var(--carta); text-decoration: none; font-family: var(--m); font-size: 13px; }
+  .menu-tel-lingue a[aria-current="true"] { background: var(--carta); color: var(--inchiostro); border-color: var(--carta); }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
@@ -255,3 +270,6 @@ html[dir="rtl"] .hero-home h1 { line-height: 1.05; letter-spacing: 0; }
 .chat-pannello form button { border: 0; border-inline-start: 1px solid var(--inchiostro); background: var(--inchiostro); color: var(--carta); padding: 0 16px; font: 11px var(--m); letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
 .chat-pannello form button:disabled { opacity: .45; cursor: not-allowed; }
 @media (max-width: 760px) { .chat-admin { grid-template-columns: 1fr !important; } }
+
+/* il titolo della home non deve uscire dallo schermo su telefono */
+@media (max-width: 860px) { .hero-home h1 { font-size: 10.2vw; } }
