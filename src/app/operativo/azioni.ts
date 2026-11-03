@@ -67,10 +67,13 @@ export async function salvaProdottoAction(f: FormData) {
   const prezzo = egpToPiastre(t(f, "prezzo")); if (!(prezzo > 0)) ko("prodotti", "Prezzo non valido (in EGP, es. 5920)", back);
   const prima = t(f, "prezzoPrima") ? egpToPiastre(t(f, "prezzoPrima")) : null;
   if (prima !== null && !(prima > prezzo)) ko("prodotti", "Il prezzo di prima deve essere più alto del prezzo", back);
-  const minimo = t(f, "prezzoMinimo") ? egpToPiastre(t(f, "prezzoMinimo")) : null;
-  if (minimo !== null && !(minimo > 0 && minimo <= prezzo)) ko("prodotti", "Il prezzo minimo deve essere maggiore di zero e non superiore al prezzo", back);
   let taglie; try { taglie = leggiTaglie(t(f, "taglie")); } catch (e) { return ko("prodotti", (e as Error).message, back); }
   const tipo = t(f, "tipo") === "SECOND_LIFE" ? "SECOND_LIFE" : "NUOVO";
+  // L'usato è sempre un pezzo unico (si vende all'asta); il nuovo può avere più pezzi.
+  if (tipo === "SECOND_LIFE" && !(taglie.length === 1 && taglie[0].giacenza === 1)) ko("prodotti", "Il prodotto usato è un pezzo unico: scrivi una sola taglia con 1 pezzo (es. L:1)", back);
+  const trattabile = tipo === "NUOVO" && f.get("trattabile") === "on";
+  const minimo = t(f, "prezzoMinimo") ? egpToPiastre(t(f, "prezzoMinimo")) : null;
+  if (trattabile && (minimo === null || !(minimo > 0 && minimo <= prezzo))) ko("prodotti", "Con la trattativa attiva scrivi il prezzo minimo: maggiore di zero e non superiore al prezzo", back);
   const categoria = t(f, "categoria");
   if (!categoria) ko("prodotti", "Scegli la categoria", back);
   const stili = f.getAll("stili").map(String);
@@ -81,7 +84,7 @@ export async function salvaProdottoAction(f: FormData) {
     sottocategoria: t(f, "sottocategoria") || null, colore: t(f, "colore") || null, genere: t(f, "genere") || null,
     materiale: t(f, "materiale") || null, certificazione: t(f, "certificazione") || null, moto: t(f, "moto") || null,
     specs: t(f, "specs").split("\n").map((r) => r.trim()).filter(Boolean).map((r) => { const i = r.indexOf(":"); return i > 0 ? [r.slice(0, i).trim(), r.slice(i + 1).trim()] : [r, ""]; }),
-    prezzo, prezzoMinimo: t(f, "tipo") === "SECOND_LIFE" ? null : minimo, prezzoPrima: prima, nota: t(f, "nota"), luogo: t(f, "luogo"), grado: t(f, "grado") || null, descrizione,
+    prezzo, prezzoMinimo: trattabile ? minimo : null, trattabile, prezzoPrima: prima, nota: t(f, "nota"), luogo: t(f, "luogo"), grado: t(f, "grado") || null, descrizione,
     attivo: f.get("attivo") === "on",
   };
   let pid = id;

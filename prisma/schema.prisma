@@ -99,6 +99,7 @@ model Prodotto {
   prezzoPrima Int?
   // Prezzo più basso che il venditore accetta in trattativa (null = prezzo fisso). Mai mostrato al cliente.
   prezzoMinimo Int?
+  trattabile  Boolean      @default(false)
   nota        String       @default("")
   luogo       String       @default("")
   grado       String?

@@ -79,7 +79,7 @@ export default async function Prodotto({ params }: Props) {
           <p className="tenue" style={{ marginBottom: 16 }}>{tr(l, p.sottotitolo)}</p>
           <p className="prezzo-grande tab">{egp(p.prezzo)}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</p>
           <p className="mono lieve" style={{ margin: "6px 0 22px" }}>{_("IVA e dazio inclusi", "VAT and duty included", "شامل الضريبة والجمارك")}</p>
-          <AggiungiForm iniziale={iniziale} checkout={href(l, "/checkout")} trattabile={Boolean(p.prezzoMinimo) && p.tipo === "NUOVO"}
+          <AggiungiForm iniziale={iniziale} checkout={href(l, "/checkout")} trattabile={p.trattabile && Boolean(p.prezzoMinimo) && p.tipo === "NUOVO"}
             varianti={varianti.map((v) => ({ id: v.id, taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
             testi={{
               aggiungi: _("Aggiungi al carrello", "Add to cart", "أضف إلى السلة"), aggiunto: _("Aggiunto ✓", "Added ✓", "تمت الإضافة ✓"), esaurito: _("Esaurito", "Sold out", "نفد"),
@@ -88,10 +88,11 @@ export default async function Prodotto({ params }: Props) {
               disp: _("Disponibile — solo {n}", "In stock — only {n}", "متوفر — {n} فقط"),
               dispOk: _("Disponibile", "In stock", "متوفر"),
               acquista: _("Acquista ora", "Buy now", "اشترِ الآن"),
-              offri: "", offertaEtichetta: _("Vuoi proporre un prezzo? Scrivi la tua offerta in EGP", "Want to name your price? Enter your offer in EGP", "تريد اقتراح سعر؟ اكتب عرضك بالجنيه"),
+              offri: "", offertaEtichetta: _("Vuoi proporre un prezzo? Scrivi la tua offerta in EGP per ogni pezzo", "Want to name your price? Enter your offer in EGP per piece", "تريد اقتراح سعر؟ اكتب عرضك بالجنيه للقطعة"),
               offertaInvia: _("Fai un'offerta", "Make an offer", "قدّم عرضاً"),
-              offertaOk: _("Offerta accettata: {p} EGP. È nel carrello (1 pezzo). La spedizione si calcola al checkout.", "Offer accepted: {p} EGP. It is in your cart (1 piece). Shipping is calculated at checkout.", "تم قبول العرض: {p} جنيه. القطعة في السلة (قطعة واحدة). يُحسب الشحن عند الدفع."),
+              offertaOk: _("Offerta accettata: {p} EGP. È nel carrello ({q}). La spedizione si calcola al checkout.", "Offer accepted: {p} EGP. It is in your cart ({q}). Shipping is calculated at checkout.", "تم قبول العرض: {p} جنيه. في السلة ({q}). يُحسب الشحن عند الدفع."),
               offertaVai: _("Vai al carrello", "Go to cart", "اذهب إلى السلة"),
+              pezzi: _("pezzi", "pieces", "قطعة"),
               restanti: _("Tentativi rimasti: {n}.", "Attempts left: {n}.", "المحاولات المتبقية: {n}."),
             }} />
           <div style={{ marginTop: 28 }}>

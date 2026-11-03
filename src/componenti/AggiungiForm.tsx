@@ -7,7 +7,7 @@ type V = { id: string; taglia: string; disponibile: number; misura?: string };
 
 export function AggiungiForm({ varianti, testi, iniziale, checkout, trattabile }: {
   varianti: V[]; iniziale: string; checkout: string; trattabile?: boolean;
-  testi: { aggiungi: string; aggiunto: string; esaurito: string; taglia: string; ultimi: string; disp: string; dispOk: string; acquista: string; offri: string; offertaEtichetta: string; offertaInvia: string; offertaOk: string; offertaVai: string; restanti: string };
+  testi: { aggiungi: string; aggiunto: string; esaurito: string; taglia: string; ultimi: string; disp: string; dispOk: string; acquista: string; offri: string; offertaEtichetta: string; offertaInvia: string; offertaOk: string; offertaVai: string; pezzi: string; restanti: string };
 }) {
   const [scelta, setScelta] = useState(iniziale);
   const [messaggio, setMessaggio] = useState<string | null>(null);
@@ -15,6 +15,7 @@ export function AggiungiForm({ varianti, testi, iniziale, checkout, trattabile }
   const [inCorso, avvia] = useTransition();
   const router = useRouter();
   const [offerta, setOfferta] = useState("");
+  const [qOfferta, setQOfferta] = useState("1");
   const [esitoOfferta, setEsitoOfferta] = useState<{ ok: boolean; testo: string } | null>(null);
   const v = varianti.find((x) => x.id === scelta);
   const nessuna = varianti.every((x) => x.disponibile <= 0);
@@ -60,13 +61,14 @@ export function AggiungiForm({ varianti, testi, iniziale, checkout, trattabile }
         <div className="trattativa" style={{ marginTop: 22, paddingTop: 18, borderTop: "1px solid var(--linea, #333)" }}>
           <label htmlFor="offerta" className="mono tenue" style={{ display: "block", marginBottom: 8 }}>{testi.offertaEtichetta}</label>
           <div style={{ display: "flex", gap: 8 }}>
+            <input aria-label={testi.pezzi} type="number" min={1} max={Math.min(20, v.disponibile)} value={qOfferta} onChange={(e) => setQOfferta(e.target.value)} dir="ltr" style={{ width: 64 }} />
             <input id="offerta" inputMode="decimal" value={offerta} onChange={(e) => setOfferta(e.target.value)} placeholder="EGP" dir="ltr" style={{ flex: 1, minWidth: 0 }} />
             <button type="button" className="tasto" disabled={inCorso || !offerta.trim()} onClick={() => {
               setEsitoOfferta(null);
               avvia(async () => {
-                const r = await offriPrezzo(v.id, offerta);
+                const r = await offriPrezzo(v.id, offerta, Number(qOfferta) || 1);
                 if (r.ok) {
-                  setEsitoOfferta({ ok: true, testo: testi.offertaOk.replace("{p}", String(r.prezzo / 100)) });
+                  setEsitoOfferta({ ok: true, testo: testi.offertaOk.replace("{p}", String(r.prezzo / 100)).replace("{q}", `${r.quantita} ${testi.pezzi}`) });
                   window.dispatchEvent(new CustomEvent("mn:aggiunto", { detail: { ...r, taglia: v.taglia } }));
                 } else setEsitoOfferta({ ok: false, testo: r.messaggio + (r.restanti ? " " + testi.restanti.replace("{n}", String(r.restanti)) : "") });
               });
