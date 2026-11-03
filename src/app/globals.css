@@ -258,10 +258,10 @@ html[dir="rtl"] .etichetta-sez { letter-spacing: 0; font-size: 13px; text-transf
 .cat-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,11,12,.85) 0%, rgba(11,11,12,0) 55%); }
 .cat-card .sagoma { position: absolute; top: 28%; inset-inline-start: 50%; transform: translateX(-50%); width: 46%; fill: none; stroke: rgba(239,237,232,.22); stroke-width: 2.2; stroke-dasharray: 5 6; }
 .cat-card > .cat-n, .cat-card > .cat-nome { position: relative; z-index: 2; }
-.cat-card .cat-n { position: absolute; top: 12px; inset-inline-start: 14px; font-size: 11px; letter-spacing: .1em; color: rgba(239,237,232,.75); }
+.cat-card .cat-n { position: absolute; top: 12px; inset-inline-start: 14px; font-size: 11px; letter-spacing: .1em; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.55); }
 .cat-nome { font-family: var(--x); font-variation-settings: "wdth" 118, "wght" 800; font-size: clamp(16px, 4.4vw, 20px); letter-spacing: -.01em; text-transform: uppercase; line-height: 1.05; }
 html[dir="rtl"] .cat-nome { letter-spacing: 0; text-transform: none; font-variation-settings: normal; font-weight: 800; }
-.cat-freccia { position: absolute; z-index: 2; top: 12px; inset-inline-end: 12px; width: 18px; height: 18px; stroke: var(--carta); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; opacity: .8; transition: color .18s; }
+.cat-freccia { position: absolute; z-index: 2; top: 12px; inset-inline-end: 12px; width: 18px; height: 18px; stroke: var(--carta); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; opacity: .95; filter: drop-shadow(0 1px 4px rgba(0,0,0,.55)); transition: color .18s; }
 html[dir="rtl"] .cat-freccia { transform: scaleX(-1); }
 .cat-card:hover img, .cat-card:focus-visible img { transform: scale(1.05); }
 .cat-card:hover .cat-freccia, .cat-card:focus-visible .cat-freccia { stroke: var(--rosso); opacity: 1; }
