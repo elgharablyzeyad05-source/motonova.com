@@ -1,15 +1,19 @@
-// Limitatore in memoria: ferma chi prova cento password o iscrive mille email.
-// È per istanza: su un solo server basta; con più server serve uno store condiviso.
-const colpi = new Map<string, number[]>();
+import { db } from "./db";
 
-export function limita(chiave: string, max: number, finestraMs: number): boolean {
-  const ora = Date.now();
-  const lista = (colpi.get(chiave) ?? []).filter((t) => ora - t < finestraMs);
-  if (lista.length >= max) { colpi.set(chiave, lista); return false; }
-  lista.push(ora);
-  colpi.set(chiave, lista);
-  if (colpi.size > 5000) for (const [k, v] of colpi) if (!v.some((t) => ora - t < finestraMs)) colpi.delete(k);
-  return true;
+/** Limitatore su database: i contatori sono condivisi fra tutte le istanze (su Vercel la memoria no).
+ *  Finestra fissa. Se il database non risponde lascia passare: meglio un abuso raro di un sito fermo. */
+export async function limita(chiave: string, max: number, finestraMs: number): Promise<boolean> {
+  try {
+    const sec = Math.max(1, Math.round(finestraMs / 1000));
+    const r = await db.$queryRaw<{ conteggio: number }[]>`
+      INSERT INTO "Limite" ("chiave", "conteggio", "scade") VALUES (${chiave}, 1, now() + make_interval(secs => ${sec}))
+      ON CONFLICT ("chiave") DO UPDATE SET
+        "conteggio" = CASE WHEN "Limite"."scade" < now() THEN 1 ELSE "Limite"."conteggio" + 1 END,
+        "scade" = CASE WHEN "Limite"."scade" < now() THEN now() + make_interval(secs => ${sec}) ELSE "Limite"."scade" END
+      RETURNING "conteggio"`;
+    if (Math.random() < 0.02) db.$executeRaw`DELETE FROM "Limite" WHERE "scade" < now() - interval '1 day'`.catch(() => {});
+    return (r[0]?.conteggio ?? 1) <= max;
+  } catch { return true; }
 }
 
-export function azzera(chiave: string) { colpi.delete(chiave); }
+export async function azzera(chiave: string) { await db.$executeRaw`DELETE FROM "Limite" WHERE "chiave" = ${chiave}`.catch(() => {}); }

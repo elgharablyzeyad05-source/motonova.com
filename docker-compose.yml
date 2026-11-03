@@ -11,6 +11,7 @@ services:
       - ./prisma/migrations/0001_init/migration.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
       - ./prisma/migrations/0002_chat/migration.sql:/docker-entrypoint-initdb.d/02-chat.sql:ro
       - ./prisma/migrations/0003_media/migration.sql:/docker-entrypoint-initdb.d/03-media.sql:ro
+      - ./prisma/migrations/0004_filtri_limite/migration.sql:/docker-entrypoint-initdb.d/04-filtri.sql:ro
   app:
     build: .
     restart: always

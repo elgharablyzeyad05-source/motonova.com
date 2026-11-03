@@ -21,10 +21,11 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
   const f = {
     q: uno(sp.q), cat: uno(sp.cat), stile: uno(sp.stile), marca: uno(sp.marca), taglia: uno(sp.taglia),
     max: Number(uno(sp.max)) * 100 || undefined, solo: uno(sp.solo) === "1", ord: uno(sp.ord),
+    sotto: uno(sp.sotto), colore: uno(sp.colore), genere: uno(sp.genere), materiale: uno(sp.materiale), cert: uno(sp.cert), moto: uno(sp.moto),
   };
   const [lista, opz, u] = await Promise.all([cerca(f), opzioniFiltri(), utenteCorrente()]);
   const pref = u ? new Set((await db.preferito.findMany({ where: { utenteId: u.id }, select: { prodotto: { select: { slug: true } } } })).map((x) => x.prodotto.slug)) : new Set<string>();
-  const attivi = [f.q, f.cat, f.stile, f.marca, f.taglia, f.max, f.solo ? "1" : ""].filter(Boolean).length;
+  const attivi = [f.q, f.cat, f.stile, f.marca, f.taglia, f.max, f.solo ? "1" : "", f.sotto, f.colore, f.genere, f.materiale, f.cert, f.moto].filter(Boolean).length;
   const torna = href(l, "/negozio") + (Object.keys(sp).length ? "?" + new URLSearchParams(Object.entries(sp).flatMap(([k, v]) => (v === undefined ? [] : [[k, uno(v)]]))).toString() : "");
 
   return (
@@ -64,6 +65,14 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
           </fieldset>
           <fieldset><legend>{_("Prezzo massimo (EGP)", "Maximum price (EGP)", "السعر الأقصى (جنيه)")}</legend>
             <input name="max" type="number" min="0" step="100" inputMode="numeric" defaultValue={f.max ? f.max / 100 : ""} aria-label={_("Prezzo massimo", "Maximum price", "السعر الأقصى")} />
+          </fieldset>
+          {([["sotto", "Sottocategoria", "Subcategory", "الفئة الفرعية", opz.sotto, f.sotto], ["colore", "Colore", "Colour", "اللون", opz.colori, f.colore], ["genere", "Genere", "Gender", "الجنس", opz.generi, f.genere], ["materiale", "Materiale", "Material", "الخامة", opz.materiali, f.materiale], ["cert", "Certificazione", "Certification", "الشهادة", opz.cert, f.cert]] as [string, string, string, string, string[], string][]).filter(([, , , , v]) => v.length > 0).map(([k, it, en, ar, vals, cur]) => (
+            <fieldset key={k}><legend>{_(it, en, ar)}</legend>
+              <select name={k} defaultValue={cur} aria-label={_(it, en, ar)}><option value="">{_("Tutti", "All", "الكل")}</option>{vals.map((v) => <option key={v} value={v}>{v}</option>)}</select>
+            </fieldset>
+          ))}
+          <fieldset><legend>{_("Modello di moto", "Motorcycle model", "موديل الدراجة")}</legend>
+            <input name="moto" defaultValue={f.moto} placeholder={_("es. MT-07", "e.g. MT-07", "مثال: MT-07")} aria-label={_("Modello di moto", "Motorcycle model", "موديل الدراجة")} />
           </fieldset>
           <fieldset><legend>{_("Disponibilità", "Availability", "التوفر")}</legend>
             <div className="opz"><input type="checkbox" name="solo" id="solo" value="1" defaultChecked={f.solo} /><label htmlFor="solo" style={{ margin: 0, textTransform: "none", letterSpacing: 0, fontFamily: "var(--x)", fontSize: 14, color: "inherit" }}>{_("Solo disponibili", "In stock only", "المتوفر فقط")}</label></div>

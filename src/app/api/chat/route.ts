@@ -10,7 +10,7 @@ const vista = (m: { id: string; daStaff: boolean; testo: string; ts: Date }) => 
 
 /** Messaggi della propria conversazione; segna come letti quelli dello staff se la chat è aperta. */
 export async function GET(req: Request) {
-  if (!limita(`chat-g:${ipDi(req)}`, 120, 60_000)) return NextResponse.json({ errore: "troppe richieste" }, { status: 429 });
+  if (!(await limita(`chat-g:${ipDi(req)}`, 120, 60_000))) return NextResponse.json({ errore: "troppe richieste" }, { status: 429 });
   const c = await conversazioneCorrente();
   if (!c) return NextResponse.json({ messaggi: [], nonLetti: 0 });
   const url = new URL(req.url);
@@ -22,7 +22,7 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   const ip = ipDi(req);
-  if (!limita(`chat-p:${ip}`, 12, 60_000) || !limita(`chat-d:${ip}`, 150, 24 * 3600_000)) return NextResponse.json({ errore: "Troppi messaggi, riprova tra poco" }, { status: 429 });
+  if (!(await limita(`chat-p:${ip}`, 12, 60_000)) || !(await limita(`chat-d:${ip}`, 150, 24 * 3600_000))) return NextResponse.json({ errore: "Troppi messaggi, riprova tra poco" }, { status: 429 });
   let corpo: { testo?: unknown; nome?: unknown };
   try { corpo = await req.json(); } catch { return NextResponse.json({ errore: "richiesta non valida" }, { status: 400 }); }
   const testo = pulisci(corpo.testo);

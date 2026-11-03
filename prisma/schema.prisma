@@ -103,6 +103,12 @@ model Prodotto {
   descrizione String[]
   specs       Json         @default("[]")
   report      Json?
+  sottocategoria String?
+  colore      String?
+  genere      String?
+  materiale   String?
+  certificazione String?
+  moto        String?
   attivo      Boolean      @default(true)
   creato      DateTime     @default(now())
   varianti    Variante[]
@@ -329,4 +335,11 @@ model Media {
   percorso String   @id
   dati     Bytes
   creato   DateTime @default(now())
+}
+
+// Contatori anti-abuso condivisi fra tutte le istanze (su Vercel la memoria non è condivisa).
+model Limite {
+  chiave   String   @id
+  conteggio Int
+  scade    DateTime
 }

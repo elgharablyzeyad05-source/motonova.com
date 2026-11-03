@@ -1,12 +1,13 @@
 import { db } from "./db";
 import { Prisma } from "@/generated/prisma/client";
 
-export const CATEGORIE = ["caschi", "giacche", "guanti", "stivali", "protezioni", "accessori"] as const;
+export const CATEGORIE = ["caschi", "giacche", "pantaloni", "tute", "gilet", "guanti", "stivali", "protezioni", "accessori", "manutenzione"] as const;
 export const STILI = ["sport", "street", "adventure", "touring", "urban"] as const;
 
 export const ETICHETTA_CAT: Record<string, string> = {
   caschi: "Caschi", giacche: "Giacche", guanti: "Guanti", stivali: "Stivali e scarpe",
   protezioni: "Protezioni", accessori: "Accessori",
+  pantaloni: "Pantaloni", tute: "Tute", gilet: "Gilet", manutenzione: "Cura e manutenzione",
 };
 export const ETICHETTA_STILE: Record<string, string> = {
   sport: "Sport", street: "Street", adventure: "Adventure", touring: "Touring", urban: "Urban",
@@ -15,6 +16,7 @@ export const ETICHETTA_STILE: Record<string, string> = {
 export type Filtri = {
   q?: string; cat?: string; stile?: string; marca?: string; taglia?: string;
   max?: number; solo?: boolean; ord?: string;
+  sotto?: string; colore?: string; genere?: string; materiale?: string; cert?: string; moto?: string;
 };
 
 const conVarianti = {
@@ -36,6 +38,12 @@ export async function cerca(f: Filtri): Promise<ProdottoLista[]> {
   if (f.stile && (STILI as readonly string[]).includes(f.stile)) where.stili = { has: f.stile };
   if (f.marca) where.marca = { slug: f.marca };
   if (f.max && f.max > 0) where.prezzo = { lte: f.max };
+  if (f.sotto) where.sottocategoria = { equals: f.sotto, mode: "insensitive" };
+  if (f.colore) where.colore = { equals: f.colore, mode: "insensitive" };
+  if (f.genere) where.genere = { equals: f.genere, mode: "insensitive" };
+  if (f.materiale) where.materiale = { equals: f.materiale, mode: "insensitive" };
+  if (f.cert) where.certificazione = { contains: f.cert, mode: "insensitive" };
+  if (f.moto) where.moto = { contains: f.moto.slice(0, 60), mode: "insensitive" };
   const q = f.q?.trim();
   if (q) {
     where.OR = [
@@ -43,6 +51,8 @@ export async function cerca(f: Filtri): Promise<ProdottoLista[]> {
       { sottotitolo: { contains: q, mode: "insensitive" } },
       { slug: { contains: q, mode: "insensitive" } },
       { marca: { nome: { contains: q, mode: "insensitive" } } },
+      { moto: { contains: q, mode: "insensitive" } },
+      { sottocategoria: { contains: q, mode: "insensitive" } },
     ];
   }
   if (f.taglia || f.solo) {
@@ -68,17 +78,22 @@ function scontoNum(p: { prezzo: number; prezzoPrima: number | null }) {
 
 /** Conteggi per i filtri: opzioni che si spengono a zero risultati. */
 export async function opzioniFiltri() {
-  const [cat, stili, marche, taglie] = await Promise.all([
+  const distinti = async (campo: "sottocategoria" | "colore" | "genere" | "materiale" | "certificazione") =>
+    (await db.prodotto.findMany({ where: { attivo: true, tipo: "NUOVO", NOT: { [campo]: null } }, distinct: [campo], select: { [campo]: true }, orderBy: { [campo]: "asc" } }))
+      .map((r) => (r as unknown as Record<string, string | null>)[campo]).filter((v): v is string => !!v);
+  const [cat, stili, marche, taglie, sotto, colori, generi, materiali, cert] = await Promise.all([
     db.prodotto.groupBy({ by: ["categoria"], where: { attivo: true, tipo: "NUOVO" }, _count: true }),
     db.$queryRaw<{ s: string; n: bigint }[]>`SELECT s, COUNT(*) AS n FROM "Prodotto", UNNEST("stili") AS s WHERE "attivo" AND "tipo" = 'NUOVO' GROUP BY s`,
     db.marca.findMany({ where: { prodotti: { some: { attivo: true, tipo: "NUOVO" } } }, orderBy: { nome: "asc" }, select: { slug: true, nome: true, _count: { select: { prodotti: { where: { attivo: true, tipo: "NUOVO" } } } } } }),
     db.$queryRaw<{ taglia: string }[]>`SELECT DISTINCT v."taglia" FROM "Variante" v JOIN "Prodotto" p ON p.id = v."prodottoId" WHERE p."attivo" AND p."tipo" = 'NUOVO' ORDER BY v."taglia"`,
+    distinti("sottocategoria"), distinti("colore"), distinti("genere"), distinti("materiale"), distinti("certificazione"),
   ]);
   return {
     cat: Object.fromEntries(cat.map((c) => [c.categoria, c._count])) as Record<string, number>,
     stili: Object.fromEntries(stili.map((r) => [r.s, Number(r.n)])) as Record<string, number>,
     marche: marche.map((m) => ({ slug: m.slug, nome: m.nome, n: m._count.prodotti })),
     taglie: ordinaTaglie(taglie.map((t) => t.taglia)),
+    sotto, colori, generi, materiali, cert,
   };
 }
 
@@ -123,4 +138,20 @@ export async function suggerimenti(q: string) {
     },
     select: { slug: true, nome: true, marca: { select: { nome: true } } }, take: 6,
   });
+}
+
+/** Vetrine della home: se non c'è nulla da mostrare, la sezione sparisce (niente scaffali vuoti). */
+export async function vetrine() {
+  const base = { attivo: true, tipo: "NUOVO" as const };
+  const [nuovi, offerte, venduti, marche] = await Promise.all([
+    db.prodotto.findMany({ where: base, include: conVarianti, orderBy: { creato: "desc" }, take: 4 }),
+    db.prodotto.findMany({ where: { ...base, prezzoPrima: { not: null } }, include: conVarianti, orderBy: { creato: "desc" }, take: 4 }),
+    db.$queryRaw<{ id: string }[]>`SELECT p."id" FROM "RigaOrdine" r JOIN "Ordine" o ON o."id" = r."ordineId" JOIN "Variante" v ON v."id" = r."varianteId" JOIN "Prodotto" p ON p."id" = v."prodottoId"
+      WHERE o."stato" <> 'ANNULLATO' AND p."attivo" AND p."tipo" = 'NUOVO' GROUP BY p."id" ORDER BY SUM(r."quantita") DESC LIMIT 4`,
+    db.marca.findMany({ where: { prodotti: { some: base } }, orderBy: { nome: "asc" }, select: { slug: true, nome: true }, take: 12 }),
+  ]);
+  const piuVenduti = venduti.length
+    ? (await db.prodotto.findMany({ where: { id: { in: venduti.map((v) => v.id) } }, include: conVarianti })).sort((a, b) => venduti.findIndex((v) => v.id === a.id) - venduti.findIndex((v) => v.id === b.id))
+    : [];
+  return { nuovi, offerte, piuVenduti, marche };
 }

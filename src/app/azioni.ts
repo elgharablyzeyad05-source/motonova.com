@@ -121,7 +121,7 @@ export async function accediAction(_p: StatoAccesso, f: FormData): Promise<Stato
   // si confronta comunque: tempi uguali, così non si scopre quali email hanno un account
   const ok = await confronta(password, u?.passwordHash ?? "$2a$11$invalidinvalidinvalidinvalidinvalidinvalidinvalidinvali");
   if (!u || !ok) return { valori: { email }, errore: generico };
-  azzera(`login:${email}`);
+  await azzera(`login:${email}`);
   await creaSessione(u.id);
   await carrelloLib.fondiAlLogin(u.id);
   redirect(torna);
@@ -208,4 +208,20 @@ export async function offertaAction(_p: StatoOfferta, f: FormData): Promise<Stat
     SERVE_GARANZIA: _("Per offrire serve una carta a garanzia: non è ancora attiva", "A card guarantee is required to bid: it is not yet active", "يلزم ضمان ببطاقة للمزايدة: غير مفعّل بعد"),
   };
   return { esito: "errore", messaggio: m[r.motivo] ?? _("Offerta non riuscita", "Bid failed", "تعذّر تسجيل العرض") };
+}
+
+export async function cambiaPasswordAction(f: FormData) {
+  const l = await lingua();
+  const u = await utenteCorrente();
+  if (!u) redirect(href(l, "/accedi"));
+  const dest = (r: string) => redirect(`${href(l, "/account")}?pw=${r}#password`);
+  if (!(await limita(`pw:${u.id}`, 6, 10 * 60_000))) dest("troppi");
+  const vecchia = String(f.get("vecchia") ?? ""), nuova = String(f.get("nuova") ?? "");
+  if (!(await confronta(vecchia, u.passwordHash))) dest("errata");
+  if (nuova.length < 10 || nuova.length > 200) dest("corta");
+  await db.utente.update({ where: { id: u.id }, data: { passwordHash: await cifra(nuova) } });
+  // le altre sessioni (altri dispositivi) si chiudono: chi aveva la vecchia password perde l'accesso
+  await db.sessione.deleteMany({ where: { utenteId: u.id } });
+  await creaSessione(u.id);
+  dest("ok");
 }

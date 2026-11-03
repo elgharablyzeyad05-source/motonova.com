@@ -6,13 +6,13 @@ import { lingua, tx } from "@/lib/contesto";
 import { href } from "@/lib/i18n";
 import { utenteCorrente } from "@/lib/sessione";
 import { egp } from "@/lib/regole";
-import { esciAction } from "../azioni";
+import { esciAction, cambiaPasswordAction } from "../azioni";
 import { Scheda } from "@/componenti/Scheda";
 
 export const metadata: Metadata = { title: "Il mio account", robots: { index: false } };
 
-export default async function Account() {
-  const l = await lingua(); const _ = tx(l);
+export default async function Account({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
+  const l = await lingua(); const _ = tx(l); const sp = await searchParams;
   const u = await utenteCorrente();
   if (!u) redirect(href(l, "/accedi") + `?torna=${encodeURIComponent(href(l, "/account"))}`);
   const [ordini, pref, vinte] = await Promise.all([
@@ -45,6 +45,17 @@ export default async function Account() {
               <Scheda p={f.prodotto} l={l} preferito torna={href(l, "/account")} />
               {f.prodotto.prezzo !== f.prezzoSalvato && <p className="mono" style={{ marginTop: 6, color: f.prodotto.prezzo < f.prezzoSalvato ? "var(--verde)" : "var(--testo-2)" }}>{_("Prezzo quando l'hai salvato", "Price when saved", "السعر عند الحفظ")}: {egp(f.prezzoSalvato)}</p>}
             </div>))}</div>)}
+      </section>
+
+      <section className="filetto" id="password" style={{ marginTop: 44, maxWidth: 440 }}>
+        <h2 style={{ marginBottom: 16 }}>{_("Cambia password", "Change password", "تغيير كلمة المرور")}</h2>
+        {sp.pw === "ok" && <p className="nota ok" role="status" style={{ marginBottom: 14 }}>{_("Password aggiornata. Gli altri dispositivi sono stati scollegati.", "Password updated. Other devices were signed out.", "تم تحديث كلمة المرور وتسجيل الخروج من الأجهزة الأخرى.")}</p>}
+        {sp.pw && sp.pw !== "ok" && <p className="nota avviso" role="alert" style={{ marginBottom: 14 }}>{sp.pw === "errata" ? _("La password attuale non è corretta", "Current password is wrong", "كلمة المرور الحالية غير صحيحة") : sp.pw === "corta" ? _("La nuova password deve avere almeno 10 caratteri", "New password must be at least 10 characters", "يجب ألا تقل كلمة المرور الجديدة عن 10 أحرف") : _("Troppi tentativi, riprova tra poco", "Too many attempts, try again shortly", "محاولات كثيرة، حاول بعد قليل")}</p>}
+        <form action={cambiaPasswordAction}>
+          <div className="campo"><label htmlFor="vecchia">{_("Password attuale", "Current password", "كلمة المرور الحالية")}</label><input id="vecchia" name="vecchia" type="password" autoComplete="current-password" required /></div>
+          <div className="campo"><label htmlFor="nuova">{_("Nuova password (almeno 10 caratteri)", "New password (min. 10 characters)", "كلمة المرور الجديدة (10 أحرف على الأقل)")}</label><input id="nuova" name="nuova" type="password" autoComplete="new-password" minLength={10} required /></div>
+          <button className="tasto">{_("Aggiorna", "Update", "تحديث")}</button>
+        </form>
       </section>
     </div>
   );

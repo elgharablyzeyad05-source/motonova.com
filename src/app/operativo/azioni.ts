@@ -76,6 +76,9 @@ export async function salvaProdottoAction(f: FormData) {
   const marca = await db.marca.upsert({ where: { nome: marcaNome }, update: {}, create: { id: nuovoId(), nome: marcaNome, slug: slugDi(marcaNome) } });
   const dati = {
     nome, marcaId: marca.id, sottotitolo: t(f, "sottotitolo"), categoria, stili, tipo: tipo as "NUOVO" | "SECOND_LIFE",
+    sottocategoria: t(f, "sottocategoria") || null, colore: t(f, "colore") || null, genere: t(f, "genere") || null,
+    materiale: t(f, "materiale") || null, certificazione: t(f, "certificazione") || null, moto: t(f, "moto") || null,
+    specs: t(f, "specs").split("\n").map((r) => r.trim()).filter(Boolean).map((r) => { const i = r.indexOf(":"); return i > 0 ? [r.slice(0, i).trim(), r.slice(i + 1).trim()] : [r, ""]; }),
     prezzo, prezzoPrima: prima, nota: t(f, "nota"), luogo: t(f, "luogo"), grado: t(f, "grado") || null, descrizione,
     attivo: f.get("attivo") === "on",
   };
@@ -145,4 +148,11 @@ export async function rispondiChatAction(f: FormData) {
   if (!(await db.conversazione.findUnique({ where: { id } }))) ko("chat", "Conversazione non trovata");
   await aggiungiMessaggio(id, testo, true);
   redirect(`/operativo?tab=chat&conv=${id}`);
+}
+
+export async function garanziaAction(f: FormData) {
+  await admin();
+  const u = await db.utente.findUnique({ where: { id: t(f, "id") } });
+  if (u && u.ruolo !== "ADMIN") await db.utente.update({ where: { id: u.id }, data: { garanzia: !u.garanzia } });
+  ok("clienti", "Fatto");
 }

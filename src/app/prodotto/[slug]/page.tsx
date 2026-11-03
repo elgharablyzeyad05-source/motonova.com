@@ -41,7 +41,9 @@ export default async function Prodotto({ params }: Props) {
     return disponibile(centro) > 0 ? centro.id : disp[Math.floor(disp.length / 2)].id;
   })();
   const pct = sconto(p.prezzo, p.prezzoPrima);
-  const specs = (p.specs as [string, string][]) ?? [];
+  const extra: [string, string][] = ([["Colore", p.colore], ["Genere", p.genere], ["Materiale", p.materiale], ["Certificazione", p.certificazione], ["Moto compatibili", p.moto]] as [string, string | null][]).filter((x): x is [string, string] => !!x[1]);
+  const specsDb = (p.specs as [string, string][]) ?? [];
+  const specs = [...extra.filter(([k]) => !specsDb.some(([b]) => b === k)), ...specsDb];
   const omol = specs.find(([k]) => /omolog|membrana|rete|tipo|ce /i.test(k));
   const descr = p.descrizione.length ? p.descrizione : [`${p.marca.nome} ${p.nome} — ${p.nota}`];
   const foto = p.foto.length ? p.foto : [null];

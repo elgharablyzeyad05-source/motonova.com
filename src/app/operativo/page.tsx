@@ -6,12 +6,12 @@ import { egp } from "@/lib/regole";
 import { prossimi } from "@/lib/ordini";
 import { CATEGORIE } from "@/lib/catalogo";
 import { statoDa } from "@/lib/aste";
-import { creaCouponAction, creaAstaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, statoOrdineAction } from "./azioni";
+import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, statoOrdineAction } from "./azioni";
 
 export const metadata = { title: "Operativo", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
-const TABS = ["ordini", "chat", "prodotti", "coupon", "aste", "posta", "iscritti"] as const;
+const TABS = ["ordini", "chat", "prodotti", "clienti", "coupon", "aste", "posta", "iscritti"] as const;
 const STILI = ["sport", "street", "adventure", "touring", "urban"];
 const NOME_STATO: Record<string, string> = { DA_CONFERMARE: "Da confermare", CONFERMATO: "Confermato", PREPARAZIONE: "In preparazione", SPEDITO: "Spedito", CONSEGNATO: "Consegnato", ANNULLATO: "Annullato" };
 const fmt = new Intl.DateTimeFormat("it-IT", { dateStyle: "short", timeStyle: "short", timeZone: "Africa/Cairo" });
@@ -34,6 +34,7 @@ export default async function Operativo({ searchParams }: { searchParams: Promis
       {tab === "ordini" && <Ordini />}
       {tab === "chat" && <Chat conv={q.conv} />}
       {tab === "prodotti" && <Prodotti modifica={q.modifica} />}
+      {tab === "clienti" && <Clienti />}
       {tab === "coupon" && <Coupon />}
       {tab === "aste" && <Aste />}
       {tab === "posta" && <PostaLog />}
@@ -90,6 +91,13 @@ async function FormProdotto({ id }: { id: string }) {
       <div className="campo"><label htmlFor="sottotitolo">Sottotitolo</label><input id="sottotitolo" name="sottotitolo" defaultValue={p?.sottotitolo} /></div>
       <div className="campo"><label htmlFor="categoria">Categoria</label><select id="categoria" name="categoria" defaultValue={p?.categoria ?? ""} required><option value="">—</option>{CATEGORIE.map((c) => <option key={c}>{c}</option>)}</select></div>
       <div className="campo"><label htmlFor="tipo">Tipo</label><select id="tipo" name="tipo" defaultValue={p?.tipo ?? "NUOVO"}><option value="NUOVO">Nuovo</option><option value="SECOND_LIFE">Second Life (pezzo unico, asta)</option></select></div>
+      <div className="campo"><label htmlFor="sottocategoria">Sottocategoria (es. Integrali, Modulari, Racing)</label><input id="sottocategoria" name="sottocategoria" defaultValue={p?.sottocategoria ?? ""} /></div>
+      <div className="campo"><label htmlFor="colore">Colore</label><input id="colore" name="colore" defaultValue={p?.colore ?? ""} /></div>
+      <div className="campo"><label htmlFor="genere">Genere (Uomo, Donna, Unisex)</label><input id="genere" name="genere" defaultValue={p?.genere ?? ""} /></div>
+      <div className="campo"><label htmlFor="materiale">Materiale (es. Pelle, Tessuto)</label><input id="materiale" name="materiale" defaultValue={p?.materiale ?? ""} /></div>
+      <div className="campo"><label htmlFor="certificazione">Certificazione (es. CE livello 2, ECE 22.06)</label><input id="certificazione" name="certificazione" defaultValue={p?.certificazione ?? ""} /></div>
+      <div className="campo"><label htmlFor="moto">Moto compatibili (facoltativo)</label><input id="moto" name="moto" defaultValue={p?.moto ?? ""} /></div>
+      <div className="campo"><label htmlFor="specs">Caratteristiche tecniche (una per riga, «Nome: valore»)</label><textarea id="specs" name="specs" rows={4} defaultValue={((p?.specs as [string, string][] | null) ?? []).map(([k, v]) => `${k}: ${v}`).join("\n")} /></div>
       <fieldset className="campo"><legend>Stili</legend>{STILI.map((s) => <label key={s} style={{ marginInlineEnd: 14 }}><input type="checkbox" name="stili" value={s} defaultChecked={p?.stili.includes(s)} /> {s}</label>)}</fieldset>
       <div className="campo"><label htmlFor="prezzo">Prezzo (EGP)</label><input id="prezzo" name="prezzo" inputMode="decimal" defaultValue={p ? p.prezzo / 100 : ""} required /></div>
       <div className="campo"><label htmlFor="prezzoPrima">Prezzo di prima (EGP, solo se in offerta)</label><input id="prezzoPrima" name="prezzoPrima" inputMode="decimal" defaultValue={p?.prezzoPrima ? p.prezzoPrima / 100 : ""} /></div>
@@ -195,4 +203,13 @@ async function Chat({ conv }: { conv?: string }) {
       </div>
     </div>
   );
+}
+
+async function Clienti() {
+  const us = await db.utente.findMany({ orderBy: { creato: "desc" }, take: 200, include: { ordini: { select: { totale: true, stato: true } } } });
+  return us.length ? <table className="dati"><thead><tr><th>Nome</th><th>Email</th><th>Iscritto</th><th>Ordini</th><th>Speso</th><th>Garanzia aste</th></tr></thead><tbody>
+    {us.map((u) => { const validi = u.ordini.filter((o) => o.stato !== "ANNULLATO"); return (
+      <tr key={u.id}><td>{u.nome}{u.ruolo === "ADMIN" ? " · admin" : ""}</td><td dir="ltr">{u.email}</td><td>{fmt.format(u.creato)}</td><td className="tab">{validi.length}</td><td className="tab">{egp(validi.reduce((s, o) => s + o.totale, 0))}</td>
+        <td>{u.ruolo === "ADMIN" ? "" : (<form action={garanziaAction}><input type="hidden" name="id" value={u.id} /><button className="tasto piccolo vuoto">{u.garanzia ? "Sì · togli" : "No · concedi"}</button></form>)}</td></tr>); })}
+  </tbody></table> : <p className="tenue">Nessun cliente registrato.</p>;
 }

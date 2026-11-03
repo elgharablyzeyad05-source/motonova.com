@@ -4,12 +4,16 @@ import { href } from "@/lib/i18n";
 import home from "../../dati/home.json";
 import { ScenaHero } from "@/componenti/ScenaHero";
 import { Cornice } from "@/componenti/Sagoma";
+import { Scheda } from "@/componenti/Scheda";
+import { vetrine, CATEGORIE, ETICHETTA_CAT } from "@/lib/catalogo";
+import { tr } from "@/lib/i18n";
 
 type K = keyof typeof home.it;
 const Html = ({ t, tag: Tag = "span" }: { t: string; tag?: "span" | "p" | "h3" }) => <Tag dangerouslySetInnerHTML={{ __html: t }} />;
 
 export default async function Home() {
   const l = await lingua();
+  const v = await vetrine().catch(() => ({ nuovi: [], offerte: [], piuVenduti: [], marche: [] }));
   const T = (k: K): string => (l === "it" ? home.it : home[l])[k] ?? home.it[k];
   const guida = (id: string, cat: string, tag: K, titolo: K, desc: K) => (
     <Link className="scheda" href={href(l, `/guide/${id}`)} key={id}>
@@ -30,6 +34,24 @@ export default async function Home() {
 
       <section className="foglio manifesto"><p><Html t={T("maniText")} /></p><p className="mono lieve" style={{ marginTop: 24 }}>MotoNova · Milano → Il Cairo</p></section>
 
+
+      <section className="foglio sezione" aria-label={T("worldH")}>
+        <div className="categorie-home" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          {CATEGORIE.map((c) => <Link key={c} className="tasto vuoto piccolo" href={href(l, `/negozio?cat=${c}`)}>{tr(l, ETICHETTA_CAT[c])}</Link>)}
+        </div>
+      </section>
+      {([["Nuovi arrivi", "New arrivals", "وصل حديثاً", v.nuovi], ["Più venduti", "Best sellers", "الأكثر مبيعاً", v.piuVenduti], ["Offerte", "Offers", "عروض", v.offerte]] as [string, string, string, typeof v.nuovi][]).filter(([, , , lista]) => lista.length > 0).map(([it, en, ar, lista]) => (
+        <section key={it} className="foglio sezione">
+          <h2 style={{ marginBottom: 24 }}>{l === "en" ? en : l === "ar" ? ar : it}</h2>
+          <div className="griglia">{lista.map((p) => <Scheda key={p.id} p={p} l={l} />)}</div>
+        </section>
+      ))}
+      {v.marche.length > 0 && (
+        <section className="foglio sezione">
+          <h2 style={{ marginBottom: 18 }}>{l === "en" ? "Brands" : l === "ar" ? "الماركات" : "Marche"}</h2>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>{v.marche.map((m) => <Link key={m.slug} className="tasto vuoto piccolo" href={href(l, `/marche/${m.slug}`)}>{m.nome}</Link>)}</div>
+        </section>
+      )}
       <section className="foglio sezione" id="mondo">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 16, flexWrap: "wrap", marginBottom: 28 }}>
           <h2>{T("worldH")}</h2><Link className="mono" style={{ textDecoration: "underline" }} href={href(l, "/negozio")}>{T("worldA")}</Link>
