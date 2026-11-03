@@ -15,9 +15,11 @@ export default async function Home() {
   const l = await lingua();
   const v = await vetrine().catch(() => ({ nuovi: [], offerte: [], piuVenduti: [], marche: [] }));
   const T = (k: K): string => (l === "it" ? home.it : home[l])[k] ?? home.it[k];
+  // Immagini editoriali: public/immagini. Dove manca il file resta la sagoma.
+  const IMG: Record<string, string> = { casco: "/immagini/guida-casco.webp", manutenzione: "/immagini/guida-manutenzione.webp" };
   const guida = (id: string, cat: string, tag: K, titolo: K, desc: K) => (
     <Link className="scheda" href={href(l, `/guide/${id}`)} key={id}>
-      <Cornice categoria={cat} alt="" />
+      <Cornice categoria={cat} statica={IMG[id]} larga alt={T(titolo)} />
       <span className="mono lieve">{T(tag)}</span><h3 style={{ fontSize: 22 }}>{T(titolo)}</h3><p className="tenue">{T(desc)}</p>
     </Link>
   );
@@ -78,7 +80,7 @@ export default async function Home() {
 
       <section className="foglio sezione" id="sl">
         <div className="second-life">
-          <Cornice categoria="giacche" alt="" grande />
+          <Cornice categoria="giacche" statica="/immagini/second-life.webp" larga alt="Second Life" grande />
           <div>
             <h2>Second Life<br /><em style={{ fontStyle: "normal", color: "var(--rosso)" }}>{T("slEm")}</em></h2>
             <p style={{ margin: "18px 0 12px", maxWidth: 520 }}>{T("slP1")}</p>

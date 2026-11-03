@@ -20,4 +20,4 @@ export function middleware(req: NextRequest) {
   return NextResponse.next({ request: { headers: h } });
 }
 
-export const config = { matcher: ["/((?!_next/|api/|media/|favicon.ico|robots.txt|sitemap.xml).*)"] };
+export const config = { matcher: ["/((?!_next/|api/|media/|immagini/|favicon.ico|robots.txt|sitemap.xml).*)"] };

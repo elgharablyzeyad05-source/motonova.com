@@ -23,10 +23,11 @@ export function Sagoma({ categoria }: { categoria: string }) {
   );
 }
 
-export function Cornice({ foto, categoria, alt, grande, children }: { foto?: string | null; categoria: string; alt: string; grande?: boolean; children?: React.ReactNode }) {
+export function Cornice({ foto, statica, larga, categoria, alt, grande, children }: { foto?: string | null; statica?: string; larga?: boolean; categoria: string; alt: string; grande?: boolean; children?: React.ReactNode }) {
+  const src = statica ?? (foto ? `/media/${foto}` : null);
   return (
-    <div className={"cornice" + (grande ? " grande" : "")}>
-      {foto ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/media/${foto}`} alt={alt} loading="lazy" /> : <Sagoma categoria={categoria} />}
+    <div className={"cornice" + (grande ? " grande" : "") + (larga ? " larga" : "")}>
+      {src ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={src} alt={alt} loading="lazy" /> : <Sagoma categoria={categoria} />}
       {children}
     </div>
   );
