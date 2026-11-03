@@ -371,7 +371,7 @@
    },
    {
     "t": "p",
-    "v": "A quaranta gradi nel traffico del Cairo un casco chiuso diventa una serra. Cerca prese d'aria che si aprano e si chiudano davvero con i guanti, e almeno due estrattori dietro: senza estrattori l'aria entra e resta lì."
+    "v": "A quaranta gradi nel traffico cittadino un casco chiuso diventa una serra. Cerca prese d'aria che si aprano e si chiudano davvero con i guanti, e almeno due estrattori dietro: senza estrattori l'aria entra e resta lì."
    },
    {
     "t": "p",
@@ -413,7 +413,7 @@
   "id": "itinerari",
   "occhiello": "Itinerari",
   "titolo": "Le strade dei motociclisti in Egitto",
-  "sommario": "Dove si va davvero partendo dal Cairo, e cosa serve avere addosso su ciascuna di queste strade.",
+  "sommario": "Dove si va davvero partendo dalla città, e cosa serve avere addosso su ciascuna di queste strade.",
   "tempo": "5 minuti",
   "blocchi": [
    {
@@ -422,7 +422,7 @@
    },
    {
     "t": "h",
-    "v": "Il Cairo, tutti i giorni"
+    "v": "In città, tutti i giorni"
    },
    {
     "t": "p",
@@ -434,7 +434,7 @@
    },
    {
     "t": "h",
-    "v": "Cairo – Ain Sokhna, la fuga corta"
+    "v": "Verso Ain Sokhna, la fuga corta"
    },
    {
     "t": "p",

@@ -116,9 +116,9 @@ export default async function Prodotto({ params }: Props) {
       <section className="filetto" style={{ marginTop: 40 }}>
         <h2 style={{ marginBottom: 14 }}>{_("Spedizione e reso", "Shipping and returns", "الشحن والإرجاع")}</h2>
         <p className="tenue" style={{ maxWidth: 640 }}>
-          {_("Consegniamo in tutto l'Egitto: dal giorno dopo al Cairo fino a 4–5 giorni alla frontiera. Spedizione gratuita sopra EGP 4,000. Il cambio taglia è gratuito.",
-             "We deliver across Egypt: next day in Cairo up to 4–5 working days at the frontier. Free shipping over EGP 4,000. Size exchanges are free.",
-             "نوصّل إلى كل أنحاء مصر: من اليوم التالي في القاهرة حتى 4–5 أيام عمل في المناطق الحدودية. شحن مجاني فوق 4,000 جنيه. تبديل المقاس مجاني.")}
+          {_("Consegniamo in tutto l'Egitto, da 1 a 5 giorni lavorativi a seconda della zona. Spedizione gratuita sopra EGP 4,000. Il cambio taglia è gratuito.",
+             "We deliver across Egypt, in 1 to 5 working days depending on the area. Free shipping over EGP 4,000. Size exchanges are free.",
+             "نوصّل إلى كل أنحاء مصر خلال 1 إلى 5 أيام عمل حسب المنطقة. شحن مجاني فوق 4,000 جنيه. تبديل المقاس مجاني.")}
           {" "}<Link href={href(l, "/guide/spedizioni")} style={{ textDecoration: "underline" }}>{_("Tutti i dettagli", "Full details", "التفاصيل كاملة")}</Link>
         </p>
       </section>

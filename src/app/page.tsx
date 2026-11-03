@@ -32,7 +32,7 @@ export default async function Home() {
         </div>
       </ScenaHero>
 
-      <section className="foglio manifesto"><p><Html t={T("maniText")} /></p><p className="mono lieve" style={{ marginTop: 24 }}>MotoNova · Milano → Il Cairo</p></section>
+      <section className="foglio manifesto"><p><Html t={T("maniText")} /></p><p className="mono lieve" style={{ marginTop: 24 }}>MotoNova · Italia → Egitto</p></section>
 
 
       <section className="foglio sezione" aria-label={T("worldH")}>
