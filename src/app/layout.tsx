@@ -9,6 +9,7 @@ import { Piede } from "@/componenti/Piede";
 import { FabCarrello } from "@/componenti/FabCarrello";
 import { ChatSito } from "@/componenti/ChatSito";
 import { SuInAlto } from "@/componenti/SuInAlto";
+import { BloccaZoom } from "@/componenti/BloccaZoom";
 
 export async function generateMetadata(): Promise<Metadata> {
   const l = await lingua(); const _ = tx(l);
@@ -18,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(process.env.SITO_URL ?? "http://localhost:3000"),
   };
 }
-export const viewport: Viewport = { width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, minimumScale: 1, maximumScale: 1, userScalable: false };
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const l = await lingua(); const _ = tx(l);
@@ -34,6 +35,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
           continua: _("Continua", "Continue", "تابع"), chiudi: _("Chiudi", "Close", "إغلاق"),
           pezzo: _("pezzo", "item", "قطعة"), pezzi: _("pezzi", "items", "قطع"), carrello: _("Vai al carrello", "Go to cart", "اذهب إلى السلة"),
         }} />
+        <BloccaZoom />
         <SuInAlto etichetta={_("Torna in alto", "Back to top", "العودة إلى الأعلى")} />
         <ChatSito t={{
           titolo: _("Scrivici", "Chat with us", "تحدث معنا"), sottotitolo: _("Rispondiamo appena possibile", "We reply as soon as we can", "نرد في أقرب وقت"),
