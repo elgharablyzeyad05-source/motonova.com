@@ -67,6 +67,8 @@ export async function salvaProdottoAction(f: FormData) {
   const prezzo = egpToPiastre(t(f, "prezzo")); if (!(prezzo > 0)) ko("prodotti", "Prezzo non valido (in EGP, es. 5920)", back);
   const prima = t(f, "prezzoPrima") ? egpToPiastre(t(f, "prezzoPrima")) : null;
   if (prima !== null && !(prima > prezzo)) ko("prodotti", "Il prezzo di prima deve essere più alto del prezzo", back);
+  const minimo = t(f, "prezzoMinimo") ? egpToPiastre(t(f, "prezzoMinimo")) : null;
+  if (minimo !== null && !(minimo > 0 && minimo <= prezzo)) ko("prodotti", "Il prezzo minimo deve essere maggiore di zero e non superiore al prezzo", back);
   let taglie; try { taglie = leggiTaglie(t(f, "taglie")); } catch (e) { return ko("prodotti", (e as Error).message, back); }
   const tipo = t(f, "tipo") === "SECOND_LIFE" ? "SECOND_LIFE" : "NUOVO";
   const categoria = t(f, "categoria");
@@ -79,7 +81,7 @@ export async function salvaProdottoAction(f: FormData) {
     sottocategoria: t(f, "sottocategoria") || null, colore: t(f, "colore") || null, genere: t(f, "genere") || null,
     materiale: t(f, "materiale") || null, certificazione: t(f, "certificazione") || null, moto: t(f, "moto") || null,
     specs: t(f, "specs").split("\n").map((r) => r.trim()).filter(Boolean).map((r) => { const i = r.indexOf(":"); return i > 0 ? [r.slice(0, i).trim(), r.slice(i + 1).trim()] : [r, ""]; }),
-    prezzo, prezzoPrima: prima, nota: t(f, "nota"), luogo: t(f, "luogo"), grado: t(f, "grado") || null, descrizione,
+    prezzo, prezzoMinimo: t(f, "tipo") === "SECOND_LIFE" ? null : minimo, prezzoPrima: prima, nota: t(f, "nota"), luogo: t(f, "luogo"), grado: t(f, "grado") || null, descrizione,
     attivo: f.get("attivo") === "on",
   };
   let pid = id;

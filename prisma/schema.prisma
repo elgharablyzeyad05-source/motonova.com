@@ -97,6 +97,8 @@ model Prodotto {
   tipo        TipoProdotto @default(NUOVO)
   prezzo      Int
   prezzoPrima Int?
+  // Prezzo più basso che il venditore accetta in trattativa (null = prezzo fisso). Mai mostrato al cliente.
+  prezzoMinimo Int?
   nota        String       @default("")
   luogo       String       @default("")
   grado       String?
@@ -163,6 +165,8 @@ model RigaCarrello {
   quantita   Int      @default(1)
   // Se la riga viene da un'asta vinta, il prezzo è quello battuto e la riga è unica.
   prezzoAsta Int?
+  // Prezzo concordato in trattativa: vale per un solo pezzo.
+  prezzoPattuito Int?
 
   @@unique([carrelloId, varianteId])
 }

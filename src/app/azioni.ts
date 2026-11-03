@@ -37,6 +37,49 @@ export async function aggiungiAlCarrello(varianteId: string, quantita: number): 
   return { ok: true, marca: v!.prodotto.marca.nome, nome: v!.prodotto.nome, taglia: v!.taglia, prezzo: v!.prodotto.prezzo, pezzi: vista.pezzi, totale: vista.subtotale };
 }
 
+export type RispostaOfferta =
+  | { ok: true; prezzo: number; marca: string; nome: string; taglia: string; pezzi: number; totale: number }
+  | { ok: false; messaggio: string; restanti?: number };
+
+/** Trattativa: il minimo non lascia mai il server. Chi prova a indovinarlo ha tre tentativi per prodotto al giorno. */
+export async function offriPrezzo(varianteId: string, offertaEgp: string): Promise<RispostaOfferta> {
+  const l = await lingua(); const _ = tx(l);
+  const cifre = Number(String(offertaEgp).replace(/[^0-9.,]/g, "").replace(",", "."));
+  const offerta = Math.round(cifre * 100);
+  if (!Number.isFinite(offerta) || offerta <= 0) return { ok: false, messaggio: _("Scrivi un prezzo valido", "Enter a valid price", "اكتب سعراً صحيحاً") };
+  const v = await db.variante.findUnique({ where: { id: varianteId }, include: { prodotto: { include: { marca: true } } } });
+  const p = v?.prodotto;
+  if (!v || !p || !p.attivo || p.tipo !== "NUOVO" || !p.prezzoMinimo) return { ok: false, messaggio: _("Questo prodotto ha prezzo fisso", "This product has a fixed price", "هذا المنتج بسعر ثابت") };
+  if (!(await limita(`trat:ip:${await ip()}`, 40, 24 * 3600_000))) return { ok: false, messaggio: _("Troppi tentativi, riprova domani", "Too many attempts, try again tomorrow", "محاولات كثيرة، حاول غداً") };
+  if (!(await limita(`trat:${await ip()}:${p.id}`, 6, 24 * 3600_000))) return { ok: false, restanti: 0, messaggio: _("Hai esaurito i tentativi per questo prodotto. Puoi comprarlo al prezzo di listino.", "You have used all your attempts for this product. You can still buy it at the listed price.", "استنفدت محاولاتك لهذا المنتج. يمكنك شراءه بالسعر المعروض.") };
+  const k = await carrelloLib.assicuraCarrello();
+  const MAX = 3;
+  if (!(await limita(`trat:${k.id}:${p.id}`, MAX, 24 * 3600_000))) {
+    return { ok: false, restanti: 0, messaggio: _("Hai esaurito i tentativi per questo prodotto. Puoi comprarlo al prezzo di listino.", "You have used all your attempts for this product. You can still buy it at the listed price.", "استنفدت محاولاتك لهذا المنتج. يمكنك شراءه بالسعر المعروض.") };
+  }
+  const usati = await db.limite.findUnique({ where: { chiave: `trat:${k.id}:${p.id}` } });
+  const restanti = Math.max(0, MAX - (usati?.conteggio ?? MAX));
+  // Se altri clienti hanno già concordato un prezzo per questo prodotto (carrelli attivi nelle ultime 24 ore),
+  // il minimo sale alla loro offerta più alta: chi arriva dopo deve almeno eguagliarla.
+  const altri = await db.rigaCarrello.aggregate({
+    _max: { prezzoPattuito: true },
+    where: { prezzoPattuito: { not: null }, carrelloId: { not: k.id }, variante: { prodottoId: p.id }, carrello: { aggiornato: { gt: new Date(Date.now() - 24 * 3600_000) } } },
+  });
+  const minimoAttuale = Math.max(p.prezzoMinimo, altri._max.prezzoPattuito ?? 0);
+  if (offerta < minimoAttuale && offerta >= p.prezzoMinimo) {
+    return { ok: false, restanti, messaggio: _("Altri clienti stanno trattando questo prodotto: serve un'offerta più alta.", "Other customers are negotiating this product: a higher offer is needed.", "عملاء آخرون يتفاوضون على هذا المنتج: يلزم عرض أعلى.") };
+  }
+  if (offerta < minimoAttuale) {
+    return { ok: false, restanti, messaggio: _("Offerta troppo bassa, il venditore non può accettarla. Prova con una cifra più alta.", "Offer too low, the seller cannot accept it. Try a higher amount.", "العرض منخفض جداً ولا يمكن للبائع قبوله. جرّب مبلغاً أعلى.") };
+  }
+  const prezzo = Math.min(offerta, p.prezzo);
+  const esito = await carrelloLib.aggiungiPattuito(varianteId, prezzo);
+  if (esito === "ESAURITO") return { ok: false, messaggio: _("Questa taglia è esaurita", "This size is sold out", "هذا المقاس نفد") };
+  if (esito !== "OK") return { ok: false, messaggio: _("Prodotto non trovato", "Product not found", "المنتج غير موجود") };
+  const vista = await carrelloLib.vistaCarrello(await carrelloLib.trovaCarrello());
+  return { ok: true, prezzo, marca: p.marca.nome, nome: p.nome, taglia: v.taglia, pezzi: vista.pezzi, totale: vista.subtotale };
+}
+
 export async function quantitaAction(f: FormData) {
   const l = await lingua();
   await carrelloLib.impostaQuantita(testo(f, "riga"), Number(testo(f, "quantita")));

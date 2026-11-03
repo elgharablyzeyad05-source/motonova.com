@@ -79,7 +79,7 @@ export default async function Prodotto({ params }: Props) {
           <p className="tenue" style={{ marginBottom: 16 }}>{tr(l, p.sottotitolo)}</p>
           <p className="prezzo-grande tab">{egp(p.prezzo)}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</p>
           <p className="mono lieve" style={{ margin: "6px 0 22px" }}>{_("IVA e dazio inclusi", "VAT and duty included", "شامل الضريبة والجمارك")}</p>
-          <AggiungiForm iniziale={iniziale}
+          <AggiungiForm iniziale={iniziale} checkout={href(l, "/checkout")} trattabile={Boolean(p.prezzoMinimo) && p.tipo === "NUOVO"}
             varianti={varianti.map((v) => ({ id: v.id, taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
             testi={{
               aggiungi: _("Aggiungi al carrello", "Add to cart", "أضف إلى السلة"), aggiunto: _("Aggiunto ✓", "Added ✓", "تمت الإضافة ✓"), esaurito: _("Esaurito", "Sold out", "نفد"),
@@ -87,6 +87,12 @@ export default async function Prodotto({ params }: Props) {
               ultimi: _("ultimi {n}", "last {n}", "آخر {n}"),
               disp: _("Disponibile — solo {n}", "In stock — only {n}", "متوفر — {n} فقط"),
               dispOk: _("Disponibile", "In stock", "متوفر"),
+              acquista: _("Acquista ora", "Buy now", "اشترِ الآن"),
+              offri: "", offertaEtichetta: _("Vuoi proporre un prezzo? Scrivi la tua offerta in EGP", "Want to name your price? Enter your offer in EGP", "تريد اقتراح سعر؟ اكتب عرضك بالجنيه"),
+              offertaInvia: _("Fai un'offerta", "Make an offer", "قدّم عرضاً"),
+              offertaOk: _("Offerta accettata: {p} EGP. È nel carrello (1 pezzo). La spedizione si calcola al checkout.", "Offer accepted: {p} EGP. It is in your cart (1 piece). Shipping is calculated at checkout.", "تم قبول العرض: {p} جنيه. القطعة في السلة (قطعة واحدة). يُحسب الشحن عند الدفع."),
+              offertaVai: _("Vai al carrello", "Go to cart", "اذهب إلى السلة"),
+              restanti: _("Tentativi rimasti: {n}.", "Attempts left: {n}.", "المحاولات المتبقية: {n}."),
             }} />
           <div style={{ marginTop: 28 }}>
             {descr.map((d, i) => <p key={i} style={{ marginBottom: 12 }}>{tr(l, d)}</p>)}

@@ -75,7 +75,7 @@ export async function creaOrdine(
       }
       if (esauriti.length) throw new ErroreEsaurito(esauriti);
 
-      const subtotale = k.righe.reduce((s, r) => s + (r.prezzoAsta ?? r.variante.prodotto.prezzo) * r.quantita, 0);
+      const subtotale = k.righe.reduce((s, r) => s + (r.prezzoAsta ?? (r.prezzoPattuito != null ? Math.min(r.prezzoPattuito, r.variante.prodotto.prezzo) : r.variante.prodotto.prezzo)) * r.quantita, 0);
 
       // 2. coupon ricalcolato qui: lo sconto mostrato nel carrello non è una promessa
       // Un codice che non vale più NON blocca l'ordine: rimandare indietro chi ha già scritto nome e
@@ -106,7 +106,7 @@ export async function creaOrdine(
           righe: {
             create: k.righe.map((r) => ({
               id: nuovoId(), varianteId: r.varianteId, nome: r.variante.prodotto.nome, marca: r.variante.prodotto.marca.nome,
-              taglia: r.variante.taglia, prezzo: r.prezzoAsta ?? r.variante.prodotto.prezzo, quantita: r.quantita,
+              taglia: r.variante.taglia, prezzo: r.prezzoAsta ?? (r.prezzoPattuito != null ? Math.min(r.prezzoPattuito, r.variante.prodotto.prezzo) : r.variante.prodotto.prezzo), quantita: r.quantita,
             })),
           },
           storia: { create: [{ id: nuovoId(), stato: "DA_CONFERMARE" }] },

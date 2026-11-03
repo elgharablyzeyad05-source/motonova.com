@@ -51,6 +51,7 @@ export async function aggiungi(varianteId: string, quantita = 1): Promise<EsitoA
   if (v.prodotto.tipo === "SECOND_LIFE") return "SOLO_ASTA";
   const k = await assicuraCarrello();
   const riga = k.righe.find((r) => r.varianteId === varianteId);
+  if (riga?.prezzoPattuito != null) return "OK"; // il pezzo trattato resta uno solo, al prezzo concordato
   const disp = disponibile(v);
   const voluta = Math.min((riga?.quantita ?? 0) + Math.max(1, Math.floor(quantita)), 20);
   if (disp <= 0) return "ESAURITO";
@@ -61,11 +62,25 @@ export async function aggiungi(varianteId: string, quantita = 1): Promise<EsitoA
   return "OK";
 }
 
+/** Mette nel carrello un solo pezzo al prezzo concordato (sostituisce un'eventuale riga normale della stessa taglia). */
+export async function aggiungiPattuito(varianteId: string, prezzo: number): Promise<EsitoAggiungi> {
+  const v = await db.variante.findUnique({ where: { id: varianteId }, include: { prodotto: true } });
+  if (!v || !v.prodotto.attivo) return "NON_TROVATO";
+  if (v.prodotto.tipo === "SECOND_LIFE") return "SOLO_ASTA";
+  if (disponibile(v) <= 0) return "ESAURITO";
+  const k = await assicuraCarrello();
+  const riga = k.righe.find((r) => r.varianteId === varianteId);
+  if (riga) await db.rigaCarrello.update({ where: { id: riga.id }, data: { quantita: 1, prezzoPattuito: prezzo } });
+  else await db.rigaCarrello.create({ data: { carrelloId: k.id, varianteId, quantita: 1, prezzoPattuito: prezzo } });
+  await db.carrello.update({ where: { id: k.id }, data: { aggiornato: new Date() } });
+  return "OK";
+}
+
 export async function impostaQuantita(rigaId: string, quantita: number) {
   const k = await trovaCarrello();
   const riga = k?.righe.find((r) => r.id === rigaId);
   if (!k || !riga) return;
-  if (riga.prezzoAsta !== null) return; // pezzo unico
+  if (riga.prezzoAsta !== null || riga.prezzoPattuito !== null) return; // pezzo unico o prezzo concordato
   if (quantita <= 0) { await db.rigaCarrello.delete({ where: { id: riga.id } }); return; }
   const q = Math.min(Math.floor(quantita), disponibile(riga.variante), 20);
   if (q <= 0) { await db.rigaCarrello.delete({ where: { id: riga.id } }); return; }
@@ -89,7 +104,7 @@ export async function fondiAlLogin(utenteId: string) {
   for (const r of ospite.righe) {
     const gia = mio.righe.find((x) => x.varianteId === r.varianteId);
     if (gia) {
-      if (r.prezzoAsta === null && gia.prezzoAsta === null) {
+      if (r.prezzoAsta === null && gia.prezzoAsta === null && r.prezzoPattuito === null && gia.prezzoPattuito === null) {
         const v = await db.variante.findUnique({ where: { id: r.varianteId } });
         const q = Math.min(gia.quantita + r.quantita, v ? disponibile(v) : 1, 20);
         await db.rigaCarrello.update({ where: { id: gia.id }, data: { quantita: Math.max(1, q) } });
@@ -123,7 +138,7 @@ type Carrello = NonNullable<Awaited<ReturnType<typeof trovaCarrello>>>;
 
 export type RigaVista = {
   id: string; varianteId: string; slug: string; nome: string; marca: string; taglia: string;
-  prezzo: number; quantita: number; disponibile: number; unico: boolean; categoria: string; foto: string | null;
+  prezzo: number; quantita: number; disponibile: number; unico: boolean; pattuito: boolean; categoria: string; foto: string | null;
 };
 
 /** Il codice si salva sul carrello, lo sconto no: si ricalcola a ogni lettura, perché un carrello
@@ -134,8 +149,9 @@ export async function vistaCarrello(k: Carrello | null) {
     const disp = disponibile(r.variante);
     return {
       id: r.id, varianteId: r.varianteId, slug: p.slug, nome: p.nome, marca: p.marca.nome, taglia: r.variante.taglia,
-      prezzo: r.prezzoAsta ?? p.prezzo, quantita: Math.min(r.quantita, Math.max(disp, r.prezzoAsta !== null ? 1 : 0)),
-      disponibile: disp, unico: r.prezzoAsta !== null, categoria: p.categoria,
+      prezzo: r.prezzoAsta ?? (r.prezzoPattuito != null ? Math.min(r.prezzoPattuito, p.prezzo) : p.prezzo),
+      quantita: r.prezzoPattuito != null ? Math.min(1, disp) : Math.min(r.quantita, Math.max(disp, r.prezzoAsta !== null ? 1 : 0)),
+      disponibile: disp, unico: r.prezzoAsta !== null, pattuito: r.prezzoPattuito != null, categoria: p.categoria,
       foto: p.foto[0]?.piccola ?? null,
     };
   });

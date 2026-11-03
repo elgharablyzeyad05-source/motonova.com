@@ -39,7 +39,7 @@ export default async function Carrello({ searchParams }: { searchParams: Promise
                   <p style={{ fontWeight: 700 }}><Link href={href(l, `/prodotto/${r.slug}`)}>{r.nome}</Link></p>
                   <p className="mono lieve">{r.taglia}</p>
                   <div style={{ display: "flex", gap: 14, alignItems: "center", marginTop: 10 }}>
-                    {r.unico ? <span className="mono">{_("Pezzo unico", "One-off piece", "قطعة فريدة")}</span> : (
+                    {r.unico ? <span className="mono">{_("Pezzo unico", "One-off piece", "قطعة فريدة")}</span> : r.pattuito ? <span className="mono">{_("Prezzo concordato · 1 pezzo", "Agreed price · 1 piece", "سعر متفق عليه · قطعة واحدة")}</span> : (
                       <form action={quantitaAction} className="qta">
                         <input type="hidden" name="riga" value={r.id} />
                         <button name="quantita" value={r.quantita - 1} aria-label={_("Riduci quantità", "Decrease quantity", "تقليل الكمية")}>−</button>
