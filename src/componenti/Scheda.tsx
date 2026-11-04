@@ -24,7 +24,7 @@ export function Scheda({ p, l, preferito, torna }: { p: ProdottoLista; l: Lingua
   const esaurito = totaleDisponibile(p) <= 0;
   return (
     <div style={{ position: "relative" }}>
-      <Link href={href(l, `/prodotto/${p.slug}`)} className="scheda">
+      <Link href={href(l, p.tipo === "SECOND_LIFE" ? `/aste/${p.slug}` : `/prodotto/${p.slug}`)} className="scheda">
         <Cornice foto={p.foto[0]?.piccola} categoria={p.categoria} alt={`${p.marca.nome} ${p.nome}`}>
           {pct > 0 && <span className="bollino sconto mono">−{pct}%</span>}
         </Cornice>
@@ -32,7 +32,7 @@ export function Scheda({ p, l, preferito, torna }: { p: ProdottoLista; l: Lingua
         <span className="nome">{p.nome}</span>
         <span className="mono lieve">{tr(l, p.sottotitolo)}</span>
         <span className="prezzo tab">
-          {esaurito ? <span className="esaurito">{_("Esaurito", "Sold out", "نفد")}</span> : <>{egp(p.prezzo)}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</>}
+          {esaurito ? <span className="esaurito">{_("Esaurito", "Sold out", "نفد")}</span> : <>{p.tipo === "SECOND_LIFE" ? _("Asta da ", "Auction from ", "مزاد من ") : ""}{egp(p.prezzo)}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</>}
         </span>
       </Link>
       {preferito !== undefined && torna && <Cuore slug={p.slug} on={preferito} torna={torna} l={l} />}

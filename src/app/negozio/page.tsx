@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { cerca, opzioniFiltri, ETICHETTA_CAT, ETICHETTA_STILE, CATEGORIE, STILI } from "@/lib/catalogo";
+import { cerca, opzioniFiltri, conteggiModelli, ETICHETTA_CAT, ETICHETTA_STILE, CATEGORIE, STILI } from "@/lib/catalogo";
 import { lingua, tx } from "@/lib/contesto";
 import { href, tr } from "@/lib/i18n";
 import { Scheda } from "@/componenti/Scheda";
 import { utenteCorrente } from "@/lib/sessione";
 import { db } from "@/lib/db";
+import MODELLI from "../../../dati/usato-modelli.json";
 
 type SP = Record<string, string | string[] | undefined>;
 const uno = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
@@ -21,11 +22,15 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
   const f = {
     q: uno(sp.q), cat: uno(sp.cat), stile: uno(sp.stile), marca: uno(sp.marca), taglia: uno(sp.taglia),
     max: Number(uno(sp.max)) * 100 || undefined, solo: uno(sp.solo) === "1", ord: uno(sp.ord),
-    sotto: uno(sp.sotto), colore: uno(sp.colore), genere: uno(sp.genere), materiale: uno(sp.materiale), cert: uno(sp.cert), moto: uno(sp.moto),
+    sotto: uno(sp.sotto), colore: uno(sp.colore), genere: uno(sp.genere), materiale: uno(sp.materiale), cert: uno(sp.cert), moto: uno(sp.moto), cond: uno(sp.cond) === "usato" ? "usato" : "",
   };
-  const [lista, opz, u] = await Promise.all([cerca(f), opzioniFiltri(), utenteCorrente()]);
+  const [lista, opz, u] = await Promise.all([cerca(f), opzioniFiltri(f.cond), utenteCorrente()]);
+  const usato = f.cond === "usato";
+  const modelliCat = usato && f.cat ? ((MODELLI as unknown as Record<string, string[]>)[f.cat] ?? []) : [];
+  const conteggi = usato && f.cat ? await conteggiModelli(f.cat) : {};
+  const q = (extra: Record<string, string>) => { const p = new URLSearchParams(extra); return href(l, "/negozio") + (p.toString() ? "?" + p.toString() : ""); };
   const pref = u ? new Set((await db.preferito.findMany({ where: { utenteId: u.id }, select: { prodotto: { select: { slug: true } } } })).map((x) => x.prodotto.slug)) : new Set<string>();
-  const attivi = [f.q, f.cat, f.stile, f.marca, f.taglia, f.max, f.solo ? "1" : "", f.sotto, f.colore, f.genere, f.materiale, f.cert, f.moto].filter(Boolean).length;
+  const attivi = [f.q, f.cat, f.stile, f.marca, f.taglia, f.max, f.solo ? "1" : "", f.sotto, f.colore, f.genere, f.materiale, f.cert, f.moto, f.cond].filter(Boolean).length;
   const torna = href(l, "/negozio") + (Object.keys(sp).length ? "?" + new URLSearchParams(Object.entries(sp).flatMap(([k, v]) => (v === undefined ? [] : [[k, uno(v)]]))).toString() : "");
 
   return (
@@ -37,10 +42,32 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
            "Gear chosen piece by piece, imported from Italy and delivered in Egypt. Every listing states materials, certifications and real measurements.",
            "معدات مختارة قطعة قطعة، مستوردة من إيطاليا وتُسلَّم في مصر. كل بطاقة تذكر المواد والشهادات والمقاسات الحقيقية.")}
       </p>
+      <div className="cond-switch" role="tablist">
+        <Link href={href(l, "/negozio")} className={"cond-tab" + (!usato ? " on" : "")} role="tab" aria-selected={!usato}>{_("Nuovo", "New", "جديد")}</Link>
+        <Link href={q({ cond: "usato" })} className={"cond-tab" + (usato ? " on" : "")} role="tab" aria-selected={usato}>{_("Usato", "Used", "مستعمل")}</Link>
+      </div>
+      {usato && (
+        <div className="cond-chips">
+          <div className="chips-riga">
+            <Link href={q({ cond: "usato" })} className={"chip" + (!f.cat ? " on" : "")}>{_("Tutto", "All", "الكل")}</Link>
+            {CATEGORIE.map((c) => <Link key={c} href={q({ cond: "usato", cat: c })} className={"chip" + (f.cat === c ? " on" : "")}>{tr(l, ETICHETTA_CAT[c])}</Link>)}
+          </div>
+          {modelliCat.length > 0 && (
+            <div className="chips-riga modelli">
+              <Link href={q({ cond: "usato", cat: f.cat })} className={"chip" + (!f.sotto ? " on" : "")}>{_("Tutti i modelli", "All models", "كل الموديلات")}</Link>
+              {modelliCat.map((m) => { const n = conteggi[m.toLowerCase()] ?? 0; return (
+                <Link key={m} href={q({ cond: "usato", cat: f.cat, sotto: m })} className={"chip" + (f.sotto.toLowerCase() === m.toLowerCase() ? " on" : "") + (n === 0 ? " zero" : "")}>{m}{n > 0 ? ` · ${n}` : ""}</Link>
+              ); })}
+            </div>
+          )}
+          <p className="tenue" style={{ fontSize: 13, margin: "10px 0 0" }}>{_("Pezzi unici: ognuno si vende all'asta, uno alla volta.", "One-off pieces: each is sold by auction, one at a time.", "قطع فريدة: كل قطعة تُباع بالمزاد، واحدة تلو الأخرى.")}</p>
+        </div>
+      )}
       <input type="checkbox" id="tf" className="tf-chk" aria-hidden="true" tabIndex={-1} />
       <label htmlFor="tf" className="tasto vuoto apri-filtri">{_("Filtri", "Filters", "مرشحات")}{attivi > 0 ? ` · ${attivi}` : ""}</label>
       <div className="negozio">
         <form className="filtri" method="get" action={href(l, "/negozio")} aria-label={_("Filtri", "Filters", "مرشحات")}>
+          {usato && <input type="hidden" name="cond" value="usato" />}
           <div className="campo"><label htmlFor="q">{_("Cerca", "Search", "بحث")}</label><input id="q" name="q" type="search" defaultValue={f.q} placeholder={_("Cerca casco, marca, modello…", "Search helmet, brand, model…", "ابحث عن خوذة، ماركة، موديل…")} /></div>
           <fieldset><legend>{_("Categoria", "Category", "الفئة")}</legend>
             {CATEGORIE.map((c) => { const n = opz.cat[c] ?? 0; return (

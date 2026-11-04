@@ -17,6 +17,7 @@ export type Filtri = {
   q?: string; cat?: string; stile?: string; marca?: string; taglia?: string;
   max?: number; solo?: boolean; ord?: string;
   sotto?: string; colore?: string; genere?: string; materiale?: string; cert?: string; moto?: string;
+  cond?: string; // "usato" = pezzi unici all'asta; altrimenti nuovo
 };
 
 const conVarianti = {
@@ -33,7 +34,7 @@ export const totaleDisponibile = (p: { varianti: { giacenza: number; impegnati: 
 
 /** Filtri e ricerca li fa il database, non il browser. */
 export async function cerca(f: Filtri): Promise<ProdottoLista[]> {
-  const where: Prisma.ProdottoWhereInput = { attivo: true, tipo: "NUOVO" };
+  const where: Prisma.ProdottoWhereInput = { attivo: true, tipo: f.cond === "usato" ? "SECOND_LIFE" : "NUOVO" };
   if (f.cat && (CATEGORIE as readonly string[]).includes(f.cat)) where.categoria = f.cat;
   if (f.stile && (STILI as readonly string[]).includes(f.stile)) where.stili = { has: f.stile };
   if (f.marca) where.marca = { slug: f.marca };
@@ -77,15 +78,16 @@ function scontoNum(p: { prezzo: number; prezzoPrima: number | null }) {
 }
 
 /** Conteggi per i filtri: opzioni che si spengono a zero risultati. */
-export async function opzioniFiltri() {
+export async function opzioniFiltri(cond?: string) {
+  const TIPO = cond === "usato" ? "SECOND_LIFE" : "NUOVO";
   const distinti = async (campo: "sottocategoria" | "colore" | "genere" | "materiale" | "certificazione") =>
-    (await db.prodotto.findMany({ where: { attivo: true, tipo: "NUOVO", NOT: { [campo]: null } }, distinct: [campo], select: { [campo]: true }, orderBy: { [campo]: "asc" } }))
+    (await db.prodotto.findMany({ where: { attivo: true, tipo: TIPO as "NUOVO" | "SECOND_LIFE", NOT: { [campo]: null } }, distinct: [campo], select: { [campo]: true }, orderBy: { [campo]: "asc" } }))
       .map((r) => (r as unknown as Record<string, string | null>)[campo]).filter((v): v is string => !!v);
   const [cat, stili, marche, taglie, sotto, colori, generi, materiali, cert] = await Promise.all([
-    db.prodotto.groupBy({ by: ["categoria"], where: { attivo: true, tipo: "NUOVO" }, _count: true }),
-    db.$queryRaw<{ s: string; n: bigint }[]>`SELECT s, COUNT(*) AS n FROM "Prodotto", UNNEST("stili") AS s WHERE "attivo" AND "tipo" = 'NUOVO' GROUP BY s`,
-    db.marca.findMany({ where: { prodotti: { some: { attivo: true, tipo: "NUOVO" } } }, orderBy: { nome: "asc" }, select: { slug: true, nome: true, _count: { select: { prodotti: { where: { attivo: true, tipo: "NUOVO" } } } } } }),
-    db.$queryRaw<{ taglia: string }[]>`SELECT DISTINCT v."taglia" FROM "Variante" v JOIN "Prodotto" p ON p.id = v."prodottoId" WHERE p."attivo" AND p."tipo" = 'NUOVO' ORDER BY v."taglia"`,
+    db.prodotto.groupBy({ by: ["categoria"], where: { attivo: true, tipo: TIPO as "NUOVO" | "SECOND_LIFE" }, _count: true }),
+    db.$queryRaw<{ s: string; n: bigint }[]>`SELECT s, COUNT(*) AS n FROM "Prodotto", UNNEST("stili") AS s WHERE "attivo" AND "tipo"::text = ${TIPO} GROUP BY s`,
+    db.marca.findMany({ where: { prodotti: { some: { attivo: true, tipo: TIPO as "NUOVO" | "SECOND_LIFE" } } }, orderBy: { nome: "asc" }, select: { slug: true, nome: true, _count: { select: { prodotti: { where: { attivo: true, tipo: TIPO as "NUOVO" | "SECOND_LIFE" } } } } } }),
+    db.$queryRaw<{ taglia: string }[]>`SELECT DISTINCT v."taglia" FROM "Variante" v JOIN "Prodotto" p ON p.id = v."prodottoId" WHERE p."attivo" AND p."tipo"::text = ${TIPO} ORDER BY v."taglia"`,
     distinti("sottocategoria"), distinti("colore"), distinti("genere"), distinti("materiale"), distinti("certificazione"),
   ]);
   return {
@@ -154,4 +156,11 @@ export async function vetrine() {
     ? (await db.prodotto.findMany({ where: { id: { in: venduti.map((v) => v.id) } }, include: conVarianti })).sort((a, b) => venduti.findIndex((v) => v.id === a.id) - venduti.findIndex((v) => v.id === b.id))
     : [];
   return { nuovi, offerte, piuVenduti, marche };
+}
+
+
+/** Usato: quanti pezzi per modello (sottocategoria) in una categoria. */
+export async function conteggiModelli(cat: string): Promise<Record<string, number>> {
+  const r = await db.prodotto.groupBy({ by: ["sottocategoria"], where: { attivo: true, tipo: "SECOND_LIFE", categoria: cat, NOT: { sottocategoria: null } }, _count: true });
+  return Object.fromEntries(r.map((x) => [(x.sottocategoria ?? "").toLowerCase(), x._count]));
 }

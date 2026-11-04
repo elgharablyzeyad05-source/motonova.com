@@ -367,3 +367,14 @@ html[dir="rtl"] .cat-freccia { transform: scaleX(-1); }
 .caro-freccia.indietro { inset-inline-start: -8px; } .caro-freccia.avanti { inset-inline-end: -8px; }
 html[dir="rtl"] .caro-freccia svg { transform: scaleX(-1); }
 @media (hover: hover) and (pointer: fine) { .caro-freccia { display: flex; } .cat-scorri { cursor: grab; } .cat-scorri.trascinando { cursor: grabbing; scroll-snap-type: none; user-select: none; } .cat-scorri.trascinando * { pointer-events: none; } }
+
+/* Nuovo / Usato */
+.cond-switch{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--linea);border-radius:999px;margin:0 0 18px}
+.cond-tab{padding:9px 22px;border-radius:999px;font-family:var(--m);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--testo-2)}
+.cond-tab.on{background:var(--inchiostro);color:var(--carta)}
+.cond-chips{margin:0 0 22px}
+.chips-riga{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.chips-riga.modelli{padding-top:4px}
+.chip{padding:8px 14px;border:1px solid var(--linea);border-radius:999px;font-size:13px;color:inherit;white-space:nowrap}
+.chip.on{border-color:var(--inchiostro);background:var(--fondo-2);font-weight:600}
+.chip.zero{opacity:.45}

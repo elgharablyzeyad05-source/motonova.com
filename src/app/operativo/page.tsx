@@ -5,6 +5,7 @@ import { richiediAdmin } from "@/lib/sessione";
 import { egp } from "@/lib/regole";
 import { prossimi } from "@/lib/ordini";
 import { CATEGORIE } from "@/lib/catalogo";
+import MODELLI from "../../../dati/usato-modelli.json";
 import { statoDa } from "@/lib/aste";
 import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, statoOrdineAction, accontoRicevutoAction } from "./azioni";
 
@@ -162,7 +163,7 @@ async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: s
       <details className="altri-dettagli">
         <summary>Altri dettagli (facoltativi)</summary>
         <div className="campo"><label htmlFor="sottotitolo">Sottotitolo</label><input id="sottotitolo" name="sottotitolo" defaultValue={p?.sottotitolo} /></div>
-        <div className="campo"><label htmlFor="sottocategoria">Sottocategoria (es. Integrali, Modulari, Racing)</label><input id="sottocategoria" name="sottocategoria" defaultValue={p?.sottocategoria ?? ""} /></div>
+        <div className="campo"><label htmlFor="sottocategoria">Sottocategoria / modello usato (es. AGV K1 S, Integrali)</label><input id="sottocategoria" name="sottocategoria" list="modelli-usato" defaultValue={p?.sottocategoria ?? ""} /><datalist id="modelli-usato">{Object.entries(MODELLI as unknown as Record<string, string[]>).filter(([k]) => k !== "_nota").flatMap(([, v]) => v).map((m) => <option key={m} value={m} />)}</datalist></div>
         <div className="campo"><label htmlFor="colore">Colore</label><input id="colore" name="colore" defaultValue={p?.colore ?? ""} /></div>
         <div className="campo"><label htmlFor="genere">Genere (Uomo, Donna, Unisex)</label><input id="genere" name="genere" defaultValue={p?.genere ?? ""} /></div>
         <div className="campo"><label htmlFor="materiale">Materiale (es. Pelle, Tessuto)</label><input id="materiale" name="materiale" defaultValue={p?.materiale ?? ""} /></div>

@@ -1,0 +1,12 @@
+{
+  "_nota": "Modelli cercati per l'usato, per categoria. Base di partenza: i modelli indicati da Zeyad + marche che i negozi egiziani (Pro Gear, Moto City) tengono a catalogo. Ogni modello nuovo inserito nel pannello compare da solo.",
+  "caschi": ["AGV K1 S", "AGV K3 SV", "AGV K6 S", "AGV Pista GP RR", "AGV Corsa R", "HJC RPHA 1 V2", "HJC RPHA 11", "HJC RPHA 12", "Alpinestars Supertech R10", "Alpinestars Supertech R7", "Scorpion EXO-R1 Air", "MT Thunder 4 SV", "Shoei NXR 2", "Shoei X-SPR Pro", "Arai RX-7V"],
+  "giacche": ["Alpinestars GP Plus R V4", "Alpinestars T-GP Plus R V4", "Alpinestars Missile V2", "Alpinestars ST-1 WP", "Dainese Racing 4", "Dainese Super Speed 4", "Dainese Avro 5", "REV'IT! Eclipse 2", "REV'IT! Sand 4 H2O", "Scorpion EXO Optima"],
+  "pantaloni": ["Alpinestars Missile V3", "Alpinestars Copper Pro", "Dainese Delta 4", "Dainese Super Rider 2 Absoluteshell", "REV'IT! Dominator 3 GTX", "RST S-1"],
+  "tute": ["Alpinestars GP Plus V4", "Alpinestars GP Tech V4", "Alpinestars Missile V2", "Dainese Laguna Seca 5", "Dainese Misano 3", "Dainese Assen 2", "Dainese Racing 4 (due pezzi)"],
+  "gilet": ["Dainese Manis 49", "Alpinestars Bionic Plus", "Alpinestars Nucleon KR-Cell"],
+  "guanti": ["Alpinestars GP Plus R V2", "Alpinestars SP-8 V3", "Alpinestars SP-3", "Alpinestars SMX-1 Air V2", "Dainese Carbon 4", "Dainese Druid 4", "Dainese Steel-Pro", "Scorpion EXO Cool Hand", "REV'IT! Cayenne 2"],
+  "stivali": ["Alpinestars SMX-6 V3", "Alpinestars SMX Plus V2", "Alpinestars Supertech R", "Alpinestars Faster-4", "Alpinestars Tech 7", "Dainese Torque 3 Out", "Dainese Axial 2", "TCX RT-Race", "Sidi Vertigo 2", "RST Tractech Evo III"],
+  "protezioni": ["Dainese Pro-Armor", "Dainese Manis 49", "Alpinestars Nucleon KR-1", "Alpinestars Nucleon KR-2", "Alpinestars Bionic Plus", "Alpinestars Bionic Pro"],
+  "accessori": ["Sena 50S", "Sena 30K", "Sena 20S Evo", "Cardo Packtalk Edge", "Cardo Freecom 4X", "Kriega US-20", "SW-Motech Tank Bag"]
+}
