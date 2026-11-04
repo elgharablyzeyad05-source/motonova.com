@@ -3,6 +3,7 @@ import { lingua, tx } from "@/lib/contesto";
 import { db } from "@/lib/db";
 import { statoDa } from "@/lib/aste";
 import { egp } from "@/lib/regole";
+import { Carosello } from "@/componenti/Carosello";
 import { Orologio } from "@/componenti/Orologio";
 import { href } from "@/lib/i18n";
 import home from "../../dati/home.json";
@@ -71,7 +72,7 @@ export default async function Home() {
 
       <section className="foglio sezione" aria-label={T("worldH")}>
         <p className="etichetta-sez mono">{l === "en" ? "Categories" : l === "ar" ? "الفئات" : "Categorie"}</p>
-        <div className="cat-scorri" role="list">
+        <Carosello prec={_("Indietro", "Previous", "السابق")} succ={_("Avanti", "Next", "التالي")} etichetta={l === "en" ? "Categories" : l === "ar" ? "الفئات" : "Categorie"}>
           {CATEGORIE.map((c, i) => (
             <Link key={c} role="listitem" className={"cat-card" + (CATFOTO.includes(c) ? "" : " senza")} href={href(l, `/negozio?cat=${c}`)}>
               {CATFOTO.includes(c) ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/immagini/cat-${c}.webp?v=4`} alt="" loading="lazy" /> : <Sagoma categoria={c} />}
@@ -80,7 +81,7 @@ export default async function Home() {
               <svg className="cat-freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg>
             </Link>
           ))}
-        </div>
+        </Carosello>
       </section>
       {([["Nuovi arrivi", "New arrivals", "وصل حديثاً", v.nuovi], ["Più venduti", "Best sellers", "الأكثر مبيعاً", v.piuVenduti], ["Offerte", "Offers", "عروض", v.offerte]] as [string, string, string, typeof v.nuovi][]).filter(([, , , lista]) => lista.length > 0).map(([it, en, ar, lista]) => (
         <section key={it} className="foglio sezione">

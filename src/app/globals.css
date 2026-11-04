@@ -235,7 +235,7 @@ table.dati th { font-family: var(--m); font-size: 10.5px; letter-spacing: .1em; 
 .hero-home { background: var(--inchiostro); color: var(--carta); min-height: 92vh; display: flex; flex-direction: column; justify-content: flex-end; position: relative; overflow: hidden; padding: 120px clamp(16px, 4vw, 48px) clamp(28px, 5vw, 60px); }
 .hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none; }
 .hero-home .hero-copy { position: relative; z-index: 2; max-width: 1180px; width: 100%; margin-inline: auto; }
-.hero-home h1 { font-size: clamp(52px, 13.5vw, 190px); line-height: .8; letter-spacing: -.055em; font-variation-settings: "wdth" 125, "wght" 900; }
+.hero-home h1 { font-size: max(52px, min(13.5vw, calc(min(100vw - 96px, 1180px) / 7.75))); line-height: .8; letter-spacing: -.055em; font-variation-settings: "wdth" 125, "wght" 900; }
 html[dir="rtl"] .hero-home h1 { line-height: 1.05; letter-spacing: 0; }
 .hero-home h1 .out { -webkit-text-stroke: 1.5px var(--carta); color: transparent; }
 .hero-home .meta { display: flex; justify-content: space-between; gap: 22px; flex-wrap: wrap; margin-top: 26px; align-items: baseline; }
@@ -357,3 +357,13 @@ html[dir="rtl"] .cat-freccia { transform: scaleX(-1); }
 .altri-dettagli summary { cursor: pointer; font-weight: 700; padding: 8px 0; }
 .op-salva { padding: 12px 0; border-top: 1px solid var(--bordo); display: flex; gap: 10px; }
 .op-salva .tasto { flex: 1; justify-content: center; }
+
+/* carosello categorie: frecce e trascinamento su computer */
+.caro { position: relative; }
+.caro-freccia { position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--inchiostro); background: var(--carta); cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.caro-freccia[hidden] { display: none !important; }
+.caro-freccia svg { width: 20px; height: 20px; stroke: var(--inchiostro); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.caro-freccia:hover { background: var(--inchiostro); } .caro-freccia:hover svg { stroke: var(--carta); }
+.caro-freccia.indietro { inset-inline-start: -8px; } .caro-freccia.avanti { inset-inline-end: -8px; }
+html[dir="rtl"] .caro-freccia svg { transform: scaleX(-1); }
+@media (hover: hover) and (pointer: fine) { .caro-freccia { display: flex; } .cat-scorri { cursor: grab; } .cat-scorri.trascinando { cursor: grabbing; scroll-snap-type: none; user-select: none; } .cat-scorri.trascinando * { pointer-events: none; } }
