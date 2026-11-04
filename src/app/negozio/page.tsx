@@ -6,8 +6,7 @@ import { href, tr } from "@/lib/i18n";
 import { Scheda } from "@/componenti/Scheda";
 import { utenteCorrente } from "@/lib/sessione";
 import { db } from "@/lib/db";
-import { existsSync } from "node:fs";
-import path from "node:path";
+import FOTO from "../../../dati/foto-modelli.json";
 import MODELLI from "../../../dati/usato-modelli.json";
 
 type SP = Record<string, string | string[] | undefined>;
@@ -59,8 +58,8 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
               {modelliCat.map((m) => {
                 const n = conteggi[m.toLowerCase()] ?? 0;
                 const slug = m.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-                const propria = existsSync(path.join(process.cwd(), "public/immagini/modelli", slug + ".webp"));
-                const img = propria ? `/immagini/modelli/${slug}.webp` : `/immagini/cat-${f.cat}.webp?v=4`;
+                const propria = (FOTO as string[]).includes(`${f.cat}-${slug}.webp`);
+                const img = propria ? `/immagini/modelli/${f.cat}-${slug}.webp` : `/immagini/cat-${f.cat}.webp?v=4`;
                 return (
                   <Link key={m} href={q({ cond: "usato", cat: f.cat, sotto: m })} className={"modello-card" + (f.sotto.toLowerCase() === m.toLowerCase() ? " on" : "") + (n === 0 ? " zero" : "")}>
                     <span className="modello-img"><img src={img} alt={m} loading="lazy" /></span>
