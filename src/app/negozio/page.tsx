@@ -6,6 +6,8 @@ import { href, tr } from "@/lib/i18n";
 import { Scheda } from "@/componenti/Scheda";
 import { utenteCorrente } from "@/lib/sessione";
 import { db } from "@/lib/db";
+import { existsSync } from "node:fs";
+import path from "node:path";
 import MODELLI from "../../../dati/usato-modelli.json";
 
 type SP = Record<string, string | string[] | undefined>;
@@ -53,11 +55,20 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
             {CATEGORIE.map((c) => <Link key={c} href={q({ cond: "usato", cat: c })} className={"chip" + (f.cat === c ? " on" : "")}>{tr(l, ETICHETTA_CAT[c])}</Link>)}
           </div>
           {modelliCat.length > 0 && (
-            <div className="chips-riga modelli">
-              <Link href={q({ cond: "usato", cat: f.cat })} className={"chip" + (!f.sotto ? " on" : "")}>{_("Tutti i modelli", "All models", "كل الموديلات")}</Link>
-              {modelliCat.map((m) => { const n = conteggi[m.toLowerCase()] ?? 0; return (
-                <Link key={m} href={q({ cond: "usato", cat: f.cat, sotto: m })} className={"chip" + (f.sotto.toLowerCase() === m.toLowerCase() ? " on" : "") + (n === 0 ? " zero" : "")}>{m}{n > 0 ? ` · ${n}` : ""}</Link>
-              ); })}
+            <div className="modelli-griglia">
+              {modelliCat.map((m) => {
+                const n = conteggi[m.toLowerCase()] ?? 0;
+                const slug = m.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+                const propria = existsSync(path.join(process.cwd(), "public/immagini/modelli", slug + ".webp"));
+                const img = propria ? `/immagini/modelli/${slug}.webp` : `/immagini/cat-${f.cat}.webp?v=4`;
+                return (
+                  <Link key={m} href={q({ cond: "usato", cat: f.cat, sotto: m })} className={"modello-card" + (f.sotto.toLowerCase() === m.toLowerCase() ? " on" : "") + (n === 0 ? " zero" : "")}>
+                    <span className="modello-img"><img src={img} alt={m} loading="lazy" /></span>
+                    <strong>{m}</strong>
+                    <small>{n > 0 ? `${n} ${_("in asta", "at auction", "في المزاد")}` : _("Nessun pezzo ora", "None right now", "لا توجد قطع الآن")}</small>
+                  </Link>
+                );
+              })}
             </div>
           )}
           <p className="tenue" style={{ fontSize: 13, margin: "10px 0 0" }}>{_("Pezzi unici: ognuno si vende all'asta, uno alla volta.", "One-off pieces: each is sold by auction, one at a time.", "قطع فريدة: كل قطعة تُباع بالمزاد، واحدة تلو الأخرى.")}</p>
