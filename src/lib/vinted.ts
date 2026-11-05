@@ -6,7 +6,7 @@ const nucleo = (m: string) => m.replace(/\(.*?\)/g, "").trim();
 
 export type Riconosciuto = {
   categoria: string | null; modello: string | null; marca: string | null; nome: string | null;
-  taglia: string; descrizione: string[];
+  taglia: string; descrizione: string[]; difetti: string;
 };
 
 const HINT: Record<string, RegExp> = {
@@ -44,12 +44,14 @@ export function leggiAnnuncio(testo: string, catForzata?: string): Riconosciuto 
   if (m1) taglia = m1[1].toUpperCase().replace(/\s/g, "");
   else { const m2 = grezzo.match(/(?:^|[\s(,;])(3XL|4XL|XXL|XXS|XL|XS)(?=[\s),;.]|$)/i); if (m2) taglia = m2[1].toUpperCase(); }
   const descrizione = testo.split(/\r?\n/).map((r) => r.trim()).filter((r) => r && !/vinted|https?:\/\//i.test(r) && !/^#/.test(r));
+  const DIF = /(difett|graff|segn[oi]|usura|macchi|rott|dann|cicatric|scolor|abrasion|strapp|crepa|scheggi|ammacc|sbiad|defect|scratch|scuff|wear|damage|crack|stain|tear)/i;
+  const difetti = descrizione.filter((r) => DIF.test(r)).join(" ");
   return {
     categoria: scelto?.cat ?? catForzata ?? null,
     modello: scelto?.modello ?? null,
     marca: scelto?.marca ?? null,
     nome: scelto ? scelto.modello.slice(scelto.marca.length).trim() : null,
     taglia: taglia || "Unica",
-    descrizione,
+    descrizione, difetti,
   };
 }

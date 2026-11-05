@@ -97,6 +97,7 @@ export default async function Prodotto({ params }: Props) {
             }} />
           <div style={{ marginTop: 28 }}>
             {descr.map((d, i) => <p key={i} style={{ marginBottom: 12 }}>{tr(l, d)}</p>)}
+            {p.tipo === "USATO" && p.difetti && <div className="nota" style={{ marginTop: 14 }}><b>{_("Condizioni e difetti", "Condition and flaws", "الحالة والعيوب")}</b> — {p.difetti}</div>}
           </div>
           {omol && <div className="nota" style={{ marginTop: 14 }}><b>{tr(l, omol[0])}</b> — {tr(l, omol[1])}</div>}
         </div>

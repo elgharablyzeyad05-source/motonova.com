@@ -97,6 +97,7 @@ export async function salvaProdottoAction(f: FormData) {
     materiale: t(f, "materiale") || null, certificazione: t(f, "certificazione") || null, moto: t(f, "moto") || null,
     specs: t(f, "specs").split("\n").map((r) => r.trim()).filter(Boolean).map((r) => { const i = r.indexOf(":"); return i > 0 ? [r.slice(0, i).trim(), r.slice(i + 1).trim()] : [r, ""]; }),
     prezzo, prezzoMinimo: trattabile ? minimo : null, trattabile, prezzoPrima: prima, nota: t(f, "nota"), luogo: t(f, "luogo"), grado: t(f, "grado") || null, descrizione,
+    fonteUrl: t(f, "fonteUrl") || null, costo: t(f, "costo") && egpToPiastre(t(f, "costo")) >= 0 ? egpToPiastre(t(f, "costo")) : null, difetti: t(f, "difetti"), noteInterne: t(f, "noteInterne"),
     attivo: f.get("attivo") === "on",
   };
   let pid = id;
@@ -143,6 +144,7 @@ export async function caricaVelocePezzoAction(f: FormData) {
   f.set("tipo", "USATO"); f.set("marca", marca); f.set("nome", nome); f.set("categoria", categoria);
   f.set("sottocategoria", r.modello ?? t(f, "sottocategoria"));
   f.set("taglie", `${t(f, "taglia") || r.taglia}:1`);
+  if (!t(f, "difetti")) f.set("difetti", r.difetti);
   f.set("descrizione", r.descrizione.join("\n")); f.set("trattabile", "on"); f.set("prezzoMinimo", minimo); f.set("attivo", "on"); f.set("ritorno", "veloce");
   return salvaProdottoAction(f);
 }

@@ -176,6 +176,10 @@ async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: s
         <div className="campo solo-nuovo"><label htmlFor="prezzoPrima">Prezzo di prima (EGP, solo se in offerta)</label><input id="prezzoPrima" name="prezzoPrima" inputMode="decimal" defaultValue={p?.prezzoPrima ? p.prezzoPrima / 100 : ""} /></div>
         <div className="campo"><label htmlFor="nota">Nota</label><input id="nota" name="nota" defaultValue={p?.nota} /></div>
         <div className="campo"><label htmlFor="luogo">Luogo</label><input id="luogo" name="luogo" defaultValue={p?.luogo} /></div>
+        <div className="campo"><label htmlFor="fonteUrl">Link annuncio Vinted (solo per te)</label><input id="fonteUrl" name="fonteUrl" type="url" defaultValue={p?.fonteUrl ?? ""} /></div>
+        <div className="campo"><label htmlFor="costo">Prezzo d&apos;acquisto (EGP, solo per te)</label><input id="costo" name="costo" inputMode="decimal" defaultValue={p?.costo ? p.costo / 100 : ""} /></div>
+        <div className="campo"><label htmlFor="difetti">Difetti (li vede il cliente)</label><input id="difetti" name="difetti" defaultValue={p?.difetti ?? ""} /></div>
+        <div className="campo"><label htmlFor="noteInterne">Note interne (solo per te)</label><input id="noteInterne" name="noteInterne" defaultValue={p?.noteInterne ?? ""} /></div>
         <div className="campo"><label htmlFor="grado">Condizione / grado</label><input id="grado" name="grado" defaultValue={p?.grado ?? ""} /></div>
       </details>
       <div className="op-salva"><button className="tasto salva-prodotto">{p ? "Salva" : tipo === "SECOND_LIFE" ? "Crea e apri l'asta" : "Pubblica"}</button> <Link className="tasto vuoto" href="/operativo?tab=prodotti">Indietro</Link></div>
@@ -292,7 +296,11 @@ function CaricaVeloce() {
       <p className="tenue" style={{ margin: "0 0 18px" }}>Copia titolo e descrizione dell&apos;annuncio, aggiungi le foto e il prezzo. Modello, categoria e taglia li riconosco io. Resta pubblicato come usato, con prezzo trattabile.</p>
       <div className="campo"><label htmlFor="testo">Testo dell&apos;annuncio (titolo + descrizione)</label><textarea id="testo" name="testo" rows={8} required placeholder="Incolla qui il testo copiato da Vinted" /></div>
       <div className="campo"><label htmlFor="foto">Foto</label><input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp" multiple /></div>
-      <div className="campo"><label htmlFor="prezzo">Prezzo (EGP)</label><input id="prezzo" name="prezzo" inputMode="decimal" required /></div>
+      <div className="campo"><label htmlFor="fonteUrl">Link annuncio Vinted (resta solo per te)</label><input id="fonteUrl" name="fonteUrl" type="url" placeholder="https://www.vinted.it/items/…" /></div>
+      <div className="campo"><label htmlFor="costo">Prezzo d&apos;acquisto (EGP)</label><input id="costo" name="costo" inputMode="decimal" /></div>
+      <div className="campo"><label htmlFor="prezzo">Prezzo di vendita (EGP)</label><input id="prezzo" name="prezzo" inputMode="decimal" required /></div>
+      <div className="campo"><label htmlFor="difetti">Difetti (vuoto = li cerco nel testo)</label><input id="difetti" name="difetti" /></div>
+      <div className="campo"><label htmlFor="noteInterne">Note interne (non pubbliche)</label><input id="noteInterne" name="noteInterne" /></div>
       <div className="campo"><label htmlFor="minimo">Prezzo minimo trattabile (EGP, vuoto = 85% del prezzo)</label><input id="minimo" name="minimo" inputMode="decimal" /></div>
       <details className="altri-dettagli"><summary>Se non riconosce il modello</summary>
         <div className="campo"><label htmlFor="v-categoria">Categoria</label><select id="v-categoria" name="categoria" defaultValue=""><option value="">Riconosci da solo</option>{CATEGORIE.map((c) => <option key={c}>{c}</option>)}</select></div>

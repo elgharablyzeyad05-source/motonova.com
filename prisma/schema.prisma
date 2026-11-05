@@ -104,6 +104,10 @@ model Prodotto {
   nota        String       @default("")
   luogo       String       @default("")
   grado       String?
+  fonteUrl    String?
+  costo       Int?
+  difetti     String       @default("")
+  noteInterne String       @default("")
   descrizione String[]
   specs       Json         @default("[]")
   report      Json?
