@@ -17,6 +17,7 @@ enum Ruolo {
 enum TipoProdotto {
   NUOVO
   SECOND_LIFE
+  USATO
 }
 
 enum StatoOrdine {

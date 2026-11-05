@@ -79,7 +79,7 @@ export default async function Prodotto({ params }: Props) {
           <p className="tenue" style={{ marginBottom: 16 }}>{tr(l, p.sottotitolo)}</p>
           <p className="prezzo-grande tab">{egp(p.prezzo)}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</p>
           <p className="mono lieve" style={{ margin: "6px 0 22px" }}>{_("IVA e dazio inclusi", "VAT and duty included", "شامل الضريبة والجمارك")}</p>
-          <AggiungiForm iniziale={iniziale} checkout={href(l, "/checkout")} trattabile={p.trattabile && Boolean(p.prezzoMinimo) && p.tipo === "NUOVO"}
+          <AggiungiForm iniziale={iniziale} checkout={href(l, "/checkout")} trattabile={p.trattabile && Boolean(p.prezzoMinimo)}
             varianti={varianti.map((v) => ({ id: v.id, taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
             testi={{
               aggiungi: _("Aggiungi al carrello", "Add to cart", "أضف إلى السلة"), aggiunto: _("Aggiunto ✓", "Added ✓", "تمت الإضافة ✓"), esaurito: _("Esaurito", "Sold out", "نفد"),

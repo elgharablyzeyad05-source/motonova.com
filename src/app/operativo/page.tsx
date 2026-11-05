@@ -142,7 +142,8 @@ async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: s
       {p && <input type="hidden" name="id" value={p.id} />}
       <h2 style={{ fontSize: 22, margin: "0 0 16px" }}>{p ? "Modifica" : tipo === "SECOND_LIFE" ? "Nuova asta" : "Nuovo prodotto"}</h2>
       <fieldset className="campo scelta-tipo"><legend>Come lo vendi?</legend>
-        <label><input type="radio" name="tipo" id="tipo-nuovo" value="NUOVO" defaultChecked={tipo === "NUOVO"} /> Vendita normale</label>
+        <label><input type="radio" name="tipo" id="tipo-nuovo" value="NUOVO" defaultChecked={tipo === "NUOVO"} /> Vendita normale (nuovo)</label>
+        <label><input type="radio" name="tipo" id="tipo-usato" value="USATO" defaultChecked={tipo === "USATO"} /> Usato (prezzo trattabile)</label>
         <label><input type="radio" name="tipo" id="tipo-asta" value="SECOND_LIFE" defaultChecked={tipo === "SECOND_LIFE"} /> Asta (un solo pezzo)</label>
       </fieldset>
       <div className="campo"><label htmlFor="foto">Foto (puoi sceglierne più d&apos;una)</label><input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp" multiple /></div>

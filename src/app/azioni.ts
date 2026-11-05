@@ -50,7 +50,7 @@ export async function offriPrezzo(varianteId: string, offertaEgp: string, quanti
   if (!Number.isFinite(offerta) || offerta <= 0) return { ok: false, messaggio: _("Scrivi un prezzo valido", "Enter a valid price", "اكتب سعراً صحيحاً") };
   const v = await db.variante.findUnique({ where: { id: varianteId }, include: { prodotto: { include: { marca: true } } } });
   const p = v?.prodotto;
-  if (!v || !p || !p.attivo || p.tipo !== "NUOVO" || !p.trattabile || !p.prezzoMinimo) return { ok: false, messaggio: _("Questo prodotto ha prezzo fisso", "This product has a fixed price", "هذا المنتج بسعر ثابت") };
+  if (!v || !p || !p.attivo || p.tipo === "SECOND_LIFE" || !p.trattabile || !p.prezzoMinimo) return { ok: false, messaggio: _("Questo prodotto ha prezzo fisso", "This product has a fixed price", "هذا المنتج بسعر ثابت") };
   if (!(await limita(`trat:ip:${await ip()}`, 40, 24 * 3600_000))) return { ok: false, messaggio: _("Troppi tentativi, riprova domani", "Too many attempts, try again tomorrow", "محاولات كثيرة، حاول غداً") };
   if (!(await limita(`trat:${await ip()}:${p.id}`, 6, 24 * 3600_000))) return { ok: false, restanti: 0, messaggio: _("Hai esaurito i tentativi per questo prodotto. Puoi comprarlo al prezzo di listino.", "You have used all your attempts for this product. You can still buy it at the listed price.", "استنفدت محاولاتك لهذا المنتج. يمكنك شراءه بالسعر المعروض.") };
   const k = await carrelloLib.assicuraCarrello();
