@@ -135,12 +135,18 @@ model Variante {
   prodottoId String
   prodotto   Prodotto        @relation(fields: [prodottoId], references: [id], onDelete: Cascade)
   taglia     String
+  colore     String          @default("")
+  fonteUrl   String?
+  prezzoAnnuncio String?
+  costo      Int?
+  difetti    String          @default("")
+  noteInterne String         @default("")
   giacenza   Int             @default(0)
   impegnati  Int             @default(0)
   righe      RigaCarrello[]
   righeOrdine RigaOrdine[]
 
-  @@unique([prodottoId, taglia])
+  @@unique([prodottoId, colore, taglia])
 }
 
 model Foto {

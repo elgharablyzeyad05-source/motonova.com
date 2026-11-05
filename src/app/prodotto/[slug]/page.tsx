@@ -33,7 +33,8 @@ export default async function Prodotto({ params }: Props) {
   if (p.tipo === "SECOND_LIFE") redirect(href(l, `/aste/${p.slug}`)); // un pezzo unico si compra solo all'asta
   const [simili, u, base] = await Promise.all([correlati(p), utenteCorrente(), baseUrl()]);
   const pref = u ? !!(await db.preferito.findFirst({ where: { utenteId: u.id, prodottoId: p.id } })) : false;
-  const varianti = ordinaTaglie(p.varianti.map((v) => v.taglia)).map((t) => p.varianti.find((v) => v.taglia === t)!);
+  const ordT = ordinaTaglie(Array.from(new Set(p.varianti.map((v) => v.taglia))));
+  const varianti = [...p.varianti].sort((a, b) => a.colore.localeCompare(b.colore) || ordT.indexOf(a.taglia) - ordT.indexOf(b.taglia));
   const iniziale = (() => {
     const disp = varianti.filter((v) => disponibile(v) > 0);
     if (!disp.length) return "";
@@ -80,7 +81,8 @@ export default async function Prodotto({ params }: Props) {
           <p className="prezzo-grande tab">{egp(p.prezzo)}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</p>
           <p className="mono lieve" style={{ margin: "6px 0 22px" }}>{_("IVA e dazio inclusi", "VAT and duty included", "شامل الضريبة والجمارك")}</p>
           <AggiungiForm iniziale={iniziale} checkout={href(l, "/checkout")} trattabile={p.trattabile && Boolean(p.prezzoMinimo)}
-            varianti={varianti.map((v) => ({ id: v.id, taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
+            altreOpzioni={href(l, `/negozio?${p.tipo === "USATO" ? "cond=usato&" : ""}cat=${p.categoria}`)}
+            varianti={varianti.map((v) => ({ id: v.id, colore: v.colore, difetti: p.tipo === "USATO" ? v.difetti : "", taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
             testi={{
               aggiungi: _("Aggiungi al carrello", "Add to cart", "أضف إلى السلة"), aggiunto: _("Aggiunto ✓", "Added ✓", "تمت الإضافة ✓"), esaurito: _("Esaurito", "Sold out", "نفد"),
               taglia: cosaMisura(p.categoria)[l === "en" ? 1 : l === "ar" ? 2 : 0],
@@ -94,6 +96,16 @@ export default async function Prodotto({ params }: Props) {
               offertaVai: _("Vai al carrello", "Go to cart", "اذهب إلى السلة"),
               pezzi: _("pezzi", "pieces", "قطعة"),
               restanti: _("Tentativi rimasti: {n}.", "Attempts left: {n}.", "المحاولات المتبقية: {n}."),
+              colore: _("Colore", "Colour", "اللون"),
+              dispN: _("{n} disponibili", "{n} available", "{n} متوفر"),
+              budget: _("Il tuo budget per questo pezzo (EGP)", "Your budget for this piece (EGP)", "ميزانيتك لهذه القطعة (جنيه)"),
+              budgetInvia: _("Verifica", "Check", "تحقق"),
+              basso1: _("Con questo budget non riusciamo a venirti incontro su questo pezzo. Sei disposto ad alzarlo, oppure preferisci valutare altre opzioni?", "We can't meet this budget on this piece. Are you willing to raise it, or would you rather look at other options?", "لا نستطيع تلبية هذه الميزانية لهذه القطعة. هل أنت مستعد لرفعها أم تفضل النظر في خيارات أخرى؟"),
+              basso2: _("Non riusciamo a trovare un accordo su questo pezzo. Scrivici nella chat del sito: valutiamo insieme altre opzioni.", "We couldn't agree on this piece. Message us in the site chat and we'll look at other options together.", "لم نصل إلى اتفاق على هذه القطعة. راسلنا في دردشة الموقع لنبحث معاً عن خيارات أخرى."),
+              alza: _("Alzo il budget", "Raise my budget", "سأرفع الميزانية"),
+              altre: _("Vedi altre opzioni", "See other options", "شاهد خيارات أخرى"),
+              chat: _("Scrivici in chat", "Message us in chat", "راسلنا في الدردشة"),
+              difetti: _("Condizioni e difetti", "Condition and flaws", "الحالة والعيوب"),
             }} />
           <div style={{ marginTop: 28 }}>
             {descr.map((d, i) => <p key={i} style={{ marginBottom: 12 }}>{tr(l, d)}</p>)}

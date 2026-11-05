@@ -27,6 +27,7 @@ export function ChatSito({ t }: { t: T }) {
     const id = setInterval(() => { if (!document.hidden) carica(aperta); }, aperta ? 5000 : 45000);
     return () => clearInterval(id);
   }, [aperta, carica]);
+  useEffect(() => { const f = () => setAperta(true); window.addEventListener("mn:chat", f); return () => window.removeEventListener("mn:chat", f); }, []);
   useEffect(() => { fondo.current?.scrollIntoView({ block: "end" }); }, [msgs, aperta]);
 
   async function manda(e: React.FormEvent) {

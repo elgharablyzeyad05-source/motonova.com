@@ -135,7 +135,8 @@ async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: s
   const p = id === "nuovo" ? null : await db.prodotto.findUnique({ where: { id }, include: { marca: true, varianti: true, foto: { orderBy: { ordine: "asc" } }, asta: true } });
   if (id !== "nuovo" && !p) notFound();
   const marche = await db.marca.findMany({ orderBy: { nome: "asc" } });
-  const taglie = p?.varianti.map((v) => `${v.taglia}:${v.giacenza}`).join(", ") ?? "";
+  const taglie = p?.varianti.filter((v) => !v.colore).map((v) => `${v.taglia}:${v.giacenza}`).join(", ") ?? "";
+  const pezzi = [...(p?.varianti ?? []).filter((v) => p?.tipo === "USATO"), ...Array.from({ length: 3 }, () => null)];
   const tipo = p?.tipo ?? tipoIniziale ?? "NUOVO";
   const astaNuova = tipo === "SECOND_LIFE" && !p?.asta;
   return <>
@@ -152,7 +153,24 @@ async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: s
       <div className="campo"><label htmlFor="marca">Marca</label><input id="marca" name="marca" list="elenco-marche" defaultValue={p?.marca.nome} required /><datalist id="elenco-marche">{marche.map((m) => <option key={m.id} value={m.nome} />)}</datalist></div>
       <div className="campo"><label htmlFor="categoria">Categoria</label><select id="categoria" name="categoria" defaultValue={p?.categoria ?? ""} required><option value="">—</option>{CATEGORIE.map((c) => <option key={c}>{c}</option>)}</select></div>
       <div className="campo solo-nuovo"><label htmlFor="prezzo">Prezzo (EGP)</label><input id="prezzo" name="prezzo" inputMode="decimal" defaultValue={p ? p.prezzo / 100 : ""} /></div>
-      <div className="campo"><label htmlFor="taglie">Taglie e pezzi <span className="lieve">— es. «M:3, L:5». Per l&apos;asta una sola, es. «L:1»</span></label><input id="taglie" name="taglie" placeholder="S:3, M:6, L:4" defaultValue={taglie} required /></div>
+      <div className="campo solo-taglie"><label htmlFor="taglie">Taglie e pezzi <span className="lieve">— es. «M:3, L:5». Per l&apos;asta una sola, es. «L:1»</span></label><input id="taglie" name="taglie" placeholder="S:3, M:6, L:4" defaultValue={taglie} required /></div>
+      <div className="solo-usato">
+        <h3 style={{ fontSize: 16, margin: "6px 0 4px" }}>Pezzi usati (uno per colore e taglia)</h3>
+        <p className="tenue" style={{ margin: "0 0 12px", fontSize: 13 }}>Per ogni pezzo: colore, taglia, link Vinted, prezzo scritto nell&apos;annuncio e difetti. Per togliere un pezzo svuota la taglia.</p>
+        {pezzi.map((z, i) => (
+          <div className="pezzo-riga" key={z?.id ?? "n" + i}>
+            <input type="hidden" name="pz_id" value={z?.id ?? ""} />
+            <input name="pz_colore" placeholder="Colore (es. Nero lucido)" defaultValue={z?.colore ?? ""} />
+            <input name="pz_taglia" placeholder="Taglia" defaultValue={z?.taglia ?? ""} />
+            <input name="pz_qta" inputMode="numeric" placeholder="Pezzi" defaultValue={z ? z.giacenza : ""} />
+            <input name="pz_link" type="url" placeholder="Link annuncio Vinted" defaultValue={z?.fonteUrl ?? ""} />
+            <input name="pz_annuncio" placeholder="Prezzo annuncio (es. 130 €)" defaultValue={z?.prezzoAnnuncio ?? ""} />
+            <input name="pz_costo" inputMode="decimal" placeholder="Costo acquisto EGP" defaultValue={z?.costo ? z.costo / 100 : ""} />
+            <input name="pz_difetti" placeholder="Difetti (li vede il cliente)" defaultValue={z?.difetti ?? ""} />
+            <input name="pz_note" placeholder="Note interne" defaultValue={z?.noteInterne ?? ""} />
+          </div>
+        ))}
+      </div>
       <div className="solo-asta">
         <div className="campo"><label htmlFor="partenza">Prezzo di partenza (EGP)</label><input id="partenza" name="partenza" inputMode="decimal" defaultValue={p?.asta ? p.asta.partenza / 100 : ""} /></div>
         <div className="campo"><label htmlFor="riserva">Riserva segreta (EGP, facoltativa)</label><input id="riserva" name="riserva" inputMode="decimal" defaultValue={p?.asta?.riserva ? p.asta.riserva / 100 : ""} /></div>
@@ -291,24 +309,21 @@ async function Clienti() {
 
 function CaricaVeloce() {
   return (
-    <form action={caricaVelocePezzoAction} encType="multipart/form-data" className="form-prod" style={{ maxWidth: 680 }}>
+    <form action={caricaVelocePezzoAction} className="form-prod" style={{ maxWidth: 680 }}>
       <h2 style={{ fontSize: 22, margin: "0 0 6px" }}>Carica un usato da Vinted</h2>
-      <p className="tenue" style={{ margin: "0 0 18px" }}>Copia titolo e descrizione dell&apos;annuncio, aggiungi le foto e il prezzo. Modello, categoria e taglia li riconosco io. Resta pubblicato come usato, con prezzo trattabile.</p>
-      <div className="campo"><label htmlFor="testo">Testo dell&apos;annuncio (titolo + descrizione)</label><textarea id="testo" name="testo" rows={8} required placeholder="Incolla qui il testo copiato da Vinted" /></div>
-      <div className="campo"><label htmlFor="foto">Foto</label><input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp" multiple /></div>
-      <div className="campo"><label htmlFor="fonteUrl">Link annuncio Vinted (resta solo per te)</label><input id="fonteUrl" name="fonteUrl" type="url" placeholder="https://www.vinted.it/items/…" /></div>
-      <div className="campo"><label htmlFor="costo">Prezzo d&apos;acquisto (EGP)</label><input id="costo" name="costo" inputMode="decimal" /></div>
-      <div className="campo"><label htmlFor="prezzo">Prezzo di vendita (EGP)</label><input id="prezzo" name="prezzo" inputMode="decimal" required /></div>
-      <div className="campo"><label htmlFor="difetti">Difetti (vuoto = li cerco nel testo)</label><input id="difetti" name="difetti" /></div>
-      <div className="campo"><label htmlFor="noteInterne">Note interne (non pubbliche)</label><input id="noteInterne" name="noteInterne" /></div>
-      <div className="campo"><label htmlFor="minimo">Prezzo minimo trattabile (EGP, vuoto = 85% del prezzo)</label><input id="minimo" name="minimo" inputMode="decimal" /></div>
-      <details className="altri-dettagli"><summary>Se non riconosce il modello</summary>
+      <p className="tenue" style={{ margin: "0 0 18px" }}>Incolla il testo dell&apos;annuncio e il link. Riconosco modello, categoria, colore, taglia e difetti. La foto è quella da catalogo del modello. Il prezzo di vendita lo metti dopo, da Prodotti.</p>
+      <div className="campo"><label htmlFor="testo">Testo dell&apos;annuncio (titolo + descrizione)</label><textarea id="testo" name="testo" rows={7} required placeholder="Incolla qui il testo copiato da Vinted" /></div>
+      <div className="campo"><label htmlFor="link">Link annuncio Vinted</label><input id="link" name="link" type="url" placeholder="https://www.vinted.it/items/…" /></div>
+      <div className="campo"><label htmlFor="annuncio">Prezzo dell&apos;annuncio (come scritto su Vinted)</label><input id="annuncio" name="annuncio" placeholder="130" /></div>
+      <details className="altri-dettagli"><summary>Correggi quello che ho riconosciuto</summary>
         <div className="campo"><label htmlFor="v-categoria">Categoria</label><select id="v-categoria" name="categoria" defaultValue=""><option value="">Riconosci da solo</option>{CATEGORIE.map((c) => <option key={c}>{c}</option>)}</select></div>
-        <div className="campo"><label htmlFor="v-marca">Marca</label><input id="v-marca" name="marca" list="elenco-marche-v" /></div>
+        <div className="campo"><label htmlFor="v-marca">Marca</label><input id="v-marca" name="marca" /></div>
         <div className="campo"><label htmlFor="v-nome">Nome del modello</label><input id="v-nome" name="nome" /></div>
-        <div className="campo"><label htmlFor="v-taglia">Taglia (se non è nel testo)</label><input id="v-taglia" name="taglia" /></div>
+        <div className="campo"><label htmlFor="v-colore">Colore</label><input id="v-colore" name="colore" /></div>
+        <div className="campo"><label htmlFor="v-taglia">Taglia</label><input id="v-taglia" name="taglia" /></div>
+        <div className="campo"><label htmlFor="v-difetti">Difetti (li vede il cliente)</label><input id="v-difetti" name="difetti" /></div>
       </details>
-      <div className="op-salva"><button className="tasto">Pubblica</button></div>
+      <div className="op-salva"><button className="tasto">Aggiungi</button></div>
     </form>
   );
 }
