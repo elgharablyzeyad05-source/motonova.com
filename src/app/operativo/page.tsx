@@ -7,19 +7,19 @@ import { prossimi } from "@/lib/ordini";
 import { CATEGORIE } from "@/lib/catalogo";
 import MODELLI from "../../../dati/usato-modelli.json";
 import { statoDa } from "@/lib/aste";
-import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, statoOrdineAction, accontoRicevutoAction } from "./azioni";
+import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, caricaVelocePezzoAction, statoOrdineAction, accontoRicevutoAction } from "./azioni";
 
 export const metadata = { title: "Operativo", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
-const TABS = ["oggi", "ordini", "chat", "prodotti", "aste", "clienti", "altro", "coupon", "posta", "iscritti"] as const;
+const TABS = ["oggi", "ordini", "chat", "prodotti", "veloce", "aste", "clienti", "altro", "coupon", "posta", "iscritti"] as const;
 const STILI = ["sport", "street", "adventure", "touring", "urban"];
 const NOME_STATO: Record<string, string> = { DA_CONFERMARE: "Da confermare", CONFERMATO: "Confermato", PREPARAZIONE: "In preparazione", SPEDITO: "Spedito", CONSEGNATO: "Consegnato", ANNULLATO: "Annullato" };
 const fmt = new Intl.DateTimeFormat("it-IT", { dateStyle: "short", timeStyle: "short", timeZone: "Africa/Cairo" });
 const dt = (d: Date | null) => (d ? d.toISOString().slice(0, 16) : "");
 
 const ALTRO = ["coupon", "posta", "iscritti"];
-const NOME_TAB: Record<string, string> = { oggi: "Oggi", ordini: "Ordini", chat: "Messaggi", prodotti: "Prodotti", aste: "Aste", clienti: "Clienti", altro: "Altro" };
+const NOME_TAB: Record<string, string> = { oggi: "Oggi", ordini: "Ordini", chat: "Messaggi", prodotti: "Prodotti", veloce: "Carica usato", aste: "Aste", clienti: "Clienti", altro: "Altro" };
 
 export default async function Operativo({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
   // Chi non è amministratore vede una pagina inesistente, non un invito ad accedere.
@@ -47,6 +47,7 @@ export default async function Operativo({ searchParams }: { searchParams: Promis
       {tab === "ordini" && <Ordini tutti={q.tutti === "1"} />}
       {tab === "chat" && <Chat conv={q.conv} />}
       {tab === "prodotti" && <Prodotti modifica={q.modifica} tipo={q.tipo} />}
+      {tab === "veloce" && <CaricaVeloce />}
       {tab === "clienti" && <Clienti />}
       {tab === "coupon" && <Coupon />}
       {tab === "aste" && <Aste />}
@@ -282,4 +283,24 @@ async function Clienti() {
       <tr key={u.id}><td>{u.nome}{u.ruolo === "ADMIN" ? " · admin" : ""}</td><td dir="ltr">{u.email}</td><td>{fmt.format(u.creato)}</td><td className="tab">{validi.length}</td><td className="tab">{egp(validi.reduce((s, o) => s + o.totale, 0))}</td>
         <td>{u.ruolo === "ADMIN" ? "" : (<form action={garanziaAction}><input type="hidden" name="id" value={u.id} /><button className="tasto piccolo vuoto">{u.garanzia ? "Sì · togli" : "No · concedi"}</button></form>)}</td></tr>); })}
   </tbody></table> : <p className="tenue">Nessun cliente registrato.</p>;
+}
+
+function CaricaVeloce() {
+  return (
+    <form action={caricaVelocePezzoAction} encType="multipart/form-data" className="form-prod" style={{ maxWidth: 680 }}>
+      <h2 style={{ fontSize: 22, margin: "0 0 6px" }}>Carica un usato da Vinted</h2>
+      <p className="tenue" style={{ margin: "0 0 18px" }}>Copia titolo e descrizione dell&apos;annuncio, aggiungi le foto e il prezzo. Modello, categoria e taglia li riconosco io. Resta pubblicato come usato, con prezzo trattabile.</p>
+      <div className="campo"><label htmlFor="testo">Testo dell&apos;annuncio (titolo + descrizione)</label><textarea id="testo" name="testo" rows={8} required placeholder="Incolla qui il testo copiato da Vinted" /></div>
+      <div className="campo"><label htmlFor="foto">Foto</label><input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp" multiple /></div>
+      <div className="campo"><label htmlFor="prezzo">Prezzo (EGP)</label><input id="prezzo" name="prezzo" inputMode="decimal" required /></div>
+      <div className="campo"><label htmlFor="minimo">Prezzo minimo trattabile (EGP, vuoto = 85% del prezzo)</label><input id="minimo" name="minimo" inputMode="decimal" /></div>
+      <details className="altri-dettagli"><summary>Se non riconosce il modello</summary>
+        <div className="campo"><label htmlFor="v-categoria">Categoria</label><select id="v-categoria" name="categoria" defaultValue=""><option value="">Riconosci da solo</option>{CATEGORIE.map((c) => <option key={c}>{c}</option>)}</select></div>
+        <div className="campo"><label htmlFor="v-marca">Marca</label><input id="v-marca" name="marca" list="elenco-marche-v" /></div>
+        <div className="campo"><label htmlFor="v-nome">Nome del modello</label><input id="v-nome" name="nome" /></div>
+        <div className="campo"><label htmlFor="v-taglia">Taglia (se non è nel testo)</label><input id="v-taglia" name="taglia" /></div>
+      </details>
+      <div className="op-salva"><button className="tasto">Pubblica</button></div>
+    </form>
+  );
 }

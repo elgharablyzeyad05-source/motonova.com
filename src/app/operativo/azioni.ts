@@ -8,6 +8,7 @@ import { richiediAdmin } from "@/lib/sessione";
 import { accontoRicevuto, cambiaStato } from "@/lib/ordini";
 import { leggiTaglie, slugDi } from "@/lib/regole";
 import { normalizza } from "@/lib/coupon";
+import { leggiAnnuncio } from "@/lib/vinted";
 import type { StatoOrdine } from "@/generated/prisma/client";
 
 async function admin() { const u = await richiediAdmin(); if (!u) redirect("/accedi?torna=/operativo"); return u; }
@@ -66,26 +67,27 @@ export async function eliminaFotoAction(f: FormData) {
 // ---------- prodotti ----------
 export async function salvaProdottoAction(f: FormData) {
   await admin();
+  const rt = t(f, "ritorno") || "prodotti";
   const id = t(f, "id");
   const back = id ? `&modifica=${id}` : "&modifica=nuovo";
   const nome = t(f, "nome"); const marcaNome = t(f, "marca");
-  if (nome.length < 3) ko("prodotti", "Scrivi il nome del prodotto", back);
-  if (!marcaNome) ko("prodotti", "Scrivi la marca", back);
+  if (nome.length < 3) ko(rt, "Scrivi il nome del prodotto", back);
+  if (!marcaNome) ko(rt, "Scrivi la marca", back);
   const tipoScelto = t(f, "tipo") === "SECOND_LIFE";
   const partenza = tipoScelto && t(f, "partenza") ? egpToPiastre(t(f, "partenza")) : NaN;
   const prezzo = tipoScelto ? partenza : egpToPiastre(t(f, "prezzo"));
-  if (!(prezzo > 0)) ko("prodotti", tipoScelto ? "Scrivi il prezzo di partenza dell'asta (in EGP)" : "Scrivi il prezzo (in EGP, es. 5920)", back);
+  if (!(prezzo > 0)) ko(rt, tipoScelto ? "Scrivi il prezzo di partenza dell'asta (in EGP)" : "Scrivi il prezzo (in EGP, es. 5920)", back);
   const prima = t(f, "prezzoPrima") ? egpToPiastre(t(f, "prezzoPrima")) : null;
-  if (prima !== null && !(prima > prezzo)) ko("prodotti", "Il prezzo di prima deve essere più alto del prezzo", back);
-  let taglie; try { taglie = leggiTaglie(t(f, "taglie")); } catch (e) { return ko("prodotti", (e as Error).message, back); }
+  if (prima !== null && !(prima > prezzo)) ko(rt, "Il prezzo di prima deve essere più alto del prezzo", back);
+  let taglie; try { taglie = leggiTaglie(t(f, "taglie")); } catch (e) { return ko(rt, (e as Error).message, back); }
   const tipoRaw = t(f, "tipo"); const tipo = tipoRaw === "SECOND_LIFE" ? "SECOND_LIFE" : tipoRaw === "USATO" ? "USATO" : "NUOVO";
   // L'usato è sempre un pezzo unico (si vende all'asta); il nuovo può avere più pezzi.
-  if (tipo === "SECOND_LIFE" && !(taglie.length === 1 && taglie[0].giacenza === 1)) ko("prodotti", "Il prodotto usato è un pezzo unico: scrivi una sola taglia con 1 pezzo (es. L:1)", back);
+  if (tipo === "SECOND_LIFE" && !(taglie.length === 1 && taglie[0].giacenza === 1)) ko(rt, "Il prodotto usato è un pezzo unico: scrivi una sola taglia con 1 pezzo (es. L:1)", back);
   const trattabile = tipo !== "SECOND_LIFE" && f.get("trattabile") === "on";
   const minimo = t(f, "prezzoMinimo") ? egpToPiastre(t(f, "prezzoMinimo")) : null;
-  if (trattabile && (minimo === null || !(minimo > 0 && minimo <= prezzo))) ko("prodotti", "Con la trattativa attiva scrivi il prezzo minimo: maggiore di zero e non superiore al prezzo", back);
+  if (trattabile && (minimo === null || !(minimo > 0 && minimo <= prezzo))) ko(rt, "Con la trattativa attiva scrivi il prezzo minimo: maggiore di zero e non superiore al prezzo", back);
   const categoria = t(f, "categoria");
-  if (!categoria) ko("prodotti", "Scegli la categoria", back);
+  if (!categoria) ko(rt, "Scegli la categoria", back);
   const stili = f.getAll("stili").map(String);
   const descrizione = t(f, "descrizione").split(/\n{2,}|\n/).map((s) => s.trim()).filter(Boolean);
   const marca = await db.marca.upsert({ where: { nome: marcaNome }, update: {}, create: { id: nuovoId(), nome: marcaNome, slug: slugDi(marcaNome) } });
@@ -122,8 +124,27 @@ export async function salvaProdottoAction(f: FormData) {
       }
     });
     await salvaFoto(pid, f.getAll("foto").filter((x): x is File => x instanceof File));
-  } catch (e) { return ko("prodotti", (e as Error).message, pid ? `&modifica=${pid}` : back); }
-  revalidatePath("/", "layout"); ok(tipo === "SECOND_LIFE" ? "aste" : "prodotti", id ? "Salvato" : tipo === "SECOND_LIFE" ? "Asta aperta: è già sul sito" : "Prodotto pubblicato");
+  } catch (e) { return ko(rt, (e as Error).message, pid ? `&modifica=${pid}` : back); }
+  revalidatePath("/", "layout"); ok(t(f, "ritorno") || (tipo === "SECOND_LIFE" ? "aste" : "prodotti"), id ? "Salvato" : tipo === "SECOND_LIFE" ? "Asta aperta: è già sul sito" : "Prodotto pubblicato");
+}
+
+/** Caricamento veloce di un usato dal testo di un annuncio Vinted. */
+export async function caricaVelocePezzoAction(f: FormData) {
+  await admin();
+  const testo = t(f, "testo");
+  if (testo.length < 5) ko("veloce", "Incolla il testo dell'annuncio");
+  const r = leggiAnnuncio(testo, t(f, "categoria") || undefined);
+  const marca = t(f, "marca") || r.marca || ""; const nome = t(f, "nome") || r.nome || "";
+  const categoria = t(f, "categoria") || r.categoria || "";
+  if (!marca || !nome || !categoria) ko("veloce", "Non ho riconosciuto il modello: scegli la categoria e scrivi marca e nome qui sotto");
+  const prezzo = Number(t(f, "prezzo").replace(",", "."));
+  if (!(prezzo > 0)) ko("veloce", "Scrivi il prezzo in EGP");
+  const minimo = t(f, "minimo") ? t(f, "minimo") : String(Math.round(prezzo * 0.85));
+  f.set("tipo", "USATO"); f.set("marca", marca); f.set("nome", nome); f.set("categoria", categoria);
+  f.set("sottocategoria", r.modello ?? t(f, "sottocategoria"));
+  f.set("taglie", `${t(f, "taglia") || r.taglia}:1`);
+  f.set("descrizione", r.descrizione.join("\n")); f.set("trattabile", "on"); f.set("prezzoMinimo", minimo); f.set("attivo", "on"); f.set("ritorno", "veloce");
+  return salvaProdottoAction(f);
 }
 
 // ---------- coupon ----------
