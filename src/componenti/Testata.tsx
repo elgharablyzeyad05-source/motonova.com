@@ -16,6 +16,7 @@ export function Testata({ l, percorso, collegato }: { l: Lingua; percorso: strin
         <Link className="marchio" href={href(l, "/")} aria-label="MotoNova"><Stella /><b>MotoNova</b></Link>
         <nav className="navi" aria-label={_("Principale", "Main", "الرئيسية")}>
           <Link href={href(l, "/negozio")}>{_("Negozio", "Shop", "المتجر")}</Link>
+          <Link href={href(l, "/negozio?ed=limited")}>Limited &amp; Special</Link>
           <Link href={href(l, "/aste")}>{_("Aste", "Auctions", "المزادات")}</Link>
           <Link href={href(l, "/guide")}>{_("Guide", "Guides", "أدلة")}</Link>
           <Link href={href(l, "/marche")}>{_("Marche", "Brands", "الماركات")}</Link>
@@ -31,6 +32,7 @@ export function Testata({ l, percorso, collegato }: { l: Lingua; percorso: strin
         <MenuTelefono azioneCerca={href(l, "/negozio")}
           voci={[
             { href: href(l, "/negozio"), testo: _("Negozio", "Shop", "المتجر") },
+            { href: href(l, "/negozio?ed=limited"), testo: "Limited & Special" },
             { href: href(l, "/aste"), testo: _("Aste", "Auctions", "المزادات") },
             { href: href(l, "/guide"), testo: _("Guide", "Guides", "أدلة") },
             { href: href(l, "/marche"), testo: _("Marche", "Brands", "الماركات") },

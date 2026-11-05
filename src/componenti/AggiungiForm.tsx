@@ -3,7 +3,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { aggiungiAlCarrello, offriPrezzo } from "@/app/azioni";
 
-type V = { id: string; colore: string; difetti: string; taglia: string; disponibile: number; misura?: string };
+type V = { id: string; prezzo: number; colore: string; difetti: string; taglia: string; disponibile: number; misura?: string };
 
 export function AggiungiForm({ varianti, testi, iniziale, checkout, trattabile, altreOpzioni }: {
   varianti: V[]; iniziale: string; checkout: string; trattabile?: boolean; altreOpzioni: string;
@@ -62,6 +62,7 @@ export function AggiungiForm({ varianti, testi, iniziale, checkout, trattabile, 
         </div>
       </fieldset>}
       {v && v.difetti && <div className="nota" style={{ marginBottom: 14 }}><b>{testi.difetti}</b> — {v.difetti}</div>}
+      {v && <p className="prezzo-grande tab" style={{ margin: "0 0 10px" }}>{(v.prezzo / 100).toLocaleString("en-US")} EGP</p>}
       {v && v.disponibile > 0 && <p className="mono lieve" style={{ marginBottom: 12 }}>{(v.disponibile <= 3 ? testi.disp.replace("{n}", String(v.disponibile)) : testi.dispOk)}</p>}
       <button type="submit" className="tasto pieno aggiungi-carrello" disabled={nessuna || !v || v.disponibile <= 0 || inCorso}>
         {nessuna ? testi.esaurito : pronto ? testi.aggiunto : testi.aggiungi}

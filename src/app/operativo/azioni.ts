@@ -76,7 +76,8 @@ export async function salvaProdottoAction(f: FormData) {
   if (!marcaNome) ko(rt, "Scrivi la marca", back);
   const tipoScelto = t(f, "tipo") === "SECOND_LIFE";
   const partenza = tipoScelto && t(f, "partenza") ? egpToPiastre(t(f, "partenza")) : NaN;
-  const prezzo = tipoScelto ? partenza : egpToPiastre(t(f, "prezzo"));
+  const pzMin = Math.min(...f.getAll("pz_prezzo").map((x) => egpToPiastre(String(x).trim())).filter((x) => Number.isFinite(x) && x > 0), Infinity);
+  const prezzo = tipoScelto ? partenza : (t(f, "tipo") === "USATO" && !t(f, "prezzo") && Number.isFinite(pzMin) ? pzMin : egpToPiastre(t(f, "prezzo")));
   if (!(prezzo > 0)) ko(rt, tipoScelto ? "Scrivi il prezzo di partenza dell'asta (in EGP)" : "Scrivi il prezzo (in EGP, es. 5920)", back);
   const prima = t(f, "prezzoPrima") ? egpToPiastre(t(f, "prezzoPrima")) : null;
   if (prima !== null && !(prima > prezzo)) ko(rt, "Il prezzo di prima deve essere più alto del prezzo", back);
@@ -98,6 +99,7 @@ export async function salvaProdottoAction(f: FormData) {
     materiale: t(f, "materiale") || null, certificazione: t(f, "certificazione") || null, moto: t(f, "moto") || null,
     specs: t(f, "specs").split("\n").map((r) => r.trim()).filter(Boolean).map((r) => { const i = r.indexOf(":"); return i > 0 ? [r.slice(0, i).trim(), r.slice(i + 1).trim()] : [r, ""]; }),
     prezzo, prezzoMinimo: trattabile ? minimo : null, trattabile, prezzoPrima: prima, nota: t(f, "nota"), luogo: t(f, "luogo"), grado: t(f, "grado") || null, descrizione,
+    edizione: ["limited", "special"].includes(t(f, "edizione")) ? t(f, "edizione") : null,
     fonteUrl: t(f, "fonteUrl") || null, costo: t(f, "costo") && egpToPiastre(t(f, "costo")) >= 0 ? egpToPiastre(t(f, "costo")) : null, difetti: t(f, "difetti"), noteInterne: t(f, "noteInterne"),
     attivo: f.get("attivo") === "on",
   };
@@ -119,7 +121,7 @@ export async function salvaProdottoAction(f: FormData) {
       }
       if (tipo === "USATO") {
         const g = (k: string) => f.getAll(k).map(String);
-        const [ids, col, tg, qt, lk, an, co, df, nt] = ["pz_id", "pz_colore", "pz_taglia", "pz_qta", "pz_link", "pz_annuncio", "pz_costo", "pz_difetti", "pz_note"].map(g);
+        const [ids, col, tg, qt, lk, an, co, df, nt, pr, mi] = ["pz_id", "pz_colore", "pz_taglia", "pz_qta", "pz_link", "pz_annuncio", "pz_costo", "pz_difetti", "pz_note", "pz_prezzo", "pz_minimo"].map(g);
         for (let i = 0; i < tg.length; i++) {
           const vid = (ids[i] ?? "").trim(); const taglia = (tg[i] ?? "").trim().toUpperCase();
           if (!taglia) {
@@ -131,7 +133,9 @@ export async function salvaProdottoAction(f: FormData) {
             continue;
           }
           const costoP = (co[i] ?? "").trim() ? egpToPiastre(co[i]) : NaN;
-          const d = { colore: (col[i] ?? "").trim(), taglia, giacenza: Math.max(0, Math.min(99, parseInt(qt[i] ?? "", 10) || 1)), fonteUrl: (lk[i] ?? "").trim() || null, prezzoAnnuncio: (an[i] ?? "").trim() || null, costo: Number.isFinite(costoP) ? costoP : null, difetti: (df[i] ?? "").trim(), noteInterne: (nt[i] ?? "").trim() };
+          const prezzoV = (pr[i] ?? "").trim() ? egpToPiastre(pr[i]) : NaN; const minimoV = (mi[i] ?? "").trim() ? egpToPiastre(mi[i]) : NaN;
+          if (Number.isFinite(prezzoV) && Number.isFinite(minimoV) && minimoV > prezzoV) throw new Error(`${taglia}: il minimo non può superare il prezzo di vendita`);
+          const d = { prezzo: Number.isFinite(prezzoV) && prezzoV > 0 ? prezzoV : null, prezzoMinimo: Number.isFinite(minimoV) && minimoV > 0 ? minimoV : null, colore: (col[i] ?? "").trim(), taglia, giacenza: Math.max(0, Math.min(99, parseInt(qt[i] ?? "", 10) || 1)), fonteUrl: (lk[i] ?? "").trim() || null, prezzoAnnuncio: (an[i] ?? "").trim() || null, costo: Number.isFinite(costoP) ? costoP : null, difetti: (df[i] ?? "").trim(), noteInterne: (nt[i] ?? "").trim() };
           if (vid) await tx.variante.update({ where: { id: vid }, data: d });
           else await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, ...d } });
         }
@@ -170,7 +174,7 @@ export async function caricaVelocePezzoAction(f: FormData) {
     else {
       let slug = slugDi(`${marcaNome} ${nome} used`); if (await db.prodotto.findUnique({ where: { slug } })) slug += "-" + Math.random().toString(36).slice(2, 6);
       pid = nuovoId(); nuovo = true;
-      await db.prodotto.create({ data: { id: pid, slug, nome, marcaId: marca.id, sottotitolo: "", categoria, stili: [], tipo: "USATO", sottocategoria: modello, specs: [], prezzo: 0, trattabile: true, nota: "Used", luogo: "", descrizione: [], attivo: false } });
+      await db.prodotto.create({ data: { id: pid, slug, nome, marcaId: marca.id, sottotitolo: "", categoria, stili: [], tipo: "USATO", sottocategoria: modello, specs: [], prezzo: 0, trattabile: true, nota: "Used", luogo: "", descrizione: [], attivo: false, edizione: /limited edition|edizione limitata|edizione limited/i.test(testo) ? "limited" : /special edition|edizione speciale|speciale/i.test(testo) ? "special" : null } });
     }
     await db.variante.create({ data: { id: nuovoId(), prodottoId: pid, colore, taglia, giacenza: 1, fonteUrl: t(f, "link") || null, prezzoAnnuncio: annuncioTxt, difetti: t(f, "difetti") || r.difetti, noteInterne: testo.slice(0, 2000) } });
     // Foto da catalogo del modello (fondo bianco), se esiste e il prodotto non ne ha ancora

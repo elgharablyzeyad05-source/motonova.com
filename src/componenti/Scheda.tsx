@@ -32,7 +32,7 @@ export function Scheda({ p, l, preferito, torna }: { p: ProdottoLista; l: Lingua
         <span className="nome">{p.nome}</span>
         <span className="mono lieve">{tr(l, p.sottotitolo)}</span>
         <span className="prezzo tab">
-          {esaurito ? <span className="esaurito">{_("Esaurito", "Sold out", "نفد")}</span> : <>{egp(p.prezzo)}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</>}
+          {esaurito ? <span className="esaurito">{_("Esaurito", "Sold out", "نفد")}</span> : <>{egp(Math.min(...(p.varianti.length ? p.varianti.map((v) => v.prezzo ?? p.prezzo) : [p.prezzo])))}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</>}
         </span>
       </Link>
       {preferito !== undefined && torna && <Cuore slug={p.slug} on={preferito} torna={torna} l={l} />}

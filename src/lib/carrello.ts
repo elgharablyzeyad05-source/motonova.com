@@ -151,7 +151,7 @@ export async function vistaCarrello(k: Carrello | null) {
     const disp = disponibile(r.variante);
     return {
       id: r.id, varianteId: r.varianteId, slug: p.slug, nome: p.nome, marca: p.marca.nome, taglia: r.variante.taglia,
-      prezzo: r.prezzoAsta ?? (r.prezzoPattuito != null ? Math.min(r.prezzoPattuito, p.prezzo) : p.prezzo),
+      prezzo: r.prezzoAsta ?? (r.prezzoPattuito != null ? Math.min(r.prezzoPattuito, r.variante.prezzo ?? p.prezzo) : (r.variante.prezzo ?? p.prezzo)),
       quantita: r.prezzoPattuito != null ? Math.min(r.quantita, disp) : Math.min(r.quantita, Math.max(disp, r.prezzoAsta !== null ? 1 : 0)),
       disponibile: disp, unico: r.prezzoAsta !== null, pattuito: r.prezzoPattuito != null, categoria: p.categoria,
       foto: p.foto[0]?.piccola ?? null,

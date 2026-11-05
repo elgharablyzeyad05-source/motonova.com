@@ -41,7 +41,9 @@ export default async function Prodotto({ params }: Props) {
     const centro = varianti[Math.floor(varianti.length / 2)];
     return disponibile(centro) > 0 ? centro.id : disp[Math.floor(disp.length / 2)].id;
   })();
-  const pct = sconto(p.prezzo, p.prezzoPrima);
+  const prezziV = varianti.length ? varianti.map((v) => v.prezzo ?? p.prezzo) : [p.prezzo];
+  const prezzoMin = Math.min(...prezziV); const prezzoDiversi = new Set(prezziV).size > 1;
+  const pct = sconto(prezzoMin, p.prezzoPrima);
   const extra: [string, string][] = ([["Colore", p.colore], ["Genere", p.genere], ["Materiale", p.materiale], ["Certificazione", p.certificazione], ["Moto compatibili", p.moto]] as [string, string | null][]).filter((x): x is [string, string] => !!x[1]);
   const specsDb = (p.specs as [string, string][]) ?? [];
   const specs = [...extra.filter(([k]) => !specsDb.some(([b]) => b === k)), ...specsDb];
@@ -52,7 +54,7 @@ export default async function Prodotto({ params }: Props) {
   const json = {
     "@context": "https://schema.org", "@type": "Product", name: `${p.marca.nome} ${p.nome}`, brand: { "@type": "Brand", name: p.marca.nome },
     description: tr(l, descr[0]), image: p.foto.map((f) => `${base}/media/${f.grande}`),
-    offers: { "@type": "Offer", priceCurrency: "EGP", price: (p.prezzo / 100).toFixed(2), availability: varianti.some((v) => disponibile(v) > 0) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url: `${base}${href(l, `/prodotto/${p.slug}`)}` },
+    offers: { "@type": "Offer", priceCurrency: "EGP", price: (prezzoMin / 100).toFixed(2), availability: varianti.some((v) => disponibile(v) > 0) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url: `${base}${href(l, `/prodotto/${p.slug}`)}` },
   };
 
   return (
@@ -78,11 +80,11 @@ export default async function Prodotto({ params }: Props) {
           <Link href={href(l, `/marche/${p.marca.slug}`)} className="mono lieve">{p.marca.nome}</Link>
           <h1 style={{ fontSize: "clamp(28px,4.4vw,46px)", margin: "6px 0 8px" }}>{p.nome}</h1>
           <p className="tenue" style={{ marginBottom: 16 }}>{tr(l, p.sottotitolo)}</p>
-          <p className="prezzo-grande tab">{egp(p.prezzo)}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</p>
+          <p className="prezzo-grande tab">{prezzoDiversi ? _("da ", "from ", "من ") : ""}{egp(prezzoMin)}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</p>
           <p className="mono lieve" style={{ margin: "6px 0 22px" }}>{_("IVA e dazio inclusi", "VAT and duty included", "شامل الضريبة والجمارك")}</p>
-          <AggiungiForm iniziale={iniziale} checkout={href(l, "/checkout")} trattabile={p.trattabile && Boolean(p.prezzoMinimo)}
+          <AggiungiForm iniziale={iniziale} checkout={href(l, "/checkout")} trattabile={p.trattabile && (Boolean(p.prezzoMinimo) || varianti.some((v) => v.prezzoMinimo))}
             altreOpzioni={href(l, `/negozio?${p.tipo === "USATO" ? "cond=usato&" : ""}cat=${p.categoria}`)}
-            varianti={varianti.map((v) => ({ id: v.id, colore: v.colore, difetti: p.tipo === "USATO" ? v.difetti : "", taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
+            varianti={varianti.map((v) => ({ id: v.id, prezzo: v.prezzo ?? p.prezzo, colore: v.colore, difetti: p.tipo === "USATO" ? v.difetti : "", taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
             testi={{
               aggiungi: _("Aggiungi al carrello", "Add to cart", "أضف إلى السلة"), aggiunto: _("Aggiunto ✓", "Added ✓", "تمت الإضافة ✓"), esaurito: _("Esaurito", "Sold out", "نفد"),
               taglia: cosaMisura(p.categoria)[l === "en" ? 1 : l === "ar" ? 2 : 0],

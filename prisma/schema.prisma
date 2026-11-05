@@ -104,6 +104,7 @@ model Prodotto {
   nota        String       @default("")
   luogo       String       @default("")
   grado       String?
+  edizione    String?
   fonteUrl    String?
   costo       Int?
   difetti     String       @default("")
@@ -137,6 +138,8 @@ model Variante {
   taglia     String
   colore     String          @default("")
   fonteUrl   String?
+  prezzo     Int?
+  prezzoMinimo Int?
   prezzoAnnuncio String?
   costo      Int?
   difetti    String          @default("")

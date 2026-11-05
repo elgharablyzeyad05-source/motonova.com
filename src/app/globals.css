@@ -393,4 +393,4 @@ html[dir="rtl"] .caro-freccia svg { transform: scaleX(-1); }
 .form-prod:has(#tipo-usato:checked) .solo-taglie{display:none}
 .pezzo-riga{display:grid;grid-template-columns:1fr 70px 70px;gap:6px;padding:10px;border:1px solid var(--linea);border-radius:8px;margin:0 0 10px}
 .pezzo-riga input[name=pz_link],.pezzo-riga input[name=pz_difetti],.pezzo-riga input[name=pz_note]{grid-column:1/-1}
-.pezzo-riga input[name=pz_annuncio],.pezzo-riga input[name=pz_costo]{grid-column:span 1}
+

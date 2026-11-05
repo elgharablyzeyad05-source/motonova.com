@@ -165,6 +165,8 @@ async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: s
             <input name="pz_qta" inputMode="numeric" placeholder="Pezzi" defaultValue={z ? z.giacenza : ""} />
             <input name="pz_link" type="url" placeholder="Link annuncio Vinted" defaultValue={z?.fonteUrl ?? ""} />
             <input name="pz_annuncio" placeholder="Prezzo annuncio (es. 130 €)" defaultValue={z?.prezzoAnnuncio ?? ""} />
+            <input name="pz_prezzo" inputMode="decimal" placeholder="Prezzo di vendita EGP" defaultValue={z?.prezzo ? z.prezzo / 100 : ""} />
+            <input name="pz_minimo" inputMode="decimal" placeholder="Minimo trattabile EGP" defaultValue={z?.prezzoMinimo ? z.prezzoMinimo / 100 : ""} />
             <input name="pz_costo" inputMode="decimal" placeholder="Costo acquisto EGP" defaultValue={z?.costo ? z.costo / 100 : ""} />
             <input name="pz_difetti" placeholder="Difetti (li vede il cliente)" defaultValue={z?.difetti ?? ""} />
             <input name="pz_note" placeholder="Note interne" defaultValue={z?.noteInterne ?? ""} />
@@ -194,6 +196,7 @@ async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: s
         <div className="campo solo-nuovo"><label htmlFor="prezzoPrima">Prezzo di prima (EGP, solo se in offerta)</label><input id="prezzoPrima" name="prezzoPrima" inputMode="decimal" defaultValue={p?.prezzoPrima ? p.prezzoPrima / 100 : ""} /></div>
         <div className="campo"><label htmlFor="nota">Nota</label><input id="nota" name="nota" defaultValue={p?.nota} /></div>
         <div className="campo"><label htmlFor="luogo">Luogo</label><input id="luogo" name="luogo" defaultValue={p?.luogo} /></div>
+        <div className="campo"><label htmlFor="edizione">Edizione premium</label><select id="edizione" name="edizione" defaultValue={p?.edizione ?? ""}><option value="">Nessuna</option><option value="limited">Limited edition</option><option value="special">Special edition</option></select></div>
         <div className="campo"><label htmlFor="fonteUrl">Link annuncio Vinted (solo per te)</label><input id="fonteUrl" name="fonteUrl" type="url" defaultValue={p?.fonteUrl ?? ""} /></div>
         <div className="campo"><label htmlFor="costo">Prezzo d&apos;acquisto (EGP, solo per te)</label><input id="costo" name="costo" inputMode="decimal" defaultValue={p?.costo ? p.costo / 100 : ""} /></div>
         <div className="campo"><label htmlFor="difetti">Difetti (li vede il cliente)</label><input id="difetti" name="difetti" defaultValue={p?.difetti ?? ""} /></div>
