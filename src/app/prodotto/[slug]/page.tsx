@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { prodottoPerSlug, correlati, disponibile, ordinaTaglie, ETICHETTA_CAT } from "@/lib/catalogo";
+import { prodottoPerSlug, correlati, disponibile, ordinaTaglie, ETICHETTA_CAT, fotoCatalogo } from "@/lib/catalogo";
 import { lingua, tx, baseUrl } from "@/lib/contesto";
 import { href, tr } from "@/lib/i18n";
 import { egp, sconto } from "@/lib/regole";
@@ -66,7 +66,7 @@ export default async function Prodotto({ params }: Props) {
       <div className="prodotto">
         <div className="galleria">
           <div style={{ position: "relative" }}>
-            <Cornice foto={foto[0]?.grande} categoria={p.categoria} alt={`${p.marca.nome} ${p.nome}`} grande>
+            <Cornice foto={foto[0]?.grande} statica={p.foto.length ? undefined : fotoCatalogo(p)} categoria={p.categoria} alt={`${p.marca.nome} ${p.nome}`} grande>
               {pct > 0 && <span className="bollino sconto mono">−{pct}%</span>}
             </Cornice>
             <Cuore slug={p.slug} on={pref} torna={href(l, `/prodotto/${p.slug}`)} l={l} />
@@ -74,7 +74,7 @@ export default async function Prodotto({ params }: Props) {
           {foto.length > 1 && (
             <div className="miniature">{foto.slice(1).map((f, i) => <Cornice key={i} foto={f?.piccola} categoria={p.categoria} alt={`${p.nome} ${i + 2}`} />)}</div>
           )}
-          {!p.foto.length && <p className="mono lieve">{_("La foto arriverà: questo è un disegno, non il prodotto.", "The photo is coming: this is a drawing, not the product.", "الصورة قادمة: هذا رسم وليس المنتج.")}</p>}
+          {!p.foto.length && !fotoCatalogo(p) && <p className="mono lieve">{_("La foto arriverà: questo è un disegno, non il prodotto.", "The photo is coming: this is a drawing, not the product.", "الصورة قادمة: هذا رسم وليس المنتج.")}</p>}
         </div>
         <div>
           <Link href={href(l, `/marche/${p.marca.slug}`)} className="mono lieve">{p.marca.nome}</Link>

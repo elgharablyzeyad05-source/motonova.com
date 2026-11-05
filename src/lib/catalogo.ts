@@ -1,3 +1,4 @@
+import FOTO_MODELLI from "../../dati/foto-modelli.json";
 import { db } from "./db";
 import { Prisma } from "@/generated/prisma/client";
 
@@ -165,4 +166,11 @@ export async function vetrine() {
 export async function conteggiModelli(cat: string): Promise<Record<string, number>> {
   const r = await db.prodotto.groupBy({ by: ["sottocategoria"], where: { attivo: true, tipo: "USATO", categoria: cat, NOT: { sottocategoria: null } }, _count: true });
   return Object.fromEntries(r.map((x) => [(x.sottocategoria ?? "").toLowerCase(), x._count]));
+}
+
+/** Foto da catalogo del modello, usata quando il prodotto non ha foto proprie. */
+export function fotoCatalogo(p: { categoria: string; sottocategoria: string | null }): string | undefined {
+  if (!p.sottocategoria) return undefined;
+  const nome = `${p.categoria}-${p.sottocategoria.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.webp`;
+  return (FOTO_MODELLI as string[]).includes(nome) ? `/immagini/modelli/${nome}` : undefined;
 }

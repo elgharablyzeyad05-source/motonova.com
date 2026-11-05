@@ -2,7 +2,7 @@ import Link from "next/link";
 import { egp, sconto } from "@/lib/regole";
 import { href, tr, type Lingua } from "@/lib/i18n";
 import { tx } from "@/lib/contesto";
-import { totaleDisponibile, type ProdottoLista } from "@/lib/catalogo";
+import { totaleDisponibile, fotoCatalogo, type ProdottoLista } from "@/lib/catalogo";
 import { Cornice } from "./Sagoma";
 import { preferitoAction } from "@/app/azioni";
 
@@ -25,7 +25,7 @@ export function Scheda({ p, l, preferito, torna }: { p: ProdottoLista; l: Lingua
   return (
     <div style={{ position: "relative" }}>
       <Link href={href(l, `/prodotto/${p.slug}`)} className="scheda">
-        <Cornice foto={p.foto[0]?.piccola} categoria={p.categoria} alt={`${p.marca.nome} ${p.nome}`}>
+        <Cornice foto={p.foto[0]?.piccola} statica={p.foto[0] ? undefined : fotoCatalogo(p)} categoria={p.categoria} alt={`${p.marca.nome} ${p.nome}`}>
           {pct > 0 && <span className="bollino sconto mono">−{pct}%</span>}
         </Cornice>
         <span className="marca mono">{p.marca.nome}</span>
