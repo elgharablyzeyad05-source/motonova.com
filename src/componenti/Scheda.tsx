@@ -11,7 +11,7 @@ export function Cuore({ slug, on, torna, l }: { slug: string; on: boolean; torna
   return (
     <form action={preferitoAction} className="cuore" data-on={on}>
       <input type="hidden" name="slug" value={slug} /><input type="hidden" name="torna" value={torna} />
-      <button type="submit" aria-pressed={on} aria-label={on ? _("Togli dai preferiti", "Remove from favourites", "إزالة من المفضلة") : _("Salva nei preferiti", "Save to favourites", "حفظ في المفضلة")}>
+      <button type="submit" aria-pressed={on} aria-label={on ? _("Togli dai preferiti", "Remove from favourites", "شيل من المفضلة") : _("Salva nei preferiti", "Save to favourites", "احفظ في المفضلة")}>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 7 3.6C19 15.4 12 20 12 20z" /></svg>
       </button>
     </form>
@@ -32,7 +32,7 @@ export function Scheda({ p, l, preferito, torna }: { p: ProdottoLista; l: Lingua
         <span className="nome">{p.nome}</span>
         <span className="mono lieve">{tr(l, p.sottotitolo)}</span>
         <span className="prezzo tab">
-          {esaurito ? <span className="esaurito">{_("Esaurito", "Sold out", "نفد")}</span> : <>{egp(Math.min(...(p.varianti.length ? p.varianti.map((v) => v.prezzo ?? p.prezzo) : [p.prezzo])))}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</>}
+          {esaurito ? <span className="esaurito">{_("Esaurito", "Sold out", "خلص")}</span> : <>{egp(Math.min(...(p.varianti.length ? p.varianti.map((v) => v.prezzo ?? p.prezzo) : [p.prezzo])))}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</>}
         </span>
       </Link>
       {preferito !== undefined && torna && <Cuore slug={p.slug} on={preferito} torna={torna} l={l} />}

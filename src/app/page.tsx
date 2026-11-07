@@ -50,19 +50,19 @@ export default async function Home() {
             {asta?.prodotto.foto[0]?.grande ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/media/${asta.prodotto.foto[0].grande}`} alt={asta.prodotto.nome} /> : /* eslint-disable-next-line @next/next/no-img-element */ <img src="/immagini/asta-attesa.webp?v=2" alt="" />}
           </div>
           <div className="asta-home-testo">
-            <p className="asta-live mono"><i aria-hidden="true" />{asta ? _("Asta in corso", "Live auction", "مزاد جارٍ") : _("Ogni settimana", "Every week", "كل أسبوع")}</p>
+            <p className="asta-live mono"><i aria-hidden="true" />{asta ? _("Asta in corso", "Live auction", "مزاد شغّال") : _("Ogni settimana", "Every week", "كل أسبوع")}</p>
             <h2>{_("L'asta della settimana", "The auction of the week", "مزاد الأسبوع")}</h2>
             {asta && sa ? (<>
               <p className="asta-nome"><span className="mono">{asta.prodotto.marca.nome}</span> {asta.prodotto.nome}</p>
               <div className="asta-dati">
-                <div><span className="mono">{_("Offerta attuale", "Current bid", "العرض الحالي")}</span><b className="tab">{egp(sa.prezzo)}</b></div>
-                <div><span className="mono">{_("Si chiude tra", "Ends in", "تنتهي خلال")}</span><b><Orologio fine={asta.fine.toISOString()} aperta aggiorna={false} chiusa={_("Chiusa", "Closed", "مغلق")} /></b></div>
-                <div><span className="mono">{_("Offerenti", "Bidders", "مزايدون")}</span><b className="tab">{sa.offerenti}</b></div>
+                <div><span className="mono">{_("Offerta attuale", "Current bid", "المزايدة الحالية")}</span><b className="tab">{egp(sa.prezzo)}</b></div>
+                <div><span className="mono">{_("Si chiude tra", "Ends in", "بيخلص بعد")}</span><b><Orologio fine={asta.fine.toISOString()} aperta aggiorna={false} chiusa={_("Chiusa", "Closed", "اتقفل")} /></b></div>
+                <div><span className="mono">{_("Offerenti", "Bidders", "مزايدين")}</span><b className="tab">{sa.offerenti}</b></div>
               </div>
-              <Link className="tasto" href={href(l, `/aste/${asta.prodotto.slug}`)}>{_("Fai la tua offerta →", "Place your bid →", "ضع عرضك ←")}</Link>
+              <Link className="tasto" href={href(l, `/aste/${asta.prodotto.slug}`)}>{_("Fai la tua offerta →", "Place your bid →", "زايد دلوقتي ←")}</Link>
             </>) : (<>
-              <p className="asta-nome">{_("Un pezzo raro, super premium o introvabile. Un solo esemplare, vince chi offre di più.", "One rare, super-premium or hard-to-find piece. A single item, the highest bidder wins.", "قطعة نادرة أو فاخرة جداً أو يصعب إيجادها. قطعة واحدة، يفوز صاحب أعلى عرض.")}</p>
-              <Link className="tasto" href={href(l, "/aste")}>{_("Scopri le aste →", "See the auctions →", "اكتشف المزادات ←")}</Link>
+              <p className="asta-nome">{_("Un pezzo raro, super premium o introvabile. Un solo esemplare, vince chi offre di più.", "One rare, super-premium or hard-to-find piece. A single item, the highest bidder wins.", "قطعة نادرة أو فاخرة جداً أو صعب تلاقيها. قطعة واحدة بس، واللي يدفع أكتر ياخدها.")}</p>
+              <Link className="tasto" href={href(l, "/aste")}>{_("Scopri le aste →", "See the auctions →", "شوف المزادات ←")}</Link>
             </>)}
           </div>
         </div>
@@ -72,7 +72,7 @@ export default async function Home() {
 
       <section className="foglio sezione" aria-label={T("worldH")}>
         <p className="etichetta-sez mono">{l === "en" ? "Categories" : l === "ar" ? "الفئات" : "Categorie"}</p>
-        <Carosello prec={_("Indietro", "Previous", "السابق")} succ={_("Avanti", "Next", "التالي")} etichetta={l === "en" ? "Categories" : l === "ar" ? "الفئات" : "Categorie"}>
+        <Carosello prec={_("Indietro", "Previous", "اللي قبله")} succ={_("Avanti", "Next", "اللي بعده")} etichetta={l === "en" ? "Categories" : l === "ar" ? "الفئات" : "Categorie"}>
           {CATEGORIE.map((c, i) => (
             <Link key={c} role="listitem" className={"cat-card" + (CATFOTO.includes(c) ? "" : " senza")} href={href(l, `/negozio?cat=${c}`)}>
               {CATFOTO.includes(c) ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={`/immagini/cat-${c}.webp?v=4`} alt="" loading="lazy" /> : <Sagoma categoria={c} />}

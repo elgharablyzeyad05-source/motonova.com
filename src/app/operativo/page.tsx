@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LinguaOperativo from "@/componenti/LinguaOperativo";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { richiediAdmin } from "@/lib/sessione";
@@ -34,6 +35,7 @@ export default async function Operativo({ searchParams }: { searchParams: Promis
   const badge: Record<string, number> = { ordini: daGestire, chat: daLeggere };
   return (
     <div className="foglio sezione operativo">
+      <LinguaOperativo />
       <h1 style={{ marginBottom: 6 }}>Operativo</h1>
       <nav className="op-nav" aria-label="Sezioni">
         {Object.keys(NOME_TAB).map((t) => <Link key={t} href={`/operativo?tab=${t}`} className={`tasto piccolo ${attivo(t) ? "" : "vuoto"}`}>{NOME_TAB[t]}{badge[t] > 0 ? <b className="op-badge">{badge[t]}</b> : null}</Link>)}

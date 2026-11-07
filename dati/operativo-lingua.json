@@ -1,0 +1,630 @@
+{
+"Oggi": {
+"en": "Today",
+"ar": "النهارده"
+},
+"Ordini": {
+"en": "Orders",
+"ar": "الطلبات"
+},
+"Messaggi": {
+"en": "Messages",
+"ar": "الرسايل"
+},
+"Prodotti": {
+"en": "Products",
+"ar": "المنتجات"
+},
+"Carica usato": {
+"en": "Add used",
+"ar": "ضيف مستعمل"
+},
+"Aste": {
+"en": "Auctions",
+"ar": "المزادات"
+},
+"Clienti": {
+"en": "Customers",
+"ar": "العملاء"
+},
+"Altro": {
+"en": "More",
+"ar": "تاني"
+},
+"Codici sconto": {
+"en": "Discount codes",
+"ar": "أكواد الخصم"
+},
+"Email inviate": {
+"en": "Sent emails",
+"ar": "الإيميلات المبعوتة"
+},
+"Newsletter": {
+"en": "Newsletter",
+"ar": "النشرة"
+},
+"Operativo": {
+"en": "Operations",
+"ar": "التشغيل"
+},
+"Da confermare": {
+"en": "To confirm",
+"ar": "لسه ماتأكدش"
+},
+"Confermato": {
+"en": "Confirmed",
+"ar": "اتأكد"
+},
+"In preparazione": {
+"en": "Preparing",
+"ar": "بيتجهّز"
+},
+"Spedito": {
+"en": "Shipped",
+"ar": "اتشحن"
+},
+"Consegnato": {
+"en": "Delivered",
+"ar": "اتسلّم"
+},
+"Annullato": {
+"en": "Cancelled",
+"ar": "اتلغى"
+},
+"Annulla ordine": {
+"en": "Cancel order",
+"ar": "الغي الطلب"
+},
+"Nessun ordine da gestire.": {
+"en": "No orders to handle.",
+"ar": "مفيش طلبات تتعامل معاها."
+},
+"Nessun ordine.": {
+"en": "No orders.",
+"ar": "مفيش طلبات."
+},
+"Nessun cliente registrato.": {
+"en": "No registered customers.",
+"ar": "مفيش عملاء مسجّلين."
+},
+"Nessuna asta aperta.": {
+"en": "No open auctions.",
+"ar": "مفيش مزادات مفتوحة."
+},
+"Nessuna conversazione.": {
+"en": "No conversations.",
+"ar": "مفيش محادثات."
+},
+"Nessuna email ancora.": {
+"en": "No emails yet.",
+"ar": "لسه مفيش إيميلات."
+},
+"Scegli una conversazione.": {
+"en": "Choose a conversation.",
+"ar": "اختار محادثة."
+},
+"Mostra anche consegnati e annullati": {
+"en": "Also show delivered and cancelled",
+"ar": "اعرض كمان المتسلّم والمتلغي"
+},
+"Mostra solo da gestire": {
+"en": "Show only to handle",
+"ar": "اعرض اللي محتاج تعامل بس"
+},
+"da preparare o spedire": {
+"en": "to prepare or ship",
+"ar": "للتجهيز أو الشحن"
+},
+"Vai agli ordini": {
+"en": "Go to orders",
+"ar": "روح للطلبات"
+},
+"Ordini nuovi": {
+"en": "New orders",
+"ar": "طلبات جديدة"
+},
+"Asta della settimana": {
+"en": "Auction of the week",
+"ar": "مزاد الأسبوع"
+},
+"Crea la prossima": {
+"en": "Create the next one",
+"ar": "اعمل الجاية"
+},
+"Prodotto": {
+"en": "Product",
+"ar": "المنتج"
+},
+"Tipo": {
+"en": "Type",
+"ar": "النوع"
+},
+"Prezzo": {
+"en": "Price",
+"ar": "السعر"
+},
+"Magazzino": {
+"en": "Stock",
+"ar": "المخزن"
+},
+"Modifica": {
+"en": "Edit",
+"ar": "عدّل"
+},
+"Nuovo prodotto": {
+"en": "New product",
+"ar": "منتج جديد"
+},
+"+ Nuovo prodotto": {
+"en": "+ New product",
+"ar": "+ منتج جديد"
+},
+"+ Nuova asta": {
+"en": "+ New auction",
+"ar": "+ مزاد جديد"
+},
+"Nuova asta": {
+"en": "New auction",
+"ar": "مزاد جديد"
+},
+"Indietro": {
+"en": "Back",
+"ar": "رجوع"
+},
+"Salva": {
+"en": "Save",
+"ar": "احفظ"
+},
+"Pubblica": {
+"en": "Publish",
+"ar": "انشر"
+},
+"Aggiungi": {
+"en": "Add",
+"ar": "ضيف"
+},
+"Togli": {
+"en": "Remove",
+"ar": "شيل"
+},
+"Invia": {
+"en": "Send",
+"ar": "ابعت"
+},
+"Spegni": {
+"en": "Turn off",
+"ar": "اقفل"
+},
+"Riaccendi": {
+"en": "Turn on",
+"ar": "شغّل"
+},
+"Come lo vendi?": {
+"en": "How do you sell it?",
+"ar": "هتبيعه إزاي؟"
+},
+"Vendita normale (nuovo)": {
+"en": "Normal sale (new)",
+"ar": "بيع عادي (جديد)"
+},
+"Usato (prezzo trattabile)": {
+"en": "Used (negotiable price)",
+"ar": "مستعمل (السعر قابل للتفاوض)"
+},
+"Asta (un solo pezzo)": {
+"en": "Auction (single piece)",
+"ar": "مزاد (قطعة واحدة)"
+},
+"Nome": {
+"en": "Name",
+"ar": "الاسم"
+},
+"Marca": {
+"en": "Brand",
+"ar": "الماركة"
+},
+"Categoria": {
+"en": "Category",
+"ar": "القسم"
+},
+"Sottotitolo": {
+"en": "Subtitle",
+"ar": "عنوان فرعي"
+},
+"Descrizione": {
+"en": "Description",
+"ar": "الوصف"
+},
+"Colore": {
+"en": "Colour",
+"ar": "اللون"
+},
+"Taglia": {
+"en": "Size",
+"ar": "المقاس"
+},
+"Stili": {
+"en": "Styles",
+"ar": "الأساليب"
+},
+"Prezzo (EGP)": {
+"en": "Price (EGP)",
+"ar": "السعر (جنيه)"
+},
+"Prezzo di vendita EGP": {
+"en": "Sale price EGP",
+"ar": "سعر البيع بالجنيه"
+},
+"Minimo trattabile EGP": {
+"en": "Negotiable minimum EGP",
+"ar": "أقل سعر للتفاوض بالجنيه"
+},
+"Costo acquisto EGP": {
+"en": "Purchase cost EGP",
+"ar": "تكلفة الشراء بالجنيه"
+},
+"Prezzo di prima (EGP, solo se in offerta)": {
+"en": "Previous price (EGP, only if on sale)",
+"ar": "السعر القديم (جنيه، لو فيه عرض بس)"
+},
+"Prezzo minimo accettato (EGP)": {
+"en": "Minimum accepted price (EGP)",
+"ar": "أقل سعر مقبول (جنيه)"
+},
+"Prezzo d'acquisto (EGP, solo per te)": {
+"en": "Purchase price (EGP, only for you)",
+"ar": "سعر الشراء (جنيه، ليك إنت بس)"
+},
+"Prezzo di partenza (EGP)": {
+"en": "Starting price (EGP)",
+"ar": "سعر البداية (جنيه)"
+},
+"Riserva segreta (EGP, facoltativa)": {
+"en": "Secret reserve (EGP, optional)",
+"ar": "الحد الأدنى السري (جنيه، اختياري)"
+},
+"Durata (giorni)": {
+"en": "Duration (days)",
+"ar": "المدة (أيام)"
+},
+"Genere (Uomo, Donna, Unisex)": {
+"en": "Gender (Men, Women, Unisex)",
+"ar": "النوع (رجالي، حريمي، للجنسين)"
+},
+"Materiale (es. Pelle, Tessuto)": {
+"en": "Material (e.g. Leather, Fabric)",
+"ar": "الخامة (مثلاً جلد، قماش)"
+},
+"Certificazione (es. CE livello 2, ECE 22.06)": {
+"en": "Certification (e.g. CE level 2, ECE 22.06)",
+"ar": "الاعتماد (مثلاً CE مستوى 2، ECE 22.06)"
+},
+"Colore (es. Nero lucido)": {
+"en": "Colour (e.g. Gloss black)",
+"ar": "اللون (مثلاً أسود لامع)"
+},
+"Caratteristiche tecniche (una per riga, «Nome: valore»)": {
+"en": "Technical specs (one per line, “Name: value”)",
+"ar": "المواصفات (واحدة في كل سطر، «الاسم: القيمة»)"
+},
+"Altri dettagli (facoltativi)": {
+"en": "More details (optional)",
+"ar": "تفاصيل تانية (اختياري)"
+},
+"Moto compatibili": {
+"en": "Compatible bikes",
+"ar": "الموتوسيكلات المناسبة"
+},
+"Edizione premium": {
+"en": "Premium edition",
+"ar": "إصدار بريميوم"
+},
+"Condizione / grado": {
+"en": "Condition / grade",
+"ar": "الحالة / الدرجة"
+},
+"Foto (puoi sceglierne più d'una)": {
+"en": "Photos (you can choose several)",
+"ar": "صور (تقدر تختار أكتر من واحدة)"
+},
+"Visibile sul sito (togli la spunta per ritirarlo)": {
+"en": "Visible on the site (untick to withdraw it)",
+"ar": "ظاهر على الموقع (شيل العلامة عشان تسحبه)"
+},
+"Il cliente può trattare il prezzo": {
+"en": "The customer can negotiate the price",
+"ar": "العميل يقدر يفاوض على السعر"
+},
+"Taglie e pezzi": {
+"en": "Sizes and pieces",
+"ar": "المقاسات والقطع"
+},
+"Pezzi usati (uno per colore e taglia)": {
+"en": "Used pieces (one per colour and size)",
+"ar": "قطع مستعملة (واحدة لكل لون ومقاس)"
+},
+"Per ogni pezzo: colore, taglia, link Vinted, prezzo scritto nell'annuncio e difetti. Per togliere un pezzo svuota la taglia.": {
+"en": "For each piece: colour, size, Vinted link, price written in the listing and defects. To remove a piece, clear its size.",
+"ar": "لكل قطعة: اللون والمقاس ولينك Vinted والسعر المكتوب في الإعلان والعيوب. عشان تشيل قطعة امسح المقاس."
+},
+"Pezzi": {
+"en": "Pieces",
+"ar": "القطع"
+},
+"Pezzo": {
+"en": "Piece",
+"ar": "القطعة"
+},
+"Difetti (li vede il cliente)": {
+"en": "Defects (the customer sees them)",
+"ar": "العيوب (العميل بيشوفها)"
+},
+"Note interne": {
+"en": "Internal notes",
+"ar": "ملاحظات داخلية"
+},
+"Note interne (solo per te)": {
+"en": "Internal notes (only for you)",
+"ar": "ملاحظات داخلية (ليك إنت بس)"
+},
+"Link annuncio Vinted": {
+"en": "Vinted listing link",
+"ar": "لينك إعلان Vinted"
+},
+"Link annuncio Vinted (solo per te)": {
+"en": "Vinted listing link (only for you)",
+"ar": "لينك إعلان Vinted (ليك إنت بس)"
+},
+"Prezzo annuncio (es. 130 €)": {
+"en": "Listing price (e.g. €130)",
+"ar": "سعر الإعلان (مثلاً 130 يورو)"
+},
+"Prezzo dell'annuncio (come scritto su Vinted)": {
+"en": "Listing price (as written on Vinted)",
+"ar": "سعر الإعلان (زي ما هو مكتوب على Vinted)"
+},
+"Costo reale": {
+"en": "Real cost",
+"ar": "التكلفة الفعلية"
+},
+"Carica un usato da Vinted": {
+"en": "Add a used piece from Vinted",
+"ar": "ضيف قطعة مستعملة من Vinted"
+},
+"Incolla il testo dell'annuncio e il link. Riconosco modello, categoria, colore, taglia e difetti. La foto è quella da catalogo del modello. Il prezzo di vendita lo metti dopo, da Prodotti.": {
+"en": "Paste the listing text and the link. I recognise model, category, colour, size and defects. The photo is the model's catalogue photo. You set the sale price later, in Products.",
+"ar": "الصق نص الإعلان واللينك. بتعرّف على الموديل والقسم واللون والمقاس والعيوب. الصورة هي صورة الكتالوج للموديل. سعر البيع بتحطه بعدين من المنتجات."
+},
+"Incolla qui il testo copiato da Vinted": {
+"en": "Paste here the text copied from Vinted",
+"ar": "الصق هنا النص المنسوخ من Vinted"
+},
+"Testo dell'annuncio (titolo + descrizione)": {
+"en": "Listing text (title + description)",
+"ar": "نص الإعلان (العنوان + الوصف)"
+},
+"Correggi quello che ho riconosciuto": {
+"en": "Correct what I recognised",
+"ar": "صحّح اللي اتعرّف عليه"
+},
+"Riconosci da solo": {
+"en": "Detect automatically",
+"ar": "اتعرّف تلقائي"
+},
+"Nome del modello": {
+"en": "Model name",
+"ar": "اسم الموديل"
+},
+"Sottocategoria / modello usato (es. AGV K1 S, Integrali)": {
+"en": "Subcategory / used model (e.g. AGV K1 S, Full-face)",
+"ar": "القسم الفرعي / الموديل المستعمل (مثلاً AGV K1 S، فول فيس)"
+},
+"Codice": {
+"en": "Code",
+"ar": "الكود"
+},
+"Sconto": {
+"en": "Discount",
+"ar": "الخصم"
+},
+"Stato": {
+"en": "Status",
+"ar": "الحالة"
+},
+"Usi": {
+"en": "Uses",
+"ar": "مرات الاستخدام"
+},
+"Nuovo coupon": {
+"en": "New coupon",
+"ar": "كوبون جديد"
+},
+"Crea coupon": {
+"en": "Create coupon",
+"ar": "اعمل كوبون"
+},
+"Percentuale": {
+"en": "Percentage",
+"ar": "نسبة"
+},
+"Importo fisso (EGP)": {
+"en": "Fixed amount (EGP)",
+"ar": "مبلغ ثابت (جنيه)"
+},
+"Valore (% oppure EGP)": {
+"en": "Value (% or EGP)",
+"ar": "القيمة (٪ أو جنيه)"
+},
+"Spesa minima (EGP, facoltativo)": {
+"en": "Minimum spend (EGP, optional)",
+"ar": "أقل مشتريات (جنيه، اختياري)"
+},
+"Usi totali massimi": {
+"en": "Maximum total uses",
+"ar": "أقصى عدد استخدامات"
+},
+"Usi per persona": {
+"en": "Uses per person",
+"ar": "الاستخدامات للشخص"
+},
+"Inizio": {
+"en": "Start",
+"ar": "البداية"
+},
+"Fine": {
+"en": "End",
+"ar": "النهاية"
+},
+"Chiude": {
+"en": "Closes",
+"ar": "بيقفل"
+},
+"Offerte": {
+"en": "Bids",
+"ar": "المزايدات"
+},
+"Vincitore": {
+"en": "Winner",
+"ar": "الكسبان"
+},
+"Apri un'asta": {
+"en": "Open an auction",
+"ar": "افتح مزاد"
+},
+"Apri asta": {
+"en": "Open auction",
+"ar": "افتح المزاد"
+},
+"Crea e apri l'asta": {
+"en": "Create and open the auction",
+"ar": "اعمل المزاد وافتحه"
+},
+"L'asta di questo pezzo è già stata creata: la gestisci nella scheda Aste.": {
+"en": "This piece's auction has already been created: manage it in the Auctions tab.",
+"ar": "مزاد القطعة دي اتعمل خلاص: تتحكم فيه من تبويب المزادات."
+},
+"Le aste si chiudono da sole: serve il cron che chiama": {
+"en": "Auctions close by themselves: this needs the cron that calls",
+"ar": "المزادات بتقفل لوحدها: محتاجة الـ cron اللي بيستدعي"
+},
+"ogni minuto.": {
+"en": "every minute.",
+"ar": "كل دقيقة."
+},
+"Quando": {
+"en": "When",
+"ar": "امتى"
+},
+"A": {
+"en": "To",
+"ar": "إلى"
+},
+"Oggetto": {
+"en": "Subject",
+"ar": "الموضوع"
+},
+"Esito": {
+"en": "Result",
+"ar": "النتيجة"
+},
+"Email": {
+"en": "Email",
+"ar": "الإيميل"
+},
+"Iscritto": {
+"en": "Joined",
+"ar": "اشترك"
+},
+"Speso": {
+"en": "Spent",
+"ar": "المصروف"
+},
+"Garanzia aste": {
+"en": "Auction guarantee",
+"ar": "ضمان المزادات"
+},
+"Scarica CSV": {
+"en": "Download CSV",
+"ar": "نزّل CSV"
+},
+"Scegli sopra: codici sconto, email inviate o newsletter.": {
+"en": "Choose above: discount codes, sent emails or newsletter.",
+"ar": "اختار من فوق: أكواد الخصم أو الإيميلات المبعوتة أو النشرة."
+},
+"Acconto ricevuto → parte il blocco di 48 ore": {
+"en": "Deposit received → 48-hour hold starts",
+"ar": "العربون وصل ← بيبدأ حجز 48 ساعة"
+},
+"in attesa dell'acconto di 800 EGP.": {
+"en": "waiting for the EGP 800 deposit.",
+"ar": "مستني عربون 800 جنيه."
+},
+"Blocco prezzo": {
+"en": "Price hold",
+"ar": "حجز السعر"
+},
+"Sì · togli": {
+"en": "Yes · remove",
+"ar": "أيوه · شيل"
+},
+"No · concedi": {
+"en": "No · grant",
+"ar": "لأ · اسمح"
+},
+"Risposta": {
+"en": "Reply",
+"ar": "الرد"
+},
+"Nota": {
+"en": "Note",
+"ar": "ملاحظة"
+},
+"Luogo": {
+"en": "Place",
+"ar": "المكان"
+},
+"Visitatore": {
+"en": "Visitor",
+"ar": "زائر"
+},
+"Nessuna": {
+"en": "None",
+"ar": "مفيش"
+},
+"— es. «M:3, L:5». Per l'asta una sola, es. «L:1»": {
+"en": "— e.g. “M:3, L:5”. For an auction only one, e.g. “L:1”",
+"ar": "— مثلاً «M:3, L:5». للمزاد واحدة بس، مثلاً «L:1»"
+},
+"— il sito mostra intanto il pezzo coperto.": {
+"en": "— meanwhile the site shows the piece covered.",
+"ar": "— الموقع بيعرض القطعة متغطية في الوقت ده."
+},
+"— solo se la trattativa è attiva; il prezzo sopra è il massimo pubblicato": {
+"en": "— only if negotiation is on; the price above is the published maximum",
+"ar": "— لو التفاوض شغّال بس؛ السعر اللي فوق هو أعلى سعر منشور"
+},
+"· ritirato": {
+"en": "· withdrawn",
+"ar": "· متسحب"
+},
+"Sezioni": {
+"en": "Sections",
+"ar": "الأقسام"
+},
+"Limited edition": {
+"en": "Limited edition",
+"ar": "Limited edition"
+},
+"Special edition": {
+"en": "Special edition",
+"ar": "Special edition"
+},
+"Nuovo": {
+"en": "New",
+"ar": "جديد"
+},
+"Second Life": {
+"en": "Second Life",
+"ar": "حياة تانية"
+}
+}

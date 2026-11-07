@@ -28,11 +28,11 @@ export type RispostaAggiungi =
 
 export async function aggiungiAlCarrello(varianteId: string, quantita: number): Promise<RispostaAggiungi> {
   const l = await lingua(); const _ = tx(l);
-  if (!(await limita(`agg:${await ip()}`, 120, 60_000))) return { ok: false, messaggio: _("Troppe richieste, riprova tra poco", "Too many requests, try again shortly", "طلبات كثيرة، حاول بعد قليل") };
+  if (!(await limita(`agg:${await ip()}`, 120, 60_000))) return { ok: false, messaggio: _("Troppe richieste, riprova tra poco", "Too many requests, try again shortly", "طلبات كتير، جرّب كمان شوية") };
   const esito = await carrelloLib.aggiungi(varianteId, quantita);
-  if (esito === "ESAURITO") return { ok: false, messaggio: _("Questa taglia è esaurita", "This size is sold out", "هذا المقاس نفد") };
-  if (esito === "SOLO_ASTA") return { ok: false, messaggio: _("Questo pezzo si compra solo all'asta", "This piece is sold at auction only", "هذه القطعة تُباع بالمزاد فقط") };
-  if (esito !== "OK") return { ok: false, messaggio: _("Prodotto non trovato", "Product not found", "المنتج غير موجود") };
+  if (esito === "ESAURITO") return { ok: false, messaggio: _("Questa taglia è esaurita", "This size is sold out", "المقاس ده خلص") };
+  if (esito === "SOLO_ASTA") return { ok: false, messaggio: _("Questo pezzo si compra solo all'asta", "This piece is sold at auction only", "القطعة دي بتتباع بالمزاد بس") };
+  if (esito !== "OK") return { ok: false, messaggio: _("Prodotto non trovato", "Product not found", "المنتج مش موجود") };
   const v = await db.variante.findUnique({ where: { id: varianteId }, include: { prodotto: { include: { marca: true } } } });
   const vista = await carrelloLib.vistaCarrello(await carrelloLib.trovaCarrello());
   return { ok: true, marca: v!.prodotto.marca.nome, nome: v!.prodotto.nome, taglia: v!.taglia, prezzo: v!.prodotto.prezzo, pezzi: vista.pezzi, totale: vista.subtotale };
@@ -47,17 +47,17 @@ export async function offriPrezzo(varianteId: string, offertaEgp: string, quanti
   const l = await lingua(); const _ = tx(l);
   const cifre = Number(String(offertaEgp).replace(/[^0-9.,]/g, "").replace(",", "."));
   const offerta = Math.round(cifre * 100);
-  if (!Number.isFinite(offerta) || offerta <= 0) return { ok: false, messaggio: _("Scrivi un prezzo valido", "Enter a valid price", "اكتب سعراً صحيحاً") };
+  if (!Number.isFinite(offerta) || offerta <= 0) return { ok: false, messaggio: _("Scrivi un prezzo valido", "Enter a valid price", "اكتب سعر صح") };
   const v = await db.variante.findUnique({ where: { id: varianteId }, include: { prodotto: { include: { marca: true } } } });
   const p = v?.prodotto;
   const listino = v?.prezzo ?? p?.prezzo ?? 0; const minBase = v?.prezzoMinimo ?? p?.prezzoMinimo ?? 0;
-  if (!v || !p || !p.attivo || p.tipo === "SECOND_LIFE" || !p.trattabile || !minBase) return { ok: false, messaggio: _("Questo prodotto ha prezzo fisso", "This product has a fixed price", "هذا المنتج بسعر ثابت") };
-  if (!(await limita(`trat:ip:${await ip()}`, 40, 24 * 3600_000))) return { ok: false, messaggio: _("Troppi tentativi, riprova domani", "Too many attempts, try again tomorrow", "محاولات كثيرة، حاول غداً") };
-  if (!(await limita(`trat:${await ip()}:${p.id}`, 6, 24 * 3600_000))) return { ok: false, restanti: 0, messaggio: _("Hai esaurito i tentativi per questo prodotto. Puoi comprarlo al prezzo di listino.", "You have used all your attempts for this product. You can still buy it at the listed price.", "استنفدت محاولاتك لهذا المنتج. يمكنك شراءه بالسعر المعروض.") };
+  if (!v || !p || !p.attivo || p.tipo === "SECOND_LIFE" || !p.trattabile || !minBase) return { ok: false, messaggio: _("Questo prodotto ha prezzo fisso", "This product has a fixed price", "المنتج ده سعره ثابت") };
+  if (!(await limita(`trat:ip:${await ip()}`, 40, 24 * 3600_000))) return { ok: false, messaggio: _("Troppi tentativi, riprova domani", "Too many attempts, try again tomorrow", "محاولات كتير، جرّب بكرة") };
+  if (!(await limita(`trat:${await ip()}:${p.id}`, 6, 24 * 3600_000))) return { ok: false, restanti: 0, messaggio: _("Hai esaurito i tentativi per questo prodotto. Puoi comprarlo al prezzo di listino.", "You have used all your attempts for this product. You can still buy it at the listed price.", "محاولاتك على المنتج ده خلصت. لسه تقدر تشتريه بالسعر المعروض.") };
   const k = await carrelloLib.assicuraCarrello();
   const MAX = 3;
   if (!(await limita(`trat:${k.id}:${p.id}`, MAX, 24 * 3600_000))) {
-    return { ok: false, restanti: 0, messaggio: _("Hai esaurito i tentativi per questo prodotto. Puoi comprarlo al prezzo di listino.", "You have used all your attempts for this product. You can still buy it at the listed price.", "استنفدت محاولاتك لهذا المنتج. يمكنك شراءه بالسعر المعروض.") };
+    return { ok: false, restanti: 0, messaggio: _("Hai esaurito i tentativi per questo prodotto. Puoi comprarlo al prezzo di listino.", "You have used all your attempts for this product. You can still buy it at the listed price.", "محاولاتك على المنتج ده خلصت. لسه تقدر تشتريه بالسعر المعروض.") };
   }
   const usati = await db.limite.findUnique({ where: { chiave: `trat:${k.id}:${p.id}` } });
   const restanti = Math.max(0, MAX - (usati?.conteggio ?? MAX));
@@ -69,16 +69,16 @@ export async function offriPrezzo(varianteId: string, offertaEgp: string, quanti
   });
   const minimoAttuale = Math.max(minBase, altri._max.prezzoPattuito ?? 0);
   if (offerta < minimoAttuale && offerta >= minBase) {
-    return { ok: false, restanti, messaggio: _("Altri clienti stanno trattando questo prodotto: serve un'offerta più alta.", "Other customers are negotiating this product: a higher offer is needed.", "عملاء آخرون يتفاوضون على هذا المنتج: يلزم عرض أعلى.") };
+    return { ok: false, restanti, messaggio: _("Altri clienti stanno trattando questo prodotto: serve un'offerta più alta.", "Other customers are negotiating this product: a higher offer is needed.", "فيه عملاء تانيين بيفاوضوا على المنتج ده: لازم عرض أعلى.") };
   }
   if (offerta < minimoAttuale) {
-    return { ok: false, restanti, messaggio: _("Offerta troppo bassa, il venditore non può accettarla. Prova con una cifra più alta.", "Offer too low, the seller cannot accept it. Try a higher amount.", "العرض منخفض جداً ولا يمكن للبائع قبوله. جرّب مبلغاً أعلى.") };
+    return { ok: false, restanti, messaggio: _("Offerta troppo bassa, il venditore non può accettarla. Prova con una cifra più alta.", "Offer too low, the seller cannot accept it. Try a higher amount.", "العرض قليل أوي والبايع مش هيقدر يقبله. جرّب مبلغ أعلى.") };
   }
   const prezzo = Math.min(offerta, listino);
   const q = Math.min(Math.max(1, Math.floor(Number(quantita) || 1)), 20, Math.max(1, disponibile(v)));
   const esito = await carrelloLib.aggiungiPattuito(varianteId, prezzo, q);
-  if (esito === "ESAURITO") return { ok: false, messaggio: _("Questa taglia è esaurita", "This size is sold out", "هذا المقاس نفد") };
-  if (esito !== "OK") return { ok: false, messaggio: _("Prodotto non trovato", "Product not found", "المنتج غير موجود") };
+  if (esito === "ESAURITO") return { ok: false, messaggio: _("Questa taglia è esaurita", "This size is sold out", "المقاس ده خلص") };
+  if (esito !== "OK") return { ok: false, messaggio: _("Prodotto non trovato", "Product not found", "المنتج مش موجود") };
   const vista = await carrelloLib.vistaCarrello(await carrelloLib.trovaCarrello());
   return { ok: true, prezzo, quantita: q, marca: p.marca.nome, nome: p.nome, taglia: v.taglia, pezzi: vista.pezzi, totale: vista.subtotale };
 }
@@ -110,7 +110,7 @@ export async function togliCouponAction() {
 const ERRORI: Record<string, [string, string]> = {
   nome: ["Enter your name", "اكتب اسمك"],
   telefono: ["Invalid Egyptian number: 01X XXXX XXXX", "رقم مصري غير صالح: 01X XXXX XXXX"],
-  email: ["Invalid email", "بريد إلكتروني غير صالح"],
+  email: ["Invalid email", "الإيميل مش صحيح"],
   governatorato: ["Choose your governorate", "اختر المحافظة"],
   indirizzo: ["Enter district, street and number", "اكتب الحي والشارع والرقم"],
 };
@@ -133,9 +133,9 @@ export type StatoCassa = {
 export async function ordineAction(_prev: StatoCassa, f: FormData): Promise<StatoCassa> {
   const l = await lingua(); const _ = tx(l);
   const valori = Object.fromEntries(["nome", "telefono", "email", "governatorato", "indirizzo", "note", "metodo"].map((k) => [k, testo(f, k)]));
-  if (!(await limita(`ord:${await ip()}`, 12, 10 * 60_000))) return { valori, generale: _("Troppi tentativi: riprova tra qualche minuto", "Too many attempts: try again in a few minutes", "محاولات كثيرة: حاول بعد بضع دقائق") };
+  if (!(await limita(`ord:${await ip()}`, 12, 10 * 60_000))) return { valori, generale: _("Troppi tentativi: riprova tra qualche minuto", "Too many attempts: try again in a few minutes", "محاولات كتير: جرّب كمان كام دقيقة") };
   const k = await carrelloLib.trovaCarrello();
-  if (!k) return { valori, generale: _("Il carrello è vuoto", "Your cart is empty", "السلة فارغة") };
+  if (!k) return { valori, generale: _("Il carrello è vuoto", "Your cart is empty", "السلة فاضية") };
   const u = await utenteCorrente();
   const r = await creaOrdine(k.id, {
     nome: valori.nome, telefono: valori.telefono, email: valori.email || u?.email, governatorato: valori.governatorato,
@@ -145,7 +145,7 @@ export async function ordineAction(_prev: StatoCassa, f: FormData): Promise<Stat
     const e = r.errore;
     if ("campo" in e) return { valori, errori: { [e.campo]: erroreCampo(l, e.campo, e.messaggio) } };
     if ("esaurito" in e) return { valori, esaurito: e.esaurito };
-    return { valori, generale: _("Il carrello è vuoto", "Your cart is empty", "السلة فارغة") };
+    return { valori, generale: _("Il carrello è vuoto", "Your cart is empty", "السلة فاضية") };
   }
   // la conferma via email non deve mai far fallire l'ordine
   emailConferma(r.id, await baseUrl()).catch(() => {});
@@ -167,9 +167,9 @@ export async function accediAction(_p: StatoAccesso, f: FormData): Promise<Stato
   const l = await lingua(); const _ = tx(l);
   const email = testo(f, "email").toLowerCase(); const password = String(f.get("password") ?? "");
   const torna = tornaSicuro(f.get("torna"), href(l, "/account"));
-  const generico = _("Email o password non corrette", "Wrong email or password", "البريد أو كلمة المرور غير صحيحة");
+  const generico = _("Email o password non corrette", "Wrong email or password", "الإيميل أو كلمة السر غلط");
   if (!(await limita(`login:${await ip()}`, 20, 10 * 60_000)) || !(await limita(`login:${email}`, 8, 10 * 60_000)))
-    return { valori: { email }, errore: _("Troppi tentativi: riprova tra qualche minuto", "Too many attempts: try again in a few minutes", "محاولات كثيرة: حاول بعد بضع دقائق") };
+    return { valori: { email }, errore: _("Troppi tentativi: riprova tra qualche minuto", "Too many attempts: try again in a few minutes", "محاولات كتير: جرّب كمان كام دقيقة") };
   const u = email ? await db.utente.findUnique({ where: { email } }) : null;
   // si confronta comunque: tempi uguali, così non si scopre quali email hanno un account
   const ok = await confronta(password, u?.passwordHash ?? "$2a$11$invalidinvalidinvalidinvalidinvalidinvalidinvalidinvali");
@@ -184,13 +184,13 @@ export async function registratiAction(_p: StatoAccesso, f: FormData): Promise<S
   const l = await lingua(); const _ = tx(l);
   const nome = testo(f, "nome"); const email = testo(f, "email").toLowerCase(); const password = String(f.get("password") ?? "");
   const tel = testo(f, "telefono"); const valori = { nome, email, telefono: tel };
-  if (!(await limita(`reg:${await ip()}`, 10, 60 * 60_000))) return { valori, errore: _("Troppi tentativi: riprova più tardi", "Too many attempts: try again later", "محاولات كثيرة: حاول لاحقاً") };
+  if (!(await limita(`reg:${await ip()}`, 10, 60 * 60_000))) return { valori, errore: _("Troppi tentativi: riprova più tardi", "Too many attempts: try again later", "محاولات كتير: جرّب بعدين") };
   if (nome.length < 2) return { valori, errore: _("Scrivi il tuo nome", "Enter your name", "اكتب اسمك") };
-  if (!emailValida(email)) return { valori, errore: _("Email non valida", "Invalid email", "بريد إلكتروني غير صالح") };
-  if (password.length < 8) return { valori, errore: _("La password deve avere almeno 8 caratteri", "Password must be at least 8 characters", "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل") };
-  if (tel && !telefonoEgiziano(tel)) return { valori, errore: _("Numero egiziano non valido", "Invalid Egyptian number", "رقم مصري غير صالح") };
+  if (!emailValida(email)) return { valori, errore: _("Email non valida", "Invalid email", "الإيميل مش صحيح") };
+  if (password.length < 8) return { valori, errore: _("La password deve avere almeno 8 caratteri", "Password must be at least 8 characters", "كلمة السر لازم تكون 8 حروف على الأقل") };
+  if (tel && !telefonoEgiziano(tel)) return { valori, errore: _("Numero egiziano non valido", "Invalid Egyptian number", "رقم الموبايل المصري مش صحيح") };
   if (await db.utente.findUnique({ where: { email } }))
-    return { valori, errore: _("Esiste già un account con questa email: accedi", "An account with this email already exists: sign in", "يوجد حساب بهذا البريد: سجّل الدخول") };
+    return { valori, errore: _("Esiste già un account con questa email: accedi", "An account with this email already exists: sign in", "فيه حساب بالإيميل ده: ادخل بيه") };
   const u = await db.utente.create({ data: { id: nuovoId(), email, nome, telefono: tel ? telefonoEgiziano(tel) : null, passwordHash: await cifra(password) } });
   await creaSessione(u.id);
   await carrelloLib.fondiAlLogin(u.id);
@@ -225,17 +225,17 @@ export type StatoNewsletter = { esito?: "ok" | "gia" | "errore"; messaggio?: str
 export async function iscrivitiAction(_p: StatoNewsletter, f: FormData): Promise<StatoNewsletter> {
   const l = await lingua(); const _ = tx(l);
   const email = testo(f, "email").toLowerCase();
-  if (!(await limita(`nl:${await ip()}`, 6, 60 * 60_000))) return { esito: "errore", messaggio: _("Troppi tentativi", "Too many attempts", "محاولات كثيرة") };
-  if (!emailValida(email)) return { esito: "errore", messaggio: _("Email non valida", "Invalid email", "بريد إلكتروني غير صالح") };
+  if (!(await limita(`nl:${await ip()}`, 6, 60 * 60_000))) return { esito: "errore", messaggio: _("Troppi tentativi", "Too many attempts", "محاولات كتير") };
+  if (!emailValida(email)) return { esito: "errore", messaggio: _("Email non valida", "Invalid email", "الإيميل مش صحيح") };
   const gia = await db.iscritto.findUnique({ where: { email } });
-  if (gia) return { esito: "gia", messaggio: _("Sei già nella lista.", "You're already on the list.", "أنت موجود في القائمة بالفعل.") };
+  if (gia) return { esito: "gia", messaggio: _("Sei già nella lista.", "You're already on the list.", "إنت مسجّل في القائمة قبل كده.") };
   await db.iscritto.create({ data: { id: nuovoId(), email, lingua: l } });
   // non si promette una lettera che non si può spedire
   return {
     esito: "ok",
     messaggio: postaConfigurata()
-      ? _("Sei nella lista.", "You're on the list.", "تم تسجيلك في القائمة.")
-      : _("Sei nella lista: le lettere partiranno da quando la posta sarà attiva.", "You're on the list: letters will start once mail is set up.", "تم تسجيلك: ستبدأ الرسائل عند تفعيل البريد."),
+      ? _("Sei nella lista.", "You're on the list.", "اتسجّلت في القائمة.")
+      : _("Sei nella lista: le lettere partiranno da quando la posta sarà attiva.", "You're on the list: letters will start once mail is set up.", "اتسجّلت: الرسايل هتبدأ أول ما الإيميل يتفعّل."),
   };
 }
 
@@ -249,18 +249,18 @@ export async function offertaAction(_p: StatoOfferta, f: FormData): Promise<Stat
   const slug = testo(f, "slug");
   if (!u) redirect(href(l, "/accedi") + `?torna=${encodeURIComponent(href(l, `/aste/${slug}`))}`);
   const massimo = Math.round(Number(testo(f, "massimo").replace(/[.,\s](?=\d{3}\b)/g, "")) * 100);
-  if (!(await limita(`off:${u.id}`, 30, 60_000))) return { esito: "errore", messaggio: _("Troppe offerte ravvicinate", "Too many bids in a row", "عروض كثيرة متتالية") };
-  if (!Number.isFinite(massimo) || massimo <= 0) return { esito: "errore", messaggio: _("Scrivi un importo valido", "Enter a valid amount", "اكتب مبلغاً صالحاً") };
+  if (!(await limita(`off:${u.id}`, 30, 60_000))) return { esito: "errore", messaggio: _("Troppe offerte ravvicinate", "Too many bids in a row", "عروض كتير ورا بعض") };
+  if (!Number.isFinite(massimo) || massimo <= 0) return { esito: "errore", messaggio: _("Scrivi un importo valido", "Enter a valid amount", "اكتب مبلغ صح") };
   const r = await offri(slug, u.id, massimo, await baseUrl());
-  if (r.ok) return { esito: "ok", messaggio: r.prolungata ? _("Offerta registrata. L'asta è stata prolungata di due minuti.", "Bid placed. The auction was extended by two minutes.", "تم تسجيل العرض. تم تمديد المزاد دقيقتين.") : _("Offerta registrata. Il tuo massimo resta segreto.", "Bid placed. Your maximum stays secret.", "تم تسجيل العرض. يبقى حدك الأقصى سرياً.") };
+  if (r.ok) return { esito: "ok", messaggio: r.prolungata ? _("Offerta registrata. L'asta è stata prolungata di due minuti.", "Bid placed. The auction was extended by two minutes.", "العرض اتسجّل. المزاد اتمدّ دقيقتين.") : _("Offerta registrata. Il tuo massimo resta segreto.", "Bid placed. Your maximum stays secret.", "العرض اتسجّل. أقصى حد عندك لسه سري.") };
   const m: Record<string, string> = {
     SOTTO_MINIMO: _(`Offerta troppo bassa: serve almeno ${egp(r.minimo ?? 0)}`, `Bid too low: at least ${egp(r.minimo ?? 0)} needed`, `العرض منخفض: يلزم ${egp(r.minimo ?? 0)} على الأقل`),
-    ABBASSA_MASSIMO: _("Il tuo massimo si può solo alzare", "Your maximum can only go up", "يمكن رفع حدك الأقصى فقط"),
-    CHIUSA: _("L'asta è chiusa", "The auction is closed", "المزاد مغلق"),
-    INVALIDA: _("Importo non valido", "Invalid amount", "مبلغ غير صالح"),
-    SERVE_GARANZIA: _("Per offrire serve una carta a garanzia: non è ancora attiva", "A card guarantee is required to bid: it is not yet active", "يلزم ضمان ببطاقة للمزايدة: غير مفعّل بعد"),
+    ABBASSA_MASSIMO: _("Il tuo massimo si può solo alzare", "Your maximum can only go up", "أقصى حد تقدر تزوّده بس"),
+    CHIUSA: _("L'asta è chiusa", "The auction is closed", "المزاد مقفول"),
+    INVALIDA: _("Importo non valido", "Invalid amount", "المبلغ مش صحيح"),
+    SERVE_GARANZIA: _("Per offrire serve una carta a garanzia: non è ancora attiva", "A card guarantee is required to bid: it is not yet active", "لازم ضمان بالكارت عشان تزايد: لسه مش شغّال"),
   };
-  return { esito: "errore", messaggio: m[r.motivo] ?? _("Offerta non riuscita", "Bid failed", "تعذّر تسجيل العرض") };
+  return { esito: "errore", messaggio: m[r.motivo] ?? _("Offerta non riuscita", "Bid failed", "العرض ماتسجّلش") };
 }
 
 export async function cambiaPasswordAction(f: FormData) {

@@ -95,27 +95,27 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
                   <Link key={m} href={q({ cond: "usato", cat: f.cat, sotto: m })} className={"modello-card" + (f.sotto.toLowerCase() === m.toLowerCase() ? " on" : "") + (n === 0 ? " zero" : "")}>
                     <span className="modello-img"><img src={img} alt={m} loading="lazy" /></span>
                     <strong>{m}</strong>
-                    <small>{n > 0 ? `${n} ${_("in asta", "at auction", "في المزاد")}` : _("Nessun pezzo ora", "None right now", "لا توجد قطع الآن")}</small>
+                    <small>{n > 0 ? `${n} ${_("in asta", "at auction", "في المزاد")}` : _("Nessun pezzo ora", "None right now", "مفيش دلوقتي")}</small>
                   </Link>
                 );
               })}
             </div>
           )}
-          <p className="tenue" style={{ fontSize: 13, margin: "10px 0 0" }}>{_("Pezzi unici: ognuno si vende all'asta, uno alla volta.", "One-off pieces: each is sold by auction, one at a time.", "قطع فريدة: كل قطعة تُباع بالمزاد، واحدة تلو الأخرى.")}</p>
+          <p className="tenue" style={{ fontSize: 13, margin: "10px 0 0" }}>{_("Pezzi unici: ognuno si vende all'asta, uno alla volta.", "One-off pieces: each is sold by auction, one at a time.", "قطع فريدة: كل قطعة بتتباع بالمزاد، واحدة واحدة.")}</p>
         </div>
       )}
       <input type="checkbox" id="tf" className="tf-chk" aria-hidden="true" tabIndex={-1} />
-      <label htmlFor="tf" className="tasto vuoto apri-filtri">{_("Filtri", "Filters", "مرشحات")}{attivi > 0 ? ` · ${attivi}` : ""}</label>
+      <label htmlFor="tf" className="tasto vuoto apri-filtri">{_("Filtri", "Filters", "فلاتر")}{attivi > 0 ? ` · ${attivi}` : ""}</label>
       <div className="negozio">
-        <form className="filtri" method="get" action={href(l, "/negozio")} aria-label={_("Filtri", "Filters", "مرشحات")}>
+        <form className="filtri" method="get" action={href(l, "/negozio")} aria-label={_("Filtri", "Filters", "فلاتر")}>
           {f.cond && <input type="hidden" name="cond" value={f.cond} />}{f.ed && <input type="hidden" name="ed" value={f.ed} />}
-          <div className="campo"><label htmlFor="q">{_("Cerca", "Search", "بحث")}</label><input id="q" name="q" type="search" defaultValue={f.q} placeholder={_("Cerca casco, marca, modello…", "Search helmet, brand, model…", "ابحث عن خوذة، ماركة، موديل…")} /></div>
-          <fieldset><legend>{_("Categoria", "Category", "الفئة")}</legend>
+          <div className="campo"><label htmlFor="q">{_("Cerca", "Search", "دوّر")}</label><input id="q" name="q" type="search" defaultValue={f.q} placeholder={_("Cerca casco, marca, modello…", "Search helmet, brand, model…", "دوّر على خوذة، ماركة، موديل…")} /></div>
+          <fieldset><legend>{_("Categoria", "Category", "القسم")}</legend>
             {CATEGORIE.map((c) => { const n = opz.cat[c] ?? 0; return (
               <div key={c} className={"opz" + (n === 0 ? " spenta" : "")}><input type="radio" name="cat" id={"c-" + c} value={c} defaultChecked={f.cat === c} disabled={n === 0} /><label htmlFor={"c-" + c} style={{ margin: 0, textTransform: "none", letterSpacing: 0, fontFamily: "var(--x)", fontSize: 14, color: "inherit" }}>{tr(l, ETICHETTA_CAT[c])}</label><span className="n mono">{n}</span></div>); })}
             <div className="opz"><input type="radio" name="cat" id="c-tutti" value="" defaultChecked={!f.cat} /><label htmlFor="c-tutti" style={{ margin: 0, textTransform: "none", letterSpacing: 0, fontFamily: "var(--x)", fontSize: 14, color: "inherit" }}>{_("Tutte", "All", "الكل")}</label></div>
           </fieldset>
-          <fieldset><legend>{_("Stile di guida", "Riding style", "أسلوب القيادة")}</legend>
+          <fieldset><legend>{_("Stile di guida", "Riding style", "أسلوب السواقة")}</legend>
             {STILI.map((s) => { const n = opz.stili[s] ?? 0; return (
               <div key={s} className={"opz" + (n === 0 ? " spenta" : "")}><input type="radio" name="stile" id={"s-" + s} value={s} defaultChecked={f.stile === s} disabled={n === 0} /><label htmlFor={"s-" + s} style={{ margin: 0, textTransform: "none", letterSpacing: 0, fontFamily: "var(--x)", fontSize: 14, color: "inherit" }}>{ETICHETTA_STILE[s]}</label><span className="n mono">{n}</span></div>); })}
             <div className="opz"><input type="radio" name="stile" id="s-tutti" value="" defaultChecked={!f.stile} /><label htmlFor="s-tutti" style={{ margin: 0, textTransform: "none", letterSpacing: 0, fontFamily: "var(--x)", fontSize: 14, color: "inherit" }}>{_("Tutti", "All", "الكل")}</label></div>
@@ -132,40 +132,40 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
               {opz.taglie.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
           </fieldset>
-          <fieldset><legend>{_("Prezzo massimo (EGP)", "Maximum price (EGP)", "السعر الأقصى (جنيه)")}</legend>
-            <input name="max" type="number" min="0" step="100" inputMode="numeric" defaultValue={f.max ? f.max / 100 : ""} aria-label={_("Prezzo massimo", "Maximum price", "السعر الأقصى")} />
+          <fieldset><legend>{_("Prezzo massimo (EGP)", "Maximum price (EGP)", "أقصى سعر (جنيه)")}</legend>
+            <input name="max" type="number" min="0" step="100" inputMode="numeric" defaultValue={f.max ? f.max / 100 : ""} aria-label={_("Prezzo massimo", "Maximum price", "أقصى سعر")} />
           </fieldset>
           {([["sotto", "Sottocategoria", "Subcategory", "الفئة الفرعية", opz.sotto, f.sotto], ["colore", "Colore", "Colour", "اللون", opz.colori, f.colore], ["genere", "Genere", "Gender", "الجنس", opz.generi, f.genere], ["materiale", "Materiale", "Material", "الخامة", opz.materiali, f.materiale], ["cert", "Certificazione", "Certification", "الشهادة", opz.cert, f.cert]] as [string, string, string, string, string[], string][]).filter(([, , , , v]) => v.length > 0).map(([k, it, en, ar, vals, cur]) => (
             <fieldset key={k}><legend>{_(it, en, ar)}</legend>
               <select name={k} defaultValue={cur} aria-label={_(it, en, ar)}><option value="">{_("Tutti", "All", "الكل")}</option>{vals.map((v) => <option key={v} value={v}>{v}</option>)}</select>
             </fieldset>
           ))}
-          <fieldset><legend>{_("Modello di moto", "Motorcycle model", "موديل الدراجة")}</legend>
-            <input name="moto" defaultValue={f.moto} placeholder={_("es. MT-07", "e.g. MT-07", "مثال: MT-07")} aria-label={_("Modello di moto", "Motorcycle model", "موديل الدراجة")} />
+          <fieldset><legend>{_("Modello di moto", "Motorcycle model", "موديل الموتوسيكل")}</legend>
+            <input name="moto" defaultValue={f.moto} placeholder={_("es. MT-07", "e.g. MT-07", "مثلاً: MT-07")} aria-label={_("Modello di moto", "Motorcycle model", "موديل الموتوسيكل")} />
           </fieldset>
-          <fieldset><legend>{_("Disponibilità", "Availability", "التوفر")}</legend>
-            <div className="opz"><input type="checkbox" name="solo" id="solo" value="1" defaultChecked={f.solo} /><label htmlFor="solo" style={{ margin: 0, textTransform: "none", letterSpacing: 0, fontFamily: "var(--x)", fontSize: 14, color: "inherit" }}>{_("Solo disponibili", "In stock only", "المتوفر فقط")}</label></div>
+          <fieldset><legend>{_("Disponibilità", "Availability", "المتاح")}</legend>
+            <div className="opz"><input type="checkbox" name="solo" id="solo" value="1" defaultChecked={f.solo} /><label htmlFor="solo" style={{ margin: 0, textTransform: "none", letterSpacing: 0, fontFamily: "var(--x)", fontSize: 14, color: "inherit" }}>{_("Solo disponibili", "In stock only", "المتوفر بس")}</label></div>
           </fieldset>
           <fieldset><legend>{_("Ordina", "Sort", "الترتيب")}</legend>
             <select name="ord" defaultValue={f.ord} aria-label={_("Ordina", "Sort", "الترتيب")}>
-              <option value="">{_("Consigliati", "Recommended", "موصى به")}</option>
-              <option value="prezzo-asc">{_("Prezzo crescente", "Price low to high", "السعر من الأقل")}</option>
-              <option value="prezzo-desc">{_("Prezzo decrescente", "Price high to low", "السعر من الأعلى")}</option>
-              <option value="novita">{_("Novità", "New in", "الجديد")}</option>
+              <option value="">{_("Consigliati", "Recommended", "المقترح")}</option>
+              <option value="prezzo-asc">{_("Prezzo crescente", "Price low to high", "السعر من الأرخص")}</option>
+              <option value="prezzo-desc">{_("Prezzo decrescente", "Price high to low", "السعر من الأغلى")}</option>
+              <option value="novita">{_("Novità", "New in", "الأحدث")}</option>
               <option value="sconto">{_("Sconto maggiore", "Biggest discount", "أكبر خصم")}</option>
             </select>
           </fieldset>
           <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-            <button type="submit" className="tasto">{_("Applica", "Apply", "تطبيق")}</button>
-            {attivi > 0 && <Link className="tasto vuoto" href={href(l, "/negozio")}>{_("Azzera", "Clear", "مسح")}</Link>}
+            <button type="submit" className="tasto">{_("Applica", "Apply", "طبّق")}</button>
+            {attivi > 0 && <Link className="tasto vuoto" href={href(l, "/negozio")}>{_("Azzera", "Clear", "امسح")}</Link>}
           </div>
         </form>
-        <section aria-label={_("Risultati", "Results", "النتائج")}>
+        <section aria-label={_("Risultati", "Results", "النتايج")}>
           {lista.length === 0 ? (
             <div className="nota">
-              <b>{_("Nessun pezzo con questi filtri", "Nothing matches these filters", "لا توجد قطع بهذه المرشحات")}</b>
-              <p>{_("Prova ad allargare la ricerca: spesso basta togliere la taglia o alzare il prezzo massimo.", "Try widening the search: usually dropping the size or raising the price cap is enough.", "جرّب توسيع البحث: غالباً يكفي إلغاء المقاس أو رفع السعر الأقصى.")}</p>
-              <p style={{ marginTop: 10 }}><Link className="tasto vuoto piccolo" href={href(l, "/negozio")}>{_("Azzera i filtri", "Clear filters", "مسح المرشحات")}</Link></p>
+              <b>{_("Nessun pezzo con questi filtri", "Nothing matches these filters", "مفيش حاجة بالفلاتر دي")}</b>
+              <p>{_("Prova ad allargare la ricerca: spesso basta togliere la taglia o alzare il prezzo massimo.", "Try widening the search: usually dropping the size or raising the price cap is enough.", "جرّب توسّع البحث: غالباً كفاية تشيل المقاس أو ترفع أقصى سعر.")}</p>
+              <p style={{ marginTop: 10 }}><Link className="tasto vuoto piccolo" href={href(l, "/negozio")}>{_("Azzera i filtri", "Clear filters", "امسح الفلاتر")}</Link></p>
             </div>
           ) : (
             <div className="griglia">{lista.map((p) => <Scheda key={p.id} p={p} l={l} preferito={u ? pref.has(p.slug) : undefined} torna={u ? torna : undefined} />)}</div>

@@ -23,7 +23,7 @@ export default async function Marca({ params }: Props) {
       <span className="mono lieve">{_("Marca", "Brand", "الماركة")}</span>
       <h1 style={{ margin: "8px 0 14px" }}>{m.nome}</h1>
       {m.descrizione && <p className="tenue" style={{ maxWidth: 600, marginBottom: 28 }}>{m.descrizione}</p>}
-      {lista.length === 0 ? <p className="tenue">{_("Nessun pezzo disponibile in questo momento.", "No pieces available right now.", "لا توجد قطع متاحة حالياً.")}</p> : <div className="griglia">{lista.map((p) => <Scheda key={p.id} p={p} l={l} />)}</div>}
+      {lista.length === 0 ? <p className="tenue">{_("Nessun pezzo disponibile in questo momento.", "No pieces available right now.", "مفيش قطع متاحة دلوقتي.")}</p> : <div className="griglia">{lista.map((p) => <Scheda key={p.id} p={p} l={l} />)}</div>}
     </div>
   );
 }

@@ -19,11 +19,11 @@ export default async function Checkout({ searchParams }: { searchParams: Promise
   if (!v.righe.length) redirect(href(l, "/carrello"));
   const u = await utenteCorrente();
   const e: Record<string, string> = {
-    NON_VALIDO: _("Codice non valido", "Invalid code", "رمز غير صالح"),
-    SCADUTO: _("Questo codice è scaduto", "This code has expired", "انتهت صلاحية هذا الرمز"),
-    ESAURITO: _("Questo codice è esaurito", "This code has been used up", "نفد هذا الرمز"),
+    NON_VALIDO: _("Codice non valido", "Invalid code", "الكود مش صحيح"),
+    SCADUTO: _("Questo codice è scaduto", "This code has expired", "الكود ده خلصت مدته"),
+    ESAURITO: _("Questo codice è esaurito", "This code has been used up", "الكود ده خلص"),
     SOTTO_MINIMO: _(`Il codice vale da ${egp(Number(uno(sp.min)))} di merce`, `This code applies from ${egp(Number(uno(sp.min)))} of goods`, `يسري الرمز من ${egp(Number(uno(sp.min)))} من البضاعة`),
-    GIA_USATO: _("Hai già usato questo codice", "You have already used this code", "لقد استخدمت هذا الرمز من قبل"),
+    GIA_USATO: _("Hai già usato questo codice", "You have already used this code", "إنت استخدمت الكود ده قبل كده"),
   };
   const errore = e[uno(sp.coupon)] ?? (v.couponErrore ? e[v.couponErrore] : null) ?? null;
   return (

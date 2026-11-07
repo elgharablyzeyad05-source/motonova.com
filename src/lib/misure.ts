@@ -10,8 +10,8 @@ export function misuraDi(categoria: string, taglia: string): string {
 }
 
 export function cosaMisura(categoria: string): [string, string, string] {
-  if (categoria === "caschi") return ["Taglia — circonferenza cranica", "Size — head circumference", "المقاس — محيط الرأس"];
-  if (categoria === "guanti") return ["Taglia — circonferenza della mano", "Size — hand circumference", "المقاس — محيط اليد"];
+  if (categoria === "caschi") return ["Taglia — circonferenza cranica", "Size — head circumference", "المقاس — محيط الراس"];
+  if (categoria === "guanti") return ["Taglia — circonferenza della mano", "Size — hand circumference", "المقاس — محيط الإيد"];
   if (categoria === "stivali") return ["Numero — misura europea", "Size — European", "المقاس — أوروبي"];
   return ["Taglia — circonferenza torace", "Size — chest circumference", "المقاس — محيط الصدر"];
 }

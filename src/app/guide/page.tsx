@@ -11,7 +11,7 @@ export default async function Guide() {
   return (
     <div className="foglio sezione">
       <h1 style={{ marginBottom: 14 }}>{_("Guide", "Guides", "أدلة")}</h1>
-      <p className="tenue" style={{ maxWidth: 560, marginBottom: 36 }}>{_("Quello che ci chiedono prima di comprare, scritto una volta sola.", "What people ask before buying, written once.", "ما يسألنا عنه الناس قبل الشراء، مكتوب مرة واحدة.")}</p>
+      <p className="tenue" style={{ maxWidth: 560, marginBottom: 36 }}>{_("Quello che ci chiedono prima di comprare, scritto una volta sola.", "What people ask before buying, written once.", "اللي الناس بتسألنا عليه قبل ما تشتري، مكتوب مرة واحدة.")}</p>
       <div className="griglia" style={{ gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))" }}>
         {GUIDE.map((g) => (
           <Link key={g.id} href={href(l, `/guide/${g.id}`)} className="scheda" style={{ borderTop: "1px solid var(--testo)", paddingTop: 14 }}>

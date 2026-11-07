@@ -74,7 +74,7 @@ export default async function Prodotto({ params }: Props) {
           {foto.length > 1 && (
             <div className="miniature">{foto.slice(1).map((f, i) => <Cornice key={i} foto={f?.piccola} categoria={p.categoria} alt={`${p.nome} ${i + 2}`} />)}</div>
           )}
-          {!p.foto.length && !fotoCatalogo(p) && <p className="mono lieve">{_("La foto arriverà: questo è un disegno, non il prodotto.", "The photo is coming: this is a drawing, not the product.", "الصورة قادمة: هذا رسم وليس المنتج.")}</p>}
+          {!p.foto.length && !fotoCatalogo(p) && <p className="mono lieve">{_("La foto arriverà: questo è un disegno, non il prodotto.", "The photo is coming: this is a drawing, not the product.", "الصورة جاية: ده رسم مش المنتج.")}</p>}
         </div>
         <div>
           <Link href={href(l, `/marche/${p.marca.slug}`)} className="mono lieve">{p.marca.nome}</Link>
@@ -86,27 +86,27 @@ export default async function Prodotto({ params }: Props) {
             altreOpzioni={href(l, `/negozio?${p.tipo === "USATO" ? "cond=usato&" : ""}cat=${p.categoria}`)}
             varianti={varianti.map((v) => ({ id: v.id, prezzo: v.prezzo ?? p.prezzo, colore: v.colore, difetti: p.tipo === "USATO" ? v.difetti : "", taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
             testi={{
-              aggiungi: _("Aggiungi al carrello", "Add to cart", "أضف إلى السلة"), aggiunto: _("Aggiunto ✓", "Added ✓", "تمت الإضافة ✓"), esaurito: _("Esaurito", "Sold out", "نفد"),
+              aggiungi: _("Aggiungi al carrello", "Add to cart", "ضيف للسلة"), aggiunto: _("Aggiunto ✓", "Added ✓", "اتضاف ✓"), esaurito: _("Esaurito", "Sold out", "خلص"),
               taglia: cosaMisura(p.categoria)[l === "en" ? 1 : l === "ar" ? 2 : 0],
-              ultimi: _("ultimi {n}", "last {n}", "آخر {n}"),
-              disp: _("Disponibile — solo {n}", "In stock — only {n}", "متوفر — {n} فقط"),
+              ultimi: _("ultimi {n}", "last {n}", "باقي {n} بس"),
+              disp: _("Disponibile — solo {n}", "In stock — only {n}", "متوفر — {n} بس"),
               dispOk: _("Disponibile", "In stock", "متوفر"),
-              acquista: _("Acquista ora", "Buy now", "اشترِ الآن"),
-              offri: "", offertaEtichetta: _("Vuoi proporre un prezzo? Scrivi la tua offerta in EGP per ogni pezzo", "Want to name your price? Enter your offer in EGP per piece", "تريد اقتراح سعر؟ اكتب عرضك بالجنيه للقطعة"),
-              offertaInvia: _("Fai un'offerta", "Make an offer", "قدّم عرضاً"),
-              offertaOk: _("Offerta accettata: {p} EGP. È nel carrello ({q}). La spedizione si calcola al checkout.", "Offer accepted: {p} EGP. It is in your cart ({q}). Shipping is calculated at checkout.", "تم قبول العرض: {p} جنيه. في السلة ({q}). يُحسب الشحن عند الدفع."),
-              offertaVai: _("Vai al carrello", "Go to cart", "اذهب إلى السلة"),
+              acquista: _("Acquista ora", "Buy now", "اشتري دلوقتي"),
+              offri: "", offertaEtichetta: _("Vuoi proporre un prezzo? Scrivi la tua offerta in EGP per ogni pezzo", "Want to name your price? Enter your offer in EGP per piece", "عايز تقترح سعرك؟ اكتب عرضك بالجنيه للقطعة"),
+              offertaInvia: _("Fai un'offerta", "Make an offer", "قدّم عرض"),
+              offertaOk: _("Offerta accettata: {p} EGP. È nel carrello ({q}). La spedizione si calcola al checkout.", "Offer accepted: {p} EGP. It is in your cart ({q}). Shipping is calculated at checkout.", "العرض اتقبل: {p} جنيه. في السلة ({q}). الشحن بيتحسب وقت الدفع."),
+              offertaVai: _("Vai al carrello", "Go to cart", "روح للسلة"),
               pezzi: _("pezzi", "pieces", "قطعة"),
-              restanti: _("Tentativi rimasti: {n}.", "Attempts left: {n}.", "المحاولات المتبقية: {n}."),
+              restanti: _("Tentativi rimasti: {n}.", "Attempts left: {n}.", "محاولات باقية: {n}."),
               colore: _("Colore", "Colour", "اللون"),
               dispN: _("{n} disponibili", "{n} available", "{n} متوفر"),
-              budget: _("Il tuo budget per questo pezzo (EGP)", "Your budget for this piece (EGP)", "ميزانيتك لهذه القطعة (جنيه)"),
-              budgetInvia: _("Verifica", "Check", "تحقق"),
-              basso1: _("Con questo budget non riusciamo a venirti incontro su questo pezzo. Sei disposto ad alzarlo, oppure preferisci valutare altre opzioni?", "We can't meet this budget on this piece. Are you willing to raise it, or would you rather look at other options?", "لا نستطيع تلبية هذه الميزانية لهذه القطعة. هل أنت مستعد لرفعها أم تفضل النظر في خيارات أخرى؟"),
-              basso2: _("Non riusciamo a trovare un accordo su questo pezzo. Scrivici nella chat del sito: valutiamo insieme altre opzioni.", "We couldn't agree on this piece. Message us in the site chat and we'll look at other options together.", "لم نصل إلى اتفاق على هذه القطعة. راسلنا في دردشة الموقع لنبحث معاً عن خيارات أخرى."),
-              alza: _("Alzo il budget", "Raise my budget", "سأرفع الميزانية"),
-              altre: _("Vedi altre opzioni", "See other options", "شاهد خيارات أخرى"),
-              chat: _("Scrivici in chat", "Message us in chat", "راسلنا في الدردشة"),
+              budget: _("Il tuo budget per questo pezzo (EGP)", "Your budget for this piece (EGP)", "ميزانيتك للقطعة دي (جنيه)"),
+              budgetInvia: _("Verifica", "Check", "اتأكد"),
+              basso1: _("Con questo budget non riusciamo a venirti incontro su questo pezzo. Sei disposto ad alzarlo, oppure preferisci valutare altre opzioni?", "We can't meet this budget on this piece. Are you willing to raise it, or would you rather look at other options?", "مش هنقدر نوصل للميزانية دي في القطعة دي. تحب ترفعها ولا تشوف اختيارات تانية؟"),
+              basso2: _("Non riusciamo a trovare un accordo su questo pezzo. Scrivici nella chat del sito: valutiamo insieme altre opzioni.", "We couldn't agree on this piece. Message us in the site chat and we'll look at other options together.", "ماقدرناش نتفق على القطعة دي. كلمنا في شات الموقع ونشوف اختيارات تانية مع بعض."),
+              alza: _("Alzo il budget", "Raise my budget", "هرفع الميزانية"),
+              altre: _("Vedi altre opzioni", "See other options", "شوف اختيارات تانية"),
+              chat: _("Scrivici in chat", "Message us in chat", "كلمنا في الشات"),
               difetti: _("Condizioni e difetti", "Condition and flaws", "الحالة والعيوب"),
             }} />
           <div style={{ marginTop: 28 }}>
@@ -123,7 +123,7 @@ export default async function Prodotto({ params }: Props) {
           <table className="dati"><tbody>
             {specs.map(([k, v]) => <tr key={k}><th scope="row">{tr(l, k)}</th><td>{tr(l, v)}</td></tr>)}
             <tr><th scope="row">{_("Taglie", "Sizes", "المقاسات")}</th><td>{varianti.map((v) => v.taglia).join(" · ")}</td></tr>
-            {p.luogo && <tr><th scope="row">{_("Origine", "Origin", "المنشأ")}</th><td>{p.luogo}</td></tr>}
+            {p.luogo && <tr><th scope="row">{_("Origine", "Origin", "بلد المنشأ")}</th><td>{p.luogo}</td></tr>}
           </tbody></table>
         </section>
       )}
@@ -140,7 +140,7 @@ export default async function Prodotto({ params }: Props) {
 
       {simili.length > 0 && (
         <section className="filetto" style={{ marginTop: 40 }}>
-          <h2 style={{ marginBottom: 20 }}>{_("Potrebbe servirti anche", "You may also need", "قد تحتاج أيضاً")}</h2>
+          <h2 style={{ marginBottom: 20 }}>{_("Potrebbe servirti anche", "You may also need", "ممكن تحتاج كمان")}</h2>
           <div className="griglia">{simili.map((s) => <Scheda key={s.id} p={s} l={l} />)}</div>
         </section>
       )}

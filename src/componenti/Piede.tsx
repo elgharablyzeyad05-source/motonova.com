@@ -20,8 +20,8 @@ export function Piede({ l }: { l: Lingua }) {
           <h3>{_("Aiuto", "Help", "مساعدة")}</h3>
           <ul>
             <li><Link href={href(l, "/guide/spedizioni")}>{_("Spedizioni e resi", "Shipping and returns", "الشحن والإرجاع")}</Link></li>
-            <li><Link href={href(l, "/guide/taglie")}>{_("Come prendere la taglia", "How to take your size", "كيف تأخذ مقاسك")}</Link></li>
-            <li><Link href={href(l, "/pagina/contatti")}>{_("Contatti", "Contact", "اتصل بنا")}</Link></li>
+            <li><Link href={href(l, "/guide/taglie")}>{_("Come prendere la taglia", "How to take your size", "إزاي تاخد مقاسك")}</Link></li>
+            <li><Link href={href(l, "/pagina/contatti")}>{_("Contatti", "Contact", "كلمنا")}</Link></li>
           </ul>
         </div>
         <div>
@@ -32,9 +32,9 @@ export function Piede({ l }: { l: Lingua }) {
           </ul>
         </div>
         <div className="newsletter">
-          <h3>{_("Newsletter", "Newsletter", "النشرة البريدية")}</h3>
-          <p className="tenue" style={{ marginBottom: 10 }}>{_("Nuovi arrivi, aste e guide. Niente spam.", "New arrivals, auctions and guides. No spam.", "وصولات جديدة ومزادات وأدلة. بلا إزعاج.")}</p>
-          <NewsletterForm testi={{ etichetta: _("La tua email", "Your email", "بريدك الإلكتروني"), segnaposto: _("La tua email", "Your email", "بريدك الإلكتروني"), invia: _("Iscriviti", "Subscribe", "اشترك") }} />
+          <h3>{_("Newsletter", "Newsletter", "النشرة")}</h3>
+          <p className="tenue" style={{ marginBottom: 10 }}>{_("Nuovi arrivi, aste e guide. Niente spam.", "New arrivals, auctions and guides. No spam.", "وصل جديد ومزادات وأدلة. من غير إزعاج.")}</p>
+          <NewsletterForm testi={{ etichetta: _("La tua email", "Your email", "إيميلك"), segnaposto: _("La tua email", "Your email", "إيميلك"), invia: _("Iscriviti", "Subscribe", "اشترك") }} />
         </div>
       </div>
       <div className="foglio" style={{ marginTop: 28 }}><span className="mono lieve">© {new Date().getFullYear()} MotoNova</span></div>

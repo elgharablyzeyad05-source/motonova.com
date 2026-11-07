@@ -14,9 +14,9 @@ export default async function Registrati({ searchParams }: { searchParams: Promi
   if (await utenteCorrente()) redirect(dove);
   return (
     <div className="foglio sezione" style={{ maxWidth: 460 }}>
-      <h1 style={{ marginBottom: 24 }}>{_("Crea l'account", "Create account", "إنشاء حساب")}</h1>
+      <h1 style={{ marginBottom: 24 }}>{_("Crea l'account", "Create account", "اعمل حساب")}</h1>
       <AccessoForm l={l} modo="registrati" torna={dove} />
-      <p className="tenue" style={{ marginTop: 20 }}>{_("Hai già un account?", "Already have an account?", "لديك حساب بالفعل؟")} <Link style={{ textDecoration: "underline" }} href={href(l, "/accedi")}>{_("Accedi", "Sign in", "دخول")}</Link></p>
+      <p className="tenue" style={{ marginTop: 20 }}>{_("Hai già un account?", "Already have an account?", "عندك حساب؟")} <Link style={{ textDecoration: "underline" }} href={href(l, "/accedi")}>{_("Accedi", "Sign in", "ادخل")}</Link></p>
     </div>
   );
 }

@@ -133,7 +133,7 @@ export async function emailConferma(ordineId: string, base: string) {
   const righe = o.righe.map((r) => `• ${r.marca} ${r.nome} (${r.taglia}) × ${r.quantita} — ${egp(r.prezzo * r.quantita)}`).join("\n");
   const pag = o.pagamento === "CONTRASSEGNO"
     ? (o.lingua === "ar" ? "الدفع عند الاستلام" : o.lingua === "en" ? "Cash on delivery" : "Contrassegno")
-    : (o.lingua === "ar" ? "بطاقة" : o.lingua === "en" ? "Card" : "Carta");
+    : (o.lingua === "ar" ? "كارت" : o.lingua === "en" ? "Card" : "Carta");
   return inviaEmail("ordineConfermato", o.email, o.lingua, {
     nome: o.nome, numero: o.numero, righe, totale: egp(o.totale), pagamento: pag,
     indirizzo: `${o.indirizzo}, ${o.governatorato}`, linkOrdine: `${base}/ordine/${o.numero}?t=${o.token}`,
