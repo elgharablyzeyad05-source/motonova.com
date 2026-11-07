@@ -23,7 +23,7 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
   const f = {
     q: uno(sp.q), cat: uno(sp.cat), stile: uno(sp.stile), marca: uno(sp.marca), taglia: uno(sp.taglia),
     max: Number(uno(sp.max)) * 100 || undefined, solo: uno(sp.solo) === "1", ord: uno(sp.ord),
-    sotto: uno(sp.sotto), colore: uno(sp.colore), genere: uno(sp.genere), materiale: uno(sp.materiale), cert: uno(sp.cert), moto: uno(sp.moto), cond: uno(sp.cond) === "usato" ? "usato" : "", ed: ["limited", "special"].includes(uno(sp.ed)) ? uno(sp.ed) : "",
+    sotto: uno(sp.sotto), colore: uno(sp.colore), genere: uno(sp.genere), materiale: uno(sp.materiale), cert: uno(sp.cert), moto: uno(sp.moto), cond: ["usato","nuovo","tutti"].includes(uno(sp.cond)) ? uno(sp.cond) : "", ed: ["limited", "special"].includes(uno(sp.ed)) ? uno(sp.ed) : "",
   };
   const [lista, opz, u] = await Promise.all([cerca(f), opzioniFiltri(f.cond), utenteCorrente()]);
   const usato = f.cond === "usato";
@@ -33,6 +33,30 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
   const pref = u ? new Set((await db.preferito.findMany({ where: { utenteId: u.id }, select: { prodotto: { select: { slug: true } } } })).map((x) => x.prodotto.slug)) : new Set<string>();
   const attivi = [f.q, f.cat, f.stile, f.marca, f.taglia, f.max, f.solo ? "1" : "", f.sotto, f.colore, f.genere, f.materiale, f.cert, f.moto, f.cond, f.ed].filter(Boolean).length;
   const torna = href(l, "/negozio") + (Object.keys(sp).length ? "?" + new URLSearchParams(Object.entries(sp).flatMap(([k, v]) => (v === undefined ? [] : [[k, uno(v)]]))).toString() : "");
+
+  if (f.ed && !f.cond) {
+    const [nN, nU] = await Promise.all([cerca({ ...f, cond: "nuovo" }), cerca({ ...f, cond: "usato" })]);
+    const nome = f.ed === "limited" ? "Limited edition" : "Special edition";
+    const sc = [
+      { c: "nuovo", t: _("Nuovo", "New", "جديد"), n: nN.length },
+      { c: "usato", t: _("Usato", "Used", "مستعمل"), n: nU.length },
+      { c: "tutti", t: _("Nuovo e usato", "New and used", "جديد ومستعمل"), n: lista.length },
+    ];
+    return (
+      <div className="foglio sezione">
+        <h1 style={{ margin: "8px 0 8px" }}>{nome}</h1>
+        <p className="tenue" style={{ marginBottom: 24 }}>{_("Dove vuoi cercare?", "Where do you want to look?", "عايز تدوّر فين؟")}</p>
+        <div className="modelli-griglia">
+          {sc.map((x) => (
+            <Link key={x.c} href={q({ ed: f.ed, cond: x.c })} className="modello-card">
+              <span style={{ fontWeight: 600, fontSize: 18 }}>{x.t}</span>
+              <span className="mono lieve">{x.n} {_("pezzi", "pieces", "قطعة")}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="foglio sezione">
@@ -46,13 +70,13 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
       <div className="cond-chips" style={{ marginBottom: 12 }}>
         <div className="chips-riga">
           <Link href={q({ ...(usato ? { cond: "usato" } : {}) })} className={"chip" + (!f.ed ? " on" : "")}>{_("Tutti", "All", "الكل")}</Link>
-          <Link href={q({ ed: "limited" })} className={"chip" + (f.ed === "limited" ? " on" : "")}>Limited edition</Link>
-          <Link href={q({ ed: "special" })} className={"chip" + (f.ed === "special" ? " on" : "")}>Special edition</Link>
+          <Link href={q({ ed: "limited", ...(f.cond ? { cond: f.cond } : {}) })} className={"chip" + (f.ed === "limited" ? " on" : "")}>Limited edition</Link>
+          <Link href={q({ ed: "special", ...(f.cond ? { cond: f.cond } : {}) })} className={"chip" + (f.ed === "special" ? " on" : "")}>Special edition</Link>
         </div>
       </div>
       <div className="cond-switch" role="tablist">
-        <Link href={href(l, "/negozio")} className={"cond-tab" + (!usato ? " on" : "")} role="tab" aria-selected={!usato}>{_("Nuovo", "New", "جديد")}</Link>
-        <Link href={q({ cond: "usato" })} className={"cond-tab" + (usato ? " on" : "")} role="tab" aria-selected={usato}>{_("Usato", "Used", "مستعمل")}</Link>
+        <Link href={f.ed ? q({ ed: f.ed, cond: "nuovo" }) : href(l, "/negozio")} className={"cond-tab" + ((f.ed ? f.cond === "nuovo" : !usato) ? " on" : "")} role="tab" aria-selected={!usato}>{_("Nuovo", "New", "جديد")}</Link>
+        <Link href={q({ cond: "usato", ...(f.ed ? { ed: f.ed } : {}) })} className={"cond-tab" + (usato ? " on" : "")} role="tab" aria-selected={usato}>{_("Usato", "Used", "مستعمل")}</Link>
       </div>
       {usato && (
         <div className="cond-chips">
@@ -84,7 +108,7 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
       <label htmlFor="tf" className="tasto vuoto apri-filtri">{_("Filtri", "Filters", "مرشحات")}{attivi > 0 ? ` · ${attivi}` : ""}</label>
       <div className="negozio">
         <form className="filtri" method="get" action={href(l, "/negozio")} aria-label={_("Filtri", "Filters", "مرشحات")}>
-          {usato && <input type="hidden" name="cond" value="usato" />}
+          {f.cond && <input type="hidden" name="cond" value={f.cond} />}{f.ed && <input type="hidden" name="ed" value={f.ed} />}
           <div className="campo"><label htmlFor="q">{_("Cerca", "Search", "بحث")}</label><input id="q" name="q" type="search" defaultValue={f.q} placeholder={_("Cerca casco, marca, modello…", "Search helmet, brand, model…", "ابحث عن خوذة، ماركة، موديل…")} /></div>
           <fieldset><legend>{_("Categoria", "Category", "الفئة")}</legend>
             {CATEGORIE.map((c) => { const n = opz.cat[c] ?? 0; return (

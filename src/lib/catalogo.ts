@@ -37,7 +37,7 @@ export const totaleDisponibile = (p: { varianti: { giacenza: number; impegnati: 
 /** Filtri e ricerca li fa il database, non il browser. */
 export async function cerca(f: Filtri): Promise<ProdottoLista[]> {
   const where: Prisma.ProdottoWhereInput = { attivo: true, tipo: f.cond === "usato" ? "USATO" : "NUOVO" };
-  if (f.ed === "limited" || f.ed === "special") { where.edizione = f.ed; if (!f.cond) where.tipo = { in: ["NUOVO", "USATO"] }; }
+  if (f.ed === "limited" || f.ed === "special") { where.edizione = f.ed; if (!f.cond || f.cond === "tutti") where.tipo = { in: ["NUOVO", "USATO"] }; }
   if (f.cat && (CATEGORIE as readonly string[]).includes(f.cat)) where.categoria = f.cat;
   if (f.stile && (STILI as readonly string[]).includes(f.stile)) where.stili = { has: f.stile };
   if (f.marca) where.marca = { slug: f.marca };
