@@ -394,3 +394,68 @@ html[dir="rtl"] .caro-freccia svg { transform: scaleX(-1); }
 .pezzo-riga{display:grid;grid-template-columns:1fr 70px 70px;gap:6px;padding:10px;border:1px solid var(--linea);border-radius:8px;margin:0 0 10px}
 .pezzo-riga input[name=pz_link],.pezzo-riga input[name=pz_difetti],.pezzo-riga input[name=pz_note]{grid-column:1/-1}
 
+
+/* ---------- /operativo: modulo prodotto (mp) ---------- */
+.mp { max-width: 680px; padding-bottom: 90px; }
+.mp-titolo { font-size: 24px; margin: 0 0 6px; }
+.mp-blocco { padding: 18px 0; border-bottom: 1px solid var(--bordo); }
+.mp-blocco h3 { display: flex; align-items: center; gap: 10px; font-size: 17px; margin: 0 0 12px; }
+.mp-blocco h3 span { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--inchiostro); color: var(--carta); font-size: 13px; flex: none; }
+.mp-etichetta { font-family: var(--m); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--testo-3); margin: 14px 0 8px; }
+.mp-aiuto { font-size: 13px; margin: -4px 0 12px; }
+.mp-tipi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.mp-tipi button { display: flex; flex-direction: column; gap: 4px; text-align: start; padding: 14px 12px; border: 1px solid var(--inchiostro); background: transparent; color: inherit; cursor: pointer; font-family: var(--x); min-height: 84px; }
+.mp-tipi button b { font-size: 17px; }
+.mp-tipi button small { font-size: 12px; color: var(--testo-2); line-height: 1.3; }
+.mp-tipi button.si { background: var(--inchiostro); color: var(--carta); }
+.mp-tipi button.si small { color: rgba(255,255,255,.75); }
+.mp-tipi button:disabled { opacity: .3; cursor: not-allowed; }
+@media (max-width: 520px) { .mp-tipi { grid-template-columns: 1fr; } .mp-tipi button { min-height: 0; flex-direction: row; align-items: baseline; gap: 10px; } }
+.mp-chip { display: flex; flex-wrap: wrap; gap: 8px; }
+.mp-chip button, .mp-spunta span { padding: 11px 15px; border: 1px solid var(--inchiostro); background: transparent; color: inherit; cursor: pointer; font-family: var(--x); font-size: 15px; border-radius: 999px; line-height: 1; display: inline-block; }
+.mp-chip.piccole button, .mp-chip.piccole .mp-spunta span { padding: 9px 13px; font-size: 14px; }
+.mp-chip button.si, .mp-spunta input:checked + span { background: var(--inchiostro); color: var(--carta); }
+.mp-chip.piccole { margin-bottom: 10px; }
+.mp-spunta { margin: 0; text-transform: none; letter-spacing: 0; }
+.mp-spunta input { position: absolute; opacity: 0; pointer-events: none; }
+.mp-fs { border: none; padding: 0; margin: 14px 0; }
+.mp-fs legend { font-family: var(--m); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--testo-3); margin-bottom: 8px; }
+.mp-foto { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 26px 14px; border: 2px dashed var(--inchiostro); cursor: pointer; text-align: center; text-transform: none; letter-spacing: 0; font-family: var(--x); }
+.mp-foto b { font-size: 16px; } .mp-foto small { color: var(--testo-2); font-size: 13px; }
+.mp-foto input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.mp-foto:hover { background: var(--fondo-2); }
+.mp-anteprime, .mp-attuali > div { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.mp-anteprime figure, .mp-attuali form { position: relative; margin: 0; width: 96px; }
+.mp-anteprime img, .mp-attuali img { width: 96px; height: 96px; object-fit: contain; background: #fff; border: 1px solid var(--bordo); display: block; }
+.mp-anteprime button, .mp-attuali button { position: absolute; top: -8px; inset-inline-end: -8px; width: 26px; height: 26px; border-radius: 50%; border: none; background: var(--rosso); color: #fff; font-size: 17px; line-height: 1; cursor: pointer; }
+.mp-anteprime figcaption { font-family: var(--m); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; margin-top: 4px; }
+.mp-attuali { margin-bottom: 8px; }
+.mp-grande { font-size: 22px !important; font-weight: 700; }
+.mp-due { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mp-interruttore { display: flex !important; align-items: center; gap: 12px; margin: 6px 0 12px; cursor: pointer; text-transform: none; letter-spacing: 0; font-family: var(--x); font-size: 15px; }
+.mp-interruttore input { position: absolute; opacity: 0; pointer-events: none; }
+.mp-interruttore span { width: 46px; height: 26px; border-radius: 13px; background: var(--linea); position: relative; flex: none; transition: background .18s; }
+.mp-interruttore span::after { content: ""; position: absolute; top: 3px; inset-inline-start: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .18s; }
+.mp-interruttore input:checked + span { background: var(--verde); }
+.mp-interruttore input:checked + span::after { transform: translateX(20px); }
+html[dir="rtl"] .mp-interruttore input:checked + span::after, .operativo[dir="rtl"] .mp-interruttore input:checked + span::after { transform: translateX(-20px); }
+.mp-interruttore input:focus-visible + span { outline: 2px solid var(--rosso); outline-offset: 2px; }
+.mp-taglie { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+.mp-taglia { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 6px; border: 1px solid var(--linea); }
+.mp-taglia.si { border-color: var(--inchiostro); background: var(--fondo-2); }
+.mp-taglia b { font-size: 15px; }
+.mp-taglia > div { display: flex; align-items: center; gap: 4px; }
+.mp-taglia button { width: 36px; height: 36px; border: 1px solid var(--inchiostro); background: transparent; color: inherit; font-size: 20px; line-height: 1; cursor: pointer; }
+.mp-taglia output { min-width: 30px; text-align: center; font-weight: 700; font-size: 17px; }
+.mp-altra { display: flex; gap: 8px; margin-top: 10px; } .mp-altra input { flex: 1; }
+.mp-pezzo { border: 1px solid var(--inchiostro); padding: 12px 14px 4px; margin-bottom: 12px; }
+.mp-pezzo-testa { display: flex; justify-content: space-between; align-items: center; }
+.mp-togli { background: none; border: none; color: var(--rosso); cursor: pointer; font-size: 14px; text-decoration: underline; }
+.mp-piu { margin: 8px 0 10px; }
+.mp-piu summary { cursor: pointer; font-weight: 700; padding: 8px 0; }
+details.mp-blocco > summary { font-size: 17px; }
+.mp-salva { position: fixed; inset-inline: 0; bottom: 0; z-index: 30; display: flex; gap: 10px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: var(--fondo); border-top: 1px solid var(--inchiostro); }
+.mp-salva .tasto { flex: 1; justify-content: center; padding: 16px; font-size: 12px; }
+.mp-salva .tasto.vuoto { flex: 0 0 auto; }
+@media (min-width: 861px) { .mp-salva { position: sticky; inset-inline: auto; margin: 0 -16px; } }
+#mp-errore { margin: 14px 0; }

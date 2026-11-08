@@ -77,17 +77,21 @@ export async function salvaProdottoAction(f: FormData) {
   const tipoScelto = t(f, "tipo") === "SECOND_LIFE";
   const partenza = tipoScelto && t(f, "partenza") ? egpToPiastre(t(f, "partenza")) : NaN;
   const pzMin = Math.min(...f.getAll("pz_prezzo").map((x) => egpToPiastre(String(x).trim())).filter((x) => Number.isFinite(x) && x > 0), Infinity);
-  const prezzo = tipoScelto ? partenza : (t(f, "tipo") === "USATO" && !t(f, "prezzo") && Number.isFinite(pzMin) ? pzMin : egpToPiastre(t(f, "prezzo")));
-  if (!(prezzo > 0)) ko(rt, tipoScelto ? "Scrivi il prezzo di partenza dell'asta (in EGP)" : "Scrivi il prezzo (in EGP, es. 5920)", back);
+  const usato = t(f, "tipo") === "USATO";
+  // Usato: il prezzo del prodotto è il più basso fra i pezzi. Senza prezzi resta a 0 ma solo se il prodotto non è visibile.
+  const prezzo = tipoScelto ? partenza : usato ? (Number.isFinite(pzMin) ? pzMin : 0) : egpToPiastre(t(f, "prezzo"));
+  if (usato && !(prezzo > 0) && f.get("attivo") === "on") ko(rt, "Scrivi il prezzo di almeno un pezzo, oppure togli «Visibile sul sito»", back);
+  if (!usato && !(prezzo > 0)) ko(rt, tipoScelto ? "Scrivi il prezzo di partenza dell'asta (in EGP)" : "Scrivi il prezzo (in EGP, es. 5920)", back);
   const prima = t(f, "prezzoPrima") ? egpToPiastre(t(f, "prezzoPrima")) : null;
   if (prima !== null && !(prima > prezzo)) ko(rt, "Il prezzo di prima deve essere più alto del prezzo", back);
   let taglie; try { taglie = t(f, "tipo") === "USATO" ? [] : leggiTaglie(t(f, "taglie")); } catch (e) { return ko(rt, (e as Error).message, back); }
   const tipoRaw = t(f, "tipo"); const tipo = tipoRaw === "SECOND_LIFE" ? "SECOND_LIFE" : tipoRaw === "USATO" ? "USATO" : "NUOVO";
   // L'usato è sempre un pezzo unico (si vende all'asta); il nuovo può avere più pezzi.
   if (tipo === "SECOND_LIFE" && !(taglie.length === 1 && taglie[0].giacenza === 1)) ko(rt, "Il prodotto usato è un pezzo unico: scrivi una sola taglia con 1 pezzo (es. L:1)", back);
-  const trattabile = tipo !== "SECOND_LIFE" && f.get("trattabile") === "on";
-  const minimo = t(f, "prezzoMinimo") ? egpToPiastre(t(f, "prezzoMinimo")) : null;
-  if (trattabile && (minimo === null || !(minimo > 0 && minimo <= prezzo))) ko(rt, "Con la trattativa attiva scrivi il prezzo minimo: maggiore di zero e non superiore al prezzo", back);
+  // L'usato è sempre trattabile: i minimi stanno sui singoli pezzi.
+  const trattabile = tipo === "USATO" || (tipo === "NUOVO" && f.get("trattabile") === "on");
+  const minimo = tipo === "USATO" ? null : t(f, "prezzoMinimo") ? egpToPiastre(t(f, "prezzoMinimo")) : null;
+  if (tipo === "NUOVO" && trattabile && (minimo === null || !(minimo > 0 && minimo <= prezzo))) ko(rt, "Con la trattativa attiva scrivi il prezzo minimo: maggiore di zero e non superiore al prezzo", back);
   const categoria = t(f, "categoria");
   if (!categoria) ko(rt, "Scegli la categoria", back);
   const stili = f.getAll("stili").map(String);

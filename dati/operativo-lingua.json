@@ -626,5 +626,397 @@
 "Second Life": {
 "en": "Second Life",
 "ar": "حياة تانية"
+},
+"+ Aggiungi": {
+"en": "+ Add",
+"ar": "+ ضيف"
+},
+"+ Aggiungi foto": {
+"en": "+ Add photos",
+"ar": "+ ضيف صور"
+},
+"Preparo le foto…": {
+"en": "Preparing photos…",
+"ar": "بجهّز الصور…"
+},
+"+ Aggiungi un altro pezzo": {
+"en": "+ Add another piece",
+"ar": "+ ضيف قطعة كمان"
+},
+"Acquisto (solo per te)": {
+"en": "Purchase (only you see this)",
+"ar": "الشرا (ليك انت بس)"
+},
+"Altra taglia": {
+"en": "Other size",
+"ar": "مقاس تاني"
+},
+"Apri l'asta": {
+"en": "Open the auction",
+"ar": "افتح المزاد"
+},
+"Asta": {
+"en": "Auction",
+"ar": "مزاد"
+},
+"Certificazione (es. ECE 22.06, CE livello 2)": {
+"en": "Certification (e.g. ECE 22.06, CE level 2)",
+"ar": "الشهادة (مثلاً ECE 22.06، CE مستوى 2)"
+},
+"Condizione (es. Come nuovo)": {
+"en": "Condition (e.g. Like new)",
+"ar": "الحالة (مثلاً زي الجديد)"
+},
+"Condizioni e acquisto": {
+"en": "Condition and purchase",
+"ar": "الحالة والشرا"
+},
+"Costo acquisto (EGP)": {
+"en": "Purchase cost (EGP)",
+"ar": "تكلفة الشرا (جنيه)"
+},
+"Donna": {
+"en": "Women",
+"ar": "حريمي"
+},
+"Uomo": {
+"en": "Men",
+"ar": "رجالي"
+},
+"Unisex": {
+"en": "Unisex",
+"ar": "للجنسين"
+},
+"Due o tre frasi: materiali, punti forti, per chi è.": {
+"en": "Two or three sentences: materials, strengths, who it's for.",
+"ar": "جملتين تلاتة: الخامات، المميزات، مناسب لمين."
+},
+"Durata": {
+"en": "Duration",
+"ar": "المدة"
+},
+"giorni": {
+"en": "days",
+"ar": "يوم"
+},
+"Foto": {
+"en": "Photos",
+"ar": "الصور"
+},
+"Foto sul sito": {
+"en": "Photos on the site",
+"ar": "الصور اللي على الموقع"
+},
+"Il cliente può trattare": {
+"en": "Customer can negotiate",
+"ar": "الزبون يقدر يفاصل"
+},
+"Il cliente vede solo il prezzo sopra.": {
+"en": "The customer only sees the price above.",
+"ar": "الزبون بيشوف السعر اللي فوق بس."
+},
+"Il minimo di un pezzo supera il suo prezzo": {
+"en": "A piece's minimum is higher than its price",
+"ar": "أقل سعر لقطعة أعلى من سعرها"
+},
+"Indica quanti pezzi hai per almeno una taglia": {
+"en": "Set how many pieces you have for at least one size",
+"ar": "حدد عندك كام قطعة لمقاس واحد على الأقل"
+},
+"L'asta di questo pezzo è già aperta: la segui nella scheda Aste.": {
+"en": "This piece's auction is already open: follow it in the Auctions tab.",
+"ar": "مزاد القطعة دي مفتوح خلاص: تابعه من صفحة المزادات."
+},
+"Materiale": {
+"en": "Material",
+"ar": "الخامة"
+},
+"Meno": {
+"en": "Less",
+"ar": "أقل"
+},
+"Più": {
+"en": "More",
+"ar": "أكتر"
+},
+"Minimo (EGP)": {
+"en": "Minimum (EGP)",
+"ar": "أقل سعر (جنيه)"
+},
+"Minimo che accetti (EGP)": {
+"en": "Lowest price you accept (EGP)",
+"ar": "أقل سعر تقبله (جنيه)"
+},
+"Modello per il filtro Usato (es. AGV K1 S)": {
+"en": "Model for the Used filter (e.g. AGV K1 S)",
+"ar": "الموديل لفلتر المستعمل (مثلاً AGV K1 S)"
+},
+"Modifica prodotto": {
+"en": "Edit product",
+"ar": "تعديل المنتج"
+},
+"Nessuno": {
+"en": "None",
+"ar": "مفيش"
+},
+"Nome e marca": {
+"en": "Name and brand",
+"ar": "الاسم والماركة"
+},
+"Nota breve": {
+"en": "Short note",
+"ar": "ملاحظة قصيرة"
+},
+"Origine": {
+"en": "Origin",
+"ar": "بلد المنشأ"
+},
+"Pelle, Tessuto…": {
+"en": "Leather, Textile…",
+"ar": "جلد، قماش…"
+},
+"Per chi": {
+"en": "For",
+"ar": "لمين"
+},
+"Pezzi unici, prezzo trattabile": {
+"en": "Single pieces, negotiable price",
+"ar": "قطع فريدة، السعر قابل للفصال"
+},
+"Pezzi usati": {
+"en": "Used pieces",
+"ar": "القطع المستعملة"
+},
+"Più pezzi e taglie": {
+"en": "Several pieces and sizes",
+"ar": "كذا قطعة ومقاس"
+},
+"Un solo pezzo, offerte a tempo": {
+"en": "One piece, timed bids",
+"ar": "قطعة واحدة، مزايدة بوقت"
+},
+"Prezzo annuncio": {
+"en": "Listing price",
+"ar": "سعر الإعلان"
+},
+"Prezzo di prima (solo se in offerta)": {
+"en": "Previous price (only if on sale)",
+"ar": "السعر القديم (لو عليه عرض بس)"
+},
+"Prezzo e pezzi": {
+"en": "Price and pieces",
+"ar": "السعر والقطع"
+},
+"Principale": {
+"en": "Main",
+"ar": "الأساسية"
+},
+"Quanti pezzi per taglia": {
+"en": "How many pieces per size",
+"ar": "كام قطعة لكل مقاس"
+},
+"Riserva segreta (facoltativa)": {
+"en": "Secret reserve (optional)",
+"ar": "السعر الأدنى السري (اختياري)"
+},
+"Salva modifiche": {
+"en": "Save changes",
+"ar": "احفظ التعديلات"
+},
+"Scegli la taglia del pezzo": {
+"en": "Choose the piece's size",
+"ar": "اختار مقاس القطعة"
+},
+"Scegli la taglia di almeno un pezzo": {
+"en": "Choose the size of at least one piece",
+"ar": "اختار مقاس قطعة واحدة على الأقل"
+},
+"Scegli o scrivi la marca": {
+"en": "Choose or type the brand",
+"ar": "اختار أو اكتب الماركة"
+},
+"Scegli prima la categoria.": {
+"en": "Choose the category first.",
+"ar": "اختار القسم الأول."
+},
+"Scrivi il prezzo": {
+"en": "Enter the price",
+"ar": "اكتب السعر"
+},
+"Scrivi il prezzo di partenza": {
+"en": "Enter the starting price",
+"ar": "اكتب سعر البداية"
+},
+"Scrivi il prezzo minimo: più di zero e non sopra il prezzo": {
+"en": "Enter the minimum price: above zero and not above the price",
+"ar": "اكتب أقل سعر: أكتر من صفر ومش أعلى من السعر"
+},
+"Sfondo bianco, da catalogo. Puoi sceglierne più di una.": {
+"en": "White background, catalogue style. You can pick several.",
+"ar": "خلفية بيضا، زي الكتالوج. تقدر تختار أكتر من صورة."
+},
+"Solo per te": {
+"en": "Only for you",
+"ar": "ليك انت بس"
+},
+"Stile di guida": {
+"en": "Riding style",
+"ar": "ستايل السواقة"
+},
+"Taglia del pezzo": {
+"en": "Piece size",
+"ar": "مقاس القطعة"
+},
+"Taglia unica": {
+"en": "One size",
+"ar": "مقاس واحد"
+},
+"Tocca sopra o scrivi una marca nuova": {
+"en": "Tap one above or type a new brand",
+"ar": "دوس على واحدة فوق أو اكتب ماركة جديدة"
+},
+"Un riquadro per ogni pezzo. Il prezzo è trattabile: il cliente vede il prezzo, tu accetti fino al minimo.": {
+"en": "One box per piece. The price is negotiable: the customer sees the price, you accept down to the minimum.",
+"ar": "مربع لكل قطعة. السعر قابل للفصال: الزبون بيشوف السعر، وانت بتقبل لحد أقل سعر."
+},
+"Usato": {
+"en": "Used",
+"ar": "مستعمل"
+},
+"Visibile sul sito": {
+"en": "Visible on the site",
+"ar": "ظاهر على الموقع"
+},
+"es. K1 S": {
+"en": "e.g. K1 S",
+"ar": "مثلاً K1 S"
+},
+"es. Nero lucido": {
+"en": "e.g. Gloss black",
+"ar": "مثلاً أسود لامع"
+},
+"Troppe foto in una volta: salva queste, poi aggiungi le altre": {
+"en": "Too many photos at once: save these, then add the rest",
+"ar": "صور كتير مرة واحدة: احفظ دول وبعدين ضيف الباقي"
+},
+"Caschi": {
+"en": "Helmets",
+"ar": "خوذ"
+},
+"Giacche": {
+"en": "Jackets",
+"ar": "جواكت"
+},
+"Guanti": {
+"en": "Gloves",
+"ar": "جوانتيات"
+},
+"Stivali e scarpe": {
+"en": "Boots and shoes",
+"ar": "بوتات وجزم"
+},
+"Protezioni": {
+"en": "Protection",
+"ar": "حمايات"
+},
+"Accessori": {
+"en": "Accessories",
+"ar": "إكسسوارات"
+},
+"Pantaloni": {
+"en": "Trousers",
+"ar": "بناطيل"
+},
+"Tute": {
+"en": "Suits",
+"ar": "بدل"
+},
+"Gilet": {
+"en": "Vests",
+"ar": "صديريات"
+},
+"Cura e manutenzione": {
+"en": "Care and maintenance",
+"ar": "عناية وصيانة"
+},
+"Salvato": {
+"en": "Saved",
+"ar": "اتحفظ"
+},
+"Prodotto pubblicato": {
+"en": "Product published",
+"ar": "المنتج اتنشر"
+},
+"ritirato": {
+"en": "withdrawn",
+"ar": "متشال"
+},
+"Foto tolta": {
+"en": "Photo removed",
+"ar": "الصورة اتشالت"
+},
+"Asta aperta: è già sul sito": {
+"en": "Auction open: it's already on the site",
+"ar": "المزاد اتفتح: موجود على الموقع"
+},
+"Asta aperta": {
+"en": "Auction open",
+"ar": "المزاد اتفتح"
+},
+"Scrivi la marca": {
+"en": "Enter the brand",
+"ar": "اكتب الماركة"
+},
+"Scrivi il nome del prodotto": {
+"en": "Enter the product name",
+"ar": "اكتب اسم المنتج"
+},
+"Scegli la categoria": {
+"en": "Choose the category",
+"ar": "اختار القسم"
+},
+"Scrivi il prezzo di almeno un pezzo, oppure togli «Visibile sul sito»": {
+"en": "Enter the price of at least one piece, or turn off “Visible on the site”",
+"ar": "اكتب سعر قطعة واحدة على الأقل، أو اقفل «ظاهر على الموقع»"
+},
+"Con la trattativa attiva scrivi il prezzo minimo: maggiore di zero e non superiore al prezzo": {
+"en": "With negotiation on, enter the minimum price: above zero and not above the price",
+"ar": "لو الفصال شغال اكتب أقل سعر: أكتر من صفر ومش أعلى من السعر"
+},
+"Il prezzo di prima deve essere più alto del prezzo": {
+"en": "The previous price must be higher than the price",
+"ar": "السعر القديم لازم يكون أعلى من السعر"
+},
+"Foto troppo pesanti: massimo 4 MB in totale per salvataggio. Caricale una o due alla volta.": {
+"en": "Photos too heavy: max 4 MB in total per save. Upload one or two at a time.",
+"ar": "الصور تقيلة: أقصى حاجة 4 ميجا في الحفظة الواحدة. ارفعهم واحدة أو اتنين في المرة."
+},
+"Controlla la riserva e la durata (da 1 a 30 giorni)": {
+"en": "Check the reserve and the duration (1 to 30 days)",
+"ar": "راجع السعر الأدنى والمدة (من 1 لـ 30 يوم)"
+},
+"Coupon creato": {
+"en": "Coupon created",
+"ar": "الكوبون اتعمل"
+},
+"Fatto": {
+"en": "Done",
+"ar": "تمام"
+},
+"Stato aggiornato": {
+"en": "Status updated",
+"ar": "الحالة اتحدثت"
+},
+"Incolla il testo dell'annuncio": {
+"en": "Paste the listing text",
+"ar": "الزق نص الإعلان"
+},
+"Non ho riconosciuto il modello: scegli la categoria e scrivi marca e nome qui sotto": {
+"en": "I didn't recognise the model: choose the category and enter brand and name below",
+"ar": "معرفتش الموديل: اختار القسم واكتب الماركة والاسم تحت"
+},
+"Acconto registrato: prezzo bloccato per 48 ore": {
+"en": "Deposit recorded: price locked for 48 hours",
+"ar": "العربون اتسجل: السعر متثبت 48 ساعة"
 }
 }

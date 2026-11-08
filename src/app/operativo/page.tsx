@@ -5,7 +5,8 @@ import { db } from "@/lib/db";
 import { richiediAdmin } from "@/lib/sessione";
 import { egp } from "@/lib/regole";
 import { prossimi } from "@/lib/ordini";
-import { CATEGORIE } from "@/lib/catalogo";
+import { CATEGORIE, ETICHETTA_CAT } from "@/lib/catalogo";
+import ModuloProdotto, { type DatiProdotto } from "@/componenti/ModuloProdotto";
 import MODELLI from "../../../dati/usato-modelli.json";
 import { statoDa } from "@/lib/aste";
 import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, caricaVelocePezzoAction, statoOrdineAction, accontoRicevutoAction } from "./azioni";
@@ -14,7 +15,6 @@ export const metadata = { title: "Operativo", robots: { index: false, follow: fa
 export const dynamic = "force-dynamic";
 
 const TABS = ["oggi", "ordini", "chat", "prodotti", "veloce", "aste", "clienti", "altro", "coupon", "posta", "iscritti"] as const;
-const STILI = ["sport", "street", "adventure", "touring", "urban"];
 const NOME_STATO: Record<string, string> = { DA_CONFERMARE: "Da confermare", CONFERMATO: "Confermato", PREPARAZIONE: "In preparazione", SPEDITO: "Spedito", CONSEGNATO: "Consegnato", ANNULLATO: "Annullato" };
 const fmt = new Intl.DateTimeFormat("it-IT", { dateStyle: "short", timeStyle: "short", timeZone: "Africa/Cairo" });
 const dt = (d: Date | null) => (d ? d.toISOString().slice(0, 16) : "");
@@ -126,7 +126,7 @@ async function Prodotti({ modifica, tipo }: { modifica?: string; tipo?: string }
     <table className="dati"><thead><tr><th>Prodotto</th><th>Tipo</th><th>Prezzo</th><th>Magazzino</th><th></th></tr></thead><tbody>
       {ps.map((p) => {
         const disp = p.varianti.reduce((s, v) => s + Math.max(0, v.giacenza - v.impegnati), 0);
-        return <tr key={p.id}><td>{p.marca.nome} {p.nome}{!p.attivo && <span className="mono lieve"> · ritirato</span>}</td><td>{p.tipo === "NUOVO" ? "Nuovo" : "Second Life"}</td>
+        return <tr key={p.id}><td>{p.marca.nome} {p.nome}{!p.attivo && <span className="mono lieve"> · ritirato</span>}</td><td>{p.tipo === "NUOVO" ? "Nuovo" : p.tipo === "USATO" ? "Usato" : "Asta"}</td>
           <td className="tab">{egp(p.prezzo)}</td><td className="tab" style={{ color: disp === 0 ? "var(--rosso)" : undefined }}>{disp} · {p.varianti.map((v) => `${v.taglia}:${v.giacenza - v.impegnati}`).join(" ")}</td>
           <td><Link style={{ textDecoration: "underline" }} href={`/operativo?tab=prodotti&modifica=${p.id}`}>Modifica</Link></td></tr>;
       })}
@@ -136,81 +136,29 @@ async function Prodotti({ modifica, tipo }: { modifica?: string; tipo?: string }
 async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: string }) {
   const p = id === "nuovo" ? null : await db.prodotto.findUnique({ where: { id }, include: { marca: true, varianti: true, foto: { orderBy: { ordine: "asc" } }, asta: true } });
   if (id !== "nuovo" && !p) notFound();
-  const marche = await db.marca.findMany({ orderBy: { nome: "asc" } });
-  const taglie = p?.varianti.filter((v) => !v.colore).map((v) => `${v.taglia}:${v.giacenza}`).join(", ") ?? "";
-  const pezzi = [...(p?.varianti ?? []).filter((v) => p?.tipo === "USATO"), ...Array.from({ length: 3 }, () => null)];
-  const tipo = p?.tipo ?? tipoIniziale ?? "NUOVO";
-  const astaNuova = tipo === "SECOND_LIFE" && !p?.asta;
+  const marche = await db.marca.findMany({ orderBy: { prodotti: { _count: "desc" } }, select: { nome: true } });
+  const egpS = (x: number | null | undefined) => (x ? String(x / 100) : "");
+  const tipo = (p?.tipo ?? tipoIniziale ?? "NUOVO") as DatiProdotto["tipo"];
+  const dati: DatiProdotto = {
+    id: p?.id, tipo, nome: p?.nome ?? "", marca: p?.marca.nome ?? "", categoria: p?.categoria ?? "",
+    prezzo: egpS(p?.prezzo), trattabile: p?.trattabile ?? false, prezzoMinimo: egpS(p?.prezzoMinimo),
+    taglie: tipo === "USATO" ? [] : (p?.varianti ?? []).filter((v) => !v.colore).map((v) => ({ taglia: v.taglia, n: v.giacenza })),
+    pezzi: tipo === "USATO" ? (p?.varianti ?? []).map((v) => ({ id: v.id, colore: v.colore, taglia: v.taglia, prezzo: egpS(v.prezzo), minimo: egpS(v.prezzoMinimo), difetti: v.difetti ?? "", link: v.fonteUrl ?? "", annuncio: v.prezzoAnnuncio ?? "", costo: v.costo != null ? String(v.costo / 100) : "", note: v.noteInterne ?? "" })) : [],
+    partenza: egpS(p?.asta?.partenza), riserva: egpS(p?.asta?.riserva), astaEsiste: Boolean(p?.asta),
+    descrizione: p?.descrizione.join("\n") ?? "", attivo: p ? p.attivo : true,
+    sottotitolo: p?.sottotitolo ?? "", sottocategoria: p?.sottocategoria ?? "", colore: p?.colore ?? "", genere: p?.genere ?? "",
+    materiale: p?.materiale ?? "", certificazione: p?.certificazione ?? "", moto: p?.moto ?? "",
+    specs: ((p?.specs as [string, string][] | null) ?? []).map(([k, v]) => `${k}: ${v}`).join("\n"), stili: p?.stili ?? [],
+    prezzoPrima: egpS(p?.prezzoPrima), nota: p?.nota ?? "", luogo: p?.luogo ?? "", edizione: p?.edizione ?? "",
+    fonteUrl: p?.fonteUrl ?? "", costo: p?.costo != null ? String(p.costo / 100) : "", difetti: p?.difetti ?? "", noteInterne: p?.noteInterne ?? "", grado: p?.grado ?? "",
+  };
+  const modelli = Object.entries(MODELLI as unknown as Record<string, string[]>).filter(([k]) => k !== "_nota").flatMap(([, v]) => v);
   return <>
-    <form action={salvaProdottoAction} encType="multipart/form-data" className="form-prod" style={{ maxWidth: 680 }}>
-      {p && <input type="hidden" name="id" value={p.id} />}
-      <h2 style={{ fontSize: 22, margin: "0 0 16px" }}>{p ? "Modifica" : tipo === "SECOND_LIFE" ? "Nuova asta" : "Nuovo prodotto"}</h2>
-      <fieldset className="campo scelta-tipo"><legend>Come lo vendi?</legend>
-        <label><input type="radio" name="tipo" id="tipo-nuovo" value="NUOVO" defaultChecked={tipo === "NUOVO"} /> Vendita normale (nuovo)</label>
-        <label><input type="radio" name="tipo" id="tipo-usato" value="USATO" defaultChecked={tipo === "USATO"} /> Usato (prezzo trattabile)</label>
-        <label><input type="radio" name="tipo" id="tipo-asta" value="SECOND_LIFE" defaultChecked={tipo === "SECOND_LIFE"} /> Asta (un solo pezzo)</label>
-      </fieldset>
-      <div className="campo"><label htmlFor="foto">Foto (puoi sceglierne più d&apos;una)</label><input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp" multiple /></div>
-      <div className="campo"><label htmlFor="nome">Nome</label><input id="nome" name="nome" defaultValue={p?.nome} required /></div>
-      <div className="campo"><label htmlFor="marca">Marca</label><input id="marca" name="marca" list="elenco-marche" defaultValue={p?.marca.nome} required /><datalist id="elenco-marche">{marche.map((m) => <option key={m.id} value={m.nome} />)}</datalist></div>
-      <div className="campo"><label htmlFor="categoria">Categoria</label><select id="categoria" name="categoria" defaultValue={p?.categoria ?? ""} required><option value="">—</option>{CATEGORIE.map((c) => <option key={c}>{c}</option>)}</select></div>
-      <div className="campo solo-nuovo"><label htmlFor="prezzo">Prezzo (EGP)</label><input id="prezzo" name="prezzo" inputMode="decimal" defaultValue={p ? p.prezzo / 100 : ""} /></div>
-      <div className="campo solo-taglie"><label htmlFor="taglie">Taglie e pezzi <span className="lieve">— es. «M:3, L:5». Per l&apos;asta una sola, es. «L:1»</span></label><input id="taglie" name="taglie" placeholder="S:3, M:6, L:4" defaultValue={taglie} required /></div>
-      <div className="solo-usato">
-        <h3 style={{ fontSize: 16, margin: "6px 0 4px" }}>Pezzi usati (uno per colore e taglia)</h3>
-        <p className="tenue" style={{ margin: "0 0 12px", fontSize: 13 }}>Per ogni pezzo: colore, taglia, link Vinted, prezzo scritto nell&apos;annuncio e difetti. Per togliere un pezzo svuota la taglia.</p>
-        {pezzi.map((z, i) => (
-          <div className="pezzo-riga" key={z?.id ?? "n" + i}>
-            <input type="hidden" name="pz_id" value={z?.id ?? ""} />
-            <input name="pz_colore" placeholder="Colore (es. Nero lucido)" defaultValue={z?.colore ?? ""} />
-            <input name="pz_taglia" placeholder="Taglia" defaultValue={z?.taglia ?? ""} />
-            <input name="pz_qta" inputMode="numeric" placeholder="Pezzi" defaultValue={z ? z.giacenza : ""} />
-            <input name="pz_link" type="url" placeholder="Link annuncio Vinted" defaultValue={z?.fonteUrl ?? ""} />
-            <input name="pz_annuncio" placeholder="Prezzo annuncio (es. 130 €)" defaultValue={z?.prezzoAnnuncio ?? ""} />
-            <input name="pz_prezzo" inputMode="decimal" placeholder="Prezzo di vendita EGP" defaultValue={z?.prezzo ? z.prezzo / 100 : ""} />
-            <input name="pz_minimo" inputMode="decimal" placeholder="Minimo trattabile EGP" defaultValue={z?.prezzoMinimo ? z.prezzoMinimo / 100 : ""} />
-            <input name="pz_costo" inputMode="decimal" placeholder="Costo acquisto EGP" defaultValue={z?.costo ? z.costo / 100 : ""} />
-            <input name="pz_difetti" placeholder="Difetti (li vede il cliente)" defaultValue={z?.difetti ?? ""} />
-            <input name="pz_note" placeholder="Note interne" defaultValue={z?.noteInterne ?? ""} />
-          </div>
-        ))}
-      </div>
-      <div className="solo-asta">
-        <div className="campo"><label htmlFor="partenza">Prezzo di partenza (EGP)</label><input id="partenza" name="partenza" inputMode="decimal" defaultValue={p?.asta ? p.asta.partenza / 100 : ""} /></div>
-        <div className="campo"><label htmlFor="riserva">Riserva segreta (EGP, facoltativa)</label><input id="riserva" name="riserva" inputMode="decimal" defaultValue={p?.asta?.riserva ? p.asta.riserva / 100 : ""} /></div>
-        {astaNuova || !p ? <div className="campo"><label htmlFor="giorni">Durata (giorni)</label><input id="giorni" name="giorni" inputMode="numeric" defaultValue={7} /></div> : <p className="tenue">L&apos;asta di questo pezzo è già stata creata: la gestisci nella scheda Aste.</p>}
-      </div>
-      <div className="campo solo-nuovo"><label><input type="checkbox" name="trattabile" defaultChecked={p?.trattabile ?? false} /> Il cliente può trattare il prezzo</label></div>
-      <div className="campo solo-nuovo"><label htmlFor="prezzoMinimo">Prezzo minimo accettato (EGP) <span className="lieve">— solo se la trattativa è attiva; il prezzo sopra è il massimo pubblicato</span></label><input id="prezzoMinimo" name="prezzoMinimo" inputMode="decimal" defaultValue={p?.prezzoMinimo ? p.prezzoMinimo / 100 : ""} /></div>
-      <div className="campo"><label htmlFor="descrizione">Descrizione</label><textarea id="descrizione" name="descrizione" rows={4} defaultValue={p?.descrizione.join("\n")} /></div>
-      <label className="campo" style={{ display: "block" }}><input type="checkbox" name="attivo" defaultChecked={p ? p.attivo : true} /> Visibile sul sito (togli la spunta per ritirarlo)</label>
-      <details className="altri-dettagli">
-        <summary>Altri dettagli (facoltativi)</summary>
-        <div className="campo"><label htmlFor="sottotitolo">Sottotitolo</label><input id="sottotitolo" name="sottotitolo" defaultValue={p?.sottotitolo} /></div>
-        <div className="campo"><label htmlFor="sottocategoria">Sottocategoria / modello usato (es. AGV K1 S, Integrali)</label><input id="sottocategoria" name="sottocategoria" list="modelli-usato" defaultValue={p?.sottocategoria ?? ""} /><datalist id="modelli-usato">{Object.entries(MODELLI as unknown as Record<string, string[]>).filter(([k]) => k !== "_nota").flatMap(([, v]) => v).map((m) => <option key={m} value={m} />)}</datalist></div>
-        <div className="campo"><label htmlFor="colore">Colore</label><input id="colore" name="colore" defaultValue={p?.colore ?? ""} /></div>
-        <div className="campo"><label htmlFor="genere">Genere (Uomo, Donna, Unisex)</label><input id="genere" name="genere" defaultValue={p?.genere ?? ""} /></div>
-        <div className="campo"><label htmlFor="materiale">Materiale (es. Pelle, Tessuto)</label><input id="materiale" name="materiale" defaultValue={p?.materiale ?? ""} /></div>
-        <div className="campo"><label htmlFor="certificazione">Certificazione (es. CE livello 2, ECE 22.06)</label><input id="certificazione" name="certificazione" defaultValue={p?.certificazione ?? ""} /></div>
-        <div className="campo"><label htmlFor="moto">Moto compatibili</label><input id="moto" name="moto" defaultValue={p?.moto ?? ""} /></div>
-        <div className="campo"><label htmlFor="specs">Caratteristiche tecniche (una per riga, «Nome: valore»)</label><textarea id="specs" name="specs" rows={4} defaultValue={((p?.specs as [string, string][] | null) ?? []).map(([k, v]) => `${k}: ${v}`).join("\n")} /></div>
-        <fieldset className="campo"><legend>Stili</legend>{STILI.map((s) => <label key={s} style={{ marginInlineEnd: 14 }}><input type="checkbox" name="stili" value={s} defaultChecked={p?.stili.includes(s)} /> {s}</label>)}</fieldset>
-        <div className="campo solo-nuovo"><label htmlFor="prezzoPrima">Prezzo di prima (EGP, solo se in offerta)</label><input id="prezzoPrima" name="prezzoPrima" inputMode="decimal" defaultValue={p?.prezzoPrima ? p.prezzoPrima / 100 : ""} /></div>
-        <div className="campo"><label htmlFor="nota">Nota</label><input id="nota" name="nota" defaultValue={p?.nota} /></div>
-        <div className="campo"><label htmlFor="luogo">Luogo</label><input id="luogo" name="luogo" defaultValue={p?.luogo} /></div>
-        <div className="campo"><label htmlFor="edizione">Edizione premium</label><select id="edizione" name="edizione" defaultValue={p?.edizione ?? ""}><option value="">Nessuna</option><option value="limited">Limited edition</option><option value="special">Special edition</option></select></div>
-        <div className="campo"><label htmlFor="fonteUrl">Link annuncio Vinted (solo per te)</label><input id="fonteUrl" name="fonteUrl" type="url" defaultValue={p?.fonteUrl ?? ""} /></div>
-        <div className="campo"><label htmlFor="costo">Prezzo d&apos;acquisto (EGP, solo per te)</label><input id="costo" name="costo" inputMode="decimal" defaultValue={p?.costo ? p.costo / 100 : ""} /></div>
-        <div className="campo"><label htmlFor="difetti">Difetti (li vede il cliente)</label><input id="difetti" name="difetti" defaultValue={p?.difetti ?? ""} /></div>
-        <div className="campo"><label htmlFor="noteInterne">Note interne (solo per te)</label><input id="noteInterne" name="noteInterne" defaultValue={p?.noteInterne ?? ""} /></div>
-        <div className="campo"><label htmlFor="grado">Condizione / grado</label><input id="grado" name="grado" defaultValue={p?.grado ?? ""} /></div>
-      </details>
-      <div className="op-salva"><button className="tasto salva-prodotto">{p ? "Salva" : tipo === "SECOND_LIFE" ? "Crea e apri l'asta" : "Pubblica"}</button> <Link className="tasto vuoto" href="/operativo?tab=prodotti">Indietro</Link></div>
-    </form>
-    {p && p.foto.length > 0 && <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 28 }}>{p.foto.map((f) => (
+    {p && p.foto.length > 0 && <div className="mp-attuali"><p className="mp-etichetta">Foto sul sito</p><div>{p.foto.map((f) => (
       <form key={f.id} action={eliminaFotoAction}><input type="hidden" name="id" value={f.id} />
-        {/* eslint-disable-next-line @next/next/no-img-element */}<img src={`/media/${f.piccola}`} alt="" width={120} /><br /><button className="tasto piccolo vuoto">Togli</button></form>
-    ))}</div>}
+        {/* eslint-disable-next-line @next/next/no-img-element */}<img src={`/media/${f.piccola}`} alt="" /><button aria-label="Togli">×</button></form>
+    ))}</div></div>}
+    <ModuloProdotto azione={salvaProdottoAction} dati={dati} categorie={CATEGORIE.map((c) => [c, ETICHETTA_CAT[c] ?? c])} marche={marche.map((m) => m.nome)} modelli={modelli} />
   </>;
 }
 
@@ -321,7 +269,7 @@ function CaricaVeloce() {
       <div className="campo"><label htmlFor="link">Link annuncio Vinted</label><input id="link" name="link" type="url" placeholder="https://www.vinted.it/items/…" /></div>
       <div className="campo"><label htmlFor="annuncio">Prezzo dell&apos;annuncio (come scritto su Vinted)</label><input id="annuncio" name="annuncio" placeholder="130" /></div>
       <details className="altri-dettagli"><summary>Correggi quello che ho riconosciuto</summary>
-        <div className="campo"><label htmlFor="v-categoria">Categoria</label><select id="v-categoria" name="categoria" defaultValue=""><option value="">Riconosci da solo</option>{CATEGORIE.map((c) => <option key={c}>{c}</option>)}</select></div>
+        <div className="campo"><label htmlFor="v-categoria">Categoria</label><select id="v-categoria" name="categoria" defaultValue=""><option value="">Riconosci da solo</option>{CATEGORIE.map((c) => <option key={c} value={c}>{ETICHETTA_CAT[c] ?? c}</option>)}</select></div>
         <div className="campo"><label htmlFor="v-marca">Marca</label><input id="v-marca" name="marca" /></div>
         <div className="campo"><label htmlFor="v-nome">Nome del modello</label><input id="v-nome" name="nome" /></div>
         <div className="campo"><label htmlFor="v-colore">Colore</label><input id="v-colore" name="colore" /></div>
