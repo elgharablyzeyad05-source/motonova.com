@@ -14,7 +14,7 @@ export type DatiProdotto = {
   specs: string; stili: string[]; prezzoPrima: string; nota: string; luogo: string; edizione: string;
   fonteUrl: string; costo: string; difetti: string; noteInterne: string; grado: string;
 };
-type Props = { azione: (f: FormData) => void; dati: DatiProdotto; categorie: [string, string][]; marche: string[]; modelli: string[] };
+type Props = { azione: (f: FormData) => void; sposta?: (vid: string, f: FormData) => void; dati: DatiProdotto; categorie: [string, string][]; marche: string[]; modelli: string[] };
 
 const LETTERE = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
 const SCARPE = ["38", "39", "40", "41", "42", "43", "44", "45", "46", "47"];
@@ -25,7 +25,7 @@ const GENERI = ["Uomo", "Donna", "Unisex"];
 const DURATE = [3, 5, 7, 10];
 const vuoto = (): Pezzo => ({ id: "", colore: "", taglia: "", prezzo: "", minimo: "", difetti: "", link: "", annuncio: "", costo: "", note: "" });
 
-export default function ModuloProdotto({ azione, dati, categorie, marche, modelli }: Props) {
+export default function ModuloProdotto({ azione, sposta, dati, categorie, marche, modelli }: Props) {
   const [tipo, setTipo] = useState(dati.tipo);
   const [cat, setCat] = useState(dati.categoria);
   const [marca, setMarca] = useState(dati.marca);
@@ -73,6 +73,7 @@ export default function ModuloProdotto({ azione, dati, categorie, marche, modell
   const togliPezzo = (i: number) => { const p = pezzi[i]; if (p.id) setTolti((t) => [...t, p.id]); setPezzi((ps) => (ps.length > 1 ? ps.filter((_, j) => j !== i) : [vuoto()])); };
 
   const controlla = (e: React.FormEvent<HTMLFormElement>) => {
+    if ((e.nativeEvent as SubmitEvent).submitter?.hasAttribute("data-sposta")) return; // lo spostamento non chiede il modulo completo
     const f = new FormData(e.currentTarget);
     const num = (k: string) => Number(String(f.get(k) ?? "").replace(",", "."));
     let msg = "";
@@ -184,7 +185,7 @@ export default function ModuloProdotto({ azione, dati, categorie, marche, modell
         <p className="tenue mp-aiuto">Un riquadro per ogni pezzo. Il prezzo è trattabile: il cliente vede il prezzo, tu accetti fino al minimo.</p>
         {pezzi.map((z, i) => (
           <div className="mp-pezzo" key={z.id || "n" + i}>
-            <div className="mp-pezzo-testa"><b>Pezzo {i + 1}</b><button type="button" className="mp-togli" onClick={() => togliPezzo(i)}>Togli</button></div>
+            <div className="mp-pezzo-testa"><b>Pezzo {i + 1}</b><span>{z.id && sposta && <button data-sposta formAction={sposta.bind(null, z.id)} formNoValidate className="mp-sposta">È nuovo di zecca → sposta nel nuovo</button>}<button type="button" className="mp-togli" onClick={() => togliPezzo(i)}>Togli</button></span></div>
             <input type="hidden" name="pz_id" value={z.id} />
             <input type="hidden" name="pz_taglia" value={z.taglia} />
             <p className="mp-etichetta">Taglia</p>

@@ -171,6 +171,21 @@ export async function caricaVelocePezzoAction(f: FormData) {
   const annuncio = t(f, "annuncio");
   const annuncioTxt = annuncio ? (/^[\d.,]+$/.test(annuncio) ? `${annuncio} €` : annuncio) : null;
   let pid = "", nuovo = false;
+  if (t(f, "condizione") === "nuovo") {
+    if (!taglia) ko("veloce", "Non ho trovato la taglia: scrivila qui sotto");
+    let r2: { pid: string; creato: boolean };
+    try {
+      const marca = await db.marca.upsert({ where: { nome: marcaNome }, update: {}, create: { id: nuovoId(), nome: marcaNome, slug: slugDi(marcaNome) } });
+      r2 = await db.$transaction((tx) => mettiNelNuovo(tx, { marcaId: marca.id, marcaNome, nome, categoria, modello, colore, taglia, prezzo: null, costo: null, fonteUrl: t(f, "link") || null, prezzoAnnuncio: annuncioTxt, nota: "",
+        edizione: /limited edition|edizione limitata/i.test(testo) ? "limited" : /special edition|edizione speciale/i.test(testo) ? "special" : null }));
+      if (r2.creato) {
+        const res = await fetch(`${await baseUrl()}/immagini/modelli/${categoria}-${slugDi(modello)}.webp`).catch(() => null);
+        if (res?.ok) await salvaFoto(r2.pid, [new File([await res.arrayBuffer()], "catalogo.webp", { type: "image/webp" })]);
+      }
+    } catch (e) { return ko("veloce", (e as Error).message); }
+    revalidatePath("/", "layout");
+    return ok("veloce", `Aggiunto al nuovo: ${modello} · ${taglia}. ${r2.creato ? "Prodotto nascosto: inserisci il prezzo da Prodotti e attivalo." : "Un pezzo in più su questa taglia."}`);
+  }
   try {
     const marca = await db.marca.upsert({ where: { nome: marcaNome }, update: {}, create: { id: nuovoId(), nome: marcaNome, slug: slugDi(marcaNome) } });
     const esistente = await db.prodotto.findFirst({ where: { tipo: "USATO", categoria, sottocategoria: { equals: modello, mode: "insensitive" } } });
@@ -195,6 +210,65 @@ export async function caricaVelocePezzoAction(f: FormData) {
   }
   revalidatePath("/", "layout");
   ok("veloce", `Aggiunto: ${modello} · ${colore || "—"} · ${taglia}. ${nuovo ? "Prodotto nascosto: " : ""}inserisci il prezzo di vendita da Prodotti e attivalo.`);
+}
+
+// ---------- dall'usato al nuovo ----------
+type Tx = Parameters<Parameters<typeof db.$transaction>[0]>[0];
+type PezzoNuovo = { marcaId: string; marcaNome: string; nome: string; categoria: string; modello: string; colore: string; taglia: string;
+  prezzo: number | null; costo: number | null; fonteUrl: string | null; prezzoAnnuncio: string | null; nota: string; edizione: string | null; fotoDa?: string };
+
+/** Mette un pezzo nuovo di zecca nel catalogo Nuovo: si somma al prodotto nuovo dello stesso modello se c'è, altrimenti ne crea uno nascosto
+    (con le foto copiate dall'usato) da completare con il prezzo. Il colore del nuovo non è per variante: finisce nel colore del prodotto. */
+async function mettiNelNuovo(tx: Tx, z: PezzoNuovo): Promise<{ pid: string; creato: boolean }> {
+  const esistente = await tx.prodotto.findFirst({ where: { tipo: "NUOVO", categoria: z.categoria, OR: [
+    { sottocategoria: { equals: z.modello, mode: "insensitive" } }, { marcaId: z.marcaId, nome: { equals: z.nome, mode: "insensitive" } }] } });
+  const appunto = [z.fonteUrl, z.prezzoAnnuncio && `annuncio ${z.prezzoAnnuncio}`, z.colore && `colore ${z.colore}`].filter(Boolean).join(" · ");
+  let pid = esistente?.id ?? "";
+  if (!esistente) {
+    let slug = slugDi(`${z.marcaNome} ${z.nome}`); if (await tx.prodotto.findUnique({ where: { slug } })) slug += "-" + Math.random().toString(36).slice(2, 6);
+    pid = nuovoId();
+    await tx.prodotto.create({ data: { id: pid, slug, nome: z.nome, marcaId: z.marcaId, sottotitolo: "", categoria: z.categoria, stili: [], tipo: "NUOVO", sottocategoria: z.modello,
+      colore: z.colore || null, specs: [], prezzo: z.prezzo ?? 0, trattabile: false, nota: z.nota, luogo: "", descrizione: [], attivo: false, edizione: z.edizione } });
+    if (z.fotoDa) {
+      const foto = await tx.foto.findMany({ where: { prodottoId: z.fotoDa }, orderBy: { ordine: "asc" } });
+      for (const [i, f] of foto.entries()) {
+        const media = await tx.media.findMany({ where: { percorso: { in: [f.grande, f.piccola] } } });
+        const g = media.find((m) => m.percorso === f.grande), pc = media.find((m) => m.percorso === f.piccola);
+        if (!g || !pc) continue;
+        const n = nuovoId(), pg = `prodotti/${pid}/${n}.webp`, pp = `prodotti/${pid}/${n}-s.webp`;
+        await tx.media.createMany({ data: [{ percorso: pg, dati: g.dati }, { percorso: pp, dati: pc.dati }] });
+        await tx.foto.create({ data: { id: nuovoId(), prodottoId: pid, grande: pg, piccola: pp, ordine: i } });
+      }
+    }
+  }
+  const v = await tx.variante.findUnique({ where: { prodottoId_colore_taglia: { prodottoId: pid, colore: "", taglia: z.taglia } } });
+  if (v) await tx.variante.update({ where: { id: v.id }, data: { giacenza: { increment: 1 }, noteInterne: [v.noteInterne, appunto].filter(Boolean).join("\n").slice(0, 4000) } });
+  else await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, taglia: z.taglia, giacenza: 1, costo: z.costo, fonteUrl: z.fonteUrl, prezzoAnnuncio: z.prezzoAnnuncio, noteInterne: appunto } });
+  return { pid, creato: !esistente };
+}
+
+/** Bottone «Sposta nel nuovo» su un pezzo usato già salvato: il pezzo lascia l'usato e diventa un pezzo del prodotto nuovo. */
+export async function spostaNelNuovoAction(vid: string, f: FormData) {
+  await admin();
+  const v = await db.variante.findUnique({ where: { id: vid }, include: { prodotto: { include: { marca: true } } } });
+  if (!v || v.prodotto.tipo !== "USATO") return ko("prodotti", "Pezzo non trovato");
+  if (v.impegnati > 0) return ko("prodotti", "Questo pezzo è in un ordine aperto: non si può spostare", `&modifica=${v.prodottoId}`);
+  // Il prezzo scritto nel modulo (anche se non ancora salvato) vale più di quello in archivio.
+  const i = f.getAll("pz_id").map(String).indexOf(vid);
+  const scritto = i >= 0 ? egpToPiastre(String(f.getAll("pz_prezzo")[i] ?? "").trim()) : NaN;
+  const p = v.prodotto;
+  let pid = "", creato = false;
+  try {
+    ({ pid, creato } = await db.$transaction(async (tx) => {
+      const r = await mettiNelNuovo(tx, { marcaId: p.marcaId, marcaNome: p.marca.nome, nome: p.nome, categoria: p.categoria, modello: p.sottocategoria || `${p.marca.nome} ${p.nome}`,
+        colore: v.colore, taglia: v.taglia, prezzo: scritto > 0 ? scritto : v.prezzo, costo: v.costo, fonteUrl: v.fonteUrl, prezzoAnnuncio: v.prezzoAnnuncio, nota: "", edizione: p.edizione, fotoDa: p.id });
+      await tx.variante.delete({ where: { id: v.id } });
+      if (!(await tx.variante.count({ where: { prodottoId: p.id } }))) await tx.prodotto.update({ where: { id: p.id }, data: { attivo: false } });
+      return r;
+    }));
+  } catch (e) { return ko("prodotti", (e as Error).message, `&modifica=${p.id}`); }
+  revalidatePath("/", "layout");
+  ok(`prodotti&modifica=${pid}`, creato ? "Spostato nel nuovo: controlla il prezzo e rendilo visibile" : "Spostato nel nuovo: aggiunto un pezzo alla taglia " + v.taglia);
 }
 
 // ---------- coupon ----------

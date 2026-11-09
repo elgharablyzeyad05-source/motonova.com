@@ -1018,5 +1018,53 @@
 "Acconto registrato: prezzo bloccato per 48 ore": {
 "en": "Deposit recorded: price locked for 48 hours",
 "ar": "العربون اتسجل: السعر متثبت 48 ساعة"
+},
+"È nuovo di zecca → sposta nel nuovo": {
+"en": "Brand new → move to New",
+"ar": "جديد متبرشم ← انقله للجديد"
+},
+"Carica da Vinted": {
+"en": "Add from Vinted",
+"ar": "ضيف من Vinted"
+},
+"Com'è il pezzo?": {
+"en": "What condition is it?",
+"ar": "القطعة حالتها إيه؟"
+},
+"Nuovo di zecca → va nel nuovo": {
+"en": "Brand new → goes to New",
+"ar": "جديد متبرشم ← يروح للجديد"
+},
+"Pezzo non trovato": {
+"en": "Piece not found",
+"ar": "القطعة مش موجودة"
+},
+"Questo pezzo è in un ordine aperto: non si può spostare": {
+"en": "This piece is in an open order: it can't be moved",
+"ar": "القطعة دي في طلب مفتوح: مينفعش تتنقل"
+},
+"Spostato nel nuovo: controlla il prezzo e rendilo visibile": {
+"en": "Moved to New: check the price and make it visible",
+"ar": "اتنقل للجديد: راجع السعر وخليه ظاهر"
+},
+"Non ho trovato la taglia: scrivila qui sotto": {
+"en": "I couldn't find the size: enter it below",
+"ar": "ملقتش المقاس: اكتبه تحت"
+},
+"Spostato nel nuovo: aggiunto un pezzo alla taglia": {
+"en": "Moved to New: one more piece added to size",
+"ar": "اتنقل للجديد: اتضافت قطعة لمقاس"
+},
+"Aggiunto al nuovo:": {
+"en": "Added to New:",
+"ar": "اتضاف للجديد:"
+},
+"Prodotto nascosto: inserisci il prezzo da Prodotti e attivalo.": {
+"en": "Product hidden: set the price in Products and turn it on.",
+"ar": "المنتج مستخبي: حط السعر من المنتجات وشغّله."
+},
+"Un pezzo in più su questa taglia.": {
+"en": "One more piece on this size.",
+"ar": "قطعة زيادة على المقاس ده."
 }
 }

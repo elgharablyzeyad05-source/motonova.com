@@ -459,3 +459,7 @@ details.mp-blocco > summary { font-size: 17px; }
 .mp-salva .tasto.vuoto { flex: 0 0 auto; }
 @media (min-width: 861px) { .mp-salva { position: sticky; inset-inline: auto; margin: 0 -16px; } }
 #mp-errore { margin: 14px 0; }
+.mp-pezzo-testa > span { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.mp-sposta { background: none; border: 1px solid var(--verde); color: var(--verde); padding: 6px 10px; font-size: 12.5px; cursor: pointer; font-family: var(--x); }
+.mp-sposta:hover { background: var(--verde); color: #fff; }
+.mp-pezzo-testa { gap: 10px; flex-wrap: wrap; } .mp-pezzo-testa b { white-space: nowrap; }

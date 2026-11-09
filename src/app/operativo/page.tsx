@@ -9,7 +9,7 @@ import { CATEGORIE, ETICHETTA_CAT } from "@/lib/catalogo";
 import ModuloProdotto, { type DatiProdotto } from "@/componenti/ModuloProdotto";
 import MODELLI from "../../../dati/usato-modelli.json";
 import { statoDa } from "@/lib/aste";
-import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, caricaVelocePezzoAction, statoOrdineAction, accontoRicevutoAction } from "./azioni";
+import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, caricaVelocePezzoAction, spostaNelNuovoAction, statoOrdineAction, accontoRicevutoAction } from "./azioni";
 
 export const metadata = { title: "Operativo", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
@@ -158,7 +158,7 @@ async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: s
       <form key={f.id} action={eliminaFotoAction}><input type="hidden" name="id" value={f.id} />
         {/* eslint-disable-next-line @next/next/no-img-element */}<img src={`/media/${f.piccola}`} alt="" /><button aria-label="Togli">×</button></form>
     ))}</div></div>}
-    <ModuloProdotto azione={salvaProdottoAction} dati={dati} categorie={CATEGORIE.map((c) => [c, ETICHETTA_CAT[c] ?? c])} marche={marche.map((m) => m.nome)} modelli={modelli} />
+    <ModuloProdotto azione={salvaProdottoAction} sposta={spostaNelNuovoAction} dati={dati} categorie={CATEGORIE.map((c) => [c, ETICHETTA_CAT[c] ?? c])} marche={marche.map((m) => m.nome)} modelli={modelli} />
   </>;
 }
 
@@ -263,8 +263,12 @@ async function Clienti() {
 function CaricaVeloce() {
   return (
     <form action={caricaVelocePezzoAction} className="form-prod" style={{ maxWidth: 680 }}>
-      <h2 style={{ fontSize: 22, margin: "0 0 6px" }}>Carica un usato da Vinted</h2>
+      <h2 style={{ fontSize: 22, margin: "0 0 6px" }}>Carica da Vinted</h2>
       <p className="tenue" style={{ margin: "0 0 18px" }}>Incolla il testo dell&apos;annuncio e il link. Riconosco modello, categoria, colore, taglia e difetti. La foto è quella da catalogo del modello. Il prezzo di vendita lo metti dopo, da Prodotti.</p>
+      <fieldset className="campo mp-fs"><legend>Com&apos;è il pezzo?</legend><div className="mp-chip">
+        <label className="mp-spunta"><input type="radio" name="condizione" value="usato" defaultChecked /><span>Usato</span></label>
+        <label className="mp-spunta"><input type="radio" name="condizione" value="nuovo" /><span>Nuovo di zecca → va nel nuovo</span></label>
+      </div></fieldset>
       <div className="campo"><label htmlFor="testo">Testo dell&apos;annuncio (titolo + descrizione)</label><textarea id="testo" name="testo" rows={7} required placeholder="Incolla qui il testo copiato da Vinted" /></div>
       <div className="campo"><label htmlFor="link">Link annuncio Vinted</label><input id="link" name="link" type="url" placeholder="https://www.vinted.it/items/…" /></div>
       <div className="campo"><label htmlFor="annuncio">Prezzo dell&apos;annuncio (come scritto su Vinted)</label><input id="annuncio" name="annuncio" placeholder="130" /></div>
