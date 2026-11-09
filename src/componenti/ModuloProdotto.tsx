@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { leggiAnnuncio } from "@/lib/vinted";
 
 /* Modulo prodotto di /operativo, pensato per il telefono: si sceglie toccando, si scrive solo nome e prezzi.
    I nomi dei campi sono quelli che salvaProdottoAction già legge, così il server non cambia.
@@ -72,6 +73,16 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
   const pezzo = (i: number, k: keyof Pezzo, v: string) => setPezzi((ps) => ps.map((p, j) => (j === i ? { ...p, [k]: v } : p)));
   const togliPezzo = (i: number) => { const p = pezzi[i]; if (p.id) setTolti((t) => [...t, p.id]); setPezzi((ps) => (ps.length > 1 ? ps.filter((_, j) => j !== i) : [vuoto()])); };
 
+  // Scrivendo «AGV K1 S» nel nome, marca e categoria si scelgono da sole (e il nome si accorcia a «K1 S»).
+  const riconosci = (el: HTMLInputElement) => {
+    const v = el.value.trim(); if (v.length < 3) return;
+    const r = leggiAnnuncio(`${marca} ${v}`, cat || undefined);
+    if (!r.modello || !r.marca) return;
+    if (!marca) setMarca(r.marca);
+    if (!cat && r.categoria) setCat(r.categoria);
+    if (r.nome && v.toLowerCase().startsWith(r.marca.toLowerCase())) el.value = v.slice(r.marca.length).trim();
+  };
+
   const controlla = (e: React.FormEvent<HTMLFormElement>) => {
     if ((e.nativeEvent as SubmitEvent).submitter?.hasAttribute("data-sposta")) return; // lo spostamento non chiede il modulo completo
     const f = new FormData(e.currentTarget);
@@ -136,7 +147,7 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
       {/* 4 — nome e marca */}
       <section className="mp-blocco">
         <h3><span>4</span>Nome e marca</h3>
-        <div className="campo"><label htmlFor="mp-nome">Nome del modello</label><input id="mp-nome" name="nome" defaultValue={dati.nome} placeholder="es. K1 S" autoComplete="off" /></div>
+        <div className="campo"><label htmlFor="mp-nome">Nome del modello</label><input id="mp-nome" name="nome" defaultValue={dati.nome} onBlur={(e) => riconosci(e.target)} placeholder="es. AGV K1 S" autoComplete="off" /></div>
         <div className="mp-chip piccole">
           {marche.slice(0, 14).map((m) => <button key={m} type="button" aria-pressed={marca === m} className={marca === m ? "si" : ""} onClick={() => setMarca(m)} dir="ltr">{m}</button>)}
         </div>
@@ -190,13 +201,14 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
             <input type="hidden" name="pz_taglia" value={z.taglia} />
             <p className="mp-etichetta">Taglia</p>
             {!cat ? <p className="tenue">Scegli prima la categoria.</p> : <div className="mp-chip piccole">{[...proposte, ...(z.taglia && !proposte.includes(z.taglia) ? [z.taglia] : [])].map((t) => <button key={t} type="button" dir="ltr" className={z.taglia === t ? "si" : ""} aria-pressed={z.taglia === t} onClick={() => pezzo(i, "taglia", t)}>{t === UNICA ? "Taglia unica" : t}</button>)}</div>}
-            <div className="campo"><label>Colore</label><input name="pz_colore" value={z.colore} onChange={(e) => pezzo(i, "colore", e.target.value)} placeholder="es. Nero lucido" /></div>
             <div className="mp-due">
               <div className="campo"><label>Prezzo (EGP)</label><input name="pz_prezzo" inputMode="decimal" value={z.prezzo} onChange={(e) => pezzo(i, "prezzo", e.target.value)} placeholder="0" /></div>
               <div className="campo"><label>Minimo (EGP)</label><input name="pz_minimo" inputMode="decimal" value={z.minimo} onChange={(e) => pezzo(i, "minimo", e.target.value)} placeholder="0" /></div>
             </div>
-            <div className="campo"><label>Difetti (li vede il cliente)</label><input name="pz_difetti" value={z.difetti} onChange={(e) => pezzo(i, "difetti", e.target.value)} placeholder="Nessuno" /></div>
-            <details className="mp-piu"><summary>Acquisto (solo per te)</summary>
+            <details className="mp-piu"><summary>{z.colore || z.difetti ? `${[z.colore, z.difetti && "difetti"].filter(Boolean).join(" · ")} — ` : ""}Colore, difetti, acquisto</summary>
+              <div className="campo"><label>Colore</label><input name="pz_colore" value={z.colore} onChange={(e) => pezzo(i, "colore", e.target.value)} placeholder="es. Nero lucido" /></div>
+              <div className="campo"><label>Difetti (li vede il cliente)</label><input name="pz_difetti" value={z.difetti} onChange={(e) => pezzo(i, "difetti", e.target.value)} placeholder="Nessuno" /></div>
+              <p className="mp-etichetta">Solo per te</p>
               <div className="campo"><label>Link annuncio Vinted</label><input name="pz_link" type="url" dir="ltr" value={z.link} onChange={(e) => pezzo(i, "link", e.target.value)} placeholder="https://www.vinted.it/items/…" /></div>
               <div className="mp-due">
                 <div className="campo"><label>Prezzo annuncio</label><input name="pz_annuncio" value={z.annuncio} onChange={(e) => pezzo(i, "annuncio", e.target.value)} placeholder="130 €" /></div>
@@ -211,15 +223,11 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
         <button type="button" className="tasto vuoto pieno" onClick={() => setPezzi((ps) => [...ps, vuoto()])}>+ Aggiungi un altro pezzo</button>
       </section>}
 
-      {/* 6 — descrizione e visibilità */}
-      <section className="mp-blocco">
-        <h3><span>6</span>Descrizione</h3>
-        <div className="campo"><textarea name="descrizione" rows={4} defaultValue={dati.descrizione} placeholder="Due o tre frasi: materiali, punti forti, per chi è." aria-label="Descrizione" /></div>
-        <label className="mp-interruttore"><input type="checkbox" name="attivo" defaultChecked={dati.attivo} /><span /> Visibile sul sito</label>
-      </section>
+      <label className="mp-interruttore mp-visibile"><input type="checkbox" name="attivo" defaultChecked={dati.attivo} /><span /> Visibile sul sito</label>
 
       <details className="mp-piu mp-blocco">
         <summary>Altri dettagli (facoltativi)</summary>
+        <div className="campo"><label htmlFor="mp-descr">Descrizione</label><textarea id="mp-descr" name="descrizione" rows={4} defaultValue={dati.descrizione} placeholder="Due o tre frasi: materiali, punti forti, per chi è." /></div>
         <div className="campo"><label htmlFor="mp-sotto">Modello per il filtro Usato (es. AGV K1 S)</label><input id="mp-sotto" name="sottocategoria" list="mp-modelli" defaultValue={dati.sottocategoria} /><datalist id="mp-modelli">{[...new Set(modelli)].map((m) => <option key={m} value={m} />)}</datalist></div>
         <div className="campo"><label htmlFor="mp-sottotitolo">Sottotitolo</label><input id="mp-sottotitolo" name="sottotitolo" defaultValue={dati.sottotitolo} /></div>
         <div className="mp-due">

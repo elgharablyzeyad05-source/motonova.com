@@ -1066,5 +1066,97 @@
 "Un pezzo in più su questa taglia.": {
 "en": "One more piece on this size.",
 "ar": "قطعة زيادة على المقاس ده."
+},
+"Da completare": {
+"en": "To complete",
+"ar": "لسه ناقص"
+},
+"Colore, difetti, acquisto": {
+"en": "Colour, defects, purchase",
+"ar": "اللون، العيوب، الشرا"
+},
+"es. AGV K1 S": {
+"en": "e.g. AGV K1 S",
+"ar": "مثلاً AGV K1 S"
+},
+"Incolla i link degli annunci, uno per riga, anche 20 insieme. Riconosco modello, categoria, colore e taglia e metto la foto da catalogo. Poi scrivi i prezzi tutti insieme in «Da completare».": {
+"en": "Paste the listing links, one per line, even 20 at once. I recognise model, category, colour and size and add the catalogue photo. Then set all the prices at once in “To complete”.",
+"ar": "الزق لينكات الإعلانات، لينك في كل سطر، حتى 20 مرة واحدة. هتعرف الموديل والقسم واللون والمقاس وتحط صورة الكتالوج. بعدين اكتب كل الأسعار مرة واحدة في «لسه ناقص»."
+},
+"Link degli annunci": {
+"en": "Listing links",
+"ar": "لينكات الإعلانات"
+},
+"Un annuncio non viene riconosciuto?": {
+"en": "A listing isn't recognised?",
+"ar": "في إعلان مش متعرف عليه؟"
+},
+"Incolla sopra il testo dell'annuncio (titolo e descrizione) invece del link, e correggi qui.": {
+"en": "Paste the listing text (title and description) above instead of the link, and correct it here.",
+"ar": "الزق فوق نص الإعلان (العنوان والوصف) بدل اللينك، وصحّح هنا."
+},
+"Prezzo dell'annuncio": {
+"en": "Listing price",
+"ar": "سعر الإعلان"
+},
+"Carica": {
+"en": "Load",
+"ar": "حمّل"
+},
+"Incolla uno o più link Vinted, oppure il testo di un annuncio": {
+"en": "Paste one or more Vinted links, or the text of a listing",
+"ar": "الزق لينك Vinted أو أكتر، أو نص إعلان"
+},
+"Da fare a mano:": {
+"en": "To do by hand:",
+"ar": "تتعمل بإيدك:"
+},
+"Metti i prezzi da «Da completare».": {
+"en": "Set the prices in “To complete”.",
+"ar": "حط الأسعار من «لسه ناقص»."
+},
+"Modello non riconosciuto": {
+"en": "Model not recognised",
+"ar": "الموديل مش متعرف"
+},
+"Scrivi solo il prezzo (EGP). Il minimo è facoltativo: se c'è, il cliente può trattare fino a lì. Quello che ha un prezzo va subito sul sito; il resto resta qui.": {
+"en": "Just enter the price (EGP). The minimum is optional: if set, the customer can negotiate down to it. Anything with a price goes live right away; the rest stays here.",
+"ar": "اكتب السعر بس (جنيه). أقل سعر اختياري: لو موجود الزبون يقدر يفاصل لحده. اللي ليه سعر بينزل على الموقع على طول؛ والباقي بيفضل هنا."
+},
+"Pubblica i prezzi scritti": {
+"en": "Publish the prices entered",
+"ar": "انشر الأسعار المكتوبة"
+},
+"Annuncio": {
+"en": "Listing",
+"ar": "الإعلان"
+},
+"Minimo": {
+"en": "Minimum",
+"ar": "أقل سعر"
+},
+"Nessun prezzo scritto": {
+"en": "No price entered",
+"ar": "مفيش سعر مكتوب"
+},
+"Un minimo è più alto del suo prezzo: correggilo": {
+"en": "A minimum is higher than its price: fix it",
+"ar": "في أقل سعر أعلى من سعره: صلّحه"
+},
+"Tutto a posto: nessun pezzo senza prezzo.": {
+"en": "All done: no pieces without a price.",
+"ar": "كله تمام: مفيش قطعة من غير سعر."
+},
+"Prezzi pubblicati:": {
+"en": "Prices published:",
+"ar": "الأسعار اللي اتنشرت:"
+},
+"Annunci caricati:": {
+"en": "Listings loaded:",
+"ar": "الإعلانات اللي اتحملت:"
+},
+"Aggiunto al catalogo:": {
+"en": "Added to the catalogue:",
+"ar": "اتضاف للكتالوج:"
 }
 }

@@ -157,59 +157,92 @@ export async function salvaProdottoAction(f: FormData) {
   revalidatePath("/", "layout"); ok(t(f, "ritorno") || (tipo === "SECOND_LIFE" ? "aste" : "prodotti"), id ? "Salvato" : tipo === "SECOND_LIFE" ? "Asta aperta: è già sul sito" : "Prodotto pubblicato");
 }
 
-/** Caricamento veloce di un pezzo usato dal testo di un annuncio Vinted: aggiunge una variante (colore + taglia) al prodotto del modello. */
-export async function caricaVelocePezzoAction(f: FormData) {
-  await admin();
-  const testo = t(f, "testo");
-  if (testo.length < 5) ko("veloce", "Incolla il testo dell'annuncio");
-  const r = leggiAnnuncio(testo, t(f, "categoria") || undefined);
-  const marcaNome = t(f, "marca") || r.marca || ""; const nome = t(f, "nome") || r.nome || "";
-  const categoria = t(f, "categoria") || r.categoria || "";
-  if (!marcaNome || !nome || !categoria) ko("veloce", "Non ho riconosciuto il modello: scegli la categoria e scrivi marca e nome qui sotto");
+/** Legge un annuncio Vinted dal solo link: prova la pagina (titolo, descrizione, prezzo); se Vinted blocca, usa le parole nell'indirizzo
+    (vinted.it/items/123-casco-agv-k1-s-taglia-m), che contengono già il titolo. */
+async function leggiLink(link: string): Promise<{ testo: string; prezzo: string }> {
+  let titolo = "", descr = "", prezzo = "";
+  try {
+    const ctl = AbortSignal.timeout(6000);
+    const r = await fetch(link, { signal: ctl, headers: { "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36", "accept-language": "it-IT,it;q=0.9,en;q=0.8" } });
+    if (r.ok) {
+      const h = (await r.text()).slice(0, 600_000);
+      const meta = (k: string) => h.match(new RegExp(`<meta[^>]+(?:property|name)=["']${k}["'][^>]+content=["']([^"']*)`, "i"))?.[1] ?? "";
+      const dec = (x: string) => x.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+      titolo = dec(meta("og:title")); descr = dec(meta("og:description"));
+      prezzo = meta("product:price:amount") || h.match(/"price"\s*:\s*\{?\s*"?(?:amount"?\s*:\s*"?)?(\d+(?:[.,]\d+)?)/)?.[1] || "";
+    }
+  } catch { /* Vinted non raggiungibile: si va con l'indirizzo */ }
+  const slug = decodeURIComponent(link.match(/\/items\/\d+-([^/?#]+)/)?.[1] ?? "").replace(/-/g, " ");
+  return { testo: [titolo || slug, descr, titolo ? slug : ""].filter(Boolean).join("\n"), prezzo };
+}
+
+type Correzioni = { categoria?: string; marca?: string; nome?: string; colore?: string; taglia?: string; difetti?: string };
+
+/** Mette in catalogo un annuncio (usato o nuovo di zecca). Restituisce un riassunto di una riga oppure lancia un errore leggibile. */
+async function caricaAnnuncio(testo: string, link: string | null, annuncio: string, condizione: "usato" | "nuovo", c: Correzioni = {}): Promise<string> {
+  const r = leggiAnnuncio(testo, c.categoria || undefined);
+  const marcaNome = c.marca || r.marca || ""; const nome = c.nome || r.nome || "";
+  const categoria = c.categoria || r.categoria || "";
+  if (!marcaNome || !nome || !categoria) throw new Error("Modello non riconosciuto");
   const modello = r.modello ?? `${marcaNome} ${nome}`;
-  const colore = t(f, "colore") || r.colore; const taglia = (t(f, "taglia") || r.taglia).toUpperCase();
-  const annuncio = t(f, "annuncio");
+  const colore = c.colore || r.colore; const taglia = (c.taglia || r.taglia).toUpperCase();
   const annuncioTxt = annuncio ? (/^[\d.,]+$/.test(annuncio) ? `${annuncio} €` : annuncio) : null;
-  let pid = "", nuovo = false;
-  if (t(f, "condizione") === "nuovo") {
-    if (!taglia) ko("veloce", "Non ho trovato la taglia: scrivila qui sotto");
-    let r2: { pid: string; creato: boolean };
-    try {
-      const marca = await db.marca.upsert({ where: { nome: marcaNome }, update: {}, create: { id: nuovoId(), nome: marcaNome, slug: slugDi(marcaNome) } });
-      r2 = await db.$transaction((tx) => mettiNelNuovo(tx, { marcaId: marca.id, marcaNome, nome, categoria, modello, colore, taglia, prezzo: null, costo: null, fonteUrl: t(f, "link") || null, prezzoAnnuncio: annuncioTxt, nota: "",
-        edizione: /limited edition|edizione limitata/i.test(testo) ? "limited" : /special edition|edizione speciale/i.test(testo) ? "special" : null }));
-      if (r2.creato) {
-        const res = await fetch(`${await baseUrl()}/immagini/modelli/${categoria}-${slugDi(modello)}.webp`).catch(() => null);
-        if (res?.ok) await salvaFoto(r2.pid, [new File([await res.arrayBuffer()], "catalogo.webp", { type: "image/webp" })]);
-      }
-    } catch (e) { return ko("veloce", (e as Error).message); }
-    revalidatePath("/", "layout");
-    return ok("veloce", `Aggiunto al nuovo: ${modello} · ${taglia}. ${r2.creato ? "Prodotto nascosto: inserisci il prezzo da Prodotti e attivalo." : "Un pezzo in più su questa taglia."}`);
+  const edizione = /limited edition|edizione limitata/i.test(testo) ? "limited" : /special edition|edizione speciale/i.test(testo) ? "special" : null;
+  const marca = await db.marca.upsert({ where: { nome: marcaNome }, update: {}, create: { id: nuovoId(), nome: marcaNome, slug: slugDi(marcaNome) } });
+  const fotoCatalogo = async (pid: string) => {
+    if (await db.foto.count({ where: { prodottoId: pid } })) return;
+    const res = await fetch(`${await baseUrl()}/immagini/modelli/${categoria}-${slugDi(modello)}.webp`).catch(() => null);
+    if (res?.ok) await salvaFoto(pid, [new File([await res.arrayBuffer()], "catalogo.webp", { type: "image/webp" })]).catch(() => {});
+  };
+  if (condizione === "nuovo") {
+    const r2 = await db.$transaction((tx) => mettiNelNuovo(tx, { marcaId: marca.id, marcaNome, nome, categoria, modello, colore, taglia, prezzo: null, costo: null, fonteUrl: link, prezzoAnnuncio: annuncioTxt, nota: "", edizione }));
+    await fotoCatalogo(r2.pid);
+    return `${modello} · ${taglia} → nuovo`;
+  }
+  let pid = "";
+  const esistente = await db.prodotto.findFirst({ where: { tipo: "USATO", categoria, sottocategoria: { equals: modello, mode: "insensitive" } } });
+  if (esistente) pid = esistente.id;
+  else {
+    let slug = slugDi(`${marcaNome} ${nome} used`); if (await db.prodotto.findUnique({ where: { slug } })) slug += "-" + Math.random().toString(36).slice(2, 6);
+    pid = nuovoId();
+    await db.prodotto.create({ data: { id: pid, slug, nome, marcaId: marca.id, sottotitolo: "", categoria, stili: [], tipo: "USATO", sottocategoria: modello, specs: [], prezzo: 0, trattabile: true, nota: "Used", luogo: "", descrizione: [], attivo: false, edizione } });
   }
   try {
-    const marca = await db.marca.upsert({ where: { nome: marcaNome }, update: {}, create: { id: nuovoId(), nome: marcaNome, slug: slugDi(marcaNome) } });
-    const esistente = await db.prodotto.findFirst({ where: { tipo: "USATO", categoria, sottocategoria: { equals: modello, mode: "insensitive" } } });
-    if (esistente) pid = esistente.id;
-    else {
-      let slug = slugDi(`${marcaNome} ${nome} used`); if (await db.prodotto.findUnique({ where: { slug } })) slug += "-" + Math.random().toString(36).slice(2, 6);
-      pid = nuovoId(); nuovo = true;
-      await db.prodotto.create({ data: { id: pid, slug, nome, marcaId: marca.id, sottotitolo: "", categoria, stili: [], tipo: "USATO", sottocategoria: modello, specs: [], prezzo: 0, trattabile: true, nota: "Used", luogo: "", descrizione: [], attivo: false, edizione: /limited edition|edizione limitata|edizione limited/i.test(testo) ? "limited" : /special edition|edizione speciale|speciale/i.test(testo) ? "special" : null } });
-    }
-    await db.variante.create({ data: { id: nuovoId(), prodottoId: pid, colore, taglia, giacenza: 1, fonteUrl: t(f, "link") || null, prezzoAnnuncio: annuncioTxt, difetti: t(f, "difetti") || r.difetti, noteInterne: testo.slice(0, 2000) } });
-    // Foto da catalogo del modello (fondo bianco), se esiste e il prodotto non ne ha ancora
-    if (!(await db.foto.count({ where: { prodottoId: pid } }))) {
-      const sl = slugDi(modello);
-      try {
-        const res = await fetch(`${await baseUrl()}/immagini/modelli/${categoria}-${sl}.webp`);
-        if (res.ok) await salvaFoto(pid, [new File([await res.arrayBuffer()], "catalogo.webp", { type: "image/webp" })]);
-      } catch { /* senza foto: si aggiunge dopo */ }
-    }
+    await db.variante.create({ data: { id: nuovoId(), prodottoId: pid, colore, taglia, giacenza: 1, fonteUrl: link, prezzoAnnuncio: annuncioTxt, difetti: c.difetti || r.difetti, noteInterne: testo.slice(0, 2000) } });
   } catch (e) {
-    const m = (e as { code?: string }).code === "P2002" ? `${modello} · ${colore || "senza colore"} · ${taglia} esiste già: modificalo da Prodotti` : (e as Error).message;
-    return ko("veloce", m);
+    if ((e as { code?: string }).code === "P2002") throw new Error(`${modello} · ${colore || "senza colore"} · ${taglia} c'è già`);
+    throw e;
+  }
+  await fotoCatalogo(pid);
+  return `${modello} · ${colore || "—"} · ${taglia}`;
+}
+
+/** Carica da Vinted: uno o tanti link (uno per riga), oppure il testo di un annuncio. */
+export async function caricaVelocePezzoAction(f: FormData) {
+  await admin();
+  const input = t(f, "testo");
+  const condizione = t(f, "condizione") === "nuovo" ? "nuovo" : "usato";
+  const link = [...new Set(input.match(/https?:\/\/[^\s]*vinted\.[a-z.]+\/items\/[^\s]+/gi) ?? [])].slice(0, 40);
+  const c: Correzioni = { categoria: t(f, "categoria"), marca: t(f, "marca"), nome: t(f, "nome"), colore: t(f, "colore"), taglia: t(f, "taglia"), difetti: t(f, "difetti") };
+  if (!link.length) {
+    // Testo incollato: un solo annuncio, come prima.
+    if (input.length < 5) ko("veloce", "Incolla uno o più link Vinted, oppure il testo di un annuncio");
+    try { const r = await caricaAnnuncio(input, t(f, "link") || null, t(f, "annuncio"), condizione, c); revalidatePath("/", "layout"); return ok("veloce", `Aggiunto al catalogo: ${r}`); }
+    catch (e) { return ko("veloce", (e as Error).message === "Modello non riconosciuto" ? "Non ho riconosciuto il modello: scegli la categoria e scrivi marca e nome qui sotto" : (e as Error).message); }
+  }
+  const fatti: string[] = [], falliti: string[] = [];
+  // A gruppi di 4: abbastanza veloce, senza farsi bloccare da Vinted.
+  for (let i = 0; i < link.length; i += 4) {
+    await Promise.all(link.slice(i, i + 4).map(async (l) => {
+      try {
+        const { testo, prezzo } = await leggiLink(l);
+        fatti.push(await caricaAnnuncio(testo, l, prezzo, condizione, link.length === 1 ? c : {}));
+      } catch (e) { { const m = (e as Error).message; falliti.push(l.replace(/^https?:\/\/(www\.)?/, "").replace(/\?.*$/, "") + (m === "Modello non riconosciuto" ? "" : ` (${m})`)); }; }
+    }));
   }
   revalidatePath("/", "layout");
-  ok("veloce", `Aggiunto: ${modello} · ${colore || "—"} · ${taglia}. ${nuovo ? "Prodotto nascosto: " : ""}inserisci il prezzo di vendita da Prodotti e attivalo.`);
+  const msg = `Annunci caricati: ${fatti.length}/${link.length}.` + (falliti.length ? ` Da fare a mano: ${falliti.join(" · ")}` : "") + " Metti i prezzi da «Da completare».";
+  return (fatti.length ? ok : ko)("veloce", msg);
 }
 
 // ---------- dall'usato al nuovo ----------
@@ -269,6 +302,38 @@ export async function spostaNelNuovoAction(vid: string, f: FormData) {
   } catch (e) { return ko("prodotti", (e as Error).message, `&modifica=${p.id}`); }
   revalidatePath("/", "layout");
   ok(`prodotti&modifica=${pid}`, creato ? "Spostato nel nuovo: controlla il prezzo e rendilo visibile" : "Spostato nel nuovo: aggiunto un pezzo alla taglia " + v.taglia);
+}
+
+/** «Da completare»: prezzi di tanti pezzi in un colpo; ciò che ha un prezzo diventa visibile. */
+export async function salvaPrezziAction(f: FormData) {
+  await admin();
+  const num = (k: string) => { const v = t(f, k); return v ? egpToPiastre(v) : NaN; };
+  const toccati = new Set<string>(); let n = 0;
+  try {
+    await db.$transaction(async (tx) => {
+      for (const k of f.keys()) {
+        const m = /^(u|n)_(\w+)_p$/.exec(k); if (!m) continue;
+        const prezzo = num(k); if (!(prezzo > 0)) continue;
+        const minimo = num(`${m[1]}_${m[2]}_m`);
+        if (minimo > prezzo) throw new Error("Un minimo è più alto del suo prezzo: correggilo");
+        if (m[1] === "u") {
+          const v = await tx.variante.update({ where: { id: m[2] }, data: { prezzo, prezzoMinimo: minimo > 0 ? minimo : null } });
+          toccati.add(v.prodottoId);
+        } else {
+          await tx.prodotto.update({ where: { id: m[2] }, data: { prezzo, trattabile: minimo > 0, prezzoMinimo: minimo > 0 ? minimo : null, attivo: true } });
+        }
+        n++;
+      }
+      // Usato: il prezzo del prodotto è il più basso dei suoi pezzi; con almeno un prezzo diventa visibile.
+      for (const pid of toccati) {
+        const vs = await tx.variante.findMany({ where: { prodottoId: pid, prezzo: { not: null } }, select: { prezzo: true } });
+        const min = Math.min(...vs.map((v) => v.prezzo!));
+        if (Number.isFinite(min)) await tx.prodotto.update({ where: { id: pid }, data: { prezzo: min, trattabile: true, attivo: true } });
+      }
+    });
+  } catch (e) { return ko("completa", (e as Error).message); }
+  revalidatePath("/", "layout");
+  ok("completa", n ? `Prezzi pubblicati: ${n}` : "Nessun prezzo scritto");
 }
 
 // ---------- coupon ----------

@@ -9,30 +9,31 @@ import { CATEGORIE, ETICHETTA_CAT } from "@/lib/catalogo";
 import ModuloProdotto, { type DatiProdotto } from "@/componenti/ModuloProdotto";
 import MODELLI from "../../../dati/usato-modelli.json";
 import { statoDa } from "@/lib/aste";
-import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, caricaVelocePezzoAction, spostaNelNuovoAction, statoOrdineAction, accontoRicevutoAction } from "./azioni";
+import { creaCouponAction, creaAstaAction, garanziaAction, rispondiChatAction, eliminaFotoAction, interruttoreCouponAction, salvaProdottoAction, salvaPrezziAction, caricaVelocePezzoAction, spostaNelNuovoAction, statoOrdineAction, accontoRicevutoAction } from "./azioni";
 
 export const metadata = { title: "Operativo", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
-const TABS = ["oggi", "ordini", "chat", "prodotti", "veloce", "aste", "clienti", "altro", "coupon", "posta", "iscritti"] as const;
+const TABS = ["oggi", "ordini", "chat", "prodotti", "veloce", "completa", "aste", "clienti", "altro", "coupon", "posta", "iscritti"] as const;
 const NOME_STATO: Record<string, string> = { DA_CONFERMARE: "Da confermare", CONFERMATO: "Confermato", PREPARAZIONE: "In preparazione", SPEDITO: "Spedito", CONSEGNATO: "Consegnato", ANNULLATO: "Annullato" };
 const fmt = new Intl.DateTimeFormat("it-IT", { dateStyle: "short", timeStyle: "short", timeZone: "Africa/Cairo" });
 const dt = (d: Date | null) => (d ? d.toISOString().slice(0, 16) : "");
 
 const ALTRO = ["coupon", "posta", "iscritti"];
-const NOME_TAB: Record<string, string> = { oggi: "Oggi", ordini: "Ordini", chat: "Messaggi", prodotti: "Prodotti", veloce: "Carica usato", aste: "Aste", clienti: "Clienti", altro: "Altro" };
+const NOME_TAB: Record<string, string> = { oggi: "Oggi", ordini: "Ordini", chat: "Messaggi", prodotti: "Prodotti", veloce: "Carica da Vinted", completa: "Da completare", aste: "Aste", clienti: "Clienti", altro: "Altro" };
 
 export default async function Operativo({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
   // Chi non è amministratore vede una pagina inesistente, non un invito ad accedere.
   if (!(await richiediAdmin())) notFound();
   const q = await searchParams;
   const tab = (TABS as readonly string[]).includes(q.tab ?? "") ? q.tab! : "oggi";
-  const [daLeggere, daGestire] = await Promise.all([
+  const [daLeggere, daGestire, daCompletare] = await Promise.all([
     db.messaggio.count({ where: { daStaff: false, letto: false } }),
     db.ordine.count({ where: { stato: { in: ["DA_CONFERMARE", "CONFERMATO", "PREPARAZIONE"] } } }),
+    contaDaCompletare(),
   ]);
   const attivo = (t: string) => t === tab || (t === "altro" && ALTRO.includes(tab));
-  const badge: Record<string, number> = { ordini: daGestire, chat: daLeggere };
+  const badge: Record<string, number> = { ordini: daGestire, chat: daLeggere, completa: daCompletare };
   return (
     <div className="foglio sezione operativo">
       <LinguaOperativo />
@@ -50,6 +51,7 @@ export default async function Operativo({ searchParams }: { searchParams: Promis
       {tab === "chat" && <Chat conv={q.conv} />}
       {tab === "prodotti" && <Prodotti modifica={q.modifica} tipo={q.tipo} />}
       {tab === "veloce" && <CaricaVeloce />}
+      {tab === "completa" && <DaCompletare />}
       {tab === "clienti" && <Clienti />}
       {tab === "coupon" && <Coupon />}
       {tab === "aste" && <Aste />}
@@ -260,19 +262,55 @@ async function Clienti() {
   </tbody></table> : <p className="tenue">Nessun cliente registrato.</p>;
 }
 
+async function contaDaCompletare() {
+  const [u, n] = await Promise.all([
+    db.variante.count({ where: { prezzo: null, prodotto: { tipo: "USATO" } } }),
+    db.prodotto.count({ where: { tipo: "NUOVO", prezzo: 0 } }),
+  ]);
+  return u + n;
+}
+
+async function DaCompletare() {
+  const [usati, nuovi] = await Promise.all([
+    db.variante.findMany({ where: { prezzo: null, prodotto: { tipo: "USATO" } }, orderBy: { id: "desc" }, take: 200, include: { prodotto: { include: { marca: true, foto: { take: 1, orderBy: { ordine: "asc" } } } } } }),
+    db.prodotto.findMany({ where: { tipo: "NUOVO", prezzo: 0 }, orderBy: { creato: "desc" }, take: 200, include: { marca: true, varianti: true, foto: { take: 1, orderBy: { ordine: "asc" } } } }),
+  ]);
+  if (!usati.length && !nuovi.length) return <p className="tenue">Tutto a posto: nessun pezzo senza prezzo. <Link style={{ textDecoration: "underline" }} href="/operativo?tab=veloce">Carica da Vinted</Link></p>;
+  const riga = (k: string, foto: string | undefined, titolo: string, dettaglio: string, link: string | null, annuncio: string | null, modifica: string) => (
+    <div className="dc-riga" key={k}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {foto ? <img src={`/media/${foto}`} alt="" /> : <span className="dc-vuota" />}
+      <div className="dc-testo"><b>{titolo}</b><span>{dettaglio}</span>
+        <small>{annuncio && <>Annuncio {annuncio} · </>}{link && <a href={link} target="_blank" rel="noreferrer">Vinted ↗</a>} · <Link href={`/operativo?tab=prodotti&modifica=${modifica}`}>Modifica</Link></small></div>
+      <input name={`${k}_p`} inputMode="decimal" placeholder="Prezzo" aria-label="Prezzo" />
+      <input name={`${k}_m`} inputMode="decimal" placeholder="Minimo" aria-label="Minimo" />
+    </div>);
+  return (
+    <form action={salvaPrezziAction} className="dc">
+      <p className="tenue" style={{ margin: "0 0 14px" }}>Scrivi solo il prezzo (EGP). Il minimo è facoltativo: se c&apos;è, il cliente può trattare fino a lì. Quello che ha un prezzo va subito sul sito; il resto resta qui.</p>
+      {usati.length > 0 && <><p className="mp-etichetta"><span>Usato</span> · {usati.length}</p>
+        {usati.map((v) => riga(`u_${v.id}`, v.prodotto.foto[0]?.piccola, `${v.prodotto.marca.nome} ${v.prodotto.nome}`, [v.taglia, v.colore, v.difetti && "difetti: " + v.difetti].filter(Boolean).join(" · "), v.fonteUrl, v.prezzoAnnuncio, v.prodottoId))}</>}
+      {nuovi.length > 0 && <><p className="mp-etichetta"><span>Nuovo</span> · {nuovi.length}</p>
+        {nuovi.map((p) => { const v0 = p.varianti.find((v) => v.fonteUrl || v.prezzoAnnuncio); return riga(`n_${p.id}`, p.foto[0]?.piccola, `${p.marca.nome} ${p.nome}`, p.varianti.map((v) => `${v.taglia}×${v.giacenza}`).join(" "), v0?.fonteUrl ?? null, v0?.prezzoAnnuncio ?? null, p.id); })}</>}
+      <div className="mp-salva"><button className="tasto">Pubblica i prezzi scritti</button></div>
+    </form>
+  );
+}
+
 function CaricaVeloce() {
   return (
     <form action={caricaVelocePezzoAction} className="form-prod" style={{ maxWidth: 680 }}>
       <h2 style={{ fontSize: 22, margin: "0 0 6px" }}>Carica da Vinted</h2>
-      <p className="tenue" style={{ margin: "0 0 18px" }}>Incolla il testo dell&apos;annuncio e il link. Riconosco modello, categoria, colore, taglia e difetti. La foto è quella da catalogo del modello. Il prezzo di vendita lo metti dopo, da Prodotti.</p>
+      <p className="tenue" style={{ margin: "0 0 18px" }}>Incolla i link degli annunci, uno per riga, anche 20 insieme. Riconosco modello, categoria, colore e taglia e metto la foto da catalogo. Poi scrivi i prezzi tutti insieme in «Da completare».</p>
       <fieldset className="campo mp-fs"><legend>Com&apos;è il pezzo?</legend><div className="mp-chip">
         <label className="mp-spunta"><input type="radio" name="condizione" value="usato" defaultChecked /><span>Usato</span></label>
         <label className="mp-spunta"><input type="radio" name="condizione" value="nuovo" /><span>Nuovo di zecca → va nel nuovo</span></label>
       </div></fieldset>
-      <div className="campo"><label htmlFor="testo">Testo dell&apos;annuncio (titolo + descrizione)</label><textarea id="testo" name="testo" rows={7} required placeholder="Incolla qui il testo copiato da Vinted" /></div>
-      <div className="campo"><label htmlFor="link">Link annuncio Vinted</label><input id="link" name="link" type="url" placeholder="https://www.vinted.it/items/…" /></div>
-      <div className="campo"><label htmlFor="annuncio">Prezzo dell&apos;annuncio (come scritto su Vinted)</label><input id="annuncio" name="annuncio" placeholder="130" /></div>
-      <details className="altri-dettagli"><summary>Correggi quello che ho riconosciuto</summary>
+      <div className="campo"><label htmlFor="testo">Link degli annunci</label><textarea id="testo" name="testo" rows={8} required dir="ltr" placeholder={"https://www.vinted.it/items/…\nhttps://www.vinted.it/items/…"} /></div>
+      <details className="altri-dettagli"><summary>Un annuncio non viene riconosciuto?</summary>
+        <p className="tenue" style={{ fontSize: 13 }}>Incolla sopra il testo dell&apos;annuncio (titolo e descrizione) invece del link, e correggi qui.</p>
+        <div className="campo"><label htmlFor="link">Link annuncio Vinted</label><input id="link" name="link" type="url" dir="ltr" /></div>
+        <div className="campo"><label htmlFor="annuncio">Prezzo dell&apos;annuncio</label><input id="annuncio" name="annuncio" placeholder="130" /></div>
         <div className="campo"><label htmlFor="v-categoria">Categoria</label><select id="v-categoria" name="categoria" defaultValue=""><option value="">Riconosci da solo</option>{CATEGORIE.map((c) => <option key={c} value={c}>{ETICHETTA_CAT[c] ?? c}</option>)}</select></div>
         <div className="campo"><label htmlFor="v-marca">Marca</label><input id="v-marca" name="marca" /></div>
         <div className="campo"><label htmlFor="v-nome">Nome del modello</label><input id="v-nome" name="nome" /></div>
@@ -280,7 +318,7 @@ function CaricaVeloce() {
         <div className="campo"><label htmlFor="v-taglia">Taglia</label><input id="v-taglia" name="taglia" /></div>
         <div className="campo"><label htmlFor="v-difetti">Difetti (li vede il cliente)</label><input id="v-difetti" name="difetti" /></div>
       </details>
-      <div className="op-salva"><button className="tasto">Aggiungi</button></div>
+      <div className="mp-salva"><button className="tasto">Carica</button></div>
     </form>
   );
 }
