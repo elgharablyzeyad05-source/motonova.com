@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { leggiAnnuncio } from "@/lib/vinted";
+import { traduciFrasi } from "@/lib/glossario";
 import { firmaDi, distanza, media, nomeDi, SOGLIA, type Firma } from "@/lib/colore-foto";
 
 /* Modulo prodotto di /operativo, pensato per il telefono: si sceglie toccando, si scrive solo nome e prezzi.
@@ -203,6 +204,7 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
               <input value={g.nome} onChange={(e) => gruppo(g.k, { nome: e.target.value })} placeholder={gruppi.length > 1 ? "Nome del colore" : "Colore (facoltativo)"} aria-label="Nome del colore" list="mp-nomi-colore" />
               {gruppi.length > 1 && !fs.length && !g.origine && <button type="button" className="mp-togli" onClick={() => togliGruppo(g.k)}>Togli</button>}
             </div>
+            <Anteprima testo={g.nome} />
             {fs.length > 0 && <div className="mp-anteprime">{fs.map((f) => (
               <figure key={f.k} className={f.main ? "main" : ""}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}<img src={f.url} alt="" onClick={() => principale(f)} />
@@ -262,7 +264,7 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
         </>}
         <details className="mp-piu"><summary>Condizioni e acquisto</summary>
           <div className="campo"><label htmlFor="mp-grado">Condizione (es. Come nuovo)</label><input id="mp-grado" name="grado" defaultValue={dati.grado} /></div>
-          <div className="campo"><label htmlFor="mp-difetti">Difetti (li vede il cliente)</label><input id="mp-difetti" name="difetti" defaultValue={dati.difetti} /></div>
+          <div className="campo"><label htmlFor="mp-difetti">Difetti (li vede il cliente)</label><InputConAnteprima id="mp-difetti" name="difetti" iniziale={dati.difetti} /></div>
           <SoloPerTe dati={dati} />
         </details>
       </section>}
@@ -283,7 +285,7 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
             </div>
             <details className="mp-piu"><summary>{z.colore || z.difetti ? `${[z.colore, z.difetti && "difetti"].filter(Boolean).join(" · ")} — ` : ""}Colore, difetti, acquisto</summary>
               <div className="campo"><label>Colore</label><input name="pz_colore" list="mp-gruppi" value={z.colore} onChange={(e) => pezzo(i, "colore", e.target.value)} placeholder="es. Nero lucido" /></div>
-              <div className="campo"><label>Difetti (li vede il cliente)</label><input name="pz_difetti" value={z.difetti} onChange={(e) => pezzo(i, "difetti", e.target.value)} placeholder="Nessuno" /></div>
+              <div className="campo"><label>Difetti (li vede il cliente)</label><input name="pz_difetti" value={z.difetti} onChange={(e) => pezzo(i, "difetti", e.target.value)} placeholder="Nessuno" /><Anteprima testo={z.difetti} /></div>
               <p className="mp-etichetta">Solo per te</p>
               <div className="campo"><label>Link annuncio Vinted</label><input name="pz_link" type="url" dir="ltr" value={z.link} onChange={(e) => pezzo(i, "link", e.target.value)} placeholder="https://www.vinted.it/items/…" /></div>
               <div className="mp-due">
@@ -304,7 +306,7 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
 
       <details className="mp-piu mp-blocco">
         <summary>Altri dettagli (facoltativi)</summary>
-        <div className="campo"><label htmlFor="mp-descr">Descrizione</label><textarea id="mp-descr" name="descrizione" rows={4} defaultValue={dati.descrizione} placeholder="Due o tre frasi: materiali, punti forti, per chi è." /></div>
+        <div className="campo"><label htmlFor="mp-descr">Descrizione</label><InputConAnteprima id="mp-descr" name="descrizione" iniziale={dati.descrizione} area placeholder="Frasi brevi e semplici: si traducono da sole (es. «Come nuovo. Graffi leggeri sulla visiera»)." /></div>
         <div className="campo"><label htmlFor="mp-sotto">Modello per il filtro Usato (es. AGV K1 S)</label><input id="mp-sotto" name="sottocategoria" list="mp-modelli" defaultValue={dati.sottocategoria} /><datalist id="mp-modelli">{[...new Set(modelli)].map((m) => <option key={m} value={m} />)}</datalist></div>
         <div className="campo"><label htmlFor="mp-sottotitolo">Sottotitolo</label><input id="mp-sottotitolo" name="sottotitolo" defaultValue={dati.sottotitolo} /></div>
         <div className="mp-due">
@@ -331,6 +333,27 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
       <div className="mp-salva"><button className="tasto">{salva}</button><a className="tasto vuoto" href="/operativo?tab=prodotti">Indietro</a></div>
     </form>
   );
+}
+
+/** Sotto i testi che vede il cliente: come appariranno in italiano, inglese e arabo. Se una parte non si traduce, lo dice. */
+function Anteprima({ testo }: { testo: string }) {
+  const [lin, setLin] = useState<"it" | "en" | "ar">("it");
+  useEffect(() => setLin(lingua()), []);
+  if (!testo.trim()) return null;
+  const r = { it: traduciFrasi(testo, "it"), en: traduciFrasi(testo, "en"), ar: traduciFrasi(testo, "ar") };
+  const ok = r.en.tutto && r.ar.tutto;
+  return <div className={"mp-anteprima" + (ok ? "" : " ko")} data-no-tr>
+    <span dir="ltr">IT · {r.it.testo}</span><span dir="ltr">EN · {r.en.testo}</span><span dir="rtl">AR · {r.ar.testo}</span>
+    {!ok && <b>{AVVISO[lin]}</b>}
+  </div>;
+}
+// L'avviso è nella lingua del pannello (l'anteprima è esclusa dal traduttore automatico).
+const AVVISO = { it: "Una parte resta come l'hai scritta: usa parole più semplici", en: "Part of it stays as written: use simpler words", ar: "جزء هيفضل زي ما كتبته: استخدم كلام أبسط" };
+const lingua = (): "it" | "en" | "ar" => { try { const m = document.cookie.match(/(?:^|; )op_l=(it|en|ar)/); return (m?.[1] as "it" | "en" | "ar") ?? "it"; } catch { return "it"; } };
+
+function InputConAnteprima({ id, name, iniziale, area, placeholder }: { id: string; name: string; iniziale: string; area?: boolean; placeholder?: string }) {
+  const [v, setV] = useState(iniziale);
+  return <>{area ? <textarea id={id} name={name} rows={4} value={v} onChange={(e) => setV(e.target.value)} placeholder={placeholder} /> : <input id={id} name={name} value={v} onChange={(e) => setV(e.target.value)} placeholder={placeholder} />}<Anteprima testo={v} /></>;
 }
 
 function SoloPerTe({ dati }: { dati: DatiProdotto }) {

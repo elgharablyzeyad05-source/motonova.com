@@ -1,4 +1,4 @@
-import { traduciTesto } from "./glossario";
+import { traduciFrasi } from "./glossario";
 import en from "../../dati/lingua-en.json";
 import ar from "../../dati/lingua-ar.json";
 import contenuti from "../../dati/contenuti.json";
@@ -32,7 +32,7 @@ export function tr(lingua: Lingua, frase: string): string {
 export function tc(lingua: Lingua, testo: string | null | undefined): string {
   if (!testo) return "";
   const d = lingua === "it" ? undefined : DIZ[lingua][testo];
-  return d ?? traduciTesto(testo, lingua);
+  return d ?? traduciFrasi(testo, lingua).testo;
 }
 
 /** Testi nuovi, scritti per il sito vero. Chiave = id; i tre testi insieme, così non si dimentica una lingua. */

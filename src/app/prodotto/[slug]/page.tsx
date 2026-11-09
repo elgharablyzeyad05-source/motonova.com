@@ -53,7 +53,7 @@ export default async function Prodotto({ params }: Props) {
 
   const json = {
     "@context": "https://schema.org", "@type": "Product", name: `${p.marca.nome} ${p.nome}`, brand: { "@type": "Brand", name: p.marca.nome },
-    description: tr(l, descr[0]), image: p.foto.map((f) => `${base}/media/${f.grande}`),
+    description: tc(l, descr[0]), image: p.foto.map((f) => `${base}/media/${f.grande}`),
     offers: { "@type": "Offer", priceCurrency: "EGP", price: (prezzoMin / 100).toFixed(2), availability: varianti.some((v) => disponibile(v) > 0) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url: `${base}${href(l, `/prodotto/${p.slug}`)}` },
   };
 
@@ -103,7 +103,7 @@ export default async function Prodotto({ params }: Props) {
               difetti: _("Condizioni e difetti", "Condition and flaws", "الحالة والعيوب"),
             }} />
           <div style={{ marginTop: 28 }}>
-            {descr.map((d, i) => <p key={i} style={{ marginBottom: 12 }}>{tr(l, d)}</p>)}
+            {descr.map((d, i) => <p key={i} style={{ marginBottom: 12 }}>{tc(l, d)}</p>)}
             {p.tipo === "USATO" && p.difetti && <div className="nota" style={{ marginTop: 14 }}><b>{_("Condizioni e difetti", "Condition and flaws", "الحالة والعيوب")}</b> — {tc(l, p.difetti)}</div>}
           </div>
           {omol && <div className="nota" style={{ marginTop: 14 }}><b>{tr(l, omol[0])}</b> — {tr(l, omol[1])}</div>}

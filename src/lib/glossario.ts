@@ -5,7 +5,7 @@
 // tradotta a metà sarebbe peggio dell'originale, quindi resta com'è.
 
 type Lingua = "it" | "en" | "ar";
-type Tipo = "colore" | "finitura" | "altro";
+type Tipo = "colore" | "finitura" | "agg" | "nome" | "altro";
 type Voce = { it: string[]; en: string[]; ar: string; tipo: Tipo };
 
 const V = (tipo: Tipo, it: string, en: string, ar: string): Voce => ({ tipo, it: it.split("|"), en: en.split("|"), ar });
@@ -39,15 +39,41 @@ const VOCI: Voce[] = [
   V("altro", "lievi segni di usura|leggeri segni di usura|piccoli segni di usura", "light signs of wear|minor signs of wear", "علامات استعمال خفيفة"),
   V("altro", "segni di usura", "signs of wear", "علامات استعمال"), V("altro", "graffi leggeri|piccoli graffi|lievi graffi", "light scratches|minor scratches", "خدوش خفيفة"),
   V("altro", "graffi", "scratches", "خدوش"), V("altro", "graffio", "scratch", "خدش"),
-  V("altro", "sulla visiera|visiera", "on the visor|visor", "على الفيزر"), V("altro", "sulla calotta|calotta", "on the shell|shell", "على الهيكل"),
-  V("altro", "interni lavati|interni puliti", "clean lining|washed lining", "البطانة نضيفة"), V("altro", "interni", "lining", "البطانة"),
+  V("nome", "calotta", "shell", "الهيكل"), V("nome", "lato", "side", "الجنب"), V("nome", "retro", "back", "الضهر"),
+  V("altro", "interni lavati|interni puliti", "clean lining|washed lining", "البطانة نضيفة"), V("nome", "interni", "lining", "البطانة"),
   V("altro", "taglia unica", "one size", "مقاس واحد"),
   V("altro", "con commissione Vinted", "incl. Vinted fee|including Vinted fee", "شامل عمولة Vinted"),
   V("altro", "annunci", "listings", "إعلانات"), V("altro", "annuncio", "listing", "إعلان"),
   V("altro", "uomo", "men|man", "رجالي"), V("altro", "donna", "women|woman", "حريمي"),
   V("altro", "pelle", "leather", "جلد"), V("altro", "tessuto", "textile|fabric", "قماش"), V("altro", "rete|mesh", "mesh", "شبك"),
   V("altro", "impermeabile", "waterproof", "ضد المية"),
-  V("altro", "usato", "used", "مستعمل"), V("altro", "nuovo", "new", "جديد"),
+  // parti, accessori, difetti (nomi) e aggettivi: si combinano liberamente, «graffi leggeri sulla visiera»
+  V("nome", "visiera", "visor", "فيزر"), V("nome", "visiera parasole|visierino parasole|parasole", "sun visor", "فيزر شمس"), V("nome", "pinlock", "pinlock", "بينلوك"),
+  V("nome", "mentoniera", "chin bar", "الدقن"), V("nome", "imbottitura|imbottiture", "padding", "الحشو"), V("nome", "cinturino|chiusura", "chin strap|strap", "الحزام"),
+  V("nome", "cerniera|zip", "zip|zipper", "السوستة"), V("nome", "protezioni", "protectors|armour|armor", "الحمايات"), V("nome", "protezione", "protector", "حماية"),
+  V("nome", "paraschiena", "back protector", "حماية الضهر"), V("nome", "gomiti", "elbows", "الكوع"), V("nome", "spalle", "shoulders", "الكتف"), V("nome", "ginocchia", "knees", "الركب"),
+  V("nome", "suola", "sole", "النعل"), V("nome", "punta", "toe", "المقدمة"), V("nome", "tacco", "heel", "الكعب"), V("nome", "fodera", "liner", "البطانة الداخلية"),
+  V("nome", "cuciture", "stitching|seams", "الخياطة"), V("nome", "adesivi|adesivo", "stickers|sticker", "استيكرات"), V("nome", "logo", "logo", "اللوجو"),
+  V("nome", "scatola", "box", "العلبة"), V("nome", "scatola originale", "original box", "العلبة الأصلية"), V("nome", "sacca|sacchetto", "bag|dust bag", "الشنطة"),
+  V("nome", "etichette|etichetta|cartellino", "tags|tag", "التيكت"), V("nome", "segni|segno", "marks|mark", "علامات"), V("nome", "macchia|macchie", "stain|stains", "بقعة"),
+  V("nome", "strappo|strappi", "tear|tears", "قطع"), V("nome", "ammaccatura|ammaccature", "dent|dents", "خبطة"), V("nome", "crepa|crepe", "crack|cracks", "شرخ"),
+  V("nome", "usura", "wear", "استعمال"), V("nome", "difetti|difetto", "defects|defect|flaws|flaw", "عيوب"),
+  V("agg", "leggero|leggera|leggeri|leggere|lieve|lievi", "light|slight", "خفيف"), V("agg", "piccolo|piccola|piccoli|piccole", "small|minor", "صغير"),
+  V("agg", "visibile|visibili", "visible", "باين"), V("agg", "non visibile|non visibili|invisibile", "not visible|invisible", "مش باين"),
+  V("agg", "rotto|rotta|rotti", "broken", "مكسور"), V("agg", "mancante|mancanti", "missing", "ناقص"), V("agg", "scolorito|scolorita|sbiadito", "faded", "باهت"),
+  V("agg", "pulito|pulita|puliti", "clean", "نضيف"), V("agg", "igienizzato|igienizzata|sanificato", "sanitised|sanitized", "متعقم"),
+  V("agg", "originale|originali", "original", "أصلي"), V("agg", "omologato|omologata", "certified|homologated", "معتمد"),
+  V("agg", "traspirante", "breathable", "بيهوّي"), V("agg", "ventilato|ventilata", "vented|ventilated", "مهوّي"), V("agg", "estivo|estiva|estivi", "summer", "صيفي"),
+  V("agg", "invernale|invernali", "winter", "شتوي"), V("agg", "sinistro|sinistra", "left", "شمال"), V("agg", "destro|destra", "right", "يمين"),
+  V("agg", "anteriore", "front", "قدّام"), V("agg", "posteriore", "rear|back", "ورا"),
+  V("altro", "sulla|sul|sullo|sugli|sulle|su", "on the|on", "على"), V("altro", "nella|nel|nello|negli|nelle|in", "in the|in", "في"),
+  V("altro", "dietro", "behind", "من ورا"),
+  V("altro", "mai caduto|mai caduta|nessuna caduta", "never dropped|no drops", "عمره ما وقع"), V("altro", "usato poco|poco usato|usata poco", "lightly used|barely used", "مستعمل قليل"),
+  V("altro", "usato una volta|usata una volta", "used once|worn once", "مستعمل مرة واحدة"), V("altro", "perfette condizioni|perfetto stato|perfetto", "perfect condition|perfect", "حالة ممتازة جداً"),
+  V("altro", "completo di|completa di", "complete with", "كامل مع"), V("altro", "doppia visiera", "double visor", "فيزرين"),
+  V("altro", "predisposizione interfono|predisposto interfono", "intercom ready", "جاهز للإنتركم"),
+  V("altro", "fibra di vetro", "fiberglass|fibreglass", "فايبر جلاس"), V("altro", "policarbonato", "polycarbonate", "بولي كربونات"),
+  V("altro", "usato", "used", "مستعمل"), V("altro", "nuovo|nuova", "new", "جديد"),
   V("altro", "con", "with", "مع"), V("altro", "e", "and", "و"), V("altro", "senza", "without", "من غير"),
 ];
 
@@ -82,13 +108,15 @@ export function traduciTesto(testo: string, l: Lingua): string {
     else { if (!NEUTRO.test(parole[k].w)) return testo; k++; }
   }
   if (!trovate.length) return testo;
-  // Ordine delle parole: in inglese la finitura va prima del colore («matt black»), in italiano e arabo dopo.
+  // Ordine delle parole dentro un gruppo di parole consecutive: in inglese aggettivi, finiture e colori vanno prima
+  // del nome («light scratches», «matt black visor»); in italiano e arabo dopo («graffi leggeri», «فيزر أسود مطفي»).
+  const rango = (t: Tipo) => (l === "en" ? { agg: 0, finitura: 0, colore: 1, nome: 2, altro: -1 } : { nome: 0, colore: 1, finitura: 2, agg: 2, altro: -1 })[t];
   const seq = [...trovate];
-  for (let j = 0; j + 1 < seq.length; j++) {
-    const [x, y] = [seq[j], seq[j + 1]];
-    if (y.da !== x.a) continue;
-    const scambia = l === "en" ? x.v.tipo === "colore" && y.v.tipo === "finitura" : x.v.tipo === "finitura" && y.v.tipo === "colore";
-    if (scambia) { seq[j] = { ...y, da: x.da, a: x.da + (y.a - y.da) }; seq[j + 1] = { ...x, da: seq[j].a, a: y.a }; j++; }
+  for (let j = 0; j < seq.length;) {
+    let fine = j + 1;
+    while (fine < seq.length && seq[fine].da === seq[fine - 1].a && rango(seq[fine].v.tipo) >= 0 && rango(seq[j].v.tipo) >= 0) fine++;
+    if (fine - j > 1) { const run = seq.slice(j, fine).map((x, n) => ({ x, n })).sort((p, q) => rango(p.x.v.tipo) - rango(q.x.v.tipo) || p.n - q.n).map((o) => o.x); seq.splice(j, fine - j, ...run); }
+    j = fine;
   }
   // Ricompongo: ogni gruppo di parole diventa la resa della sua voce, scritta nella prima posizione del gruppo.
   const posDi = (k: number) => parole[k].i;
@@ -107,6 +135,21 @@ export function traduciTesto(testo: string, l: Lingua): string {
   let s = out.join("").replace(/\s{2,}/g, " ").trim();
   // Le forme maiuscole («Nero») restano maiuscole anche dopo lo scambio; il resto in minuscolo.
   // Un colore («black matt») si mostra come etichetta: iniziale maiuscola.
-  if (l !== "ar" && /^[a-zà-ÿ]/.test(s) && (/^[A-ZÀ-Þ]/.test(testo.trim()) || trovate[0].v.tipo !== "altro")) s = s[0].toUpperCase() + s.slice(1);
+  if (l !== "ar" && /^[a-zà-ÿ]/.test(s) && (/^[A-ZÀ-Þ]/.test(testo.trim()) || ["colore", "finitura"].includes(trovate[0].v.tipo))) s = s[0].toUpperCase() + s.slice(1);
   return s;
 }
+
+/** Testi più lunghi (descrizioni, difetti): frase per frase. Ogni frase coperta si traduce, le altre restano come scritte.
+    `tutto` dice se è stato tradotto tutto, per l'anteprima nel pannello. */
+export function traduciFrasi(testo: string, l: Lingua): { testo: string; tutto: boolean } {
+  if (!testo.trim()) return { testo, tutto: true };
+  let tutto = true;
+  const out = testo.split(/(?<=[.!?;\n])\s+|(?<=,)\s+/).map((f) => {
+    const t = traduciTesto(f.replace(/[.!?;,]+$/, ""), l);
+    const punto = f.match(/[.!?;,]+$/)?.[0] ?? "";
+    if (t === f.replace(/[.!?;,]+$/, "") && /[A-Za-zÀ-ÿ]{3,}/.test(f) && !isNeutro(f)) tutto = false;
+    return t + punto;
+  });
+  return { testo: out.join(" "), tutto };
+}
+const isNeutro = (f: string) => (f.match(/[A-Za-zÀ-ÿ']+/g) ?? []).every((w) => NEUTRO.test(w));

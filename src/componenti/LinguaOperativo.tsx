@@ -33,7 +33,7 @@ function applica(radice: HTMLElement, l: L) {
   let n: Node | null;
   while ((n = w.nextNode())) {
     const p = n.parentElement;
-    if (!p || ["SCRIPT", "STYLE", "TEXTAREA"].includes(p.tagName)) continue;
+    if (!p || ["SCRIPT", "STYLE", "TEXTAREA"].includes(p.tagName) || p.closest("[data-no-tr]")) continue;
     const cur = n.nodeValue ?? "";
     const prima = ORIG.get(n);
     // se il testo non è né l'originale né la sua traduzione, l'ha cambiato React: è il nuovo originale
