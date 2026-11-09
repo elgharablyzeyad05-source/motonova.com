@@ -159,6 +159,8 @@ model Foto {
   grande     String
   piccola    String
   ordine     Int      @default(0)
+  colore     String   @default("")   // colorazione della foto (stesso nome delle varianti)
+  principale Boolean  @default(false) // la foto che rappresenta il colore (3/4 verso destra)
 }
 
 model Carrello {

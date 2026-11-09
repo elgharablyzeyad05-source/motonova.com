@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { leggiAnnuncio } from "@/lib/vinted";
+import { firmaDi, distanza, media, nomeDi, SOGLIA, type Firma } from "@/lib/colore-foto";
 
 /* Modulo prodotto di /operativo, pensato per il telefono: si sceglie toccando, si scrive solo nome e prezzi.
    I nomi dei campi sono quelli che salvaProdottoAction già legge, così il server non cambia.
@@ -14,7 +15,12 @@ export type DatiProdotto = {
   sottotitolo: string; sottocategoria: string; colore: string; genere: string; materiale: string; certificazione: string; moto: string;
   specs: string; stili: string[]; prezzoPrima: string; nota: string; luogo: string; edizione: string;
   fonteUrl: string; costo: string; difetti: string; noteInterne: string; grado: string;
+  foto: { id: string; url: string; colore: string; principale: boolean }[];
+  stock: { colore: string; taglia: string; n: number }[]; // magazzino del nuovo per colore e taglia
 };
+type Gruppo = { k: string; nome: string; origine: string | null; qta: Record<string, number> };
+type FotoM = { k: string; id?: string; file?: File; url: string; gruppo: string; main: boolean; firma: Firma | null; via?: boolean };
+let seq = 0; const chiave = () => "g" + ++seq + Math.random().toString(36).slice(2, 6);
 type Props = { azione: (f: FormData) => void; sposta?: (vid: string, f: FormData) => void; dati: DatiProdotto; categorie: [string, string][]; marche: string[]; modelli: string[] };
 
 const LETTERE = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
@@ -31,25 +37,37 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
   const [cat, setCat] = useState(dati.categoria);
   const [marca, setMarca] = useState(dati.marca);
   const [trattabile, setTrattabile] = useState(dati.trattabile);
-  const [qta, setQta] = useState<Record<string, number>>(() => Object.fromEntries(dati.taglie.map((t) => [t.taglia, t.n])));
-  const [extra, setExtra] = useState<string[]>(() => dati.taglie.map((t) => t.taglia));
+  // Colori: uno per colorazione. Nel nuovo ogni colore ha il suo magazzino per taglia.
+  const [gruppi, setGruppi] = useState<Gruppo[]>(() => {
+    const nomi = [...new Set([...dati.foto.map((f) => f.colore), ...dati.stock.map((s) => s.colore)])];
+    if (!nomi.length) nomi.push("");
+    return nomi.map((n) => ({ k: chiave(), nome: n, origine: n, qta: Object.fromEntries(dati.stock.filter((s) => s.colore === n).map((s) => [s.taglia, s.n])) }));
+  });
+  const [extra, setExtra] = useState<string[]>(() => [...dati.stock.map((t) => t.taglia), ...dati.taglie.map((t) => t.taglia)]);
   const [nuovaTaglia, setNuovaTaglia] = useState("");
   const [tagliaAsta, setTagliaAsta] = useState(dati.tipo === "SECOND_LIFE" ? dati.taglie[0]?.taglia ?? "" : "");
   const [pezzi, setPezzi] = useState<Pezzo[]>(() => (dati.pezzi.length ? dati.pezzi : [vuoto()]));
   const [tolti, setTolti] = useState<string[]>([]);
   const [giorni, setGiorni] = useState(7);
-  const [foto, setFoto] = useState<File[]>([]);
+  const [foto, setFoto] = useState<FotoM[]>(() => dati.foto.map((f) => ({ k: chiave(), id: f.id, url: f.url, gruppo: "", main: f.principale, firma: null, colore: f.colore }) as FotoM & { colore: string }));
   const [errore, setErrore] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   // Le taglie proposte dipendono dalla categoria; quelle già salvate fuori elenco restano visibili.
   const proposte = useMemo(() => { const b = tagliePer(cat); return [...b, ...extra.filter((t) => !b.includes(t))]; }, [cat, extra]);
-  const salvate = useMemo(() => new Set(dati.taglie.map((t) => t.taglia)), [dati.taglie]);
-  // Le taglie già salvate restano nel testo anche a zero, così il server azzera il magazzino invece di ignorarle.
-  const taglieTesto = Object.entries(qta).filter(([t, n]) => n > 0 || salvate.has(t)).map(([t, n]) => `${t}:${n}`).join(", ");
-  const anteprime = useMemo(() => foto.map((f) => URL.createObjectURL(f)), [foto]);
-  useEffect(() => () => anteprime.forEach((u) => URL.revokeObjectURL(u)), [anteprime]);
+  // Le foto salvate entrano nel gruppo del loro colore; poi ne calcolo la firma per riconoscere quelle nuove.
+  useEffect(() => {
+    setFoto((fs) => fs.map((f) => (f.gruppo ? f : { ...f, gruppo: gruppi.find((g) => g.origine === (f as FotoM & { colore?: string }).colore)?.k ?? gruppi[0].k })));
+    dati.foto.forEach((d) => firmaDi(d.url).then((firma) => setFoto((fs) => fs.map((f) => (f.id === d.id ? { ...f, firma } : f)))));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const salvate = useMemo(() => new Set(dati.stock.map((t) => `${t.colore}|${t.taglia}`)), [dati.stock]);
+  // Le combinazioni già salvate restano anche a zero, così il server azzera il magazzino invece di ignorarle.
+  const stock = gruppi.flatMap((g) => Object.entries(g.qta).filter(([t, n]) => n > 0 || salvate.has(`${g.origine}|${t}`)).map(([t, n]) => ({ colore: g.nome.trim(), taglia: t, n })));
+  const totalePezzi = stock.reduce((a, x) => a + x.n, 0);
+  const vive = foto.filter((f) => !f.via);
+  const nuove = vive.filter((f) => f.file);
 
   // Le foto del telefono pesano 3–6 MB e Vercel accetta ~4 MB a salvataggio: le rimpicciolisco qui a 1800 px
   // (il sito ne usa al massimo 1600), così se ne caricano molte insieme senza perdere qualità visibile.
@@ -57,19 +75,53 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
   const aggiungiFoto = async (lista: FileList | null) => {
     if (!lista?.length) return;
     setLavoro(true);
-    const nuove = await Promise.all(Array.from(lista).filter((f) => f.type.startsWith("image/") || /\.(heic|heif)$/i.test(f.name)).map(riduci));
-    let tutte = [...foto, ...nuove].slice(0, 12);
-    let peso = 0; const dentro: File[] = [];
-    for (const f of tutte) { if (peso + f.size > 3.8 * 1024 * 1024) break; peso += f.size; dentro.push(f); }
-    if (dentro.length < tutte.length) setErrore("Troppe foto in una volta: salva queste, poi aggiungi le altre");
-    tutte = dentro;
-    setFoto(tutte); sincronizza(tutte); setLavoro(false);
+    const files = await Promise.all(Array.from(lista).filter((f) => f.type.startsWith("image/") || /\.(heic|heif)$/i.test(f.name)).map(riduci));
+    const arrivate: FotoM[] = await Promise.all(files.map(async (file) => ({ k: chiave(), file, url: URL.createObjectURL(file), gruppo: "", main: false, firma: await firmaDi(file) })));
+    // Riconosco la colorazione: ogni foto va nel colore con l'aspetto più vicino, altrimenti apre un colore nuovo.
+    let gs = [...gruppi]; let tutte = [...foto];
+    for (const f of arrivate) {
+      const centri = gs.map((g) => { const fs = tutte.filter((x) => !x.via && x.gruppo === g.k && x.firma).map((x) => x.firma!); return fs.length ? { g, d: f.firma ? distanza(f.firma, media(fs)) : 9 } : null; }).filter(Boolean) as { g: Gruppo; d: number }[];
+      const vicino = centri.sort((a, b) => a.d - b.d)[0];
+      let g = vicino && vicino.d < SOGLIA ? vicino.g : undefined;
+      if (!g) {
+        const libero = gs.find((x) => !tutte.some((y) => !y.via && y.gruppo === x.k) && !x.nome);
+        const base = f.firma ? nomeDi(f.firma) : "";
+        let nome = base, i = 2; while (nome && gs.some((x) => x.nome === nome)) nome = `${base} ${i++}`;
+        if (libero) { g = { ...libero, nome: libero.nome || nome }; gs = gs.map((x) => (x.k === libero.k ? g! : x)); }
+        else { g = { k: chiave(), nome, origine: null, qta: {} }; gs = [...gs, g]; }
+      }
+      const haMain = tutte.some((x) => !x.via && x.gruppo === g!.k && x.main);
+      tutte = [...tutte, { ...f, gruppo: g.k, main: !haMain }];
+    }
+    // Vercel accetta ~4 MB a salvataggio: le foto oltre restano fuori e lo dico.
+    let peso = 0; const scartate = new Set<string>();
+    for (const f of tutte.filter((x) => x.file && !x.via)) { if (peso + f.file!.size > 3.8 * 1024 * 1024) scartate.add(f.k); else peso += f.file!.size; }
+    if (scartate.size) { setErrore("Troppe foto in una volta: salva queste, poi aggiungi le altre"); tutte = tutte.filter((x) => !scartate.has(x.k)); }
+    setGruppi(gs); setFoto(tutte); sincronizza(tutte); setLavoro(false);
   };
-  const togliFoto = (i: number) => { const tutte = foto.filter((_, j) => j !== i); setFoto(tutte); sincronizza(tutte); };
-  const sincronizza = (tutte: File[]) => { const dt = new DataTransfer(); tutte.forEach((f) => dt.items.add(f)); if (fileRef.current) fileRef.current.files = dt.files; };
+  const sincronizza = (tutte: FotoM[]) => { const dt = new DataTransfer(); tutte.filter((f) => f.file && !f.via).forEach((f) => dt.items.add(f.file!)); if (fileRef.current) fileRef.current.files = dt.files; };
+  const aggiornaFoto = (fn: (fs: FotoM[]) => FotoM[]) => setFoto((fs) => { const n = fn(fs); sincronizza(n); return n; });
+  const principale = (f: FotoM) => aggiornaFoto((fs) => fs.map((x) => (x.gruppo === f.gruppo ? { ...x, main: x.k === f.k } : x)));
+  const togliFoto = (f: FotoM) => aggiornaFoto((fs) => {
+    const n = f.file ? fs.filter((x) => x.k !== f.k) : fs.map((x) => (x.k === f.k ? { ...x, via: true, main: false } : x));
+    if (f.main) { const altra = n.find((x) => !x.via && x.gruppo === f.gruppo); if (altra) return n.map((x) => (x.k === altra.k ? { ...x, main: true } : x)); }
+    return n;
+  });
+  const spostaFoto = (f: FotoM, dest: string) => {
+    let k = dest;
+    if (dest === "+") { const g = { k: chiave(), nome: "", origine: null, qta: {} }; setGruppi((gs) => [...gs, g]); k = g.k; }
+    aggiornaFoto((fs) => {
+      const haMain = fs.some((x) => !x.via && x.gruppo === k && x.main && x.k !== f.k);
+      let n = fs.map((x) => (x.k === f.k ? { ...x, gruppo: k, main: !haMain } : x));
+      if (f.main) { const altra = n.find((x) => !x.via && x.gruppo === f.gruppo); if (altra) n = n.map((x) => (x.k === altra.k ? { ...x, main: true } : x)); }
+      return n;
+    });
+  };
+  const gruppo = (k: string, d: Partial<Gruppo>) => setGruppi((gs) => gs.map((g) => (g.k === k ? { ...g, ...d } : g)));
+  const togliGruppo = (k: string) => setGruppi((gs) => (gs.length > 1 ? gs.filter((g) => g.k !== k) : gs));
 
-  const cambia = (t: string, d: number) => setQta((q) => ({ ...q, [t]: Math.max(0, Math.min(999, (q[t] ?? 0) + d)) }));
-  const aggiungiTaglia = () => { const t = nuovaTaglia.trim().toUpperCase(); if (!t) return; if (!proposte.includes(t)) setExtra((e) => [...e, t]); setQta((q) => ({ ...q, [t]: Math.max(1, q[t] ?? 0) })); setNuovaTaglia(""); };
+  const cambia = (g: Gruppo, t: string, d: number) => gruppo(g.k, { qta: { ...g.qta, [t]: Math.max(0, Math.min(999, (g.qta[t] ?? 0) + d)) } });
+  const aggiungiTaglia = () => { const t = nuovaTaglia.trim().toUpperCase(); if (!t) return; if (!proposte.includes(t)) setExtra((e) => [...e, t]); setNuovaTaglia(""); };
   const pezzo = (i: number, k: keyof Pezzo, v: string) => setPezzi((ps) => ps.map((p, j) => (j === i ? { ...p, [k]: v } : p)));
   const togliPezzo = (i: number) => { const p = pezzi[i]; if (p.id) setTolti((t) => [...t, p.id]); setPezzi((ps) => (ps.length > 1 ? ps.filter((_, j) => j !== i) : [vuoto()])); };
 
@@ -93,7 +145,9 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
     else if (!cat) msg = "Scegli la categoria";
     else if (tipo === "NUOVO" && !(num("prezzo") > 0)) msg = "Scrivi il prezzo";
     else if (tipo === "NUOVO" && trattabile && !(num("prezzoMinimo") > 0 && num("prezzoMinimo") <= num("prezzo"))) msg = "Scrivi il prezzo minimo: più di zero e non sopra il prezzo";
-    else if (tipo === "NUOVO" && !taglieTesto) msg = "Indica quanti pezzi hai per almeno una taglia";
+    else if (tipo === "NUOVO" && !totalePezzi && !stock.length) msg = "Indica quanti pezzi hai per almeno una taglia";
+    else if (gruppi.length > 1 && gruppi.some((g) => !g.nome.trim() && (vive.some((f) => f.gruppo === g.k) || Object.values(g.qta).some((n) => n > 0)))) msg = "Dai un nome a ogni colore";
+    else if (new Set(gruppi.map((g) => g.nome.trim().toLowerCase())).size < gruppi.length) msg = "Due colori hanno lo stesso nome";
     else if (tipo === "SECOND_LIFE" && !(num("partenza") > 0)) msg = "Scrivi il prezzo di partenza";
     else if (tipo === "SECOND_LIFE" && !tagliaAsta) msg = "Scegli la taglia del pezzo";
     else if (tipo === "USATO" && !pezzi.some((p) => p.taglia)) msg = "Scegli la taglia di almeno un pezzo";
@@ -110,7 +164,11 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
       {dati.id && <input type="hidden" name="id" value={dati.id} />}
       <input type="hidden" name="tipo" value={tipo} />
       <input type="hidden" name="categoria" value={cat} />
-      <input type="hidden" name="taglie" value={tipo === "SECOND_LIFE" ? (tagliaAsta ? `${tagliaAsta}:1` : "") : taglieTesto} />
+      <input type="hidden" name="taglie" value={tipo === "SECOND_LIFE" ? (tagliaAsta ? `${tagliaAsta}:1` : "") : ""} />
+      {tipo === "NUOVO" && <input type="hidden" name="stock" value={JSON.stringify(stock)} />}
+      <input type="hidden" name="colori" value={JSON.stringify(gruppi.map((g) => ({ nome: g.nome.trim(), prima: g.origine })))} />
+      {nuove.map((f) => <span key={f.k}><input type="hidden" name="foto_colore" value={gruppi.find((g) => g.k === f.gruppo)?.nome.trim() ?? ""} /><input type="hidden" name="foto_main" value={f.main ? "1" : ""} /></span>)}
+      {foto.filter((f) => f.id).map((f) => <span key={f.k}><input type="hidden" name="fe_id" value={f.id} /><input type="hidden" name="fe_colore" value={gruppi.find((g) => g.k === f.gruppo)?.nome.trim() ?? ""} /><input type="hidden" name="fe_main" value={f.main ? "1" : ""} /><input type="hidden" name="fe_via" value={f.via ? "1" : ""} /></span>)}
       <input type="hidden" name="trattabile" value={tipo === "NUOVO" && trattabile ? "on" : ""} />
       <h2 className="mp-titolo">{titolo}</h2>
 
@@ -132,16 +190,43 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
         </div>
       </section>
 
-      {/* 3 — foto */}
+      {/* 3 — foto e colori */}
       <section className="mp-blocco">
-        <h3><span>3</span>Foto</h3>
+        <h3><span>3</span>{tipo === "NUOVO" ? "Foto, colori e pezzi" : "Foto e colori"}</h3>
         <label className="mp-foto" onDragOver={(e) => e.preventDefault()} onDrop={(e) => { e.preventDefault(); aggiungiFoto(e.dataTransfer.files); }}>
-          <input ref={fileRef} type="file" name="foto" accept="image/*" multiple onChange={(e) => aggiungiFoto(e.target.files)} />
-          <b>{lavoro ? "Preparo le foto…" : "+ Aggiungi foto"}</b><small>Sfondo bianco, da catalogo. Puoi sceglierne più di una.</small>
+          <input ref={fileRef} type="file" name="foto" accept="image/*" multiple onChange={(e) => { aggiungiFoto(e.target.files); }} />
+          <b>{lavoro ? "Preparo le foto…" : "+ Aggiungi foto"}</b><small>Anche di più colori insieme: le divido io per colore. Tocca una foto per farla principale (quella a 3/4 verso destra).</small>
         </label>
-        {foto.length > 0 && <div className="mp-anteprime">{anteprime.map((u, i) => (
-          <figure key={u}>{/* eslint-disable-next-line @next/next/no-img-element */}<img src={u} alt="" /><button type="button" aria-label="Togli" onClick={() => togliFoto(i)}>×</button>{i === 0 && <figcaption>Principale</figcaption>}</figure>
-        ))}</div>}
+        {gruppi.map((g) => { const fs = vive.filter((f) => f.gruppo === g.k); return (
+          <div key={g.k} className="mp-colore">
+            <div className="mp-colore-testa">
+              <input value={g.nome} onChange={(e) => gruppo(g.k, { nome: e.target.value })} placeholder={gruppi.length > 1 ? "Nome del colore" : "Colore (facoltativo)"} aria-label="Nome del colore" list="mp-nomi-colore" />
+              {gruppi.length > 1 && !fs.length && !g.origine && <button type="button" className="mp-togli" onClick={() => togliGruppo(g.k)}>Togli</button>}
+            </div>
+            {fs.length > 0 && <div className="mp-anteprime">{fs.map((f) => (
+              <figure key={f.k} className={f.main ? "main" : ""}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}<img src={f.url} alt="" onClick={() => principale(f)} />
+                <button type="button" aria-label="Togli" onClick={() => togliFoto(f)}>×</button>
+                {f.main ? <figcaption>★ Principale</figcaption> : <figcaption className="tocca" onClick={() => principale(f)}>Rendi principale</figcaption>}
+                {gruppi.length > 0 && <select aria-label="Sposta in un altro colore" value="" onChange={(e) => e.target.value && spostaFoto(f, e.target.value)}>
+                  <option value="">Sposta…</option>
+                  {gruppi.filter((x) => x.k !== g.k).map((x) => <option key={x.k} value={x.k}>{x.nome || "Senza nome"}</option>)}
+                  <option value="+">Nuovo colore</option>
+                </select>}
+              </figure>
+            ))}</div>}
+            {tipo === "NUOVO" && cat && <><p className="mp-etichetta">Pezzi per taglia</p><div className="mp-taglie">{proposte.map((t) => (
+              <div key={t} className={"mp-taglia" + ((g.qta[t] ?? 0) > 0 ? " si" : "")}>
+                <b dir="ltr">{t === UNICA ? "Taglia unica" : t}</b>
+                <div><button type="button" aria-label="Meno" onClick={() => cambia(g, t, -1)}>−</button><output>{g.qta[t] ?? 0}</output><button type="button" aria-label="Più" onClick={() => cambia(g, t, 1)}>+</button></div>
+              </div>
+            ))}</div></>}
+          </div>
+        ); })}
+        <datalist id="mp-nomi-colore">{["Nero", "Nero opaco", "Bianco", "Grigio", "Rosso", "Blu", "Giallo fluo", "Verde", "Arancione"].map((c) => <option key={c} value={c} />)}</datalist>
+        <button type="button" className="tasto vuoto pieno" onClick={() => setGruppi((gs) => [...gs, { k: chiave(), nome: "", origine: null, qta: {} }])}>+ Aggiungi un colore</button>
+        {tipo === "NUOVO" && !cat && <p className="tenue">Scegli prima la categoria.</p>}
+        {tipo === "NUOVO" && cat && <div className="mp-altra"><input value={nuovaTaglia} onChange={(e) => setNuovaTaglia(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); aggiungiTaglia(); } }} placeholder="Altra taglia" dir="ltr" /><button type="button" className="tasto piccolo vuoto" onClick={aggiungiTaglia}>+ Aggiungi</button></div>}
       </section>
 
       {/* 4 — nome e marca */}
@@ -156,19 +241,10 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
 
       {/* 5 — prezzo e pezzi, diverso per tipo */}
       {tipo === "NUOVO" && <section className="mp-blocco">
-        <h3><span>5</span>Prezzo e pezzi</h3>
+        <h3><span>5</span>Prezzo</h3>
         <div className="campo"><label htmlFor="mp-prezzo">Prezzo (EGP)</label><input id="mp-prezzo" name="prezzo" inputMode="decimal" className="mp-grande" defaultValue={dati.prezzo} placeholder="0" /></div>
         <label className="mp-interruttore"><input type="checkbox" checked={trattabile} onChange={(e) => setTrattabile(e.target.checked)} /><span /> Il cliente può trattare</label>
         {trattabile && <div className="campo"><label htmlFor="mp-min">Minimo che accetti (EGP)</label><input id="mp-min" name="prezzoMinimo" inputMode="decimal" defaultValue={dati.prezzoMinimo} placeholder="0" /><small className="lieve">Il cliente vede solo il prezzo sopra.</small></div>}
-        <p className="mp-etichetta">Quanti pezzi per taglia</p>
-        {!cat && <p className="tenue">Scegli prima la categoria.</p>}
-        {cat && <div className="mp-taglie">{proposte.map((t) => (
-          <div key={t} className={"mp-taglia" + ((qta[t] ?? 0) > 0 ? " si" : "")}>
-            <b dir="ltr">{t === UNICA ? "Taglia unica" : t}</b>
-            <div><button type="button" aria-label="Meno" onClick={() => cambia(t, -1)}>−</button><output>{qta[t] ?? 0}</output><button type="button" aria-label="Più" onClick={() => cambia(t, 1)}>+</button></div>
-          </div>
-        ))}</div>}
-        {cat && <div className="mp-altra"><input value={nuovaTaglia} onChange={(e) => setNuovaTaglia(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); aggiungiTaglia(); } }} placeholder="Altra taglia" dir="ltr" /><button type="button" className="tasto piccolo vuoto" onClick={aggiungiTaglia}>+ Aggiungi</button></div>}
       </section>}
 
       {tipo === "SECOND_LIFE" && <section className="mp-blocco">
@@ -206,7 +282,7 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
               <div className="campo"><label>Minimo (EGP)</label><input name="pz_minimo" inputMode="decimal" value={z.minimo} onChange={(e) => pezzo(i, "minimo", e.target.value)} placeholder="0" /></div>
             </div>
             <details className="mp-piu"><summary>{z.colore || z.difetti ? `${[z.colore, z.difetti && "difetti"].filter(Boolean).join(" · ")} — ` : ""}Colore, difetti, acquisto</summary>
-              <div className="campo"><label>Colore</label><input name="pz_colore" value={z.colore} onChange={(e) => pezzo(i, "colore", e.target.value)} placeholder="es. Nero lucido" /></div>
+              <div className="campo"><label>Colore</label><input name="pz_colore" list="mp-gruppi" value={z.colore} onChange={(e) => pezzo(i, "colore", e.target.value)} placeholder="es. Nero lucido" /></div>
               <div className="campo"><label>Difetti (li vede il cliente)</label><input name="pz_difetti" value={z.difetti} onChange={(e) => pezzo(i, "difetti", e.target.value)} placeholder="Nessuno" /></div>
               <p className="mp-etichetta">Solo per te</p>
               <div className="campo"><label>Link annuncio Vinted</label><input name="pz_link" type="url" dir="ltr" value={z.link} onChange={(e) => pezzo(i, "link", e.target.value)} placeholder="https://www.vinted.it/items/…" /></div>
@@ -220,6 +296,7 @@ export default function ModuloProdotto({ azione, sposta, dati, categorie, marche
         ))}
         {/* I pezzi tolti vanno dopo quelli completi: il server legge i campi per posizione. */}
         {tolti.map((id) => <span key={id}><input type="hidden" name="pz_id" value={id} /><input type="hidden" name="pz_taglia" value="" /></span>)}
+        <datalist id="mp-gruppi">{gruppi.filter((g) => g.nome.trim()).map((g) => <option key={g.k} value={g.nome.trim()} />)}</datalist>
         <button type="button" className="tasto vuoto pieno" onClick={() => setPezzi((ps) => [...ps, vuoto()])}>+ Aggiungi un altro pezzo</button>
       </section>}
 

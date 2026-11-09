@@ -473,3 +473,15 @@ details.mp-blocco > summary { font-size: 17px; }
 .dc-riga input[name$="_p"] { font-weight: 700; }
 @media (max-width: 560px) { .dc-riga { grid-template-columns: 56px 1fr 1fr; } .dc-testo { grid-column: 2 / -1; } .dc-riga input[name$="_p"] { grid-column: 2; } }
 .mp-visibile { padding: 16px 0 0; }
+.miniatura { padding: 0; border: 1px solid transparent; background: none; cursor: pointer; }
+.miniatura.si { border-color: var(--inchiostro); }
+.taglie .campione { display: block; width: 44px; height: 44px; object-fit: contain; background: #fff; margin: 0 auto 4px; }
+.mp-colore { border: 1px solid var(--linea); padding: 12px; margin: 14px 0; }
+.mp-colore-testa { display: flex; gap: 10px; align-items: center; }
+.mp-colore-testa input { flex: 1; font-weight: 700; }
+.mp-colore .mp-anteprime figure { width: 104px; }
+.mp-colore .mp-anteprime img { width: 104px; height: 104px; cursor: pointer; }
+.mp-colore .mp-anteprime figure.main img { outline: 3px solid var(--inchiostro); outline-offset: -3px; }
+.mp-colore .mp-anteprime figcaption { white-space: nowrap; font-size: 9px; }
+.mp-colore .mp-anteprime figcaption.tocca { cursor: pointer; color: var(--testo-3); }
+.mp-colore .mp-anteprime select { width: 100%; padding: 4px; font-size: 12px; margin-top: 4px; }

@@ -37,12 +37,12 @@ const MAGIC = (b: Buffer) =>
   (b[0] === 0xff && b[1] === 0xd8) || (b[0] === 0x89 && b.toString("latin1", 1, 4) === "PNG") ||
   (b.toString("latin1", 0, 4) === "RIFF" && b.toString("latin1", 8, 12) === "WEBP");
 
-async function salvaFoto(prodottoId: string, files: File[]) {
+async function salvaFoto(prodottoId: string, files: File[], colori: string[] = [], principali: boolean[] = []) {
   const veri = files.filter((f) => f.size > 0);
   // Vercel accetta al massimo ~4,5 MB per richiesta: meglio dirlo prima che far fallire il salvataggio a metà
   if (veri.reduce((s, f) => s + f.size, 0) > 4 * 1024 * 1024) throw new Error("Foto troppo pesanti: massimo 4 MB in totale per salvataggio. Caricale una o due alla volta.");
   let ordine = await db.foto.count({ where: { prodottoId } });
-  for (const file of veri) {
+  for (const [i, file] of veri.entries()) {
     const buf = Buffer.from(await file.arrayBuffer());
     if (!MAGIC(buf)) throw new Error(`${file.name}: non è una foto JPG, PNG o WebP`);
     const nome = nuovoId();
@@ -53,9 +53,22 @@ async function salvaFoto(prodottoId: string, files: File[]) {
     await db.$transaction([
       db.media.create({ data: { percorso: pg, dati: new Uint8Array(grande) } }),
       db.media.create({ data: { percorso: pp, dati: new Uint8Array(piccola) } }),
-      db.foto.create({ data: { id: nuovoId(), prodottoId, grande: pg, piccola: pp, ordine: ordine++ } }),
+      db.foto.create({ data: { id: nuovoId(), prodottoId, grande: pg, piccola: pp, ordine: ordine++, colore: colori[i] ?? "", principale: principali[i] ?? false } }),
     ]);
   }
+}
+
+/** Ordine delle foto: colore per colore (nell'ordine del modulo), la principale per prima. Un solo «principale» per colore.
+    Così la prima foto del prodotto, quella del negozio, è la 3/4 del primo colore. */
+async function riordinaFoto(prodottoId: string, ordineColori: string[]) {
+  const fs = await db.foto.findMany({ where: { prodottoId }, orderBy: { ordine: "asc" } });
+  const pos = (c: string) => { const i = ordineColori.indexOf(c); return i < 0 ? 999 : i; };
+  const visti = new Set<string>();
+  const capi = new Map<string, string>();
+  for (const f of fs) if (f.principale && !capi.has(f.colore)) capi.set(f.colore, f.id);
+  for (const f of fs) if (!capi.has(f.colore)) capi.set(f.colore, f.id);
+  const ord = [...fs].sort((a, b) => pos(a.colore) - pos(b.colore) || (capi.get(a.colore) === a.id ? -1 : capi.get(b.colore) === b.id ? 1 : 0) || a.ordine - b.ordine);
+  await db.$transaction(ord.map((f, i) => { visti.add(f.colore); return db.foto.update({ where: { id: f.id }, data: { ordine: i, principale: capi.get(f.colore) === f.id } }); }));
 }
 
 export async function eliminaFotoAction(f: FormData) {
@@ -84,7 +97,12 @@ export async function salvaProdottoAction(f: FormData) {
   if (!usato && !(prezzo > 0)) ko(rt, tipoScelto ? "Scrivi il prezzo di partenza dell'asta (in EGP)" : "Scrivi il prezzo (in EGP, es. 5920)", back);
   const prima = t(f, "prezzoPrima") ? egpToPiastre(t(f, "prezzoPrima")) : null;
   if (prima !== null && !(prima > prezzo)) ko(rt, "Il prezzo di prima deve essere più alto del prezzo", back);
-  let taglie; try { taglie = t(f, "tipo") === "USATO" ? [] : leggiTaglie(t(f, "taglie")); } catch (e) { return ko(rt, (e as Error).message, back); }
+  let taglie; try { taglie = t(f, "tipo") === "SECOND_LIFE" || (t(f, "tipo") === "NUOVO" && !f.has("stock")) ? leggiTaglie(t(f, "taglie")) : []; } catch (e) { return ko(rt, (e as Error).message, back); }
+  // Nuovo: magazzino per colore e taglia; colori: nomi nell'ordine del modulo, con il nome di prima per le rinomine.
+  const leggi = <T,>(k: string, d: T): T => { try { return f.has(k) ? JSON.parse(t(f, k)) as T : d; } catch { return d; } };
+  const stock = leggi<{ colore: string; taglia: string; n: number }[]>("stock", []).map((x) => ({ colore: String(x.colore ?? "").trim().slice(0, 60), taglia: String(x.taglia ?? "").trim().toUpperCase().slice(0, 20), n: Math.max(0, Math.min(999, Math.round(Number(x.n) || 0))) })).filter((x) => x.taglia);
+  const colori = leggi<{ nome: string; prima: string | null }[]>("colori", []).map((c) => ({ nome: String(c.nome ?? "").trim().slice(0, 60), prima: c.prima == null ? null : String(c.prima) }));
+  if (t(f, "tipo") === "NUOVO" && f.has("stock") && !stock.length) ko(rt, "Indica quanti pezzi hai per almeno una taglia", back);
   const tipoRaw = t(f, "tipo"); const tipo = tipoRaw === "SECOND_LIFE" ? "SECOND_LIFE" : tipoRaw === "USATO" ? "USATO" : "NUOVO";
   // L'usato è sempre un pezzo unico (si vende all'asta); il nuovo può avere più pezzi.
   if (tipo === "SECOND_LIFE" && !(taglie.length === 1 && taglie[0].giacenza === 1)) ko(rt, "Il prodotto usato è un pezzo unico: scrivi una sola taglia con 1 pezzo (es. L:1)", back);
@@ -144,6 +162,21 @@ export async function salvaProdottoAction(f: FormData) {
           else await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, ...d } });
         }
       }
+      // Colori rinominati: varianti e foto seguono il nome nuovo.
+      for (const c of colori) if (id && c.prima !== null && c.prima !== c.nome) {
+        await tx.foto.updateMany({ where: { prodottoId: pid, colore: c.prima }, data: { colore: c.nome } });
+        if (tipo === "NUOVO") {
+          if (await tx.variante.count({ where: { prodottoId: pid, colore: c.nome } })) throw new Error(`Il colore «${c.nome}» esiste già: scegli un altro nome`);
+          await tx.variante.updateMany({ where: { prodottoId: pid, colore: c.prima }, data: { colore: c.nome } });
+        }
+      }
+      if (tipo === "NUOVO") for (const v of stock) {
+        const e = await tx.variante.findUnique({ where: { prodottoId_colore_taglia: { prodottoId: pid, colore: v.colore, taglia: v.taglia } } });
+        if (e) {
+          if (v.n < e.impegnati) throw new Error(`${v.colore ? v.colore + " " : ""}${v.taglia}: ${e.impegnati} pezzi sono già in ordini aperti, non puoi scendere sotto`);
+          await tx.variante.update({ where: { id: e.id }, data: { giacenza: v.n } });
+        } else if (v.n > 0) await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, colore: v.colore, taglia: v.taglia, giacenza: v.n } });
+      }
       for (const v of taglie) {
         const e = await tx.variante.findUnique({ where: { prodottoId_colore_taglia: { prodottoId: pid, colore: "", taglia: v.taglia } } });
         if (e) {
@@ -152,7 +185,16 @@ export async function salvaProdottoAction(f: FormData) {
         } else await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, taglia: v.taglia, giacenza: v.giacenza } });
       }
     });
-    await salvaFoto(pid, f.getAll("foto").filter((x): x is File => x instanceof File));
+    // Foto già salvate: colore, principale o via.
+    const g = (k: string) => f.getAll(k).map(String);
+    const [feId, feCol, feMain, feVia] = ["fe_id", "fe_colore", "fe_main", "fe_via"].map(g);
+    for (const [i, fid] of feId.entries()) {
+      const ft = await db.foto.findFirst({ where: { id: fid, prodottoId: pid } }); if (!ft) continue;
+      if (feVia[i] === "1") await db.$transaction([db.foto.delete({ where: { id: fid } }), db.media.deleteMany({ where: { percorso: { in: [ft.grande, ft.piccola] } } })]);
+      else await db.foto.update({ where: { id: fid }, data: { colore: (feCol[i] ?? "").trim().slice(0, 60), principale: feMain[i] === "1" } });
+    }
+    await salvaFoto(pid, f.getAll("foto").filter((x): x is File => x instanceof File), g("foto_colore").map((c) => c.trim().slice(0, 60)), g("foto_main").map((x) => x === "1"));
+    await riordinaFoto(pid, colori.map((c) => c.nome));
   } catch (e) { return ko(rt, (e as Error).message, pid ? `&modifica=${pid}` : back); }
   revalidatePath("/", "layout"); ok(t(f, "ritorno") || (tipo === "SECOND_LIFE" ? "aste" : "prodotti"), id ? "Salvato" : tipo === "SECOND_LIFE" ? "Asta aperta: è già sul sito" : "Prodotto pubblicato");
 }
@@ -255,13 +297,13 @@ type PezzoNuovo = { marcaId: string; marcaNome: string; nome: string; categoria:
 async function mettiNelNuovo(tx: Tx, z: PezzoNuovo): Promise<{ pid: string; creato: boolean }> {
   const esistente = await tx.prodotto.findFirst({ where: { tipo: "NUOVO", categoria: z.categoria, OR: [
     { sottocategoria: { equals: z.modello, mode: "insensitive" } }, { marcaId: z.marcaId, nome: { equals: z.nome, mode: "insensitive" } }] } });
-  const appunto = [z.fonteUrl, z.prezzoAnnuncio && `annuncio ${z.prezzoAnnuncio}`, z.colore && `colore ${z.colore}`].filter(Boolean).join(" · ");
+  const appunto = [z.fonteUrl, z.prezzoAnnuncio && `annuncio ${z.prezzoAnnuncio}`].filter(Boolean).join(" · ");
   let pid = esistente?.id ?? "";
   if (!esistente) {
     let slug = slugDi(`${z.marcaNome} ${z.nome}`); if (await tx.prodotto.findUnique({ where: { slug } })) slug += "-" + Math.random().toString(36).slice(2, 6);
     pid = nuovoId();
     await tx.prodotto.create({ data: { id: pid, slug, nome: z.nome, marcaId: z.marcaId, sottotitolo: "", categoria: z.categoria, stili: [], tipo: "NUOVO", sottocategoria: z.modello,
-      colore: z.colore || null, specs: [], prezzo: z.prezzo ?? 0, trattabile: false, nota: z.nota, luogo: "", descrizione: [], attivo: false, edizione: z.edizione } });
+      specs: [], prezzo: z.prezzo ?? 0, trattabile: false, nota: z.nota, luogo: "", descrizione: [], attivo: false, edizione: z.edizione } });
     if (z.fotoDa) {
       const foto = await tx.foto.findMany({ where: { prodottoId: z.fotoDa }, orderBy: { ordine: "asc" } });
       for (const [i, f] of foto.entries()) {
@@ -270,13 +312,15 @@ async function mettiNelNuovo(tx: Tx, z: PezzoNuovo): Promise<{ pid: string; crea
         if (!g || !pc) continue;
         const n = nuovoId(), pg = `prodotti/${pid}/${n}.webp`, pp = `prodotti/${pid}/${n}-s.webp`;
         await tx.media.createMany({ data: [{ percorso: pg, dati: g.dati }, { percorso: pp, dati: pc.dati }] });
-        await tx.foto.create({ data: { id: nuovoId(), prodottoId: pid, grande: pg, piccola: pp, ordine: i } });
+        await tx.foto.create({ data: { id: nuovoId(), prodottoId: pid, grande: pg, piccola: pp, ordine: i, colore: f.colore, principale: f.principale } });
       }
     }
   }
-  const v = await tx.variante.findUnique({ where: { prodottoId_colore_taglia: { prodottoId: pid, colore: "", taglia: z.taglia } } });
+  // Il magazzino del nuovo è per colore e taglia: due annunci dello stesso colore e taglia fanno 2 pezzi.
+  const col = z.colore.trim().replace(/^./, (c) => c.toUpperCase());
+  const v = await tx.variante.findUnique({ where: { prodottoId_colore_taglia: { prodottoId: pid, colore: col, taglia: z.taglia } } });
   if (v) await tx.variante.update({ where: { id: v.id }, data: { giacenza: { increment: 1 }, noteInterne: [v.noteInterne, appunto].filter(Boolean).join("\n").slice(0, 4000) } });
-  else await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, taglia: z.taglia, giacenza: 1, costo: z.costo, fonteUrl: z.fonteUrl, prezzoAnnuncio: z.prezzoAnnuncio, noteInterne: appunto } });
+  else await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, colore: col, taglia: z.taglia, giacenza: 1, costo: z.costo, fonteUrl: z.fonteUrl, prezzoAnnuncio: z.prezzoAnnuncio, noteInterne: appunto } });
   return { pid, creato: !esistente };
 }
 

@@ -144,7 +144,9 @@ async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: s
   const dati: DatiProdotto = {
     id: p?.id, tipo, nome: p?.nome ?? "", marca: p?.marca.nome ?? "", categoria: p?.categoria ?? "",
     prezzo: egpS(p?.prezzo), trattabile: p?.trattabile ?? false, prezzoMinimo: egpS(p?.prezzoMinimo),
-    taglie: tipo === "USATO" ? [] : (p?.varianti ?? []).filter((v) => !v.colore).map((v) => ({ taglia: v.taglia, n: v.giacenza })),
+    taglie: tipo === "SECOND_LIFE" ? (p?.varianti ?? []).filter((v) => !v.colore).map((v) => ({ taglia: v.taglia, n: v.giacenza })) : [],
+    stock: tipo === "NUOVO" ? (p?.varianti ?? []).map((v) => ({ colore: v.colore, taglia: v.taglia, n: v.giacenza })) : [],
+    foto: (p?.foto ?? []).map((f) => ({ id: f.id, url: `/media/${f.piccola}`, colore: f.colore, principale: f.principale })),
     pezzi: tipo === "USATO" ? (p?.varianti ?? []).map((v) => ({ id: v.id, colore: v.colore, taglia: v.taglia, prezzo: egpS(v.prezzo), minimo: egpS(v.prezzoMinimo), difetti: v.difetti ?? "", link: v.fonteUrl ?? "", annuncio: v.prezzoAnnuncio ?? "", costo: v.costo != null ? String(v.costo / 100) : "", note: v.noteInterne ?? "" })) : [],
     partenza: egpS(p?.asta?.partenza), riserva: egpS(p?.asta?.riserva), astaEsiste: Boolean(p?.asta),
     descrizione: p?.descrizione.join("\n") ?? "", attivo: p ? p.attivo : true,
@@ -156,10 +158,6 @@ async function FormProdotto({ id, tipoIniziale }: { id: string; tipoIniziale?: s
   };
   const modelli = Object.entries(MODELLI as unknown as Record<string, string[]>).filter(([k]) => k !== "_nota").flatMap(([, v]) => v);
   return <>
-    {p && p.foto.length > 0 && <div className="mp-attuali"><p className="mp-etichetta">Foto sul sito</p><div>{p.foto.map((f) => (
-      <form key={f.id} action={eliminaFotoAction}><input type="hidden" name="id" value={f.id} />
-        {/* eslint-disable-next-line @next/next/no-img-element */}<img src={`/media/${f.piccola}`} alt="" /><button aria-label="Togli">×</button></form>
-    ))}</div></div>}
     <ModuloProdotto azione={salvaProdottoAction} sposta={spostaNelNuovoAction} dati={dati} categorie={CATEGORIE.map((c) => [c, ETICHETTA_CAT[c] ?? c])} marche={marche.map((m) => m.nome)} modelli={modelli} />
   </>;
 }
@@ -291,7 +289,7 @@ async function DaCompletare() {
       {usati.length > 0 && <><p className="mp-etichetta"><span>Usato</span> · {usati.length}</p>
         {usati.map((v) => riga(`u_${v.id}`, v.prodotto.foto[0]?.piccola, `${v.prodotto.marca.nome} ${v.prodotto.nome}`, [v.taglia, v.colore, v.difetti && "difetti: " + v.difetti].filter(Boolean).join(" · "), v.fonteUrl, v.prezzoAnnuncio, v.prodottoId))}</>}
       {nuovi.length > 0 && <><p className="mp-etichetta"><span>Nuovo</span> · {nuovi.length}</p>
-        {nuovi.map((p) => { const v0 = p.varianti.find((v) => v.fonteUrl || v.prezzoAnnuncio); return riga(`n_${p.id}`, p.foto[0]?.piccola, `${p.marca.nome} ${p.nome}`, p.varianti.map((v) => `${v.taglia}×${v.giacenza}`).join(" "), v0?.fonteUrl ?? null, v0?.prezzoAnnuncio ?? null, p.id); })}</>}
+        {nuovi.map((p) => { const v0 = p.varianti.find((v) => v.fonteUrl || v.prezzoAnnuncio); return riga(`n_${p.id}`, p.foto[0]?.piccola, `${p.marca.nome} ${p.nome}`, p.varianti.map((v) => `${v.colore ? v.colore + " " : ""}${v.taglia}×${v.giacenza}`).join(" · "), v0?.fonteUrl ?? null, v0?.prezzoAnnuncio ?? null, p.id); })}</>}
       <div className="mp-salva"><button className="tasto">Pubblica i prezzi scritti</button></div>
     </form>
   );

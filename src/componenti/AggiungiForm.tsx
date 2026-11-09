@@ -1,16 +1,23 @@
 "use client";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { aggiungiAlCarrello, offriPrezzo } from "@/app/azioni";
 
 type V = { id: string; prezzo: number; colore: string; difetti: string; taglia: string; disponibile: number; misura?: string };
 
-export function AggiungiForm({ varianti, testi, iniziale, checkout, trattabile, altreOpzioni }: {
+export function AggiungiForm({ varianti, testi, iniziale, checkout, trattabile, altreOpzioni, campioni = {} }: {
+  campioni?: Record<string, string>;
   varianti: V[]; iniziale: string; checkout: string; trattabile?: boolean; altreOpzioni: string;
   testi: { aggiungi: string; aggiunto: string; esaurito: string; taglia: string; ultimi: string; disp: string; dispOk: string; acquista: string; offri: string; offertaEtichetta: string; offertaInvia: string; offertaOk: string; offertaVai: string; pezzi: string; restanti: string; colore: string; dispN: string; budget: string; budgetInvia: string; basso1: string; basso2: string; alza: string; altre: string; chat: string; difetti: string };
 }) {
   const colori = Array.from(new Set(varianti.map((x) => x.colore).filter(Boolean)));
   const [colore, setColore] = useState("");
+  // Toccare un colore nella galleria lo sceglie anche qui.
+  useEffect(() => {
+    const h = (e: Event) => { const c = (e as CustomEvent<string>).detail; if (varianti.some((x) => x.colore === c)) { setColore(c); setScelta(""); window.dispatchEvent(new CustomEvent("mn:colore", { detail: c })); } };
+    window.addEventListener("mn:colore-scelto", h);
+    return () => window.removeEventListener("mn:colore-scelto", h);
+  }, [varianti]);
   const [scelta, setScelta] = useState(colori.length ? "" : iniziale);
   const [fallimenti, setFallimenti] = useState(0);
   const visibili = colori.length ? varianti.filter((x) => x.colore === colore) : varianti;
@@ -43,8 +50,8 @@ export function AggiungiForm({ varianti, testi, iniziale, checkout, trattabile, 
           <div className="taglie">
             {colori.map((c) => { const n = varianti.filter((x) => x.colore === c).reduce((a, x) => a + x.disponibile, 0); return (
               <label key={c}>
-                <input type="radio" name="colore" value={c} checked={colore === c} disabled={n <= 0} onChange={() => { setColore(c); setScelta(""); setFallimenti(0); setEsitoOfferta(null); }} />
-                <span className="t">{c}<small>{n <= 0 ? testi.esaurito : testi.dispN.replace("{n}", String(n))}</small></span>
+                <input type="radio" name="colore" value={c} checked={colore === c} disabled={n <= 0} onChange={() => { setColore(c); setScelta(""); setFallimenti(0); setEsitoOfferta(null); window.dispatchEvent(new CustomEvent("mn:colore", { detail: c })); }} />
+                <span className="t">{/* eslint-disable-next-line @next/next/no-img-element */}{campioni[c] && <img className="campione" src={campioni[c]} alt="" />}{c}<small>{n <= 0 ? testi.esaurito : testi.dispN.replace("{n}", String(n))}</small></span>
               </label>
             ); })}
           </div>

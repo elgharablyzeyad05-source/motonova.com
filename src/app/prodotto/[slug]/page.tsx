@@ -1,3 +1,4 @@
+import GalleriaColori from "@/componenti/GalleriaColori";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
@@ -49,7 +50,6 @@ export default async function Prodotto({ params }: Props) {
   const specs = [...extra.filter(([k]) => !specsDb.some(([b]) => b === k)), ...specsDb];
   const omol = specs.find(([k]) => /omolog|membrana|rete|tipo|ce /i.test(k));
   const descr = p.descrizione.length ? p.descrizione : [`${p.marca.nome} ${p.nome} — ${p.nota}`];
-  const foto = p.foto.length ? p.foto : [null];
 
   const json = {
     "@context": "https://schema.org", "@type": "Product", name: `${p.marca.nome} ${p.nome}`, brand: { "@type": "Brand", name: p.marca.nome },
@@ -65,15 +65,8 @@ export default async function Prodotto({ params }: Props) {
       </p>
       <div className="prodotto">
         <div className="galleria">
-          <div style={{ position: "relative" }}>
-            <Cornice foto={foto[0]?.grande} statica={p.foto.length ? undefined : fotoCatalogo(p)} categoria={p.categoria} alt={`${p.marca.nome} ${p.nome}`} grande>
-              {pct > 0 && <span className="bollino sconto mono">−{pct}%</span>}
-            </Cornice>
-            <Cuore slug={p.slug} on={pref} torna={href(l, `/prodotto/${p.slug}`)} l={l} />
-          </div>
-          {foto.length > 1 && (
-            <div className="miniature">{foto.slice(1).map((f, i) => <Cornice key={i} foto={f?.piccola} categoria={p.categoria} alt={`${p.nome} ${i + 2}`} />)}</div>
-          )}
+          <GalleriaColori foto={p.foto.map((f) => ({ grande: f.grande, piccola: f.piccola, colore: f.colore, principale: f.principale }))} statica={fotoCatalogo(p)} categoria={p.categoria} alt={`${p.marca.nome} ${p.nome}`}
+            sopra={<>{pct > 0 && <span className="bollino sconto mono">−{pct}%</span>}<Cuore slug={p.slug} on={pref} torna={href(l, `/prodotto/${p.slug}`)} l={l} /></>} />
           {!p.foto.length && !fotoCatalogo(p) && <p className="mono lieve">{_("La foto arriverà: questo è un disegno, non il prodotto.", "The photo is coming: this is a drawing, not the product.", "الصورة جاية: ده رسم مش المنتج.")}</p>}
         </div>
         <div>
@@ -82,7 +75,7 @@ export default async function Prodotto({ params }: Props) {
           <p className="tenue" style={{ marginBottom: 16 }}>{tr(l, p.sottotitolo)}</p>
           <p className="prezzo-grande tab">{prezzoDiversi ? _("da ", "from ", "من ") : ""}{egp(prezzoMin)}{p.prezzoPrima ? <s>{egp(p.prezzoPrima)}</s> : null}</p>
           <p className="mono lieve" style={{ margin: "6px 0 22px" }}>{_("IVA e dazio inclusi", "VAT and duty included", "شامل الضريبة والجمارك")}</p>
-          <AggiungiForm iniziale={iniziale} checkout={href(l, "/checkout")} trattabile={p.trattabile && (Boolean(p.prezzoMinimo) || varianti.some((v) => v.prezzoMinimo))}
+          <AggiungiForm iniziale={iniziale} campioni={Object.fromEntries(p.foto.filter((f) => f.colore && f.principale).map((f) => [f.colore, `/media/${f.piccola}`]))} checkout={href(l, "/checkout")} trattabile={p.trattabile && (Boolean(p.prezzoMinimo) || varianti.some((v) => v.prezzoMinimo))}
             altreOpzioni={href(l, `/negozio?${p.tipo === "USATO" ? "cond=usato&" : ""}cat=${p.categoria}`)}
             varianti={varianti.map((v) => ({ id: v.id, prezzo: v.prezzo ?? p.prezzo, colore: v.colore, difetti: p.tipo === "USATO" ? v.difetti : "", taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
             testi={{

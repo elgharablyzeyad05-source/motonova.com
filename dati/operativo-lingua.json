@@ -1158,5 +1158,65 @@
 "Aggiunto al catalogo:": {
 "en": "Added to the catalogue:",
 "ar": "اتضاف للكتالوج:"
+},
+"Foto, colori e pezzi": {
+"en": "Photos, colours and pieces",
+"ar": "الصور والألوان والقطع"
+},
+"Foto e colori": {
+"en": "Photos and colours",
+"ar": "الصور والألوان"
+},
+"Anche di più colori insieme: le divido io per colore. Tocca una foto per farla principale (quella a 3/4 verso destra).": {
+"en": "Several colours at once is fine: I split them by colour. Tap a photo to make it the main one (the 3/4 view facing right).",
+"ar": "ممكن ألوان كتير مرة واحدة: هقسمهم حسب اللون. دوس على صورة عشان تبقى الأساسية (اللي بزاوية 3/4 ناحية اليمين)."
+},
+"Nome del colore": {
+"en": "Colour name",
+"ar": "اسم اللون"
+},
+"Colore (facoltativo)": {
+"en": "Colour (optional)",
+"ar": "اللون (اختياري)"
+},
+"★ Principale": {
+"en": "★ Main",
+"ar": "★ الأساسية"
+},
+"Rendi principale": {
+"en": "Make main",
+"ar": "خليها الأساسية"
+},
+"Sposta…": {
+"en": "Move…",
+"ar": "انقل…"
+},
+"Senza nome": {
+"en": "No name",
+"ar": "من غير اسم"
+},
+"Nuovo colore": {
+"en": "New colour",
+"ar": "لون جديد"
+},
+"Pezzi per taglia": {
+"en": "Pieces per size",
+"ar": "القطع لكل مقاس"
+},
+"+ Aggiungi un colore": {
+"en": "+ Add a colour",
+"ar": "+ ضيف لون"
+},
+"Dai un nome a ogni colore": {
+"en": "Give each colour a name",
+"ar": "اكتب اسم لكل لون"
+},
+"Due colori hanno lo stesso nome": {
+"en": "Two colours have the same name",
+"ar": "في لونين ليهم نفس الاسم"
+},
+"Sposta in un altro colore": {
+"en": "Move to another colour",
+"ar": "انقل للون تاني"
 }
 }
