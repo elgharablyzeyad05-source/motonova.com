@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { leggiAsta, statoDa } from "@/lib/aste";
 import { lingua, tx } from "@/lib/contesto";
-import { href, tr } from "@/lib/i18n";
+import { href, tr, tc } from "@/lib/i18n";
 import { egp } from "@/lib/regole";
 import { utenteCorrente } from "@/lib/sessione";
 import { Cornice } from "@/componenti/Sagoma";
@@ -32,7 +32,7 @@ export default async function AstaPagina({ params }: Props) {
     <div className="foglio sezione">
       <p className="mono lieve" style={{ marginBottom: 18 }}><Link href={href(l, "/aste")}>← Second Life</Link></p>
       <div className="prodotto">
-        <div className="galleria"><Cornice foto={p.foto[0]?.grande} categoria={p.categoria} alt={p.nome} grande><span className="bollino mono">{tr(l, p.grado ?? "")}</span></Cornice>
+        <div className="galleria"><Cornice foto={p.foto[0]?.grande} categoria={p.categoria} alt={p.nome} grande><span className="bollino mono">{tc(l, p.grado ?? "")}</span></Cornice>
           {!p.foto.length && <p className="mono lieve">{_("La foto arriverà: questo è un disegno, non il pezzo.", "The photo is coming: this is a drawing, not the piece.", "الصورة جاية: ده رسم مش القطعة نفسها.")}</p>}</div>
         <div>
           <span className="mono lieve">{p.marca.nome} · {tr(l, p.sottotitolo)}</span>

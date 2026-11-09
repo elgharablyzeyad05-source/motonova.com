@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { lingua, tx } from "@/lib/contesto";
-import { href, tr } from "@/lib/i18n";
+import { href, tr, tc } from "@/lib/i18n";
 import { egp } from "@/lib/regole";
 import { statoDa } from "@/lib/aste";
 import { Cornice } from "@/componenti/Sagoma";
@@ -24,7 +24,7 @@ export default async function Aste() {
       {aperte.length === 0 ? <p className="nota">{_("Nessuna asta aperta in questo momento.", "No auctions open right now.", "مفيش مزادات مفتوحة دلوقتي.")}</p> : (
         <div className="griglia">{aperte.map((a) => { const s = statoDa(a); return (
           <Link key={a.id} href={href(l, `/aste/${a.prodotto.slug}`)} className="scheda">
-            <Cornice foto={a.prodotto.foto[0]?.piccola} categoria={a.prodotto.categoria} alt={a.prodotto.nome}><span className="bollino mono">{tr(l, a.prodotto.grado ?? "Second Life")}</span></Cornice>
+            <Cornice foto={a.prodotto.foto[0]?.piccola} categoria={a.prodotto.categoria} alt={a.prodotto.nome}><span className="bollino mono">{a.prodotto.grado ? tc(l, a.prodotto.grado) : "Second Life"}</span></Cornice>
             <span className="marca mono">{a.prodotto.marca.nome}</span><span className="nome">{a.prodotto.nome}</span>
             <span className="prezzo tab">{egp(s.prezzo)} <span className="lieve">· {s.offerenti} {_("offerenti", "bidders", "مزايدين")}</span></span>
             <Orologio fine={a.fine.toISOString()} aperta chiusa={_("Chiusa", "Closed", "اتقفل")} />

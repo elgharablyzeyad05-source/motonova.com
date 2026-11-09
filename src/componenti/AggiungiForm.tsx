@@ -3,7 +3,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { aggiungiAlCarrello, offriPrezzo } from "@/app/azioni";
 
-type V = { id: string; prezzo: number; colore: string; difetti: string; taglia: string; disponibile: number; misura?: string };
+type V = { id: string; prezzo: number; colore: string; etichetta?: string; difetti: string; taglia: string; disponibile: number; misura?: string };
 
 export function AggiungiForm({ varianti, testi, iniziale, checkout, trattabile, altreOpzioni, campioni = {} }: {
   campioni?: Record<string, string>;
@@ -51,7 +51,7 @@ export function AggiungiForm({ varianti, testi, iniziale, checkout, trattabile, 
             {colori.map((c) => { const n = varianti.filter((x) => x.colore === c).reduce((a, x) => a + x.disponibile, 0); return (
               <label key={c}>
                 <input type="radio" name="colore" value={c} checked={colore === c} disabled={n <= 0} onChange={() => { setColore(c); setScelta(""); setFallimenti(0); setEsitoOfferta(null); window.dispatchEvent(new CustomEvent("mn:colore", { detail: c })); }} />
-                <span className="t">{/* eslint-disable-next-line @next/next/no-img-element */}{campioni[c] && <img className="campione" src={campioni[c]} alt="" />}{c}<small>{n <= 0 ? testi.esaurito : testi.dispN.replace("{n}", String(n))}</small></span>
+                <span className="t">{/* eslint-disable-next-line @next/next/no-img-element */}{campioni[c] && <img className="campione" src={campioni[c]} alt="" />}{varianti.find((x) => x.colore === c)?.etichetta || c}<small>{n <= 0 ? testi.esaurito : testi.dispN.replace("{n}", String(n))}</small></span>
               </label>
             ); })}
           </div>

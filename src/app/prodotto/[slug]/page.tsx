@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { prodottoPerSlug, correlati, disponibile, ordinaTaglie, ETICHETTA_CAT, fotoCatalogo } from "@/lib/catalogo";
 import { lingua, tx, baseUrl } from "@/lib/contesto";
-import { href, tr } from "@/lib/i18n";
+import { href, tr, tc } from "@/lib/i18n";
 import { egp, sconto } from "@/lib/regole";
 import { misuraDi, cosaMisura } from "@/lib/misure";
 import { Cornice } from "@/componenti/Sagoma";
@@ -77,7 +77,7 @@ export default async function Prodotto({ params }: Props) {
           <p className="mono lieve" style={{ margin: "6px 0 22px" }}>{_("IVA e dazio inclusi", "VAT and duty included", "شامل الضريبة والجمارك")}</p>
           <AggiungiForm iniziale={iniziale} campioni={Object.fromEntries(p.foto.filter((f) => f.colore && f.principale).map((f) => [f.colore, `/media/${f.piccola}`]))} checkout={href(l, "/checkout")} trattabile={p.trattabile && (Boolean(p.prezzoMinimo) || varianti.some((v) => v.prezzoMinimo))}
             altreOpzioni={href(l, `/negozio?${p.tipo === "USATO" ? "cond=usato&" : ""}cat=${p.categoria}`)}
-            varianti={varianti.map((v) => ({ id: v.id, prezzo: v.prezzo ?? p.prezzo, colore: v.colore, difetti: p.tipo === "USATO" ? v.difetti : "", taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
+            varianti={varianti.map((v) => ({ id: v.id, prezzo: v.prezzo ?? p.prezzo, colore: v.colore, etichetta: tc(l, v.colore), difetti: p.tipo === "USATO" ? tc(l, v.difetti) : "", taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
             testi={{
               aggiungi: _("Aggiungi al carrello", "Add to cart", "ضيف للسلة"), aggiunto: _("Aggiunto ✓", "Added ✓", "اتضاف ✓"), esaurito: _("Esaurito", "Sold out", "خلص"),
               taglia: cosaMisura(p.categoria)[l === "en" ? 1 : l === "ar" ? 2 : 0],
@@ -104,7 +104,7 @@ export default async function Prodotto({ params }: Props) {
             }} />
           <div style={{ marginTop: 28 }}>
             {descr.map((d, i) => <p key={i} style={{ marginBottom: 12 }}>{tr(l, d)}</p>)}
-            {p.tipo === "USATO" && p.difetti && <div className="nota" style={{ marginTop: 14 }}><b>{_("Condizioni e difetti", "Condition and flaws", "الحالة والعيوب")}</b> — {p.difetti}</div>}
+            {p.tipo === "USATO" && p.difetti && <div className="nota" style={{ marginTop: 14 }}><b>{_("Condizioni e difetti", "Condition and flaws", "الحالة والعيوب")}</b> — {tc(l, p.difetti)}</div>}
           </div>
           {omol && <div className="nota" style={{ marginTop: 14 }}><b>{tr(l, omol[0])}</b> — {tr(l, omol[1])}</div>}
         </div>
@@ -114,9 +114,9 @@ export default async function Prodotto({ params }: Props) {
         <section className="filetto" style={{ marginTop: 56 }}>
           <h2 style={{ marginBottom: 14 }}>{_("Scheda tecnica", "Specifications", "المواصفات")}</h2>
           <table className="dati"><tbody>
-            {specs.map(([k, v]) => <tr key={k}><th scope="row">{tr(l, k)}</th><td>{tr(l, v)}</td></tr>)}
+            {specs.map(([k, v]) => <tr key={k}><th scope="row">{tr(l, k)}</th><td>{tc(l, v)}</td></tr>)}
             <tr><th scope="row">{_("Taglie", "Sizes", "المقاسات")}</th><td>{varianti.map((v) => v.taglia).join(" · ")}</td></tr>
-            {p.luogo && <tr><th scope="row">{_("Origine", "Origin", "بلد المنشأ")}</th><td>{p.luogo}</td></tr>}
+            {p.luogo && <tr><th scope="row">{_("Origine", "Origin", "بلد المنشأ")}</th><td>{tc(l, p.luogo)}</td></tr>}
           </tbody></table>
         </section>
       )}

@@ -274,12 +274,12 @@ async function DaCompletare() {
     db.prodotto.findMany({ where: { tipo: "NUOVO", prezzo: 0 }, orderBy: { creato: "desc" }, take: 200, include: { marca: true, varianti: true, foto: { take: 1, orderBy: { ordine: "asc" } } } }),
   ]);
   if (!usati.length && !nuovi.length) return <p className="tenue">Tutto a posto: nessun pezzo senza prezzo. <Link style={{ textDecoration: "underline" }} href="/operativo?tab=veloce">Carica da Vinted</Link></p>;
-  const riga = (k: string, foto: string | undefined, titolo: string, dettaglio: string, link: string | null, annuncio: string | null, modifica: string) => (
+  const riga = (k: string, foto: string | undefined, titolo: string, dettaglio: React.ReactNode, link: string | null, annuncio: string | null, modifica: string) => (
     <div className="dc-riga" key={k}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {foto ? <img src={`/media/${foto}`} alt="" /> : <span className="dc-vuota" />}
       <div className="dc-testo"><b>{titolo}</b><span>{dettaglio}</span>
-        <small>{annuncio && <>Annuncio {annuncio} · </>}{link && <a href={link} target="_blank" rel="noreferrer">Vinted ↗</a>} · <Link href={`/operativo?tab=prodotti&modifica=${modifica}`}>Modifica</Link></small></div>
+        <small>{annuncio && <><span>Annuncio</span> <span>{annuncio}</span> · </>}{link && <><a href={link} target="_blank" rel="noreferrer">Vinted ↗</a> · </>}<Link href={`/operativo?tab=prodotti&modifica=${modifica}`}>Modifica</Link></small></div>
       <input name={`${k}_p`} inputMode="decimal" placeholder="Prezzo" aria-label="Prezzo" />
       <input name={`${k}_m`} inputMode="decimal" placeholder="Minimo" aria-label="Minimo" />
     </div>);
@@ -287,7 +287,7 @@ async function DaCompletare() {
     <form action={salvaPrezziAction} className="dc">
       <p className="tenue" style={{ margin: "0 0 14px" }}>Scrivi solo il prezzo (EGP). Il minimo è facoltativo: se c&apos;è, il cliente può trattare fino a lì. Quello che ha un prezzo va subito sul sito; il resto resta qui.</p>
       {usati.length > 0 && <><p className="mp-etichetta"><span>Usato</span> · {usati.length}</p>
-        {usati.map((v) => riga(`u_${v.id}`, v.prodotto.foto[0]?.piccola, `${v.prodotto.marca.nome} ${v.prodotto.nome}`, [v.taglia, v.colore, v.difetti && "difetti: " + v.difetti].filter(Boolean).join(" · "), v.fonteUrl, v.prezzoAnnuncio, v.prodottoId))}</>}
+        {usati.map((v) => riga(`u_${v.id}`, v.prodotto.foto[0]?.piccola, `${v.prodotto.marca.nome} ${v.prodotto.nome}`, <>{v.taglia}{v.colore && <> · <span>{v.colore}</span></>}{v.difetti && <> · <span>Difetti:</span> <span>{v.difetti}</span></>}</>, v.fonteUrl, v.prezzoAnnuncio, v.prodottoId))}</>}
       {nuovi.length > 0 && <><p className="mp-etichetta"><span>Nuovo</span> · {nuovi.length}</p>
         {nuovi.map((p) => { const v0 = p.varianti.find((v) => v.fonteUrl || v.prezzoAnnuncio); return riga(`n_${p.id}`, p.foto[0]?.piccola, `${p.marca.nome} ${p.nome}`, p.varianti.map((v) => `${v.colore ? v.colore + " " : ""}${v.taglia}×${v.giacenza}`).join(" · "), v0?.fonteUrl ?? null, v0?.prezzoAnnuncio ?? null, p.id); })}</>}
       <div className="mp-salva"><button className="tasto">Pubblica i prezzi scritti</button></div>

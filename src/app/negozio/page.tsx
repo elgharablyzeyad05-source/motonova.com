@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cerca, opzioniFiltri, conteggiModelli, ETICHETTA_CAT, ETICHETTA_STILE, CATEGORIE, STILI } from "@/lib/catalogo";
 import { lingua, tx } from "@/lib/contesto";
-import { href, tr } from "@/lib/i18n";
+import { href, tr, tc } from "@/lib/i18n";
 import { Scheda } from "@/componenti/Scheda";
 import { utenteCorrente } from "@/lib/sessione";
 import { db } from "@/lib/db";
@@ -137,7 +137,7 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
           </fieldset>
           {([["sotto", "Sottocategoria", "Subcategory", "الفئة الفرعية", opz.sotto, f.sotto], ["colore", "Colore", "Colour", "اللون", opz.colori, f.colore], ["genere", "Genere", "Gender", "الجنس", opz.generi, f.genere], ["materiale", "Materiale", "Material", "الخامة", opz.materiali, f.materiale], ["cert", "Certificazione", "Certification", "الشهادة", opz.cert, f.cert]] as [string, string, string, string, string[], string][]).filter(([, , , , v]) => v.length > 0).map(([k, it, en, ar, vals, cur]) => (
             <fieldset key={k}><legend>{_(it, en, ar)}</legend>
-              <select name={k} defaultValue={cur} aria-label={_(it, en, ar)}><option value="">{_("Tutti", "All", "الكل")}</option>{vals.map((v) => <option key={v} value={v}>{v}</option>)}</select>
+              <select name={k} defaultValue={cur} aria-label={_(it, en, ar)}><option value="">{_("Tutti", "All", "الكل")}</option>{vals.map((v) => <option key={v} value={v}>{tc(l, v)}</option>)}</select>
             </fieldset>
           ))}
           <fieldset><legend>{_("Modello di moto", "Motorcycle model", "موديل الموتوسيكل")}</legend>

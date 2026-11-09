@@ -1,3 +1,4 @@
+import { traduciTesto } from "./glossario";
 import en from "../../dati/lingua-en.json";
 import ar from "../../dati/lingua-ar.json";
 import contenuti from "../../dati/contenuti.json";
@@ -24,6 +25,14 @@ export function tradotta(lingua: Lingua, frase: string): boolean {
 export function tr(lingua: Lingua, frase: string): string {
   if (lingua === "it") return frase;
   return DIZ[lingua][frase] ?? frase;
+}
+
+/** Contenuti scritti a mano (colori, condizioni, note): prima il dizionario del sito, poi il glossario,
+    che traduce anche dall'inglese all'italiano («black matt» → «Nero opaco»). */
+export function tc(lingua: Lingua, testo: string | null | undefined): string {
+  if (!testo) return "";
+  const d = lingua === "it" ? undefined : DIZ[lingua][testo];
+  return d ?? traduciTesto(testo, lingua);
 }
 
 /** Testi nuovi, scritti per il sito vero. Chiave = id; i tre testi insieme, così non si dimentica una lingua. */
