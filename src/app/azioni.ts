@@ -233,9 +233,8 @@ export async function iscrivitiAction(_p: StatoNewsletter, f: FormData): Promise
   // non si promette una lettera che non si può spedire
   return {
     esito: "ok",
-    messaggio: postaConfigurata()
-      ? _("Sei nella lista.", "You're on the list.", "اتسجّلت في القائمة.")
-      : _("Sei nella lista: le lettere partiranno da quando la posta sarà attiva.", "You're on the list: letters will start once mail is set up.", "اتسجّلت: الرسايل هتبدأ أول ما الإيميل يتفعّل."),
+    // Al cliente non interessa se la posta è già configurata: gli iscritti si possono comunque esportare da /operativo.
+    messaggio: _("Sei nella lista: ti scriviamo appena apre il drop.", "You're on the list: we'll email you the moment the drop opens.", "اتسجّلت: هنبعتلك أول ما الدروب يفتح."),
   };
 }
 

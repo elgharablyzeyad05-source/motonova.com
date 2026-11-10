@@ -1,3 +1,5 @@
+import { negozioChiuso } from "@/lib/lancio";
+import Prossimamente from "@/componenti/Prossimamente";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { cerca, opzioniFiltri, conteggiModelli, ETICHETTA_CAT, ETICHETTA_STILE, CATEGORIE, STILI } from "@/lib/catalogo";
@@ -20,6 +22,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 
 export default async function Negozio({ searchParams }: { searchParams: Promise<SP> }) {
   const l = await lingua(); const _ = tx(l); const sp = await searchParams;
+  if (await negozioChiuso()) return <Prossimamente l={l} dove={typeof sp.cat === "string" && ETICHETTA_CAT[sp.cat] ? tr(l, ETICHETTA_CAT[sp.cat]) : _("Negozio", "Shop", "المتجر")} />;
   const f = {
     q: uno(sp.q), cat: uno(sp.cat), stile: uno(sp.stile), marca: uno(sp.marca), taglia: uno(sp.taglia),
     max: Number(uno(sp.max)) * 100 || undefined, solo: uno(sp.solo) === "1", ord: uno(sp.ord),

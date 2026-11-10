@@ -1,3 +1,5 @@
+import { negozioChiuso } from "@/lib/lancio";
+import Prossimamente from "@/componenti/Prossimamente";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { db } from "@/lib/db";
@@ -13,6 +15,7 @@ export const dynamic = "force-dynamic";
 
 export default async function Aste() {
   const l = await lingua(); const _ = tx(l);
+  if (await negozioChiuso()) return <Prossimamente l={l} dove={_("Aste", "Auctions", "المزادات")} />;
   const aste = await db.asta.findMany({ where: { prodotto: { attivo: true } }, orderBy: [{ stato: "asc" }, { fine: "asc" }], include: { offerte: true, prodotto: { include: { marca: true, foto: { orderBy: { ordine: "asc" }, take: 1 } } } } });
   const aperte = aste.filter((a) => a.stato === "APERTA" && a.fine > new Date());
   return (

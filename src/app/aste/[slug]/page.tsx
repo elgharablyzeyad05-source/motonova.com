@@ -1,3 +1,5 @@
+import { negozioChiuso } from "@/lib/lancio";
+import Prossimamente from "@/componenti/Prossimamente";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -19,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function AstaPagina({ params }: Props) {
   const { slug } = await params; const l = await lingua(); const _ = tx(l);
+  if (await negozioChiuso()) return <Prossimamente l={l} dove={_("Aste", "Auctions", "المزادات")} />;
   const p = await leggiAsta(slug);
   if (!p || !p.asta || !p.attivo) notFound();
   const a = p.asta; const u = await utenteCorrente();

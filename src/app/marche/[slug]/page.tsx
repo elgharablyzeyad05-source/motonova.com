@@ -1,3 +1,5 @@
+import { negozioChiuso } from "@/lib/lancio";
+import Prossimamente from "@/componenti/Prossimamente";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
@@ -15,6 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Marca({ params }: Props) {
   const { slug } = await params; const l = await lingua(); const _ = tx(l);
+  if (await negozioChiuso()) return <Prossimamente l={l} dove={_("Marche", "Brands", "الماركات")} />;
   const m = await db.marca.findUnique({ where: { slug } });
   if (!m) notFound();
   const lista = await cerca({ marca: slug });

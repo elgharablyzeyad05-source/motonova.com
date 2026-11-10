@@ -1,3 +1,5 @@
+import { negozioChiuso } from "@/lib/lancio";
+import Prossimamente from "@/componenti/Prossimamente";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { db } from "@/lib/db";
@@ -9,6 +11,7 @@ export const dynamic = "force-dynamic";
 
 export default async function Marche() {
   const l = await lingua(); const _ = tx(l);
+  if (await negozioChiuso()) return <Prossimamente l={l} dove={_("Marche", "Brands", "الماركات")} />;
   const marche = await db.marca.findMany({ where: { prodotti: { some: { attivo: true } } }, orderBy: { nome: "asc" }, include: { _count: { select: { prodotti: { where: { attivo: true } } } } } });
   return (
     <div className="foglio sezione">

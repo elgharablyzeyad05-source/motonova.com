@@ -1,3 +1,5 @@
+import { negozioChiuso } from "@/lib/lancio";
+import Prossimamente from "@/componenti/Prossimamente";
 import GalleriaColori from "@/componenti/GalleriaColori";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -29,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Prodotto({ params }: Props) {
   const { slug } = await params; const l = await lingua(); const _ = tx(l);
+  if (await negozioChiuso()) return <Prossimamente l={l} />;
   const p = await prodottoPerSlug(slug);
   if (!p || !p.attivo) notFound();
   if (p.tipo === "SECOND_LIFE") redirect(href(l, `/aste/${p.slug}`)); // un pezzo unico si compra solo all'asta
