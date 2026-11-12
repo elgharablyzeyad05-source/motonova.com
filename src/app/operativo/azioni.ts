@@ -269,8 +269,12 @@ export async function caricaVelocePezzoAction(f: FormData) {
   if (!link.length) {
     // Testo incollato: un solo annuncio, come prima.
     if (input.length < 5) ko("veloce", "Incolla uno o più link Vinted, oppure il testo di un annuncio");
-    try { const r = await caricaAnnuncio(input, t(f, "link") || null, t(f, "annuncio"), condizione, c); revalidatePath("/", "layout"); return ok("veloce", `Aggiunto al catalogo: ${r}`); }
-    catch (e) { return ko("veloce", (e as Error).message === "Modello non riconosciuto" ? "Non ho riconosciuto il modello: scegli la categoria e scrivi marca e nome qui sotto" : (e as Error).message); }
+    // ok() e ko() fanno un redirect (lanciano NEXT_REDIRECT): vanno chiamati fuori dal try, sennò il successo diventa un errore.
+    let r = "", errore = "";
+    try { r = await caricaAnnuncio(input, t(f, "link") || null, t(f, "annuncio"), condizione, c); }
+    catch (e) { errore = (e as Error).message === "Modello non riconosciuto" ? "Non ho riconosciuto il modello: scegli la categoria e scrivi marca e nome qui sotto" : (e as Error).message; }
+    if (errore) return ko("veloce", errore);
+    revalidatePath("/", "layout"); return ok("veloce", `Aggiunto al catalogo: ${r}`);
   }
   const fatti: string[] = [], falliti: string[] = [];
   // A gruppi di 4: abbastanza veloce, senza farsi bloccare da Vinted.
