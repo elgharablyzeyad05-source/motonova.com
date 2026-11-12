@@ -58,6 +58,12 @@ async function salvaFoto(prodottoId: string, files: File[], colori: string[] = [
   }
 }
 
+/** Usato: il primo numero di pezzo libero per quel colore e taglia (due caschi neri M usati sono due pezzi diversi). */
+async function pezzoLibero(tx: Tx | typeof db, prodottoId: string, colore: string, taglia: string, tranne?: string) {
+  const vs = await tx.variante.findMany({ where: { prodottoId, colore, taglia, ...(tranne ? { id: { not: tranne } } : {}) }, select: { pezzo: true } });
+  const usati = new Set(vs.map((v) => v.pezzo)); let n = 0; while (usati.has(n)) n++; return n;
+}
+
 /** Ordine delle foto: colore per colore (nell'ordine del modulo), la principale per prima. Un solo «principale» per colore.
     Così la prima foto del prodotto, quella del negozio, è la 3/4 del primo colore. */
 async function riordinaFoto(prodottoId: string, ordineColori: string[]) {
@@ -158,8 +164,9 @@ export async function salvaProdottoAction(f: FormData) {
           const prezzoV = (pr[i] ?? "").trim() ? egpToPiastre(pr[i]) : NaN; const minimoV = (mi[i] ?? "").trim() ? egpToPiastre(mi[i]) : NaN;
           if (Number.isFinite(prezzoV) && Number.isFinite(minimoV) && minimoV > prezzoV) throw new Error(`${taglia}: il minimo non può superare il prezzo di vendita`);
           const d = { prezzo: Number.isFinite(prezzoV) && prezzoV > 0 ? prezzoV : null, prezzoMinimo: Number.isFinite(minimoV) && minimoV > 0 ? minimoV : null, colore: (col[i] ?? "").trim(), taglia, giacenza: Math.max(0, Math.min(99, parseInt(qt[i] ?? "", 10) || 1)), fonteUrl: (lk[i] ?? "").trim() || null, prezzoAnnuncio: (an[i] ?? "").trim() || null, costo: Number.isFinite(costoP) ? costoP : null, difetti: (df[i] ?? "").trim(), noteInterne: (nt[i] ?? "").trim() };
-          if (vid) await tx.variante.update({ where: { id: vid }, data: d });
-          else await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, ...d } });
+          const pezzo = await pezzoLibero(tx, pid, d.colore, d.taglia, vid || undefined);
+          if (vid) await tx.variante.update({ where: { id: vid }, data: { ...d, pezzo } });
+          else await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, ...d, pezzo } });
         }
       }
       // Colori rinominati: varianti e foto seguono il nome nuovo.
@@ -171,14 +178,14 @@ export async function salvaProdottoAction(f: FormData) {
         }
       }
       if (tipo === "NUOVO") for (const v of stock) {
-        const e = await tx.variante.findUnique({ where: { prodottoId_colore_taglia: { prodottoId: pid, colore: v.colore, taglia: v.taglia } } });
+        const e = await tx.variante.findUnique({ where: { prodottoId_colore_taglia_pezzo: { prodottoId: pid, colore: v.colore, taglia: v.taglia, pezzo: 0 } } });
         if (e) {
           if (v.n < e.impegnati) throw new Error(`${v.colore ? v.colore + " " : ""}${v.taglia}: ${e.impegnati} pezzi sono già in ordini aperti, non puoi scendere sotto`);
           await tx.variante.update({ where: { id: e.id }, data: { giacenza: v.n } });
         } else if (v.n > 0) await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, colore: v.colore, taglia: v.taglia, giacenza: v.n } });
       }
       for (const v of taglie) {
-        const e = await tx.variante.findUnique({ where: { prodottoId_colore_taglia: { prodottoId: pid, colore: "", taglia: v.taglia } } });
+        const e = await tx.variante.findUnique({ where: { prodottoId_colore_taglia_pezzo: { prodottoId: pid, colore: "", taglia: v.taglia, pezzo: 0 } } });
         if (e) {
           if (v.giacenza < e.impegnati) throw new Error(`${v.taglia}: ${e.impegnati} pezzi sono già in ordini aperti, non puoi scendere sotto`);
           await tx.variante.update({ where: { id: e.id }, data: { giacenza: v.giacenza } });
@@ -249,12 +256,9 @@ async function caricaAnnuncio(testo: string, link: string | null, annuncio: stri
     pid = nuovoId();
     await db.prodotto.create({ data: { id: pid, slug, nome, marcaId: marca.id, sottotitolo: "", categoria, stili: [], tipo: "USATO", sottocategoria: modello, specs: [], prezzo: 0, trattabile: true, nota: "Used", luogo: "", descrizione: [], attivo: false, edizione } });
   }
-  try {
-    await db.variante.create({ data: { id: nuovoId(), prodottoId: pid, colore, taglia, giacenza: 1, fonteUrl: link, prezzoAnnuncio: annuncioTxt, difetti: c.difetti || r.difetti, noteInterne: testo.slice(0, 2000) } });
-  } catch (e) {
-    if ((e as { code?: string }).code === "P2002") throw new Error(`${modello} · ${colore || "senza colore"} · ${taglia} c'è già`);
-    throw e;
-  }
+  // Stesso annuncio già caricato? Allora non lo duplico. Stesso colore e taglia ma annuncio diverso: è un altro pezzo.
+  if (link && await db.variante.findFirst({ where: { prodottoId: pid, fonteUrl: link } })) throw new Error(`${modello} · ${colore || "—"} · ${taglia}: questo annuncio è già caricato`);
+  await db.variante.create({ data: { id: nuovoId(), prodottoId: pid, colore, taglia, giacenza: 1, pezzo: await pezzoLibero(db, pid, colore, taglia), fonteUrl: link, prezzoAnnuncio: annuncioTxt, difetti: c.difetti || r.difetti, noteInterne: testo.slice(0, 2000) } });
   await fotoCatalogo(pid);
   return `${modello} · ${colore || "—"} · ${taglia}`;
 }
@@ -322,7 +326,7 @@ async function mettiNelNuovo(tx: Tx, z: PezzoNuovo): Promise<{ pid: string; crea
   }
   // Il magazzino del nuovo è per colore e taglia: due annunci dello stesso colore e taglia fanno 2 pezzi.
   const col = z.colore.trim().replace(/^./, (c) => c.toUpperCase());
-  const v = await tx.variante.findUnique({ where: { prodottoId_colore_taglia: { prodottoId: pid, colore: col, taglia: z.taglia } } });
+  const v = await tx.variante.findUnique({ where: { prodottoId_colore_taglia_pezzo: { prodottoId: pid, colore: col, taglia: z.taglia, pezzo: 0 } } });
   if (v) await tx.variante.update({ where: { id: v.id }, data: { giacenza: { increment: 1 }, noteInterne: [v.noteInterne, appunto].filter(Boolean).join("\n").slice(0, 4000) } });
   else await tx.variante.create({ data: { id: nuovoId(), prodottoId: pid, colore: col, taglia: z.taglia, giacenza: 1, costo: z.costo, fonteUrl: z.fonteUrl, prezzoAnnuncio: z.prezzoAnnuncio, noteInterne: appunto } });
   return { pid, creato: !esistente };

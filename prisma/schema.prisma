@@ -146,10 +146,11 @@ model Variante {
   noteInterne String         @default("")
   giacenza   Int             @default(0)
   impegnati  Int             @default(0)
+  pezzo      Int             @default(0) // usato: più pezzi unici con stesso colore e taglia (0, 1, 2…)
   righe      RigaCarrello[]
   righeOrdine RigaOrdine[]
 
-  @@unique([prodottoId, colore, taglia])
+  @@unique([prodottoId, colore, taglia, pezzo])
 }
 
 model Foto {

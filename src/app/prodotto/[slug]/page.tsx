@@ -80,7 +80,7 @@ export default async function Prodotto({ params }: Props) {
           <p className="mono lieve" style={{ margin: "6px 0 22px" }}>{_("IVA e dazio inclusi", "VAT and duty included", "شامل الضريبة والجمارك")}</p>
           <AggiungiForm iniziale={iniziale} campioni={Object.fromEntries(p.foto.filter((f) => f.colore && f.principale).map((f) => [f.colore, `/media/${f.piccola}`]))} checkout={href(l, "/checkout")} trattabile={p.trattabile && (Boolean(p.prezzoMinimo) || varianti.some((v) => v.prezzoMinimo))}
             altreOpzioni={href(l, `/negozio?${p.tipo === "USATO" ? "cond=usato&" : ""}cat=${p.categoria}`)}
-            varianti={varianti.map((v) => ({ id: v.id, prezzo: v.prezzo ?? p.prezzo, colore: v.colore, etichetta: tc(l, v.colore), difetti: p.tipo === "USATO" ? tc(l, v.difetti) : "", taglia: v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
+            varianti={varianti.map((v) => ({ id: v.id, prezzo: v.prezzo ?? p.prezzo, colore: v.colore, etichetta: tc(l, v.colore), difetti: p.tipo === "USATO" ? tc(l, v.difetti) : "", taglia: v.pezzo ? `${v.taglia} · ${v.pezzo + 1}` : v.taglia, disponibile: disponibile(v), misura: misuraDi(p.categoria, v.taglia) || undefined }))}
             testi={{
               aggiungi: _("Aggiungi al carrello", "Add to cart", "ضيف للسلة"), aggiunto: _("Aggiunto ✓", "Added ✓", "اتضاف ✓"), esaurito: _("Esaurito", "Sold out", "خلص"),
               taglia: cosaMisura(p.categoria)[l === "en" ? 1 : l === "ar" ? 2 : 0],
