@@ -146,10 +146,14 @@ export async function suggerimenti(q: string) {
 }
 
 /** Vetrine della home: se non c'è nulla da mostrare, la sezione sparisce (niente scaffali vuoti). */
+/** Modelli di casco di fascia alta: gli unici (con le edizioni limited/special) che vanno nei «Nuovi arrivi» in homepage. */
+export const CASCHI_PREMIUM = ["AGV Pista GP RR", "AGV Pista GP R", "AGV Corsa R", "AGV K6 S", "Alpinestars Supertech R10", "Alpinestars Supertech R7", "Shoei X-SPR Pro", "Arai RX-7V", "HJC RPHA 1 V2"];
+
 export async function vetrine() {
   const base = { attivo: true, tipo: "NUOVO" as const };
   const [nuovi, offerte, venduti, marche] = await Promise.all([
-    db.prodotto.findMany({ where: base, include: conVarianti, orderBy: { creato: "desc" }, take: 4 }),
+    // Nuovi arrivi: solo caschi di fascia alta o edizioni limited/special, mai i pezzi «di riempimento».
+    db.prodotto.findMany({ where: { attivo: true, prezzo: { gt: 0 }, categoria: "caschi", OR: [{ edizione: { in: ["limited", "special"] } }, { sottocategoria: { in: CASCHI_PREMIUM, mode: "insensitive" } }] }, include: conVarianti, orderBy: { creato: "desc" }, take: 8 }),
     db.prodotto.findMany({ where: { ...base, prezzoPrima: { not: null } }, include: conVarianti, orderBy: { creato: "desc" }, take: 4 }),
     db.$queryRaw<{ id: string }[]>`SELECT p."id" FROM "RigaOrdine" r JOIN "Ordine" o ON o."id" = r."ordineId" JOIN "Variante" v ON v."id" = r."varianteId" JOIN "Prodotto" p ON p."id" = v."prodottoId"
       WHERE o."stato" <> 'ANNULLATO' AND p."attivo" AND p."tipo" = 'NUOVO' GROUP BY p."id" ORDER BY SUM(r."quantita") DESC LIMIT 4`,
