@@ -153,7 +153,7 @@ export async function vetrine() {
   const base = { attivo: true, tipo: "NUOVO" as const };
   const [nuovi, offerte, venduti, marche] = await Promise.all([
     // Nuovi arrivi: solo caschi di fascia alta o edizioni limited/special, mai i pezzi «di riempimento».
-    db.prodotto.findMany({ where: { attivo: true, prezzo: { gt: 0 }, categoria: "caschi", OR: [{ edizione: { in: ["limited", "special"] } }, { sottocategoria: { in: CASCHI_PREMIUM, mode: "insensitive" } }] }, include: conVarianti, orderBy: { creato: "desc" }, take: 8 }),
+    db.prodotto.findMany({ where: { attivo: true, prezzo: { gt: 0 }, categoria: "caschi", OR: [{ edizione: { in: ["limited", "special"] } }, ...CASCHI_PREMIUM.flatMap((m) => [{ sottocategoria: { contains: m, mode: "insensitive" as const } }, { nome: { contains: m.split(" ").slice(1).join(" "), mode: "insensitive" as const } }])] }, include: conVarianti, orderBy: { creato: "desc" }, take: 8 }),
     db.prodotto.findMany({ where: { ...base, prezzoPrima: { not: null } }, include: conVarianti, orderBy: { creato: "desc" }, take: 4 }),
     db.$queryRaw<{ id: string }[]>`SELECT p."id" FROM "RigaOrdine" r JOIN "Ordine" o ON o."id" = r."ordineId" JOIN "Variante" v ON v."id" = r."varianteId" JOIN "Prodotto" p ON p."id" = v."prodottoId"
       WHERE o."stato" <> 'ANNULLATO' AND p."attivo" AND p."tipo" = 'NUOVO' GROUP BY p."id" ORDER BY SUM(r."quantita") DESC LIMIT 4`,
