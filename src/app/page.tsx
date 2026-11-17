@@ -83,7 +83,7 @@ export default async function Home() {
           ))}
         </Carosello>
       </section>
-      {([["Più venduti", "Best sellers", "الأكثر مبيعاً", v.piuVenduti], ["Offerte", "Offers", "عروض", v.offerte]] as [string, string, string, typeof v.nuovi][]).filter(([, , , lista]) => lista.length > 0).map(([it, en, ar, lista]) => (
+      {([["Offerte", "Offers", "عروض", v.offerte]] as [string, string, string, typeof v.nuovi][]).filter(([, , , lista]) => lista.length > 0).map(([it, en, ar, lista]) => (
         <section key={it} className="foglio sezione">
           <h2 style={{ marginBottom: 24 }}>{l === "en" ? en : l === "ar" ? ar : it}</h2>
           <div className="griglia">{lista.map((p) => <Scheda key={p.id} p={p} l={l} />)}</div>
