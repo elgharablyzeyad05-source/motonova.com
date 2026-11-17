@@ -89,12 +89,7 @@ export default async function Home() {
           <div className="griglia">{lista.map((p) => <Scheda key={p.id} p={p} l={l} />)}</div>
         </section>
       ))}
-      {v.marche.length > 0 && (
-        <section className="foglio sezione">
-          <h2 style={{ marginBottom: 18 }}>{l === "en" ? "Brands" : l === "ar" ? "الماركات" : "Marche"}</h2>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>{v.marche.map((m) => <Link key={m.slug} className="tasto vuoto piccolo" href={href(l, `/marche/${m.slug}`)}>{m.nome}</Link>)}</div>
-        </section>
-      )}
+      {/* Marche: tolte dalla homepage per ora (la pagina /marche resta) */}
       <section className="foglio sezione" id="mondo">
         <div className="sez-testa">
           <h2>{T("worldH")}</h2><Link className="tasto vuoto piccolo" href={href(l, "/negozio")}>{T("worldA")}</Link>
