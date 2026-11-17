@@ -523,3 +523,12 @@ details.mp-blocco > summary { font-size: 17px; }
 .griglia .cuore { top: 6px; inset-inline-end: 6px; }
 .griglia .cuore button { width: 30px; height: 30px; }
 @media (max-width: 699px) { .griglia .scheda .lieve { display: none; } }
+/* Nuovi arrivi in homepage: schede prodotto in riga scorrevole, come le categorie */
+.car-prodotto { flex: 0 0 clamp(150px, 44vw, 240px); scroll-snap-align: start; }
+.car-prodotto .cornice { aspect-ratio: 1 / 1; background: #fff; border: 1px solid var(--linea); }
+.car-prodotto .cornice img { object-fit: contain; padding: 8%; }
+.car-prodotto .scheda { gap: 5px; }
+.car-prodotto .scheda .marca { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; margin-top: 4px; }
+.car-prodotto .scheda .nome { font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.car-prodotto .scheda .lieve { display: none; }
+.car-prodotto .scheda .prezzo { font-size: 13px; font-weight: 700; }

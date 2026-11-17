@@ -83,7 +83,7 @@ export default async function Home() {
           ))}
         </Carosello>
       </section>
-      {([["Nuovi arrivi", "New arrivals", "وصل حديثاً", v.nuovi], ["Più venduti", "Best sellers", "الأكثر مبيعاً", v.piuVenduti], ["Offerte", "Offers", "عروض", v.offerte]] as [string, string, string, typeof v.nuovi][]).filter(([, , , lista]) => lista.length > 0).map(([it, en, ar, lista]) => (
+      {([["Più venduti", "Best sellers", "الأكثر مبيعاً", v.piuVenduti], ["Offerte", "Offers", "عروض", v.offerte]] as [string, string, string, typeof v.nuovi][]).filter(([, , , lista]) => lista.length > 0).map(([it, en, ar, lista]) => (
         <section key={it} className="foglio sezione">
           <h2 style={{ marginBottom: 24 }}>{l === "en" ? en : l === "ar" ? ar : it}</h2>
           <div className="griglia">{lista.map((p) => <Scheda key={p.id} p={p} l={l} />)}</div>
@@ -103,6 +103,17 @@ export default async function Home() {
         <div className="coppia">{guida("manutenzione", "accessori", "w3Tag", "w3T", "w3D")}{guida("second-life", "protezioni", "w4Tag", "w4T", "w4D")}</div>
         <p style={{ marginTop: 10 }}><Link className="tasto" href={href(l, "/negozio")}>{T("worldCta")}</Link></p>
       </section>
+      {/* Nuovi arrivi: solo caschi premium e limited/special, a scorrimento come le categorie */}
+      {v.nuovi.length > 0 && (
+        <section className="foglio sezione" aria-label={_("Nuovi arrivi", "New arrivals", "وصل حديثاً")}>
+          <div className="sez-testa">
+            <h2>{_("Nuovi arrivi", "New arrivals", "وصل حديثاً")}</h2><Link className="tasto vuoto piccolo" href={href(l, "/negozio?ord=novita")}>{_("Vedi tutti", "See all", "شوف الكل")}</Link>
+          </div>
+          <Carosello prec={_("Indietro", "Previous", "اللي قبله")} succ={_("Avanti", "Next", "اللي بعده")} etichetta={_("Nuovi arrivi", "New arrivals", "وصل حديثاً")}>
+            {v.nuovi.map((p) => <div key={p.id} role="listitem" className="car-prodotto"><Scheda p={p} l={l} /></div>)}
+          </Carosello>
+        </section>
+      )}
 
       <section className="foglio sezione stili" id="stili">
         <h2 style={{ marginBottom: 24 }}>{T("stylesH")}</h2>
