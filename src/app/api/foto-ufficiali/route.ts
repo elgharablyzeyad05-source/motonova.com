@@ -3,6 +3,8 @@ import { nuovoId } from "@/lib/id";
 import { HOST_FOTO, pulisciFoto } from "@/lib/foto-pulizia";
 import { richiediAdmin } from "@/lib/sessione";
 import LAVORO from "../../../../dati/foto-ufficiali.json";
+import NOLAN from "../../../../dati/nolan.json";
+import { slugDi } from "@/lib/regole";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -10,7 +12,13 @@ export const maxDuration = 60;
 // Sostituzione una tantum delle foto con le originali dei marchi (elenco in dati/foto-ufficiali.json).
 // Solo admin collegato; si chiama a blocchi: POST { da: 0 }, poi { da: 8 }, ...
 
-type Voce = { op: "sostituisci" | "elimina" | "aggiungi"; fotoId?: string; prodottoId?: string; src?: string; colore?: string; principale?: boolean; ordine?: number };
+type Voce = { op: "sostituisci" | "elimina" | "aggiungi" | "prodotto" | "foto"; fotoId?: string; prodottoId?: string; slug?: string; src?: string; colore?: string; principale?: boolean; ordine?: number;
+  nome?: string; sottotitolo?: string; stili?: string[]; materiale?: string; descrizione?: string[]; prezzo?: number; edizione?: string | null; varianti?: { colore: string; taglia: string }[] };
+const LAVORI: Record<string, Voce[]> = { foto: LAVORO as Voce[], nolan: NOLAN as Voce[] };
+
+async function marcaNolan() {
+  return db.marca.upsert({ where: { nome: "Nolan" }, update: {}, create: { id: nuovoId(), nome: "Nolan", slug: slugDi("Nolan") } });
+}
 
 async function scarica(src: string) {
   const u = new URL(src);
@@ -31,8 +39,9 @@ async function versioni(src: string) {
 
 export async function POST(req: Request) {
   if (req.headers.get("x-richiesta") !== "motonova" || !(await richiediAdmin())) return new Response("no", { status: 401 });
-  const { da = 0 } = await req.json().catch(() => ({}));
-  const tutte = LAVORO as Voce[];
+  const { da = 0, lavoro = "foto" } = await req.json().catch(() => ({}));
+  const tutte = LAVORI[String(lavoro)];
+  if (!tutte) return new Response("lavoro sconosciuto", { status: 400 });
   const blocco = tutte.slice(Math.max(0, Number(da) || 0), (Number(da) || 0) + 8);
   const esito: unknown[] = [];
   for (const s of blocco) {
@@ -47,6 +56,27 @@ export async function POST(req: Request) {
           db.media.create({ data: { percorso: pp, dati: new Uint8Array(v.piccola) } }),
           db.foto.update({ where: { id: f.id }, data: { grande: pg, piccola: pp } }),
           db.media.deleteMany({ where: { percorso: { in: [f.grande, f.piccola] } } }),
+        ]);
+        esito.push({ op: s.op, ok: true, sfondo: v.sfondo });
+      } else if (s.op === "prodotto") {
+        if (await db.prodotto.findUnique({ where: { slug: String(s.slug) }, select: { id: true } })) { esito.push({ op: s.op, ok: true, gia: true }); continue; }
+        const m = await marcaNolan();
+        await db.prodotto.create({ data: {
+          id: nuovoId(), slug: String(s.slug), marcaId: m.id, nome: String(s.nome), sottotitolo: s.sottotitolo ?? "", categoria: "caschi", stili: s.stili ?? [], tipo: "NUOVO",
+          prezzo: Number(s.prezzo), materiale: s.materiale ?? null, certificazione: "ECE 22.06", descrizione: s.descrizione ?? [], edizione: s.edizione ?? null, attivo: true,
+          varianti: { create: (s.varianti ?? []).map((v) => ({ id: nuovoId(), colore: v.colore, taglia: v.taglia, giacenza: 1 })) },
+        } });
+        esito.push({ op: s.op, ok: true });
+      } else if (s.op === "foto") {
+        const p = await db.prodotto.findUnique({ where: { slug: String(s.slug) }, select: { id: true } });
+        if (!p) throw new Error("prodotto inesistente " + s.slug);
+        if (await db.foto.findFirst({ where: { prodottoId: p.id, ordine: s.ordine ?? -1 } })) { esito.push({ op: s.op, ok: true, gia: true }); continue; }
+        const v = await versioni(String(s.src));
+        const n = nuovoId(), pg = `prodotti/${p.id}/${n}.webp`, pp = `prodotti/${p.id}/${n}-s.webp`;
+        await db.$transaction([
+          db.media.create({ data: { percorso: pg, dati: new Uint8Array(v.grande) } }),
+          db.media.create({ data: { percorso: pp, dati: new Uint8Array(v.piccola) } }),
+          db.foto.create({ data: { id: nuovoId(), prodottoId: p.id, grande: pg, piccola: pp, ordine: s.ordine ?? 0, colore: s.colore ?? "", principale: !!s.principale } }),
         ]);
         esito.push({ op: s.op, ok: true, sfondo: v.sfondo });
       } else if (s.op === "elimina") {

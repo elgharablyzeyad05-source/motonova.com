@@ -147,7 +147,7 @@ export async function suggerimenti(q: string) {
 
 /** Vetrine della home: se non c'è nulla da mostrare, la sezione sparisce (niente scaffali vuoti). */
 /** Modelli di casco di fascia alta: gli unici (con le edizioni limited/special) che vanno nei «Nuovi arrivi» in homepage. */
-export const CASCHI_PREMIUM = ["AGV Pista GP RR", "AGV Pista GP R", "AGV Corsa R", "AGV K6 S", "Alpinestars Supertech R10", "Alpinestars Supertech R7", "Shoei X-SPR Pro", "Arai RX-7V", "HJC RPHA 1 V2"];
+export const CASCHI_PREMIUM = ["AGV Pista GP RR", "AGV Pista GP R", "AGV Corsa R", "AGV K6 S", "Alpinestars Supertech R10", "Alpinestars Supertech R7", "Shoei X-SPR Pro", "Arai RX-7V", "HJC RPHA 1 V2", "Nolan X-804 RS"];
 
 export async function vetrine() {
   const base = { attivo: true, tipo: "NUOVO" as const };
