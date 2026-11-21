@@ -30,8 +30,8 @@ async function scarica(src: string) {
   return b;
 }
 
-async function versioni(src: string) {
-  const { img, sfondo } = await pulisciFoto(await scarica(src));
+async function versioni(src: string, dati?: Buffer) {
+  const { img, sfondo } = await pulisciFoto(dati ?? (await scarica(src)));
   const grande = await img.clone().resize({ width: 1600, height: 1600, fit: "inside", withoutEnlargement: true }).webp({ quality: 82 }).toBuffer();
   const piccola = await img.clone().resize({ width: 480, height: 480, fit: "inside" }).webp({ quality: 78 }).toBuffer();
   return { grande, piccola, sfondo };
@@ -39,10 +39,21 @@ async function versioni(src: string) {
 
 export async function POST(req: Request) {
   if (req.headers.get("x-richiesta") !== "motonova" || !(await richiediAdmin())) return new Response("no", { status: 401 });
-  const { da = 0, lavoro = "foto" } = await req.json().catch(() => ({}));
+  // Con multipart arriva anche la foto già scaricata dal browser (alcuni CDN rifiutano le richieste dai server): una voce per volta.
+  let da = 0, lavoro = "foto", file: Buffer | undefined;
+  if ((req.headers.get("content-type") ?? "").includes("multipart/form-data")) {
+    const f = await req.formData();
+    da = Number(f.get("da")) || 0; lavoro = String(f.get("lavoro") ?? "foto");
+    const x = f.get("f");
+    if (x && typeof x !== "string" && x.size > 0) file = Buffer.from(await x.arrayBuffer());
+  } else {
+    const b = await req.json().catch(() => ({}));
+    da = Number(b.da) || 0; lavoro = String(b.lavoro ?? "foto");
+    if (b.elenco && LAVORI[lavoro]) return Response.json(LAVORI[lavoro].map((v) => (v.op === "foto" ? v.src : null)));
+  }
   const tutte = LAVORI[String(lavoro)];
   if (!tutte) return new Response("lavoro sconosciuto", { status: 400 });
-  const blocco = tutte.slice(Math.max(0, Number(da) || 0), (Number(da) || 0) + 8);
+  const blocco = tutte.slice(Math.max(0, Number(da) || 0), (Number(da) || 0) + (file ? 1 : 8));
   const esito: unknown[] = [];
   for (const s of blocco) {
     try {
@@ -71,7 +82,7 @@ export async function POST(req: Request) {
         const p = await db.prodotto.findUnique({ where: { slug: String(s.slug) }, select: { id: true } });
         if (!p) throw new Error("prodotto inesistente " + s.slug);
         if (await db.foto.findFirst({ where: { prodottoId: p.id, ordine: s.ordine ?? -1 } })) { esito.push({ op: s.op, ok: true, gia: true }); continue; }
-        const v = await versioni(String(s.src));
+        const v = await versioni(String(s.src), file);
         const n = nuovoId(), pg = `prodotti/${p.id}/${n}.webp`, pp = `prodotti/${p.id}/${n}-s.webp`;
         await db.$transaction([
           db.media.create({ data: { percorso: pg, dati: new Uint8Array(v.grande) } }),
