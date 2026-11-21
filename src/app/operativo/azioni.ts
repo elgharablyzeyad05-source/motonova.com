@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import sharp from "sharp";
+import { pulisciFoto } from "@/lib/foto-pulizia";
 import { db } from "@/lib/db";
 import { nuovoId } from "@/lib/id";
 import { richiediAdmin } from "@/lib/sessione";
@@ -46,7 +46,7 @@ async function salvaFoto(prodottoId: string, files: File[], colori: string[] = [
     const buf = Buffer.from(await file.arrayBuffer());
     if (!MAGIC(buf)) throw new Error(`${file.name}: non è una foto JPG, PNG o WebP`);
     const nome = nuovoId();
-    const base = sharp(buf, { limitInputPixels: 80e6 }).rotate();
+    const base = (await pulisciFoto(buf)).img;
     const grande = await base.clone().resize({ width: 1600, withoutEnlargement: true }).webp({ quality: 82 }).toBuffer();
     const piccola = await base.clone().resize({ width: 480, withoutEnlargement: true }).webp({ quality: 78 }).toBuffer();
     const pg = `prodotti/${prodottoId}/${nome}.webp`, pp = `prodotti/${prodottoId}/${nome}-s.webp`;
