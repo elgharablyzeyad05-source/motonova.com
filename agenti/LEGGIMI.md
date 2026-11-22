@@ -67,6 +67,7 @@ Scopo: ogni pezzo preso da Vinted deve sapere **esattamente che prodotto è** e 
 7. Resoconto: pezzi riconosciuti, colori rinominati, foto riusate/caricate, modelli errati, cose non risolte.
 
 ## Agente 4 — Controllo qualità (ogni mattina, nel cloud)
+Non serve la chiave: lavora con query SQL di sola lettura (Supabase MCP), stesse informazioni di `daRiconoscere`.
 Scopo: controllare il lavoro dei Riconoscimenti e **avvisarlo** (tramite `agenti/coda.json`) di quello che ha saltato o sbagliato. Non corregge da solo, salvo errori evidenti e sicuri.
 1. `python3 agenti/mn.py api '{"op":"daRiconoscere"}'` e query SQL di controllo (Supabase MCP). Cerca:
    - pezzi disponibili senza foto del loro colore (`fotoDelColore = 0`), soprattutto i **più vecchi** (caricati da più di 24 ore);
