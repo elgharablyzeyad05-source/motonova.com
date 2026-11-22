@@ -154,6 +154,36 @@ export async function POST(req: Request) {
       const ps = await db.prodotto.findMany({ where: { marca: { nome: String(b.marca) }, tipo: "NUOVO" }, select: { id: true, nome: true, foto: { select: { id: true, colore: true, principale: true, grande: true }, orderBy: { ordine: "asc" } } } });
       return Response.json({ ok: true, prodotti: ps.map((p) => ({ id: p.id, nome: p.nome, colori: Object.values(p.foto.reduce((m, f) => { (m[f.colore] ??= { colore: f.colore, foto: [] as { id: string; principale: boolean; url: string }[] }).foto.push({ id: f.id, principale: f.principale, url: `/media/${f.grande}` }); return m; }, {} as Record<string, { colore: string; foto: { id: string; principale: boolean; url: string }[] }>)) })) });
     }
+    // Prezzi dei pezzi presi da Vinted (regola di Zeyad, 23/11/2026):
+    //   prezzo = euro dell'annuncio × 62 + 2.000 + 7.000 EGP; minimo trattabile = euro × 62 + 2.000 + 4.000 EGP.
+    // Il prezzo si mette solo ai pezzi pronti: foto ufficiale del loro colore e taglia verificata. I prezzi già presenti non si toccano.
+    // Un prodotto USATO va online quando ha almeno un pezzo pronto e disponibile; il suo prezzo è il più basso dei pezzi pronti.
+    if (b.op === "prezzi") {
+      const vs = await db.variante.findMany({ where: { fonteUrl: { not: null }, giacenza: { gt: 0 } }, include: { prodotto: { select: { id: true, tipo: true, foto: { select: { colore: true } } } } } });
+      let prezzati = 0, nonPronti = 0, senzaPrezzoAnnuncio = 0;
+      for (const v of vs) {
+        if (v.prezzo != null) continue;
+        const m = (v.prezzoAnnuncio ?? "").replace(/\s/g, "").match(/(\d+(?:[.,]\d{1,2})?)/);
+        if (!m) { senzaPrezzoAnnuncio++; continue; }
+        const euro = Number(m[1].replace(",", "."));
+        const pronto = v.prodotto.foto.some((f) => f.colore === v.colore) && v.taglia.trim() !== "" && !/verific/i.test(v.taglia);
+        if (!pronto) { nonPronti++; continue; }
+        await db.variante.update({ where: { id: v.id }, data: { prezzo: Math.round(euro * 62 + 9000) * 100, prezzoMinimo: Math.round(euro * 62 + 6000) * 100 } });
+        prezzati++;
+      }
+      const usati = await db.prodotto.findMany({ where: { tipo: "USATO" }, select: { id: true, attivo: true, prezzo: true, varianti: { select: { prezzo: true, giacenza: true, impegnati: true } } } });
+      let pubblicati = 0;
+      for (const p of usati) {
+        const pronti = p.varianti.filter((v) => v.prezzo != null && v.giacenza - v.impegnati > 0).map((v) => v.prezzo!);
+        if (!pronti.length) continue;
+        const min = Math.min(...pronti);
+        if (!p.attivo || p.prezzo !== min) {
+          await db.prodotto.update({ where: { id: p.id }, data: { attivo: true, prezzo: min, trattabile: true } });
+          if (!p.attivo) pubblicati++;
+        }
+      }
+      return Response.json({ ok: true, prezzati, nonPronti, senzaPrezzoAnnuncio, pubblicati });
+    }
     if (b.op === "esiste") {
       if (b.fonteUrl) return Response.json({ ok: true, esiste: !!(await db.variante.findFirst({ where: { fonteUrl: String(b.fonteUrl) }, select: { id: true } })) });
       const p = await db.prodotto.findUnique({ where: { slug: String(b.slug) }, select: { id: true, foto: { select: { colore: true, ordine: true } }, varianti: { select: { colore: true, taglia: true, giacenza: true } } } });

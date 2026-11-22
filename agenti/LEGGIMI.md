@@ -64,7 +64,8 @@ Scopo: ogni pezzo preso da Vinted deve sapere **esattamente che prodotto è** e 
    - Se la stessa colorazione è nel catalogo nuovo (`op: fotoCatalogo` per marca): **riusa** le foto con `op: copiaFoto` (fotoId → prodottoId del pezzo, colore = colore del pezzo). Prima la 3/4 come principale, poi le altre 2.
    - Altrimenti cerca la versione nuova online, **solo foto ufficiali** (sito del marchio, o rivenditori ufficiali con la foto del marchio) e caricala con `python3 agenti/mn.py foto <prodottoId> "<colore>" <url-o-file> 1` (il server fa solo ritaglio / cambio sfondo). Mai foto dell'annuncio Vinted.
    - Se non esiste nessuna foto ufficiale (edizioni rarissime), scrivi nelle note «[foto ufficiale non trovata]» e mettilo nel resoconto.
-6. Togli da `agenti/coda.json` le voci sistemate, commit + push (solo `agenti/`).
+6. Lancia i prezzi: `python3 agenti/mn.py api '{"op":"prezzi"}'` (vedi Agente 5).
+7. Togli da `agenti/coda.json` le voci sistemate, commit + push (solo `agenti/`).
 7. Resoconto: pezzi riconosciuti, colori rinominati, foto riusate/caricate, modelli errati, cose non risolte.
 
 ## Agente 4 — Controllo qualità (ogni mattina, nel cloud)
@@ -79,3 +80,12 @@ Scopo: controllare il lavoro dei Riconoscimenti e **avvisarlo** (tramite `agenti
 2. Scrivi in `agenti/coda.json` → `da_sistemare` una voce per problema: `{ "varianteId": "...", "motivo": "...", "quando": "AAAA-MM-GG" }` (niente doppioni; se una voce è lì da più di 3 giorni, segnalala come «ignorata» nel resoconto). Commit + push (solo `agenti/`).
 3. Controlla anche gli agenti: se l'ultimo giro di Vinted/Riconoscimento non risulta (nessun pezzo nuovo da giorni, `coda.json` mai svuotata), scrivilo.
 4. Resoconto per Zeyad: quanti pezzi a posto / da sistemare, i problemi più gravi con link all'annuncio, e cosa deve decidere lui.
+
+## Agente 5 — Prezzi (dopo ogni giro del Riconoscimento, nel cloud)
+Regola di Zeyad (23/11/2026) per ogni pezzo preso da Vinted, nuovo di zecca o usato:
+- **prezzo di vendita = euro dell'annuncio × 62 + 2.000 + 7.000 EGP**
+- **minimo trattabile = euro dell'annuncio × 62 + 2.000 + 4.000 EGP**
+Il prezzo si mette solo ai pezzi **pronti**: foto ufficiale del loro colore e taglia verificata (non «DA VERIFICARE»). I prezzi già presenti (anche messi a mano da Zeyad) non si toccano.
+Un prodotto USATO va **online da solo** quando ha almeno un pezzo pronto e disponibile; sul sito si vedono solo i pezzi pronti. Prezzo del prodotto = il più basso dei pezzi pronti.
+Tutto questo lo fa una chiamata: `python3 agenti/mn.py api '{"op":"prezzi"}'` (risponde con prezzati, nonPronti, senzaPrezzoAnnuncio, pubblicati).
+Anche il Riconoscimento la lancia alla fine di ogni suo giro.

@@ -38,7 +38,8 @@ export default async function Prodotto({ params }: Props) {
   const [simili, u, base] = await Promise.all([correlati(p), utenteCorrente(), baseUrl()]);
   const pref = u ? !!(await db.preferito.findFirst({ where: { utenteId: u.id, prodottoId: p.id } })) : false;
   const ordT = ordinaTaglie(Array.from(new Set(p.varianti.map((v) => v.taglia))));
-  const varianti = [...p.varianti].sort((a, b) => a.colore.localeCompare(b.colore) || ordT.indexOf(a.taglia) - ordT.indexOf(b.taglia));
+  // Usato: in vendita solo i pezzi pronti, cioè con un prezzo (lo mette l'agente dei prezzi quando il pezzo ha foto e taglia giuste)
+  const varianti = [...(p.tipo === "USATO" ? p.varianti.filter((v) => v.prezzo != null) : p.varianti)].sort((a, b) => a.colore.localeCompare(b.colore) || ordT.indexOf(a.taglia) - ordT.indexOf(b.taglia));
   const iniziale = (() => {
     const disp = varianti.filter((v) => disponibile(v) > 0);
     if (!disp.length) return "";
