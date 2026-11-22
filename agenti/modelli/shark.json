@@ -1,0 +1,215 @@
+{
+ "AERON-GP FIM 2": [
+  "Aeron-GP FIM 2",
+  "Integrale racing omologato FIM",
+  [
+   "sport"
+  ],
+  "Fibra di carbonio",
+  "Il top di gamma racing Shark, omologato FIM per le gare: calotta in carbonio, aerodinamica attiva, visiera da pista."
+ ],
+ "AERON GP FIM": [
+  "Aeron GP FIM",
+  "Integrale racing omologato FIM",
+  [
+   "sport"
+  ],
+  "Fibra di carbonio",
+  "Integrale da competizione in carbonio con omologazione FIM: lo stesso casco usato da Johann Zarco in MotoGP."
+ ],
+ "AERON GP": [
+  "Aeron GP",
+  "Integrale racing",
+  [
+   "sport"
+  ],
+  "Fibra di carbonio",
+  "Integrale racing in carbonio con spoiler aerodinamico e visiera a sgancio rapido, nato in MotoGP."
+ ],
+ "AERON": [
+  "Aeron",
+  "Integrale sportivo",
+  [
+   "sport",
+   "street"
+  ],
+  "Fibra di carbonio",
+  "Integrale sportivo in carbonio dalla linea aggressiva, derivato dall'esperienza in pista di Shark."
+ ],
+ "D-SKWAL 3": [
+  "D-Skwal 3",
+  "Integrale",
+  [
+   "street",
+   "sport"
+  ],
+  "Termoplastico",
+  "Integrale stradale dal design sportivo, con visierino parasole e predisposizione interfono: leggero e accessibile."
+ ],
+ "OXO": [
+  "OXO",
+  "Modulare con mentoniera a 180°",
+  [
+   "touring",
+   "urban"
+  ],
+  "Termoplastico",
+  "Modulare con mentoniera che ruota fino alla nuca: integrale o jet in un gesto, omologato P/J."
+ ],
+ "RACE-R PRO GP 06": [
+  "Race-R Pro GP 06",
+  "Integrale racing omologato FIM",
+  [
+   "sport"
+  ],
+  "Fibra di carbonio",
+  "Integrale racing in carbonio con omologazione FIM, profilo compatto e campo visivo ampliato per la posizione di guida in pista."
+ ],
+ "RIDILL 2": [
+  "Ridill 2",
+  "Integrale",
+  [
+   "street",
+   "urban"
+  ],
+  "Termoplastico",
+  "Integrale leggero e semplice da usare, con visierino parasole: ideale per chi inizia e per l'uso quotidiano."
+ ],
+ "RS JET CARBON": [
+  "RS Jet Carbon",
+  "Jet",
+  [
+   "urban",
+   "street"
+  ],
+  "Fibra di carbonio",
+  "Jet in carbonio leggerissimo con visiera lunga e visierino parasole, per la città con stile."
+ ],
+ "RS JET": [
+  "RS Jet",
+  "Jet",
+  [
+   "urban",
+   "street"
+  ],
+  "Fibra composita",
+  "Jet premium con calotta in fibra, visiera lunga e visierino parasole, comodo e silenzioso."
+ ],
+ "SKWAL CUP": [
+  "Skwal Cup",
+  "Integrale",
+  [
+   "street",
+   "sport"
+  ],
+  "Termoplastico",
+  "Integrale dal look sportivo con visierino parasole e interni removibili, per la strada di tutti i giorni."
+ ],
+ "SKWAL JET CUP": [
+  "Skwal Jet Cup",
+  "Jet",
+  [
+   "urban"
+  ],
+  "Termoplastico",
+  "Jet urbano con visiera lunga e visierino parasole, leggero e pratico."
+ ],
+ "SKWAL JET": [
+  "Skwal Jet",
+  "Jet",
+  [
+   "urban"
+  ],
+  "Termoplastico",
+  "Jet urbano con visiera lunga e visierino parasole, leggero e pratico."
+ ],
+ "SKWAL I3 JET": [
+  "Skwal i3 Jet",
+  "Jet con LED",
+  [
+   "urban"
+  ],
+  "Termoplastico",
+  "Jet con luci LED integrate posteriori e frontali per farsi vedere in città, con visierino parasole."
+ ],
+ "SKWAL I3": [
+  "Skwal i3",
+  "Integrale con LED",
+  [
+   "street",
+   "urban"
+  ],
+  "Termoplastico",
+  "Integrale con luci LED integrate per una visibilità superiore di notte, visierino parasole e interni removibili."
+ ],
+ "SKWAL ICUP": [
+  "Skwal iCup",
+  "Integrale con LED",
+  [
+   "street",
+   "urban"
+  ],
+  "Termoplastico",
+  "Integrale sportivo con LED integrati per la visibilità notturna e visierino parasole."
+ ],
+ "SPARTAN GT PRO CARBON": [
+  "Spartan GT Pro Carbon",
+  "Integrale sport touring",
+  [
+   "touring",
+   "sport"
+  ],
+  "Fibra di carbonio",
+  "Integrale sport touring in carbonio: visierino parasole, ventilazione efficace e grande silenziosità sulle lunghe distanze."
+ ],
+ "SPARTAN GT PRO": [
+  "Spartan GT Pro",
+  "Integrale sport touring",
+  [
+   "touring",
+   "sport"
+  ],
+  "Fibra composita",
+  "Integrale sport touring con visierino parasole, ottima ventilazione e predisposizione interfono."
+ ],
+ "SPARTAN RS CARBON": [
+  "Spartan RS Carbon",
+  "Integrale sportivo",
+  [
+   "sport",
+   "street"
+  ],
+  "Fibra di carbonio",
+  "Integrale sportivo in carbonio con visierino parasole e spoiler, leggero e versatile tra strada e pista."
+ ],
+ "SPARTAN RS FIBRE SPARTAN RS": [
+  "Spartan RS Fibre",
+  "Integrale sportivo",
+  [
+   "sport",
+   "street"
+  ],
+  "Fibra composita",
+  "Integrale sportivo in fibra composita con visierino parasole, compatto e aerodinamico."
+ ],
+ "SPARTAN RS FIBRE": [
+  "Spartan RS Fibre",
+  "Integrale sportivo",
+  [
+   "sport",
+   "street"
+  ],
+  "Fibra composita",
+  "Integrale sportivo in fibra composita con visierino parasole, compatto e aerodinamico."
+ ],
+ "SPARTAN RS": [
+  "Spartan RS",
+  "Integrale sportivo",
+  [
+   "sport",
+   "street"
+  ],
+  "Termoplastico",
+  "Integrale sportivo con visierino parasole e linea aggressiva, per la strada e i track day."
+ ]
+}

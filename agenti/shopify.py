@@ -21,14 +21,23 @@ a.add_argument("--dominio", required=True); a.add_argument("--collezione", requi
 a.add_argument("--marca", required=True); a.add_argument("--categoria", default="caschi")
 a.add_argument("--modelli", required=True); a.add_argument("--out", required=True)
 a.add_argument("--certificazione", default="ECE 22.06"); a.add_argument("--foto", type=int, default=3)
+# Negozi dove il colore è un'opzione della variante e non sta nel titolo (es. eu.alpinestars.com):
+a.add_argument("--colore-da-opzione", action="store_true", help="titolo = MODELLO GRAFICA (maiuscolo) + valore dell'opzione Color/Colore")
+a.add_argument("--solo-titoli", default="", help="tieni solo i prodotti il cui titolo contiene una di queste parole, separate da | (es. Helmet)")
+a.add_argument("--togli", default="", help="pezzi da togliere dal titolo, separati da | (es. ' Helmet ECE 22.06| Helmet')")
+a.add_argument("--codice-colore", action="store_true", help="titoli 'Modello Grafica C5 Finitura' (es. mthelmets.com) -> 'MODELLO GRAFICA Finitura C5'")
+a.add_argument("--foto-preferite", default="", help="pezzi del nome file delle foto da mettere per prime, separati da virgola (es. _FR.,_BA.)")
+a.add_argument("--senza-mono", action="store_true", help="prodotti senza grafica: nome = modello (niente 'Mono'); per abbigliamento")
+a.add_argument("--ordine-foto", default="", help="indici delle foto da usare, la prima è la principale (es. 5,1,0)")
 x = a.parse_args()
 
-ps = []
-for page in range(1, 20):
-    u = f"https://{x.dominio}/collections/{x.collezione}/products.json?limit=250&page={page}"
-    d = json.load(urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0"}), timeout=60))["products"]
-    if not d: break
-    ps += d
+ps, visti = [], set()
+for coll in x.collezione.split(","):  # più collezioni separate da virgola: vanno lette tutte insieme (altrimenti colori "spariti" falsi)
+    for page in range(1, 20):
+        u = f"https://{x.dominio}/collections/{coll}/products.json?limit=250&page={page}"
+        d = json.load(urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0"}), timeout=60))["products"]
+        if not d: break
+        ps += [q for q in d if q["id"] not in visti]; visti |= {q["id"] for q in d}
 MOD = OrderedDict(sorted(json.load(open(x.modelli)).items(), key=lambda kv: -len(kv[0])))
 
 
@@ -37,22 +46,52 @@ def tc(s):
     return re.sub(r"\b(Di|Th|De|Da)\b", lambda m: m.group(1).lower(), s)
 
 
+def titolo(p):
+    t = re.sub(r"\s+", " ", p["title"].strip())
+    if x.codice_colore:
+        m = re.match(r"^(.*?)\s+([A-Z]{1,2}\d+)\s+(.*)$", t)
+        if m: return m.group(1).rstrip(" /").upper() + " " + m.group(3)[:1].upper() + m.group(3)[1:] + " " + m.group(2)
+        return t.upper()
+    if not x.colore_da_opzione: return t
+    for z in [z for z in x.togli.split("|") if z]: t = t.replace(z, "")
+    t = re.sub(r"^Limited Edition (.*)$", r"\1 Limited Edition", t).strip()
+    opt = next((o for o in p["options"] if o["name"].lower() in ("color", "colore", "colour")), None)
+    col = opt["values"][0] if opt else ""
+    return (t.upper() + " " + col[:1].upper() + col[1:]).strip()
+
+
+def foto_di(p):
+    imgs = [i["src"].split("?")[0] + "?width=1800" for i in p["images"]]
+    if x.foto_preferite:
+        pref = x.foto_preferite.split(",")
+        prime = [next((u for u in imgs if k in u.rsplit("/", 1)[-1]), None) for k in pref]
+        prime = [u for u in prime if u]
+        return (prime + [u for u in imgs if u not in prime])[: x.foto]
+    if x.ordine_foto:
+        idx = [int(i) for i in x.ordine_foto.split(",")]
+        if len(imgs) > max(idx): return [imgs[i] for i in idx]
+    return imgs[: x.foto]
+
+
 righe = []
 for p in ps:
-    t = re.sub(r"\s+", " ", p["title"].strip())
+    if x.solo_titoli and not any(w in p["title"] for w in x.solo_titoli.split("|")): continue
+    t = titolo(p)
     pref = next((k for k in MOD if t.upper().startswith(k + " ") or t.upper() == k), None)
     if not pref: print("SENZA MODELLO:", t, file=sys.stderr); continue
     resto = t[len(pref):].strip()
     m = re.match(r"^(.*?)\s?([A-Z][a-zà-ù].*)$", resto)
     graf, col = (m.group(1).strip(), m.group(2).strip()) if m else (resto, "")
     col = re.sub(r"\s*/\s*", "/", col)
-    disp = [v["title"] for v in p["variants"] if v["available"]]
-    imgs = [i["src"].split("?")[0] + "?width=1800" for i in p["images"]]
+    # taglia = valore dell'opzione Size/Taglia (se la variante ha anche il colore, il titolo sarebbe "M / Black")
+    i_tg = next((i for i, o in enumerate(p.get("options", [])) if o["name"].lower() in ("size", "taglia", "talla", "taille", "größe")), None)
+    disp = [(v.get(f"option{i_tg + 1}") if i_tg is not None else None) or v["title"] for v in p["variants"] if v["available"]]
+    imgs = foto_di(p)
     if not disp or len(imgs) < 3: continue
     colore = (tc(graf) + " " + col).strip() if graf else col
     if any(r["pref"] == pref and r["colore"] == colore for r in righe): continue
     listino = max(float(v["compare_at_price"] or v["price"]) for v in p["variants"])
-    righe.append(dict(pref=pref, graf=tc(graf), colore=colore, listino=listino, taglie=disp, imgs=imgs[: x.foto], special="SPECIAL EDITION" in graf.upper()))
+    righe.append(dict(pref=pref, graf=tc(graf), colore=colore, listino=listino, taglie=disp, imgs=imgs, special="SPECIAL EDITION" in graf.upper()))
 
 # Stabilità fra un giro e l'altro: un colore che è già sul sito resta nel suo prodotto (si aggiornano solo taglie e prezzo);
 # solo i colori che non ci sono ancora formano prodotti nuovi. Così l'ordine del negozio ufficiale può cambiare senza doppioni.
@@ -65,16 +104,20 @@ if not _cat.get("ok"):
 esistenti = _cat.get("prodotti", [])
 NOMI = sorted({v[0] for v in MOD.values()}, key=len, reverse=True)
 mod_di = lambda nome: next((n for n in NOMI if nome == n or nome.startswith(n + " ")), "")
+# solo i prodotti dei modelli di questo file: così un giro "giacche" non tocca i caschi della stessa marca (e viceversa)
+tutti_slug = {e["slug"] for e in esistenti}
+esistenti = [e for e in esistenti if mod_di(e["nome"])]
 dove = {(mod_di(e["nome"]), c): e for e in esistenti for c in e["colori"]}
 k_di = lambda r: (MOD[r["pref"]][0], r["colore"])
-piano, slugs = [], {e["slug"] for e in esistenti}
+piano, slugs = [], set(tutti_slug)
 per_e = defaultdict(list)
 for r in righe:
     if k_di(r) in dove: per_e[dove[k_di(r)]["slug"]].append(r)
 tutti = {k_di(r) for r in righe}
 for e in esistenti:
     rs = per_e.get(e["slug"], [])
-    sp = [c for c in e["colori"] if (mod_di(e["nome"]), c) not in tutti]
+    # i prodotti con annunci Vinted non si toccano: i loro colori non vengono dal negozio ufficiale
+    sp = [] if e.get("annunci") else [c for c in e["colori"] if (mod_di(e["nome"]), c) not in tutti]
     if not rs and not sp: continue
     q = dict(slug=e["slug"], marca=x.marca, nome=e["nome"], categoria=x.categoria, tipo="NUOVO", aggiornaGiacenze=True,
              varianti=[dict(colore=c["colore"], taglia=t, giacenza=1) for c in rs for t in c["taglie"]],
@@ -95,7 +138,8 @@ def slugdi(s):
 
 
 for (pref, eur, spec), rs in sorted(gr.items(), key=lambda kv: (list(MOD).index(kv[0][0]), kv[0][1])):
-    nome0, sotto, stili, mat, descr = MOD[pref]
+    nome0, sotto, stili, mat, descr = MOD[pref][:5]
+    genere = MOD[pref][5] if len(MOD[pref]) > 5 else None
     pg = OrderedDict()
     for c in sorted(rs, key=lambda c: (c["graf"] or "Mono", c["colore"])): pg.setdefault(c["graf"] or "Mono", []).append(c)
     chunks, cur, gs = [], [], []
@@ -107,10 +151,10 @@ for (pref, eur, spec), rs in sorted(gr.items(), key=lambda kv: (list(MOD).index(
             if g not in gs: gs.append(g)
     if cur: chunks.append((gs, cur))
     for grafs, ch in chunks:
-        nome = nome0 + " " + " / ".join(grafs)
+        nome = nome0 if x.senza_mono and grafs == ["Mono"] else nome0 + " " + " / ".join(grafs)
         piano.append(dict(slug=slugdi(f"{x.marca}-{nome}"), marca=x.marca, nome=nome, sottotitolo=sotto, categoria=x.categoria, stili=stili,
                           tipo="NUOVO", prezzo=prezzo_egp(eur), materiale=mat, certificazione=x.certificazione, descrizione=[descr],
-                          edizione="special" if spec else None, attivo=True, aggiornaGiacenze=True,
+                          edizione="special" if spec else None, attivo=True, aggiornaGiacenze=True, **({"genere": genere} if genere else {}),
                           varianti=[dict(colore=c["colore"], taglia=t, giacenza=1) for c in ch for t in c["taglie"]],
                           foto=[dict(src=u, colore=c["colore"], principale=(j == 0)) for c in ch for j, u in enumerate(c["imgs"])]))
 json.dump(piano, open(x.out, "w"), ensure_ascii=False)

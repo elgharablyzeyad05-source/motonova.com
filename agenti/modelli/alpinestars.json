@@ -1,0 +1,66 @@
+{
+ "SUPERTECH R10": [
+  "Supertech R10",
+  "Integrale racing",
+  [
+   "sport"
+  ],
+  "Fibra di carbonio",
+  "Il casco da MotoGP di Alpinestars: calotta in carbonio, aerodinamica da pista, visiera ad ampio campo visivo e sistema di sicurezza A-Head."
+ ],
+ "S-R7": [
+  "S-R7",
+  "Integrale sportivo",
+  [
+   "sport",
+   "street"
+  ],
+  "Fibra composita",
+  "Integrale sportivo nato dall'esperienza Supertech R10: leggero, ventilato, con visiera a sgancio rapido."
+ ],
+ "SUPERTECH M10": [
+  "Supertech M10",
+  "Casco cross",
+  [
+   "adventure"
+  ],
+  "Fibra di carbonio",
+  "Il casco off-road top di gamma Alpinestars: calotta in carbonio, sistema MIPS e ventilazione da competizione."
+ ],
+ "S-M7": [
+  "S-M7",
+  "Casco cross",
+  [
+   "adventure"
+  ],
+  "Fibra composita",
+  "Casco cross in fibra composita, leggero e ventilato, con interni removibili e lavabili."
+ ],
+ "S-M5": [
+  "S-M5",
+  "Casco cross",
+  [
+   "adventure"
+  ],
+  "Policarbonato",
+  "Casco off-road robusto e accessibile, con ventilazione efficace e interni removibili."
+ ],
+ "S-M3 YOUTH": [
+  "S-M3 Youth",
+  "Casco cross bambino",
+  [
+   "adventure"
+  ],
+  "Policarbonato",
+  "Casco cross per ragazzi: leggero, sicuro e con interni removibili e lavabili."
+ ],
+ "S-M3": [
+  "S-M3",
+  "Casco cross",
+  [
+   "adventure"
+  ],
+  "Policarbonato",
+  "Casco off-road d'ingresso, leggero e resistente, con interni removibili e lavabili."
+ ]
+}
