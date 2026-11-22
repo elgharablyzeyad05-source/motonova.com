@@ -1,29 +1,9 @@
 {
- "_nota": "Scritta dall'agente Controllo qualità, letta per prima dall'agente Riconoscimento. Ogni voce: varianteId, motivo, quando. Il Riconoscimento toglie le voci che ha sistemato.",
+ "_nota": "Scritta dall'agente Controllo qualità, letta per prima dall'agente Riconoscimento. Ogni voce: varianteId, motivo, quando. Ordinata dai pezzi più vecchi (05/11) ai più recenti (21/11): sistemare in quest'ordine. Il Riconoscimento toglie le voci che ha sistemato.",
  "da_sistemare": [
   {
-   "varianteId": "cd3adc515af974885316502cb",
-   "motivo": "nessuna foto del colore «Bezzecchi» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10745573718-casco-agv-k1-s-bezzechi || FOTO PRODOTTO: agv-k1-s-used: 12 foto generiche senza colore; alcune sembrano di altri modelli (foto cdeb831c1e40f088e9819a74e e c7b4fed6b15410a083c1accc0 ≈ Pista GP RR carbonio, foto ce584c761b65631a2d7bb1f62 ≈ Corsa R) e una (c5b63e09f1fcb05b22eaf9073) ha sfondo grigio, non bianco. Verificare e assegnare colore/modello giusti (non cancellare: segnalare a Zeyad se vanno tolte).",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c4ab79ec90f5d6d3ff25e6688",
-   "motivo": "nessuna foto del colore «Lyzard» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10718554377-casco-agv-k1s",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c96f682ecf34384d9bc969dcf",
-   "motivo": "nessuna foto del colore «Bezzecchi» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10747597844-casco-agv-k1-s-bezzecchi",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c52686d8740fc49cd8d842e66",
-   "motivo": "nessuna foto del colore «Matt/black grey» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Matt/black grey»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9412616671-agv-k1-s-mattblack-grey",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c3dd2dbf6969c0f40d535331f",
-   "motivo": "nessuna foto del colore «Nero lucido» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero lucido»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10746730094-casque-agv-k1-s-noir-brillant",
+   "varianteId": "c112f27c7c648507f7615d841",
+   "motivo": "nessuna foto del colore «Winter Test 2015» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10280092536-casco-integrale-agv-k1-s-winter-test-2015-taglia-xxl-63-64-cm",
    "quando": "2026-11-22"
   },
   {
@@ -32,13 +12,43 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "ce4c6f66bfa1d4bda3f3687b6",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10753334005-casco-agv-k1s-con-visera-azul-y-transparente-talla-m",
+   "varianteId": "c3dd2dbf6969c0f40d535331f",
+   "motivo": "nessuna foto del colore «Nero lucido» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero lucido»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10746730094-casque-agv-k1-s-noir-brillant",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c451dcee8effdd46699782b4c",
+   "motivo": "nessuna foto del colore «Sling» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10768086287-agv-k1-s-helmet-orginal-sling-matt-blackgrey-size-m-57-58-cm",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c4ab79ec90f5d6d3ff25e6688",
+   "motivo": "nessuna foto del colore «Lyzard» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10718554377-casco-agv-k1s",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c5013ce6f073d0ac221135bff",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10319061469-casco-integrale-agv-k1-s-black-nero-taglia-s",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c52686d8740fc49cd8d842e66",
+   "motivo": "nessuna foto del colore «Matt/black grey» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Matt/black grey»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9412616671-agv-k1-s-mattblack-grey",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "c7869ee71e7bb8b55d7ef6576",
    "motivo": "nessuna foto del colore «Fastlap» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10746261817-casco-per-moto-avg-k1s-taglia-l-fastlap",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c96f682ecf34384d9bc969dcf",
+   "motivo": "nessuna foto del colore «Bezzecchi» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10747597844-casco-agv-k1-s-bezzecchi",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cd3adc515af974885316502cb",
+   "motivo": "nessuna foto del colore «Bezzecchi» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10745573718-casco-agv-k1-s-bezzechi || FOTO PRODOTTO: agv-k1-s-used: 12 foto generiche senza colore; alcune sembrano di altri modelli (foto cdeb831c1e40f088e9819a74e e c7b4fed6b15410a083c1accc0 ≈ Pista GP RR carbonio, foto ce584c761b65631a2d7bb1f62 ≈ Corsa R) e una (c5b63e09f1fcb05b22eaf9073) ha sfondo grigio, non bianco. Verificare e assegnare colore/modello giusti (non cancellare: segnalare a Zeyad se vanno tolte).",
    "quando": "2026-11-22"
   },
   {
@@ -52,28 +62,8 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c5013ce6f073d0ac221135bff",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10319061469-casco-integrale-agv-k1-s-black-nero-taglia-s",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c112f27c7c648507f7615d841",
-   "motivo": "nessuna foto del colore «Winter Test 2015» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10280092536-casco-integrale-agv-k1-s-winter-test-2015-taglia-xxl-63-64-cm",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c451dcee8effdd46699782b4c",
-   "motivo": "nessuna foto del colore «Sling» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10768086287-agv-k1-s-helmet-orginal-sling-matt-blackgrey-size-m-57-58-cm",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cdfb93e39c1ce02c33be168ca",
-   "motivo": "nessuna foto del colore «Nero opaco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero opaco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10668445226",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c3a170de40c6e141a36f2ef23",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10761780431",
+   "varianteId": "ce4c6f66bfa1d4bda3f3687b6",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10753334005-casco-agv-k1s-con-visera-azul-y-transparente-talla-m",
    "quando": "2026-11-22"
   },
   {
@@ -82,63 +72,8 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c960510616e5e6840e53bb963",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10559613120",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cda7b381f83733f9522ceb3e7",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «VR46» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/8758458655",
-   "quando": "2026-11-22"
-  },
-  {
    "varianteId": "c0f227e410d73410a85300625",
    "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10746534013",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c8dc5f2f8bc1569330f2abbaf",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; stesso annuncio 9645904341 anche nel pezzo ce6fbd0b5bca9bf5f131df798 (K5 Jet Evo): doppione, tenerne uno solo nel modello giusto — https://www.vinted.it/items/9645904341",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c37d06f6e9ecde640e8dba92f",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Matt Petrol» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10146154554",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce1fcdd5c5a2a29cc49e31ffe",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10322382820",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cfc4cf5747b5944c8c648bbbd",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Rossi» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/9298388157",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ca604fb0110611bd548228f3b",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10672144158",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c6319779905c5c29322932299",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Hurricane 2.0» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/8696105377",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c8ab65bb6927c3199f6d8cf1f",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10485555256",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cb7c7e66c3310a86649a6ae8b",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8201177933",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c95502e77f70771fedf035eed",
-   "motivo": "nessuna foto del colore «Rossi Winter Test 2012» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10148689352",
    "quando": "2026-11-22"
   },
   {
@@ -147,13 +82,13 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c6b14cee26bf3bce8424575da",
-   "motivo": "nessuna foto del colore «Nero opaco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero opaco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10668517313",
+   "varianteId": "c37d06f6e9ecde640e8dba92f",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Matt Petrol» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10146154554",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c9f6027806517cda8362acf5a",
-   "motivo": "nessuna foto del colore «Slashcut» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10731978573",
+   "varianteId": "c3a170de40c6e141a36f2ef23",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10761780431",
    "quando": "2026-11-22"
   },
   {
@@ -162,8 +97,13 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cfbbd6a6905fbc69311128cba",
-   "motivo": "nessuna foto del colore «Nero opaco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero opaco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10314222103",
+   "varianteId": "c6319779905c5c29322932299",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Hurricane 2.0» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/8696105377",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c6b14cee26bf3bce8424575da",
+   "motivo": "nessuna foto del colore «Nero opaco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero opaco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10668517313",
    "quando": "2026-11-22"
   },
   {
@@ -172,18 +112,23 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "caba09b653b212affd30d40ff",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10760770444",
+   "varianteId": "c8ab65bb6927c3199f6d8cf1f",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10485555256",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cbcbafeb44cbf7ebfb111f76f",
-   "motivo": "nessuna foto del colore «Electrum» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10668186694",
+   "varianteId": "c8dc5f2f8bc1569330f2abbaf",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; stesso annuncio 9645904341 anche nel pezzo ce6fbd0b5bca9bf5f131df798 (K5 Jet Evo): doppione, tenerne uno solo nel modello giusto — https://www.vinted.it/items/9645904341",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "ca26f2a091cd6776512b9305a",
-   "motivo": "nessuna foto del colore «Espargaro Suzuka 2015» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/9518170373",
+   "varianteId": "c95502e77f70771fedf035eed",
+   "motivo": "nessuna foto del colore «Rossi Winter Test 2012» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10148689352",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c960510616e5e6840e53bb963",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10559613120",
    "quando": "2026-11-22"
   },
   {
@@ -192,13 +137,68 @@
    "quando": "2026-11-22"
   },
   {
+   "varianteId": "c9f6027806517cda8362acf5a",
+   "motivo": "nessuna foto del colore «Slashcut» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10731978573",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ca26f2a091cd6776512b9305a",
+   "motivo": "nessuna foto del colore «Espargaro Suzuka 2015» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/9518170373",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ca604fb0110611bd548228f3b",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10672144158",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "caba09b653b212affd30d40ff",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10760770444",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cb7c7e66c3310a86649a6ae8b",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8201177933",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cbcbafeb44cbf7ebfb111f76f",
+   "motivo": "nessuna foto del colore «Electrum» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/10668186694",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cda7b381f83733f9522ceb3e7",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «VR46» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/8758458655",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cdfb93e39c1ce02c33be168ca",
+   "motivo": "nessuna foto del colore «Nero opaco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero opaco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10668445226",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ce1fcdd5c5a2a29cc49e31ffe",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10322382820",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cfbbd6a6905fbc69311128cba",
+   "motivo": "nessuna foto del colore «Nero opaco» (pezzo caricato il 2026-11-05, oltre 24 ore); colore generico «Nero opaco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10314222103",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cfc4cf5747b5944c8c648bbbd",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Rossi» (pezzo caricato il 2026-11-05, oltre 24 ore) — https://www.vinted.it/items/9298388157",
+   "quando": "2026-11-22"
+  },
+  {
    "varianteId": "c13cbb8a54b05313c125e7005",
    "motivo": "colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10748551547-agv-k1-s-motorradhelm-schwarz-ungetragen-top-zustand",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "ce34de0cf82cd0ca2c4a0c4ab",
-   "motivo": "colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10775313356-agv-k1-s-xl",
+   "varianteId": "c8c3e8c684e31a87421d8bc1b",
+   "motivo": "colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10771928486-casco-integrale-agv-k1s-ece-2206-taglia-m",
    "quando": "2026-11-22"
   },
   {
@@ -207,8 +207,8 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c8c3e8c684e31a87421d8bc1b",
-   "motivo": "colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10771928486-casco-integrale-agv-k1s-ece-2206-taglia-m",
+   "varianteId": "ce34de0cf82cd0ca2c4a0c4ab",
+   "motivo": "colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10775313356-agv-k1-s-xl",
    "quando": "2026-11-22"
   },
   {
@@ -237,13 +237,13 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c7fb66ab85947c32380739389",
-   "motivo": "colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10520559709",
+   "varianteId": "c384c58af9363dd3c98bdcede",
+   "motivo": "colore generico «Nero lucido»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10712694689",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c384c58af9363dd3c98bdcede",
-   "motivo": "colore generico «Nero lucido»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10712694689",
+   "varianteId": "c7fb66ab85947c32380739389",
+   "motivo": "colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10520559709",
    "quando": "2026-11-22"
   },
   {
@@ -252,18 +252,13 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c64970c241c02adb394d38090",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Simoncelli» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/9702692291",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cec9dd3242bd6b7cf3883dc0d",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero opaco» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Nero opaco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10589102574",
-   "quando": "2026-11-22"
-  },
-  {
    "varianteId": "c366c191320760deaa956baa1",
    "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Iannone Mugello» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/9826491941",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c64970c241c02adb394d38090",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Simoncelli» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/9702692291",
    "quando": "2026-11-22"
   },
   {
@@ -272,13 +267,13 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c150ea15ca9c8301373bfcead",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Quartararo Le Mans» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/9705508772",
+   "varianteId": "cec9dd3242bd6b7cf3883dc0d",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero opaco» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Nero opaco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10589102574",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c8d485f5198faca27788401c3",
-   "motivo": "nessuna foto del colore «Bianco perlato» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10735320559",
+   "varianteId": "c150ea15ca9c8301373bfcead",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Quartararo Le Mans» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/9705508772",
    "quando": "2026-11-22"
   },
   {
@@ -297,8 +292,8 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cf3e4ddc8272c0c865a837e01",
-   "motivo": "nessuna foto del colore «Quartararo» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10538199134",
+   "varianteId": "c8d485f5198faca27788401c3",
+   "motivo": "nessuna foto del colore «Bianco perlato» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10735320559",
    "quando": "2026-11-22"
   },
   {
@@ -317,13 +312,13 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c2901c1e0f2baa25521b3417a",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Dravix» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/9887110816",
+   "varianteId": "cf3e4ddc8272c0c865a837e01",
+   "motivo": "nessuna foto del colore «Quartararo» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10538199134",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c9da17897a485a5f46dddabdb",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10503400239",
+   "varianteId": "c2901c1e0f2baa25521b3417a",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Dravix» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/9887110816",
    "quando": "2026-11-22"
   },
   {
@@ -332,13 +327,18 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c571f9b7c57a392a8e9394183",
-   "motivo": "nessuna foto del colore «Arius» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10764450074",
+   "varianteId": "c9da17897a485a5f46dddabdb",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10503400239",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "c381d02efb91838954d2c32b8",
    "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10689338241",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c571f9b7c57a392a8e9394183",
+   "motivo": "nessuna foto del colore «Arius» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10764450074",
    "quando": "2026-11-22"
   },
   {
@@ -357,13 +357,13 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c9b129b56d574bfd37361214a",
-   "motivo": "nessuna foto del colore «Quartararo» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10730435517",
+   "varianteId": "c51b5ad0246ebecb875617142",
+   "motivo": "nessuna foto del colore «Aron Canet Misano 2026» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10754045451",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c51b5ad0246ebecb875617142",
-   "motivo": "nessuna foto del colore «Aron Canet Misano 2026» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10754045451",
+   "varianteId": "c9b129b56d574bfd37361214a",
+   "motivo": "nessuna foto del colore «Quartararo» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10730435517",
    "quando": "2026-11-22"
   },
   {
@@ -387,23 +387,23 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cb24105a49e9fc08e1540621c",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Blu» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Blu»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10221762839",
-   "quando": "2026-11-22"
-  },
-  {
    "varianteId": "c2b456ea4208efd86cefd0776",
    "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nero» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10609907664",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cac9e1d7edb5640bdba373336",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10714354220",
+   "varianteId": "cb24105a49e9fc08e1540621c",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Blu» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Blu»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10221762839",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "c7f167ba044ef77c6b784636b",
    "motivo": "nessuna foto del colore «Multicolore» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Multicolore»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10572163384",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cac9e1d7edb5640bdba373336",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10714354220",
    "quando": "2026-11-22"
   },
   {
@@ -422,6 +422,11 @@
    "quando": "2026-11-22"
   },
   {
+   "varianteId": "c016c813960af7de3501b4d3c",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Tourist Trophy 2026» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10727618502",
+   "quando": "2026-11-22"
+  },
+  {
    "varianteId": "c9e461732c06860f62c1a0cf4",
    "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Nakagami GP2» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10556515789",
    "quando": "2026-11-22"
@@ -437,18 +442,13 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c016c813960af7de3501b4d3c",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Tourist Trophy 2026» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10727618502",
+   "varianteId": "c12bf597750f648c80202e58d",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Rossi Mugello 2016» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10721172710",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "ce5e165811e28e73c890cc531",
    "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Rossi Soleluna 2015» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10686795444",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c12bf597750f648c80202e58d",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Rossi Mugello 2016» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/10721172710",
    "quando": "2026-11-22"
   },
   {
@@ -467,188 +467,13 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c8e7d705bfdc0657ca29c9772",
-   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Rossi Winter Test 2018» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/4683138355",
-   "quando": "2026-11-22"
-  },
-  {
    "varianteId": "c30a89ec1e58bea637e435193",
    "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Multicolore» (pezzo caricato il 2026-11-12, oltre 24 ore); colore generico «Multicolore»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10492563140",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c28246eb8d8f8757712db4b7b",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9496711357",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c462e6a5c0f1380e3548d1537",
-   "motivo": "nessuna foto del colore «Multi» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Multi»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9500183424",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cb33b859b410b0acab6e981c2",
-   "motivo": "nessuna foto del colore «Nero / Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9441380443",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c12c27a066f69aab4228ba042",
-   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9413240774",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cd05dfbdac182f81cd88348b4",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9313098381",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c172f7cae526b3996c407414e",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9161212086",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c63f558844fcd966f7c1ac173",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8837052926",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ca1ef2ed8ec6c64b8c07b70e6",
-   "motivo": "nessuna foto del colore «Nero / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Giallo»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/8264890992",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c5f9d557e75c2becff4aaca33",
-   "motivo": "nessuna foto del colore «Nero / Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10905241881",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce6b814459e9e03860b7c5345",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10505522447",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cdc550f3182f71948ed738a40",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10505471248",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c31e62c9c8e2b985cc558c248",
-   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10282732905",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c2f50cde80f841544308120ce",
-   "motivo": "nessuna foto del colore «Verde scuro» (pezzo caricato il 2026-11-21, oltre 24 ore) — https://www.vinted.it/items/10233474265",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cebd64bbf1f7f076a93862e12",
-   "motivo": "nessuna foto del colore «Blu marino» (pezzo caricato il 2026-11-21, oltre 24 ore) — https://www.vinted.it/items/10225447448",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cc9fedc78e66966a00e4cefa3",
-   "motivo": "nessuna foto del colore «Grigio / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/7204768792",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ca38c15e4a74f59aacbb39b4b",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/4783108549",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c66a24241dead0a30a288de52",
-   "motivo": "nessuna foto del colore «Nero / Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10855986302",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c7c9e8ca265c7d0e72d2dd5f2",
-   "motivo": "nessuna foto del colore «Blu» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Blu»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10008434442",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce0c4d01dbe40ab8881d3480c",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9081525391",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c294bdbff8287679ec3b19e49",
-   "motivo": "nessuna foto del colore «Blu marino» (pezzo caricato il 2026-11-21, oltre 24 ore) — https://www.vinted.it/items/8870950022",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce0254088a2258a3ed3beec5d",
-   "motivo": "nessuna foto del colore «Giallo / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Giallo / Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/8404050977",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c5d7869610788bf4b842ab4b8",
-   "motivo": "nessuna foto del colore «Argento» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Argento»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/8005781292",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c37807471e4fd2c4e115ca749",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/7725612120",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c865862f416ff58380854defe",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/6138887851",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cf45396c7b60337cffaaa03e7",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5508533818",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c7c804f6ac15f7dbd89aa5b73",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5330188443",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ccc7d14fcd439ad3bf63309c2",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/4779284228",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ca97a105a499106cab3110afd",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10873171888",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c7de76fc59a5316a94e73f8c8",
-   "motivo": "nessuna foto del colore «Azzurro» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Azzurro»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10780213113",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c1f6ed6fa63e838d82b66f01f",
-   "motivo": "nessuna foto del colore «Bianco / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10703570051",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cf7eda26e4a63ddc50783ced9",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10429421053",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce3f407f7613dd043636de7f0",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10282551018",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c46788548929e818a5b585980",
-   "motivo": "nessuna foto del colore «Beige / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Beige / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9372735123",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c1bc96cd29a886faa28977da9",
-   "motivo": "nessuna foto del colore «Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9353871789",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c05734d30f1785e7c9d88e02e",
-   "motivo": "nessuna foto del colore «Bianco / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9323625454",
+   "varianteId": "c8e7d705bfdc0657ca29c9772",
+   "motivo": "prodotto senza nessuna foto; nessuna foto del colore «Rossi Winter Test 2018» (pezzo caricato il 2026-11-12, oltre 24 ore) — https://www.vinted.it/items/4683138355",
    "quando": "2026-11-22"
   },
   {
@@ -657,388 +482,13 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c43c4401c0143c1167e833207",
-   "motivo": "nessuna foto del colore «Grigio / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/7591578386",
+   "varianteId": "c0531da202921ffe6a0de764d",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10170534818",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c512f4e0812fa1d3a38aa4286",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8719143529",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c37ea106befbe17cbcb42e590",
-   "motivo": "nessuna foto del colore «Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/4847913244",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c53cef9901a30eac2abb96461",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10840685286",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cf49932e648b1ede35c6a4639",
-   "motivo": "nessuna foto del colore «Blu» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Blu»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10828633872",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c3dbdc89dcc5a1e18a1c6baa6",
-   "motivo": "nessuna foto del colore «Blu / Borgogna» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Blu / Borgogna»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10046031091",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cf540a57a2ba1c3adfcfec341",
-   "motivo": "nessuna foto del colore «Bianco / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9811670578",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c1e3d2f5509f485a3ed92f057",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9593585975",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c8d7b471a949e1378fe7f54c7",
-   "motivo": "nessuna foto del colore «Borgogna» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Borgogna»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9244750563",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c9807235d9702304be2de9373",
-   "motivo": "nessuna foto del colore «Nero / Argento» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Argento»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/3957328020",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cd72b58dabedf90aa8afb482c",
-   "motivo": "nessuna foto del colore «Rosso / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10679045742",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c7d2231e6b39cf979b022a1b6",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10654151969",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c8ad57cf18548cf32bf645a06",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10512269449",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c6eeb04128f56565f6b9f8791",
-   "motivo": "nessuna foto del colore «Nero / Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10415606457",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cd8ce65bc23dfe3349f60843d",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10357995792",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c75c38a12b69d0a0ad18e8740",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10108944105",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c7a15f6fd1b718c6186fe2c38",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10067928895",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cc8be97ca535869a12806da1a",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10049576317",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c8c363c96863b83a97b20acee",
-   "motivo": "nessuna foto del colore «Nero / Beige» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Beige»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9919965837",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c98d421341b61fec8dc2c33a2",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9883512508",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c22478a8c5c0387419488a50f",
-   "motivo": "nessuna foto del colore «Grigio / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9817754778",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c67956e2bb42e5fc119dd2ae0",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9775730033",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c5ffc6a28dd4819cf41d5f451",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9745036242",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c946befe7a546fee45e9471b1",
-   "motivo": "nessuna foto del colore «Blu / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Blu / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9602590278",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c226db492df17601d1a324726",
-   "motivo": "nessuna foto del colore «Grigio / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9327170724",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cf3e69b26f41e387afd30d7cf",
-   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9272758790",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c666709c1f5752e2ff490d92c",
-   "motivo": "nessuna foto del colore «Oro / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Oro / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8642284350",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c262a60c324960c13ba6a3a6d",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8519130408",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c4abb0090d81c19237416b915",
-   "motivo": "nessuna foto del colore «Grigio / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8340585663",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c9fbffd4fc000801ca25a27b1",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5813866995",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "caf94d771cafe634f39c5e9f4",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5813259840",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce0cebda7b15caa99c56af7fe",
-   "motivo": "nessuna foto del colore «Arancione / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Arancione / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5792324843",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cd630da6164fe64bad56a2a1a",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/5729679193",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ca4d82b5a98da394fa268278d",
-   "motivo": "nessuna foto del colore «Nero / Argento» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Argento»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5852557698",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c9a5f5efe66186d78a2ac6823",
-   "motivo": "nessuna foto del colore «Grigio / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5169420847",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cbc10864e91fa2f2f5b18c55a",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5030871376",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c382d7257b20a5dacceb0ec9e",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10700356113",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c44a2650b582bd450c30eed5f",
-   "motivo": "nessuna foto del colore «Nero / Multi» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Multi»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10638609111",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c664588d1711826c404ac3f30",
-   "motivo": "nessuna foto del colore «Beige» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Beige»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10554454261",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c10739375e0b2375f7b1b5abd",
-   "motivo": "nessuna foto del colore «Rosso / Viola» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso / Viola»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10340470149",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cb50da047b5135405b116d23e",
-   "motivo": "nessuna foto del colore «Rosso / Rosa» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso / Rosa»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9974751845",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cfff2b3a288f936ccd041393d",
-   "motivo": "nessuna foto del colore «Bianco / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9775396059",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cc46ec1682304b8b0949cc301",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/7046654464",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cac629cb511de43bb3d10cdfa",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10781957983",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c752979a50b5bfc83bc4d0007",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10507423365",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cd2d4ab3a7fc4788e9cf99e19",
-   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10498950813",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c1e5b19c7af091587f1a788ec",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5118563599",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c4b68bb22ff15ed1b058a2d04",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10888947261",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce0bc35000d58889ff6974593",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10883278026",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cbeb6f9a971a4158df2b79801",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10879215960",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c751f09114f097241473d0081",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10870496907",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c36df4ce67bd492ac0e825605",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10797362228",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c57926bd476cc6b3345d64590",
-   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10795169644",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c6a16db9861824b8bc7c851dc",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10752883070",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c225ab78987914526de23c3ef",
-   "motivo": "nessuna foto del colore «Blu / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Blu / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10750920757",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c73ca20eae3d488068b3e7c0d",
-   "motivo": "nessuna foto del colore «Bianco / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10725231633",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c56867feb12f59dac25ab3436",
-   "motivo": "nessuna foto del colore «Multi / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Multi / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10701618525",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cf6648f13cfb2586d8a89dc57",
-   "motivo": "nessuna foto del colore «Nero / Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Bianco»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10674787392",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ceb275dcbae462a5b5228f007",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10653730469",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c13e2ebff3af148289f0c689f",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10668206267",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c72a2cb8de58d6dbb7ffce6c3",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10648218235",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cc75982ae1adf904a9ee4605d",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10624780969",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c55827d8b2aa2625256eadec0",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10603502645",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ca7e016c911d61048fdf38974",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10622809759",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cb8b4f89046d0ac993f06721c",
-   "motivo": "nessuna foto del colore «Grigio / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10589773132",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c1495b3cc5227355bc7cc6ce5",
-   "motivo": "nessuna foto del colore «Argento» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Argento»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10561448942",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c4fb043c0c6ba06ee21ff18fd",
-   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10546018326",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c7f0f6aaaa434a236fca51382",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10557743025",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c78109513ff5bd295d35ec1dc",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10448717642",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c677a915ad880097333d7b5e7",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10522333062",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ccfc66c47acac5d834aeacc3a",
-   "motivo": "nessuna foto del colore «Rosso / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10514497050",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c5ec2e402bdfaf9e50601e823",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10486437385",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cd39fee27419eec8a8923c9bc",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10445983584",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c2c72e2d33e6018ce1d1b10bb",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10434442927",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cac8568cb42905e9153fbfcab",
-   "motivo": "nessuna foto del colore «Bianco / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10439584698",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ccbf9890c44e85f4da33bed2f",
-   "motivo": "nessuna foto del colore «Nero / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10417446623",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cdfec8b337e577747c2761efb",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10379848614",
+   "varianteId": "c05734d30f1785e7c9d88e02e",
+   "motivo": "nessuna foto del colore «Bianco / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9323625454",
    "quando": "2026-11-22"
   },
   {
@@ -1047,68 +497,58 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c78a55a4838c53d696b7c155a",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10352533324",
+   "varianteId": "c0fd6dcbc818988c3ed678d8e",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10377295110",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "ca8a965e3b0f39f7ffd1da83b",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10297798427",
+   "varianteId": "c106b6b938e151a1b338a525a",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9899442269",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c5e7b91924bb8b5b8c98677f3",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10328183875",
+   "varianteId": "c10739375e0b2375f7b1b5abd",
+   "motivo": "nessuna foto del colore «Rosso / Viola» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso / Viola»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10340470149",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c85c5de9fdc15e6afd4b152e5",
-   "motivo": "nessuna foto del colore «Nero / Chiaro» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Chiaro»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10330396822",
+   "varianteId": "c12c27a066f69aab4228ba042",
+   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9413240774",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cf746a7627c4968977653e706",
-   "motivo": "nessuna foto del colore «Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10292159740",
+   "varianteId": "c13e2ebff3af148289f0c689f",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10668206267",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cbf57f012315d0518c9e22856",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10203871057",
+   "varianteId": "c1495b3cc5227355bc7cc6ce5",
+   "motivo": "nessuna foto del colore «Argento» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Argento»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10561448942",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c314d29dca54d65107f92c01a",
-   "motivo": "nessuna foto del colore «Multi / Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Multi / Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10302723016",
+   "varianteId": "c172f7cae526b3996c407414e",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9161212086",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cfc82f8dcb415d0bc7ec58860",
-   "motivo": "nessuna foto del colore «Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10205299108",
+   "varianteId": "c1bc96cd29a886faa28977da9",
+   "motivo": "nessuna foto del colore «Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9353871789",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c9efec204563fc274b471fb8c",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10262484479",
+   "varianteId": "c1e3d2f5509f485a3ed92f057",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9593585975",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c2b223e81efefa0fda75e93e9",
-   "motivo": "nessuna foto del colore «Bianco / Rosa» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Rosa»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10248123525",
+   "varianteId": "c1e5b19c7af091587f1a788ec",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5118563599",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c0531da202921ffe6a0de764d",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10170534818",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c852c3c7085f0bfea55428a0a",
-   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione; modello da verificare: K5 Jet o K5 Jet Evo?; stesso annuncio 10172918885 anche nel pezzo NUOVO c0bcf86a341376e4be68f3fc6 (K5 Jet): doppione — https://www.vinted.it/items/10172918885",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce6fbd0b5bca9bf5f131df798",
-   "motivo": "nessuna foto del colore «Nero / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Giallo»: serve il nome ufficiale della colorazione; modello da verificare: K5 Jet o K5 Jet Evo?; stesso annuncio 9645904341 anche nel pezzo c8dc5f2f8bc1569330f2abbaf (K5 Jet usato): doppione — https://www.vinted.it/items/9645904341",
+   "varianteId": "c1f6ed6fa63e838d82b66f01f",
+   "motivo": "nessuna foto del colore «Bianco / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10703570051",
    "quando": "2026-11-22"
   },
   {
@@ -1117,48 +557,43 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c8715614b39e1f8e343c9ac22",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione); modello da verificare: K5 Jet o K5 Jet Evo? — https://www.vinted.it/items/9059252442",
+   "varianteId": "c22478a8c5c0387419488a50f",
+   "motivo": "nessuna foto del colore «Grigio / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9817754778",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c6f2c9593c83d3123e4291cf9",
-   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione; modello da verificare: K5 Jet o K5 Jet Evo? — https://www.vinted.it/items/8971742530",
+   "varianteId": "c225ab78987914526de23c3ef",
+   "motivo": "nessuna foto del colore «Blu / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Blu / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10750920757",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c99d126e891b5cb68a0fbeb3b",
-   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione; modello da verificare: K5 Jet o K5 Jet Evo? — https://www.vinted.it/items/8943985075",
+   "varianteId": "c226db492df17601d1a324726",
+   "motivo": "nessuna foto del colore «Grigio / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9327170724",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c87bba07af2699a2db5090dcb",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/6625611384",
+   "varianteId": "c262a60c324960c13ba6a3a6d",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8519130408",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c665d8f85536fc60a49c3a387",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; note: forse doppione di un altro annuncio, verificare — https://www.vinted.it/items/6619794055",
+   "varianteId": "c28246eb8d8f8757712db4b7b",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9496711357",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c3d0c957e6ac637cf026e0e3b",
-   "motivo": "nessuna foto del colore «Grigio / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10846279957",
+   "varianteId": "c294bdbff8287679ec3b19e49",
+   "motivo": "nessuna foto del colore «Blu marino» (pezzo caricato il 2026-11-21, oltre 24 ore) — https://www.vinted.it/items/8870950022",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c525225dd1768080d632204c9",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10796537398",
+   "varianteId": "c2b223e81efefa0fda75e93e9",
+   "motivo": "nessuna foto del colore «Bianco / Rosa» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Rosa»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10248123525",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cd6f525a47851ee0d8abf4144",
-   "motivo": "nessuna foto del colore «Bianco / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10575193702",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c5c660eea440e78ad352344ec",
-   "motivo": "nessuna foto del colore «Beige / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Beige / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10531594427",
+   "varianteId": "c2c72e2d33e6018ce1d1b10bb",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10434442927",
    "quando": "2026-11-22"
   },
   {
@@ -1167,18 +602,323 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c0fd6dcbc818988c3ed678d8e",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10377295110",
+   "varianteId": "c2f50cde80f841544308120ce",
+   "motivo": "nessuna foto del colore «Verde scuro» (pezzo caricato il 2026-11-21, oltre 24 ore) — https://www.vinted.it/items/10233474265",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cbf02a1f872a4a7af8787b7bd",
-   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10301531093",
+   "varianteId": "c314d29dca54d65107f92c01a",
+   "motivo": "nessuna foto del colore «Multi / Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Multi / Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10302723016",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cba1d91d600c6a9366bf8b326",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10307930933",
+   "varianteId": "c31e62c9c8e2b985cc558c248",
+   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10282732905",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c36df4ce67bd492ac0e825605",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10797362228",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c37807471e4fd2c4e115ca749",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/7725612120",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c37ea106befbe17cbcb42e590",
+   "motivo": "nessuna foto del colore «Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/4847913244",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c382d7257b20a5dacceb0ec9e",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10700356113",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c3d0c957e6ac637cf026e0e3b",
+   "motivo": "nessuna foto del colore «Grigio / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10846279957",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c3dbdc89dcc5a1e18a1c6baa6",
+   "motivo": "nessuna foto del colore «Blu / Borgogna» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Blu / Borgogna»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10046031091",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c43c4401c0143c1167e833207",
+   "motivo": "nessuna foto del colore «Grigio / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/7591578386",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c44a2650b582bd450c30eed5f",
+   "motivo": "nessuna foto del colore «Nero / Multi» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Multi»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10638609111",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c462e6a5c0f1380e3548d1537",
+   "motivo": "nessuna foto del colore «Multi» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Multi»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9500183424",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c46788548929e818a5b585980",
+   "motivo": "nessuna foto del colore «Beige / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Beige / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9372735123",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c4abb0090d81c19237416b915",
+   "motivo": "nessuna foto del colore «Grigio / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8340585663",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c4b68bb22ff15ed1b058a2d04",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10888947261",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c4fb043c0c6ba06ee21ff18fd",
+   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10546018326",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c512f4e0812fa1d3a38aa4286",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8719143529",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c525225dd1768080d632204c9",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10796537398",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c53cef9901a30eac2abb96461",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10840685286",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c55827d8b2aa2625256eadec0",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10603502645",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c56867feb12f59dac25ab3436",
+   "motivo": "nessuna foto del colore «Multi / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Multi / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10701618525",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c57926bd476cc6b3345d64590",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10795169644",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c5c660eea440e78ad352344ec",
+   "motivo": "nessuna foto del colore «Beige / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Beige / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10531594427",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c5d7869610788bf4b842ab4b8",
+   "motivo": "nessuna foto del colore «Argento» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Argento»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/8005781292",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c5e7b91924bb8b5b8c98677f3",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10328183875",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c5ec2e402bdfaf9e50601e823",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10486437385",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c5f9d557e75c2becff4aaca33",
+   "motivo": "nessuna foto del colore «Nero / Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10905241881",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c5ffc6a28dd4819cf41d5f451",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9745036242",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c63f558844fcd966f7c1ac173",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8837052926",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c664588d1711826c404ac3f30",
+   "motivo": "nessuna foto del colore «Beige» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Beige»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10554454261",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c665d8f85536fc60a49c3a387",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; note: forse doppione di un altro annuncio, verificare — https://www.vinted.it/items/6619794055",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c666709c1f5752e2ff490d92c",
+   "motivo": "nessuna foto del colore «Oro / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Oro / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/8642284350",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c66a24241dead0a30a288de52",
+   "motivo": "nessuna foto del colore «Nero / Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10855986302",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c677a915ad880097333d7b5e7",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10522333062",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c67956e2bb42e5fc119dd2ae0",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9775730033",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c6a16db9861824b8bc7c851dc",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10752883070",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c6eeb04128f56565f6b9f8791",
+   "motivo": "nessuna foto del colore «Nero / Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10415606457",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c6f2c9593c83d3123e4291cf9",
+   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione; modello da verificare: K5 Jet o K5 Jet Evo? — https://www.vinted.it/items/8971742530",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c72a2cb8de58d6dbb7ffce6c3",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10648218235",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c73ca20eae3d488068b3e7c0d",
+   "motivo": "nessuna foto del colore «Bianco / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10725231633",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c751f09114f097241473d0081",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10870496907",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c752979a50b5bfc83bc4d0007",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10507423365",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c75c38a12b69d0a0ad18e8740",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10108944105",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c78109513ff5bd295d35ec1dc",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10448717642",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c78a55a4838c53d696b7c155a",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10352533324",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c7a15f6fd1b718c6186fe2c38",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10067928895",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c7c804f6ac15f7dbd89aa5b73",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5330188443",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c7c9e8ca265c7d0e72d2dd5f2",
+   "motivo": "nessuna foto del colore «Blu» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Blu»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10008434442",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c7d2231e6b39cf979b022a1b6",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10654151969",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c7de76fc59a5316a94e73f8c8",
+   "motivo": "nessuna foto del colore «Azzurro» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Azzurro»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10780213113",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c7f0f6aaaa434a236fca51382",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10557743025",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c852c3c7085f0bfea55428a0a",
+   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione; modello da verificare: K5 Jet o K5 Jet Evo?; stesso annuncio 10172918885 anche nel pezzo NUOVO c0bcf86a341376e4be68f3fc6 (K5 Jet): doppione — https://www.vinted.it/items/10172918885",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c85c5de9fdc15e6afd4b152e5",
+   "motivo": "nessuna foto del colore «Nero / Chiaro» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Chiaro»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10330396822",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c865862f416ff58380854defe",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/6138887851",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8715614b39e1f8e343c9ac22",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione); modello da verificare: K5 Jet o K5 Jet Evo? — https://www.vinted.it/items/9059252442",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c87bba07af2699a2db5090dcb",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/6625611384",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8ad57cf18548cf32bf645a06",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10512269449",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8c363c96863b83a97b20acee",
+   "motivo": "nessuna foto del colore «Nero / Beige» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Beige»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9919965837",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8d7b471a949e1378fe7f54c7",
+   "motivo": "nessuna foto del colore «Borgogna» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Borgogna»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9244750563",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c946befe7a546fee45e9471b1",
+   "motivo": "nessuna foto del colore «Blu / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Blu / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9602590278",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c9807235d9702304be2de9373",
+   "motivo": "nessuna foto del colore «Nero / Argento» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Argento»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/3957328020",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c98d421341b61fec8dc2c33a2",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9883512508",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c99d126e891b5cb68a0fbeb3b",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione; modello da verificare: K5 Jet o K5 Jet Evo? — https://www.vinted.it/items/8943985075",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c9a5f5efe66186d78a2ac6823",
+   "motivo": "nessuna foto del colore «Grigio / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5169420847",
    "quando": "2026-11-22"
   },
   {
@@ -1187,8 +927,268 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c106b6b938e151a1b338a525a",
-   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9899442269",
+   "varianteId": "c9efec204563fc274b471fb8c",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10262484479",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c9fbffd4fc000801ca25a27b1",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5813866995",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ca1ef2ed8ec6c64b8c07b70e6",
+   "motivo": "nessuna foto del colore «Nero / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Giallo»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/8264890992",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ca38c15e4a74f59aacbb39b4b",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/4783108549",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ca4d82b5a98da394fa268278d",
+   "motivo": "nessuna foto del colore «Nero / Argento» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Argento»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5852557698",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ca7e016c911d61048fdf38974",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10622809759",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ca8a965e3b0f39f7ffd1da83b",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10297798427",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ca97a105a499106cab3110afd",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10873171888",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cac629cb511de43bb3d10cdfa",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10781957983",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cac8568cb42905e9153fbfcab",
+   "motivo": "nessuna foto del colore «Bianco / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10439584698",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "caf94d771cafe634f39c5e9f4",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5813259840",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cb33b859b410b0acab6e981c2",
+   "motivo": "nessuna foto del colore «Nero / Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9441380443",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cb50da047b5135405b116d23e",
+   "motivo": "nessuna foto del colore «Rosso / Rosa» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso / Rosa»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/9974751845",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cb8b4f89046d0ac993f06721c",
+   "motivo": "nessuna foto del colore «Grigio / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10589773132",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cba1d91d600c6a9366bf8b326",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10307930933",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cbc10864e91fa2f2f5b18c55a",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5030871376",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cbeb6f9a971a4158df2b79801",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10879215960",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cbf02a1f872a4a7af8787b7bd",
+   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10301531093",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cbf57f012315d0518c9e22856",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10203871057",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cc46ec1682304b8b0949cc301",
+   "motivo": "nessuna foto del colore «Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/7046654464",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cc75982ae1adf904a9ee4605d",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10624780969",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cc8be97ca535869a12806da1a",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10049576317",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cc9fedc78e66966a00e4cefa3",
+   "motivo": "nessuna foto del colore «Grigio / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio / Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/7204768792",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ccbf9890c44e85f4da33bed2f",
+   "motivo": "nessuna foto del colore «Nero / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Giallo»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10417446623",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ccc7d14fcd439ad3bf63309c2",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/4779284228",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ccfc66c47acac5d834aeacc3a",
+   "motivo": "nessuna foto del colore «Rosso / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10514497050",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cd05dfbdac182f81cd88348b4",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9313098381",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cd2d4ab3a7fc4788e9cf99e19",
+   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10498950813",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cd39fee27419eec8a8923c9bc",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10445983584",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cd630da6164fe64bad56a2a1a",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/5729679193",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cd6f525a47851ee0d8abf4144",
+   "motivo": "nessuna foto del colore «Bianco / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10575193702",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cd72b58dabedf90aa8afb482c",
+   "motivo": "nessuna foto del colore «Rosso / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10679045742",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cd8ce65bc23dfe3349f60843d",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10357995792",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cdc550f3182f71948ed738a40",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10505471248",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cdfec8b337e577747c2761efb",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10379848614",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ce0254088a2258a3ed3beec5d",
+   "motivo": "nessuna foto del colore «Giallo / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Giallo / Nero»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/8404050977",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ce0bc35000d58889ff6974593",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10883278026",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ce0c4d01dbe40ab8881d3480c",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9081525391",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ce0cebda7b15caa99c56af7fe",
+   "motivo": "nessuna foto del colore «Arancione / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Arancione / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5792324843",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ce3f407f7613dd043636de7f0",
+   "motivo": "nessuna foto del colore «Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Grigio»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10282551018",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ce6b814459e9e03860b7c5345",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10505522447",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ce6fbd0b5bca9bf5f131df798",
+   "motivo": "nessuna foto del colore «Nero / Giallo» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Giallo»: serve il nome ufficiale della colorazione; modello da verificare: K5 Jet o K5 Jet Evo?; stesso annuncio 9645904341 anche nel pezzo c8dc5f2f8bc1569330f2abbaf (K5 Jet usato): doppione — https://www.vinted.it/items/9645904341",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ceb275dcbae462a5b5228f007",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10653730469",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cebd64bbf1f7f076a93862e12",
+   "motivo": "nessuna foto del colore «Blu marino» (pezzo caricato il 2026-11-21, oltre 24 ore) — https://www.vinted.it/items/10225447448",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cf3e69b26f41e387afd30d7cf",
+   "motivo": "nessuna foto del colore «Nero / Grigio» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Grigio»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9272758790",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cf45396c7b60337cffaaa03e7",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/5508533818",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cf49932e648b1ede35c6a4639",
+   "motivo": "nessuna foto del colore «Blu» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Blu»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10828633872",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cf540a57a2ba1c3adfcfec341",
+   "motivo": "nessuna foto del colore «Bianco / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9811670578",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cf6648f13cfb2586d8a89dc57",
+   "motivo": "nessuna foto del colore «Nero / Bianco» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero / Bianco»: serve il nome ufficiale della colorazione; taglia DA VERIFICARE (guardare etichetta/descrizione) — https://www.vinted.it/items/10674787392",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cf746a7627c4968977653e706",
+   "motivo": "nessuna foto del colore «Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10292159740",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cf7eda26e4a63ddc50783ced9",
+   "motivo": "nessuna foto del colore «Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10429421053",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cfc82f8dcb415d0bc7ec58860",
+   "motivo": "nessuna foto del colore «Rosso» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Rosso»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/10205299108",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cfff2b3a288f936ccd041393d",
+   "motivo": "nessuna foto del colore «Bianco / Nero» (pezzo caricato il 2026-11-21, oltre 24 ore); colore generico «Bianco / Nero»: serve il nome ufficiale della colorazione — https://www.vinted.it/items/9775396059",
    "quando": "2026-11-22"
   }
  ]
