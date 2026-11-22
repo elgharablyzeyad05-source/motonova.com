@@ -98,6 +98,12 @@ if __name__ == "__main__":
         print(f"insert into motonova.\"Limite\"(chiave,conteggio,scade) values ('agenti:{h}',0,now()+interval '6 hours') on conflict (chiave) do update set scade=excluded.scade;")
     elif cmd == "carica":
         print(json.dumps(carica(json.load(open(sys.argv[2]))), ensure_ascii=False, indent=1))
+    elif cmd == "api":  # chiamata diretta: python3 agenti/mn.py api '{"op":"daRiconoscere"}'
+        print(json.dumps(_post("/api/agenti", json.loads(sys.argv[2])), ensure_ascii=False, indent=1))
+    elif cmd == "foto":  # python3 agenti/mn.py foto <prodottoId> <colore> <src-o-file> [principale]
+        pid, col, src = sys.argv[2], sys.argv[3], sys.argv[4]
+        blob = open(src, "rb").read() if os.path.exists(src) else scarica(src)
+        print(_post("/api/agenti/foto", {"prodottoId": pid, "colore": col, "principale": "1" if len(sys.argv) > 5 and sys.argv[5] in ("1", "si", "true") else "0"}, {"f": ("f", blob)}))
     elif cmd == "venduto":
         for u in sys.argv[2:]:
             print(u, _post("/api/agenti", {"op": "venduto", "fonteUrl": u}))

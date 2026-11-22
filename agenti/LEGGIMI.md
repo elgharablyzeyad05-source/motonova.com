@@ -51,3 +51,29 @@ Usa **solo** Claude in Chrome (la sessione Vinted di Zeyad). Un solo agente, a r
 - Non inserire password, non accettare cookie diversi dal minimo, non comprare, non scrivere ai venditori.
 - Non pubblicare l'usato (resta `attivo: false`).
 - Non cambiare codice del sito salvo `agenti/` (stato, modelli). Se serve una modifica al sito, scrivila nel resoconto.
+
+## Agente 3 — Riconoscimento e foto dell'usato (13:20 e 22:20, sul Chrome di Zeyad, dopo l'agente Vinted)
+Scopo: ogni pezzo preso da Vinted deve sapere **esattamente che prodotto è** e avere **foto ufficiali pulite, a sfondo bianco, del suo colore**.
+1. Leggi prima `agenti/coda.json` (voci segnalate dal Controllo qualità): sistemale per prime.
+2. Poi `python3 agenti/mn.py api '{"op":"daRiconoscere"}'`: considera i pezzi con `fotoDelColore = 0`, colore generico (es. «Nero / Rosso», «Da verificare»), taglia «DA VERIFICARE» o note che dicono «verificare».
+3. Per ogni pezzo apri l'annuncio (`fonteUrl`) con Claude in Chrome, a ritmo umano: leggi titolo, descrizione, etichette e **guarda le foto** (screenshot/zoom). Riconosci marca, modello esatto (es. K3 vs K3 SV, Pista GP R vs RR), grafica/colorazione ufficiale e, se si vede, la taglia sull'etichetta interna.
+   Se l'annuncio è venduto/rimosso: `python3 agenti/mn.py venduto <url>` e passa oltre.
+4. Correggi il pezzo: `python3 agenti/mn.py api '{"op":"variante","varianteId":"...","colore":"<nome ufficiale della colorazione>","taglia":"...","noteInterne":"... [riconosciuto: modello, colorazione, come]"}'`. Se il modello è sbagliato (es. è un K3 SV finito nel K3), scrivilo nelle note con «[MODELLO ERRATO → …]» e segnalalo nel resoconto (lo sposta Zeyad).
+5. Foto del colore:
+   - Se la stessa colorazione è nel catalogo nuovo (`op: fotoCatalogo` per marca): **riusa** le foto con `op: copiaFoto` (fotoId → prodottoId del pezzo, colore = colore del pezzo). Prima la 3/4 come principale, poi le altre 2.
+   - Altrimenti cerca la versione nuova online, **solo foto ufficiali** (sito del marchio, o rivenditori ufficiali con la foto del marchio) e caricala con `python3 agenti/mn.py foto <prodottoId> "<colore>" <url-o-file> 1` (il server fa solo ritaglio / cambio sfondo). Mai foto dell'annuncio Vinted.
+   - Se non esiste nessuna foto ufficiale (edizioni rarissime), scrivi nelle note «[foto ufficiale non trovata]» e mettilo nel resoconto.
+6. Togli da `agenti/coda.json` le voci sistemate, commit + push (solo `agenti/`).
+7. Resoconto: pezzi riconosciuti, colori rinominati, foto riusate/caricate, modelli errati, cose non risolte.
+
+## Agente 4 — Controllo qualità (ogni mattina, nel cloud)
+Scopo: controllare il lavoro dei Riconoscimenti e **avvisarlo** (tramite `agenti/coda.json`) di quello che ha saltato o sbagliato. Non corregge da solo, salvo errori evidenti e sicuri.
+1. `python3 agenti/mn.py api '{"op":"daRiconoscere"}'` e query SQL di controllo (Supabase MCP). Cerca:
+   - pezzi disponibili senza foto del loro colore (`fotoDelColore = 0`), soprattutto i **più vecchi** (caricati da più di 24 ore);
+   - colori ancora generici o «Da verificare», taglie «DA VERIFICARE»;
+   - prodotti USATO senza nessuna foto; foto con `colore` che non corrisponde a nessun pezzo del prodotto;
+   - incoerenze fra note/titolo dell'annuncio e prodotto (es. note che citano «K3 SV» in un prodotto K3, «Pista GP R» dentro «Pista GP RR»);
+   - foto sospette: scarica le immagini (`https://motonova.online/media/<percorso>`) e guardale: devono essere foto da catalogo, sfondo bianco, del modello e del colore giusti, non foto di annunci.
+2. Scrivi in `agenti/coda.json` → `da_sistemare` una voce per problema: `{ "varianteId": "...", "motivo": "...", "quando": "AAAA-MM-GG" }` (niente doppioni; se una voce è lì da più di 3 giorni, segnalala come «ignorata» nel resoconto). Commit + push (solo `agenti/`).
+3. Controlla anche gli agenti: se l'ultimo giro di Vinted/Riconoscimento non risulta (nessun pezzo nuovo da giorni, `coda.json` mai svuotata), scrivilo.
+4. Resoconto per Zeyad: quanti pezzi a posto / da sistemare, i problemi più gravi con link all'annuncio, e cosa deve decidere lui.
