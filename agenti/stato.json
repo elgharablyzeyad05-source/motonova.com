@@ -1,0 +1,12 @@
+{
+  "aggiornato": "2026-11-22",
+  "categoria_corrente": "caschi",
+  "marche_fatte": {
+    "caschi": ["AGV", "Momodesign", "Nolan"]
+  },
+  "note": {
+    "AGV": "pagine famiglia agv.com/gb/en/<full-face|open-face|flip-up>/<modello>/, CDN thron; formati colore inglesi",
+    "Momodesign": "sul sito agv.com (open-face/fgtr-classic, fgtr-evo)",
+    "Nolan": "Shopify nolan-helmets.com, collezione tutti-i-caschi, modelli in agenti/modelli/nolan.json; include le linee X (X-804, X-904, X-1005) col marchio Nolan; il CDN Shopify rifiuta le richieste dal server Vercel: le foto vanno scaricate dall'agente e inviate come file (mn.py lo fa già)"
+  }
+}
