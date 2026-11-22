@@ -54,9 +54,35 @@ for p in ps:
     listino = max(float(v["compare_at_price"] or v["price"]) for v in p["variants"])
     righe.append(dict(pref=pref, graf=tc(graf), colore=colore, listino=listino, taglie=disp, imgs=imgs[: x.foto], special="SPECIAL EDITION" in graf.upper()))
 
+# Stabilità fra un giro e l'altro: un colore che è già sul sito resta nel suo prodotto (si aggiornano solo taglie e prezzo);
+# solo i colori che non ci sono ancora formano prodotti nuovi. Così l'ordine del negozio ufficiale può cambiare senza doppioni.
+esistenti = []
+if os.environ.get("MN_CHIAVE"):
+    from mn import _post
+    esistenti = _post("/api/agenti", {"op": "catalogo", "marca": x.marca}).get("prodotti", [])
+NOMI = sorted({v[0] for v in MOD.values()}, key=len, reverse=True)
+mod_di = lambda nome: next((n for n in NOMI if nome == n or nome.startswith(n + " ")), "")
+dove = {(mod_di(e["nome"]), c): e for e in esistenti for c in e["colori"]}
+k_di = lambda r: (MOD[r["pref"]][0], r["colore"])
+piano, slugs = [], {e["slug"] for e in esistenti}
+per_e = defaultdict(list)
+for r in righe:
+    if k_di(r) in dove: per_e[dove[k_di(r)]["slug"]].append(r)
+tutti = {k_di(r) for r in righe}
+for e in esistenti:
+    rs = per_e.get(e["slug"], [])
+    sp = [c for c in e["colori"] if (mod_di(e["nome"]), c) not in tutti]
+    if not rs and not sp: continue
+    q = dict(slug=e["slug"], marca=x.marca, nome=e["nome"], categoria=x.categoria, tipo="NUOVO", aggiornaGiacenze=True,
+             varianti=[dict(colore=c["colore"], taglia=t, giacenza=1) for c in rs for t in c["taglie"]],
+             foto=[dict(src=u, colore=c["colore"], principale=(j == 0)) for c in rs for j, u in enumerate(c["imgs"])])
+    if rs: q["prezzo"] = prezzo_egp(max(c["listino"] for c in rs))
+    if sp: q["coloriSpariti"] = sp
+    piano.append(q)
+righe_nuove = [r for r in righe if k_di(r) not in dove]
+
 gr = defaultdict(list)
-for r in righe: gr[(r["pref"], math.ceil(r["listino"]), r["special"])].append(r)
-piano, slugs = [], set()
+for r in righe_nuove: gr[(r["pref"], math.ceil(r["listino"]), r["special"])].append(r)
 
 
 def slugdi(s):
@@ -84,23 +110,5 @@ for (pref, eur, spec), rs in sorted(gr.items(), key=lambda kv: (list(MOD).index(
                           edizione="special" if spec else None, attivo=True, aggiornaGiacenze=True,
                           varianti=[dict(colore=c["colore"], taglia=t, giacenza=1) for c in ch for t in c["taglie"]],
                           foto=[dict(src=u, colore=c["colore"], principale=(j == 0)) for c in ch for j, u in enumerate(c["imgs"])]))
-# Stabilità fra un giro e l'altro: un prodotto del piano che condivide colori con uno già sul sito ne prende lo slug,
-# così l'ordine del negozio ufficiale può cambiare senza creare doppioni.
-if os.environ.get("MN_CHIAVE"):
-    from mn import _post
-    esistenti = _post("/api/agenti", {"op": "catalogo", "marca": x.marca}).get("prodotti", [])
-    usati = set()
-    for p in piano:
-        mie = {v["colore"] for v in p["varianti"]}
-        best = max(esistenti, key=lambda e: len(mie & set(e["colori"])), default=None)
-        if best and len(mie & set(best["colori"])) > 0 and best["slug"] not in usati:
-            p["slug"] = best["slug"]; usati.add(best["slug"])
-    tutti = {v["colore"] for p in piano for v in p["varianti"]}
-    per_slug = {p["slug"]: p for p in piano}
-    for e in esistenti:
-        sp = [c for c in e["colori"] if c not in tutti]
-        if not sp: continue
-        if e["slug"] in per_slug: per_slug[e["slug"]]["coloriSpariti"] = sp
-        else: piano.append(dict(slug=e["slug"], marca=x.marca, nome=e["nome"], categoria=x.categoria, tipo="NUOVO", aggiornaGiacenze=True, varianti=[], coloriSpariti=sp, foto=[]))
 json.dump(piano, open(x.out, "w"), ensure_ascii=False)
-print(f"{len(righe)} colorazioni -> {len(piano)} prodotti, {sum(len(p['foto']) for p in piano)} foto")
+print(f"{len(righe)} colorazioni: {len(righe) - len(righe_nuove)} già sul sito, {len(righe_nuove)} nuove -> {sum(1 for p in piano if 'sottotitolo' in p)} prodotti nuovi, {len(piano)} voci nel piano")
