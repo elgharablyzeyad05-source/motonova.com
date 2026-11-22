@@ -85,6 +85,48 @@ async function prodotto(p: P) {
   return { id: pr.id, creato, nuove, aggiornate, foto };
 }
 
+const nomeBase = (n: string) => n.replace(/\s+(special|limited)\s+edition\b.*$/i, "").trim();
+const slugColore = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+async function spostaInColorazione(varianteId: string, slug: string, nome: string, edizione?: string | null) {
+  const v = await db.variante.findUniqueOrThrow({ where: { id: varianteId }, include: { prodotto: { include: { foto: true } } } });
+  const src = v.prodotto;
+  const base = nomeBase(src.nome).replace(new RegExp(`\\s+${v.colore.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`), "");
+  const modelloSlug = src.slug.replace(/-used$/, "").replace(/-(special|limited)$/, "");
+  slug = slug || `${modelloSlug}-${slugColore(v.colore) || "da-riconoscere"}-used`;
+  nome = nome || `${base} ${v.colore}`.trim();
+  let dest = await db.prodotto.findUnique({ where: { slug } });
+  let creato = false;
+  if (!dest) {
+    dest = await db.prodotto.create({ data: {
+      id: nuovoId(), slug, marcaId: src.marcaId, nome, sottotitolo: src.sottotitolo, categoria: src.categoria, stili: src.stili, tipo: "USATO",
+      prezzo: 0, trattabile: true, edizione: edizione === undefined ? src.edizione : edizione, sottocategoria: src.sottocategoria, genere: src.genere,
+      materiale: src.materiale, certificazione: src.certificazione, descrizione: src.descrizione, attivo: false,
+    } });
+    creato = true;
+  }
+  if (dest.id === src.id) return { creato, prodotto: dest.slug };
+  let pz = 0;
+  while (await db.variante.findFirst({ where: { prodottoId: dest.id, colore: v.colore, taglia: v.taglia, pezzo: pz }, select: { id: true } })) pz++;
+  await db.variante.update({ where: { id: v.id }, data: { prodottoId: dest.id, pezzo: pz } });
+  // le foto di quel colore: si spostano se nel vecchio prodotto non restano pezzi di quel colore, altrimenti si copiano
+  const restano = await db.variante.count({ where: { prodottoId: src.id, colore: v.colore } });
+  const giaDest = await db.foto.count({ where: { prodottoId: dest.id, colore: v.colore } });
+  if (!giaDest) {
+    for (const f of src.foto.filter((x) => x.colore === v.colore)) {
+      if (!restano) await db.foto.update({ where: { id: f.id }, data: { prodottoId: dest.id } });
+      else {
+        const [g, pc] = await Promise.all([db.media.findUnique({ where: { percorso: f.grande } }), db.media.findUnique({ where: { percorso: f.piccola } })]);
+        if (!g || !pc) continue;
+        const n = nuovoId(), pg = `prodotti/${dest.id}/${n}.webp`, pp = `prodotti/${dest.id}/${n}-s.webp`;
+        await db.$transaction([db.media.create({ data: { percorso: pg, dati: g.dati } }), db.media.create({ data: { percorso: pp, dati: pc.dati } }),
+          db.foto.create({ data: { id: nuovoId(), prodottoId: dest.id, grande: pg, piccola: pp, ordine: f.ordine, colore: f.colore, principale: f.principale } })]);
+      }
+    }
+  }
+  return { creato, prodotto: dest.slug };
+}
+
 export async function POST(req: Request) {
   if (!(await autorizzato(req))) return new Response("no", { status: 401 });
   const b = await req.json().catch(() => null);
@@ -175,7 +217,7 @@ export async function POST(req: Request) {
       let pubblicati = 0;
       for (const p of usati) {
         const pronti = p.varianti.filter((v) => v.prezzo != null && v.giacenza - v.impegnati > 0).map((v) => v.prezzo!);
-        if (!pronti.length) continue;
+        if (!pronti.length) { if (p.attivo) await db.prodotto.update({ where: { id: p.id }, data: { attivo: false } }); continue; }
         const min = Math.min(...pronti);
         if (!p.attivo || p.prezzo !== min) {
           await db.prodotto.update({ where: { id: p.id }, data: { attivo: true, prezzo: min, trattabile: true } });
@@ -183,6 +225,35 @@ export async function POST(req: Request) {
         }
       }
       return Response.json({ ok: true, prezzati, nonPronti, senzaPrezzoAnnuncio, pubblicati });
+    }
+    // Usato: un prodotto per ogni colorazione (regola di Zeyad, 23/11/2026). Sposta un pezzo nel prodotto della sua colorazione,
+    // creandolo se manca (stessa marca, categoria, modello). Le foto di quel colore vanno con lui.
+    if (b.op === "spostaPezzo") {
+      const v = await db.variante.findUnique({ where: { id: String(b.varianteId) }, include: { prodotto: true } });
+      if (!v || v.prodotto.tipo !== "USATO") throw new Error("si spostano solo pezzi dell'usato");
+      const r = await spostaInColorazione(v.id, String(b.slug ?? ""), String(b.nome ?? ""), b.edizione ?? undefined);
+      return Response.json({ ok: true, ...r });
+    }
+    // Divide in blocco ogni prodotto usato con più colorazioni: un prodotto per colorazione.
+    if (b.op === "dividiUsato") {
+      const ps = await db.prodotto.findMany({ where: { tipo: "USATO" }, include: { varianti: true } });
+      let creati = 0, spostati = 0;
+      for (const p of ps) {
+        const colori = [...new Set(p.varianti.map((v) => v.colore))];
+        if (colori.length < 2) {
+          if (colori.length === 1 && colori[0] && !p.nome.includes(colori[0])) await db.prodotto.update({ where: { id: p.id }, data: { nome: `${nomeBase(p.nome)} ${colori[0]}` } });
+          continue;
+        }
+        // resta qui il colore con più pezzi; gli altri vanno nei loro prodotti
+        const conta = (c: string) => p.varianti.filter((v) => v.colore === c).length;
+        const resta = [...colori].sort((a, b2) => conta(b2) - conta(a) || (a ? 0 : 1))[0];
+        for (const c of colori) {
+          if (c === resta || !c) continue;
+          for (const v of p.varianti.filter((x) => x.colore === c)) { const r = await spostaInColorazione(v.id, "", "", undefined); spostati++; if (r.creato) creati++; }
+        }
+        if (resta) await db.prodotto.update({ where: { id: p.id }, data: { nome: `${nomeBase(p.nome)} ${resta}` } });
+      }
+      return Response.json({ ok: true, creati, spostati });
     }
     if (b.op === "esiste") {
       if (b.fonteUrl) return Response.json({ ok: true, esiste: !!(await db.variante.findFirst({ where: { fonteUrl: String(b.fonteUrl) }, select: { id: true } })) });
