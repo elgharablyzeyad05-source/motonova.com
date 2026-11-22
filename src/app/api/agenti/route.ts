@@ -124,6 +124,13 @@ async function spostaInColorazione(varianteId: string, slug: string, nome: strin
       }
     }
   }
+  // un prodotto usato rimasto vuoto (era solo il contenitore di colorazioni ora separate) si toglie, con le sue foto
+  if (!(await db.variante.count({ where: { prodottoId: src.id } })) && src.tipo === "USATO" && !(await db.asta.findUnique({ where: { prodottoId: src.id } }).catch(() => null))) {
+    const fs = await db.foto.findMany({ where: { prodottoId: src.id } });
+    await db.media.deleteMany({ where: { percorso: { in: fs.flatMap((f) => [f.grande, f.piccola]) } } });
+    await db.preferito.deleteMany({ where: { prodottoId: src.id } }).catch(() => null);
+    await db.prodotto.delete({ where: { id: src.id } });
+  }
   return { creato, prodotto: dest.slug };
 }
 
@@ -189,6 +196,12 @@ export async function POST(req: Request) {
         (data as { pezzo?: number }).pezzo = pz;
       }
       await db.variante.update({ where: { id: v.id }, data });
+      // usato: cambiato il colore, il pezzo va nel prodotto della sua colorazione
+      const p = await db.prodotto.findUnique({ where: { id: v.prodottoId }, select: { tipo: true } });
+      if (data.colore && data.colore !== v.colore && p?.tipo === "USATO") {
+        const r = await spostaInColorazione(v.id, "", "", b.edizione ?? undefined);
+        return Response.json({ ok: true, spostatoIn: r.prodotto });
+      }
       return Response.json({ ok: true });
     }
     // Foto del catalogo (per trovare quelle da riusare): per marca, i prodotti con i colori e la foto principale di ciascun colore
@@ -213,10 +226,11 @@ export async function POST(req: Request) {
         await db.variante.update({ where: { id: v.id }, data: { prezzo: Math.round(euro * 62 + 9000) * 100, prezzoMinimo: Math.round(euro * 62 + 6000) * 100 } });
         prezzati++;
       }
-      const usati = await db.prodotto.findMany({ where: { tipo: "USATO" }, select: { id: true, attivo: true, prezzo: true, varianti: { select: { prezzo: true, giacenza: true, impegnati: true } } } });
+      const usati = await db.prodotto.findMany({ where: { tipo: "USATO" }, select: { id: true, attivo: true, prezzo: true, foto: { select: { colore: true } }, varianti: { select: { prezzo: true, giacenza: true, impegnati: true, colore: true } } } });
       let pubblicati = 0;
       for (const p of usati) {
-        const pronti = p.varianti.filter((v) => v.prezzo != null && v.giacenza - v.impegnati > 0).map((v) => v.prezzo!);
+        const conFoto = new Set(p.foto.map((f) => f.colore));
+        const pronti = p.varianti.filter((v) => v.prezzo != null && v.giacenza - v.impegnati > 0 && conFoto.has(v.colore)).map((v) => v.prezzo!);
         if (!pronti.length) { if (p.attivo) await db.prodotto.update({ where: { id: p.id }, data: { attivo: false } }); continue; }
         const min = Math.min(...pronti);
         if (!p.attivo || p.prezzo !== min) {
