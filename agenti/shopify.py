@@ -56,10 +56,13 @@ for p in ps:
 
 # Stabilità fra un giro e l'altro: un colore che è già sul sito resta nel suo prodotto (si aggiornano solo taglie e prezzo);
 # solo i colori che non ci sono ancora formano prodotti nuovi. Così l'ordine del negozio ufficiale può cambiare senza doppioni.
-esistenti = []
-if os.environ.get("MN_CHIAVE"):
-    from mn import _post
-    esistenti = _post("/api/agenti", {"op": "catalogo", "marca": x.marca}).get("prodotti", [])
+if not os.environ.get("MN_CHIAVE"):
+    sys.exit("Serve MN_CHIAVE: senza il catalogo attuale del sito il piano creerebbe doppioni.")
+from mn import _post
+_cat = _post("/api/agenti", {"op": "catalogo", "marca": x.marca})
+if not _cat.get("ok"):
+    sys.exit(f"Catalogo del sito non leggibile: {_cat.get('errore')}")
+esistenti = _cat.get("prodotti", [])
 NOMI = sorted({v[0] for v in MOD.values()}, key=len, reverse=True)
 mod_di = lambda nome: next((n for n in NOMI if nome == n or nome.startswith(n + " ")), "")
 dove = {(mod_di(e["nome"]), c): e for e in esistenti for c in e["colori"]}

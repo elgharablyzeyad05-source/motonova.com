@@ -20,7 +20,7 @@ Regole decise da Zeyad il 22/11/2026. Ogni agente parte da zero: leggi tutto que
 ## Agente 1 — Catalogo nuovo (ogni notte, nel cloud)
 Pubblica **subito** (attivo), con la formula di prezzo.
 1. Ordine di lavoro: prima **tutti i caschi** delle marche famose; finiti i caschi: giacche e tute → guanti e stivali → protezioni e airbag.
-   Marche in ordine di priorità: AGV, Nolan, Momodesign (già caricate, solo aggiornare), Shoei, Arai, HJC, Alpinestars, Dainese, Shark, Bell, Scorpion, LS2, MT, X-lite/Suomy/Caberg, poi REV'IT!, Spidi, TCX, Sidi, Held, Klim. «Qualsiasi marca conosciuta di qualità, prima le più famose.»
+   Marche in ordine di priorità: AGV, Nolan, Momodesign (già caricate; aggiorna solo Nolan, vedi punto 5), Shoei, Arai, HJC, Alpinestars, Dainese, Shark, Bell, Scorpion, LS2, MT, X-lite/Suomy/Caberg, poi REV'IT!, Spidi, TCX, Sidi, Held, Klim. «Qualsiasi marca conosciuta di qualità, prima le più famose.»
    Lo stato di avanzamento è in `agenti/stato.json` (marche/categorie fatte): aggiornalo e fai commit + push su main a fine giro.
 2. Per ogni marca trova il catalogo ufficiale:
    - Negozi **Shopify** (prova `https://<dominio>/products.json`): usa `agenti/shopify.py` con un file `agenti/modelli/<marca>.json` (prefissi dei titoli → nome, sottotitolo, stili, materiale, descrizione breve in italiano). Stili ammessi: sport, street, adventure, touring, urban.
@@ -28,7 +28,10 @@ Pubblica **subito** (attivo), con la formula di prezzo.
    - Altri siti: leggi pagina per pagina e costruisci a mano lo stesso formato di piano (vedi docstring di `agenti/mn.py`).
 3. Raggruppa le colorazioni in prodotti come fa `shopify.py`: modello + grafica, stesso prezzo, max 6 colori e 3 grafiche per prodotto. Solo colorazioni con almeno una taglia disponibile; giacenza 1 per taglia disponibile.
 4. `MN_CHIAVE=... python3 agenti/mn.py carica piano.json`. È idempotente: rilanciarlo non crea doppioni (slug, colori con foto già presenti saltati). Con `aggiornaGiacenze: true` le taglie esaurite vanno a zero e i prezzi si aggiornano.
-5. Ogni notte, per le marche già fatte: rigenera il piano e ricaricalo (aggiorna taglie, prezzi, colorazioni nuove).
+5. Ogni notte, per le marche già fatte con `shopify.py` (oggi: Nolan): rigenera il piano e ricaricalo (aggiorna taglie, prezzi, colorazioni nuove). Il piano tiene ogni colore già presente nel suo prodotto (chiave modello + colore): usa sempre `shopify.py` con MN_CHIAVE impostata.
+   **AGV e Momodesign: per ora NON rigenerarle** (sono state caricate a mano, senza script stabile): saltale finché non c'è `agenti/agv.py`.
+   **Sicurezza anti-doppioni:** prima di `carica`, guarda il piano. Per una marca già presente, se il piano contiene prodotti nuovi (voci con `sottotitolo`) per più del 10% dei prodotti già sul sito, NON caricare: è quasi certamente un errore di abbinamento. Scrivilo nel resoconto.
+   Per costruire un piano a mano (marche non Shopify) leggi prima il catalogo attuale del sito con `op: catalogo` e non ricreare colori che esistono già per lo stesso modello.
 6. Se lo spazio del database (`select pg_size_pretty(pg_database_size(current_database()))`) supera 400 MB, fermati e avvisa: il piano gratuito Supabase arriva a 500 MB.
 
 ## Agente 2 — Usato Vinted (13:00 e 22:00, sul Chrome di Zeyad)
