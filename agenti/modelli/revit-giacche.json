@@ -1,0 +1,708 @@
+{
+ "JACKET FRACTAL H2O": [
+  "Jacket Fractal H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET AFTERBURN 2 H2O": [
+  "Jacket Afterburn 2 H2O",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET DOMINATOR 3 GTX": [
+  "Jacket Dominator 3 GTX",
+  "Giacca Gore-Tex impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca Gore-Tex impermeabile REV'IT! per i viaggi e l'adventure con membrana Gore-Tex impermeabile e traspirante, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET AFTERBURN 2 H2O LADIES": [
+  "Jacket Afterburn 2 H2O Ladies",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET DEFENDER 4 GTX": [
+  "Jacket Defender 4 GTX",
+  "Giacca Gore-Tex impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca Gore-Tex impermeabile REV'IT! per i viaggi e l'adventure con membrana Gore-Tex impermeabile e traspirante, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET DOMAIN GTX": [
+  "Jacket Domain GTX",
+  "Giacca Gore-Tex impermeabile",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca Gore-Tex impermeabile REV'IT! per la città con membrana Gore-Tex impermeabile e traspirante, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET CONVERGENT H2O LADIES": [
+  "Jacket Convergent H2O Ladies",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET DANFORTH H2O": [
+  "Jacket Danforth H2O",
+  "Giacca impermeabile",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la città con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET HYPERSPEED 3 GT AIR": [
+  "Jacket Hyperspeed 3 GT Air",
+  "Giacca estiva traforata",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca estiva traforata REV'IT! per la guida sportiva con ampie zone in rete per la massima ventilazione, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET BOSON": [
+  "Jacket Boson",
+  "Giacca da moto",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca da moto REV'IT! per la guida sportiva, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET OFFTRACK 3 H2O": [
+  "Jacket Offtrack 3 H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET TORQUE 3 H2O": [
+  "Jacket Torque 3 H2O",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET HYPERSPEED 3 AIR": [
+  "Jacket Hyperspeed 3 Air",
+  "Giacca in pelle",
+  [
+   "sport",
+   "urban"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la guida sportiva con ampie zone in rete per la massima ventilazione, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET HIGHCREST H2O": [
+  "Jacket Highcrest H2O",
+  "Giacca impermeabile",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la città con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET CONVERGENT H2O": [
+  "Jacket Convergent H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET VENATOR H2O": [
+  "Jacket Venator H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET OUTBACK 5 H2O": [
+  "Jacket Outback 5 H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET HIGHCREST H2O LADIES": [
+  "Jacket Highcrest H2O Ladies",
+  "Giacca impermeabile",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la città con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET TORQUE 3 H2O LADIES": [
+  "Jacket Torque 3 H2O Ladies",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET HYPERSPEED 3 PRO": [
+  "Jacket Hyperspeed 3 Pro",
+  "Giacca in pelle",
+  [
+   "sport",
+   "urban"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la guida sportiva, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET GT-R 4 AIR": [
+  "Jacket GT-R 4 Air",
+  "Giacca estiva traforata",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca estiva traforata REV'IT! per i viaggi e l'adventure con ampie zone in rete per la massima ventilazione, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET OUTBACK 5 H2O LADIES": [
+  "Jacket Outback 5 H2O Ladies",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET QUADRATIC": [
+  "Jacket Quadratic",
+  "Giacca in pelle",
+  [
+   "sport",
+   "urban"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la guida sportiva, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET HYPERSPEED 3 H2O": [
+  "Jacket Hyperspeed 3 H2O",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET ATWATER": [
+  "Jacket Atwater",
+  "Giacca da moto",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca da moto REV'IT! per la città, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET ENTROPY H2O": [
+  "Jacket Entropy H2O",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET ECLIPSE 2 LADIES": [
+  "Jacket Eclipse 2 Ladies",
+  "Giacca estiva traforata",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca estiva traforata REV'IT! per la città con ampie zone in rete per la massima ventilazione, con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET AIRWAVE 4": [
+  "Jacket Airwave 4",
+  "Giacca estiva traforata",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca estiva traforata REV'IT! per i viaggi e l'adventure con ampie zone in rete per la massima ventilazione, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET XENA 4 LADIES": [
+  "Jacket Xena 4 Ladies",
+  "Giacca in pelle",
+  [
+   "sport",
+   "urban"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la guida sportiva, con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET VISION H2O": [
+  "Jacket Vision H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET SHADE 2 H2O": [
+  "Jacket Shade 2 H2O",
+  "Giacca impermeabile",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la città con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET SHADE 2 H2O LADIES": [
+  "Jacket Shade 2 H2O Ladies",
+  "Giacca impermeabile",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la città con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET COMPONENT 3 H2O": [
+  "Jacket Component 3 H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET TRAFFIC 2 H2O": [
+  "Jacket Traffic 2 H2O",
+  "Giacca impermeabile",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la città con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET TERRITORY 2": [
+  "Jacket Territory 2",
+  "Giacca da moto",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca da moto REV'IT! per i viaggi e l'adventure, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET TRAFALGAR 2 H2O": [
+  "Jacket Trafalgar 2 H2O",
+  "Giacca impermeabile",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la città con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET TECTONIC H2O": [
+  "Jacket Tectonic H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET MANTIS 3 H2O": [
+  "Jacket Mantis 3 H2O",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET ALTAIR H2O": [
+  "Jacket Altair H2O",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET ECLIPSE 2": [
+  "Jacket Eclipse 2",
+  "Giacca estiva traforata",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca estiva traforata REV'IT! per la città con ampie zone in rete per la massima ventilazione, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET AUTOMATE": [
+  "Jacket Automate",
+  "Giacca in pelle",
+  [
+   "sport",
+   "adventure"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la guida sportiva, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET SAND 5 H2O LADIES": [
+  "Jacket Sand 5 H2O Ladies",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET QUANTUM 3": [
+  "Jacket Quantum 3",
+  "Giacca in pelle",
+  [
+   "sport",
+   "urban"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la guida sportiva, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET QUANTUM 3 PRO": [
+  "Jacket Quantum 3 Pro",
+  "Giacca in pelle",
+  [
+   "sport",
+   "urban"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la guida sportiva, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET UNDULATE H2O": [
+  "Jacket Undulate H2O",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET LONDON LADIES": [
+  "Jacket London Ladies",
+  "Giacca in pelle",
+  [
+   "urban"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la città, con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET QUANTUM 3 AIR": [
+  "Jacket Quantum 3 Air",
+  "Giacca estiva traforata",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca estiva traforata REV'IT! per la guida sportiva con ampie zone in rete per la massima ventilazione, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET QUANTUM 3 H2O": [
+  "Jacket Quantum 3 H2O",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET MILE 2": [
+  "Jacket Mile 2",
+  "Giacca in pelle",
+  [
+   "urban"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la città, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET SAND 5 H2O": [
+  "Jacket Sand 5 H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET FLARE 3 H2O LADIES": [
+  "Jacket Flare 3 H2O Ladies",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET TRENCH 2 GTX": [
+  "Jacket Trench 2 GTX",
+  "Giacca Gore-Tex impermeabile",
+  [
+   "adventure",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca Gore-Tex impermeabile REV'IT! per i viaggi e l'adventure con membrana Gore-Tex impermeabile e traspirante, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET AIRWAVE 4 LADIES": [
+  "Jacket Airwave 4 Ladies",
+  "Giacca estiva traforata",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca estiva traforata REV'IT! per i viaggi e l'adventure con ampie zone in rete per la massima ventilazione, con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET PARALLAX": [
+  "Jacket Parallax",
+  "Giacca in pelle",
+  [
+   "sport",
+   "urban"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la guida sportiva, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET STRATUM GTX": [
+  "Jacket Stratum GTX",
+  "Giacca Gore-Tex impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca Gore-Tex impermeabile REV'IT! per i viaggi e l'adventure con membrana Gore-Tex impermeabile e traspirante, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET POTENTIAL GTX": [
+  "Jacket Potential GTX",
+  "Giacca Gore-Tex impermeabile",
+  [
+   "adventure",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca Gore-Tex impermeabile REV'IT! per i viaggi e l'adventure con membrana Gore-Tex impermeabile e traspirante, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET XENA 4 PRO LADIES": [
+  "Jacket Xena 4 Pro Ladies",
+  "Giacca in pelle",
+  [
+   "sport",
+   "urban"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per la guida sportiva, con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET CATALYST H2O": [
+  "Jacket Catalyst H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET TORNADO 4 H2O LADIES": [
+  "Jacket Tornado 4 H2O Ladies",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET FLARE 3 H2O": [
+  "Jacket Flare 3 H2O",
+  "Giacca impermeabile",
+  [
+   "sport",
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la guida sportiva con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET NEPTUNE 3 GTX": [
+  "Jacket Neptune 3 GTX",
+  "Giacca Gore-Tex impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca Gore-Tex impermeabile REV'IT! per i viaggi e l'adventure con membrana Gore-Tex impermeabile e traspirante, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET TORNADO 4 H2O": [
+  "Jacket Tornado 4 H2O",
+  "Giacca impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET IGNITION 4 H2O": [
+  "Jacket Ignition 4 H2O",
+  "Giacca in pelle",
+  [
+   "adventure"
+  ],
+  "Pelle",
+  "Giacca in pelle REV'IT! per i viaggi e l'adventure con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET SURFACE": [
+  "Jacket Surface",
+  "Giacca da moto",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca da moto REV'IT! per i viaggi e l'adventure, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET LAMINA GTX LADIES": [
+  "Jacket Lamina GTX Ladies",
+  "Giacca Gore-Tex impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca Gore-Tex impermeabile REV'IT! per i viaggi e l'adventure con membrana Gore-Tex impermeabile e traspirante, con protezioni CE.",
+  "Donna"
+ ],
+ "JACKET ECHELON GTX": [
+  "Jacket Echelon GTX",
+  "Giacca Gore-Tex impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca Gore-Tex impermeabile REV'IT! per i viaggi e l'adventure con membrana Gore-Tex impermeabile e traspirante, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET POSEIDON 3 GTX": [
+  "Jacket Poseidon 3 GTX",
+  "Giacca Gore-Tex impermeabile",
+  [
+   "adventure"
+  ],
+  "Tessuto tecnico",
+  "Giacca Gore-Tex impermeabile REV'IT! per i viaggi e l'adventure con membrana Gore-Tex impermeabile e traspirante, con protezioni CE.",
+  "Uomo"
+ ],
+ "JACKET ROSIER H2O LADIES": [
+  "Jacket Rosier H2O Ladies",
+  "Giacca impermeabile",
+  [
+   "urban"
+  ],
+  "Tessuto tecnico",
+  "Giacca impermeabile REV'IT! per la città con membrana impermeabile Hydratex (H2O), con protezioni CE.",
+  "Donna"
+ ]
+}

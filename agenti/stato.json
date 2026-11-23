@@ -1,6 +1,6 @@
 {
-  "aggiornato": "2026-11-22",
-  "categoria_corrente": "caschi (marche con negozio ufficiale finite) + giacche/tute Alpinestars iniziate",
+  "aggiornato": "2026-11-23",
+  "categoria_corrente": "caschi finiti per le marche con negozio ufficiale; giacche/tute: Alpinestars completa, REV'IT! pronta (piano fatto) ma non caricata per lo spazio",
   "marche_fatte": {
     "caschi": [
       "AGV",
@@ -13,29 +13,32 @@
     "tute": [
       "Alpinestars"
     ],
-    "giacche_parziali": [
-      "Alpinestars (solo i primi 2 blocchi su 6: lo spazio del database è il limite)"
+    "giacche": [
+      "Alpinestars"
     ]
   },
   "note": {
     "AGV": "pagine famiglia agv.com/gb/en/<full-face|open-face|flip-up>/<modello>/, CDN thron; formati colore inglesi",
     "Momodesign": "sul sito agv.com (open-face/fgtr-classic, fgtr-evo)",
     "Nolan": "Shopify nolan-helmets.com, collezione tutti-i-caschi, modelli in agenti/modelli/nolan.json; include le linee X (X-804, X-904, X-1005) col marchio Nolan; il CDN Shopify rifiuta le richieste dal server Vercel: le foto vanno scaricate dall'agente e inviate come file (mn.py lo fa già)",
-    "Shark": "Shopify www.shark-helmets.com (EUR), collezione tous-les-casques, modelli agenti/modelli/shark.json; prima foto = 3/4",
-    "Alpinestars": "Shopify eu.alpinestars.com (EUR); il colore è un'opzione della variante (--colore-da-opzione). Caschi: modelli/alpinestars.json; tute: modelli/alpinestars-tute.json; giacche: modelli/alpinestars-giacche.json (generati dai titoli). Il prodotto 'Supertech R10' (slug alpinestars-supertech-r10) viene da Vinted: non toccarlo",
-    "MT": "Shopify www.mthelmets.com (sito spagnolo, EUR), titoli 'Modello Grafica C5 Brillo' (--codice-colore), modelli agenti/modelli/mt.json; il prodotto 'Thunder 4 SV' viene da Vinted"
+    "Shark": "Shopify www.shark-helmets.com (EUR), collezione tous-les-casques, modelli agenti/modelli/shark.json; prima foto = 3/4. Spartan GT Carbon e Spartan GT BCL. Micr. sono sul sito Shark ma tutte esaurite (non in modelli/shark.json)",
+    "Alpinestars": "Shopify eu.alpinestars.com (EUR); il colore è un'opzione della variante (--colore-da-opzione). Caschi: modelli/alpinestars.json; tute: modelli/alpinestars-tute.json; giacche: modelli/alpinestars-giacche.json (generati dai titoli). Il prodotto 'Supertech R10' (slug alpinestars-supertech-r10) viene da Vinted: non toccarlo. Giacche complete il 23/11 (78 prodotti nuovi); al giro interrotto per spazio è rimasta senza foto la colorazione 'Dark Blue Black' di alpinestars-dice-jacket",
+    "MT": "Shopify www.mthelmets.com (sito spagnolo, EUR), titoli 'Modello Grafica C5 Brillo' (--codice-colore), modelli agenti/modelli/mt.json; il prodotto 'Thunder 4 SV' viene da Vinted",
+    "REV'IT!": "Shopify www.revitsport.com (prezzi EUR, negozio europeo): titoli 'Jacket Modello | Colore', colore = opzione Color; escludere i tag OutletEU (prezzo d'outlet senza barrato). Solo le prime 2 foto sono del colore giusto (3/4 davanti, 3/4 dietro): le foto indossate mostrano spesso un altro colore, quindi --foto 2. /it-it/ e /cart.js bloccati da 'Verifying your connection'; /products.json e /collections/all/products.json funzionano. Modelli: modelli/revit-giacche.json (68), modelli/revit-tute.json (4, esclusi gli X_101/201/301 su misura). Piano del 23/11: 68 giacche (179 colorazioni, 358 foto, ~25 MB) + 4 tute (8 colorazioni)"
   },
   "marche_saltate": {
     "Shoei": "shoei-europe.com è solo catalogo: niente prezzi né disponibilità",
     "Arai": "araihelmet.eu è solo catalogo: niente prezzi né disponibilità",
-    "HJC": "hjchelmets.eu è Shopify ma quasi tutto non disponibile (16 varianti su 1720): nessuna colorazione passa la regola 'almeno una taglia disponibile'",
+    "HJC": "hjchelmets.eu è Shopify ma quasi tutto non disponibile (16 varianti su 1720): nessuna colorazione passa la regola 'almeno una taglia disponibile' (ricontrollato il 23/11: ancora 16 varianti disponibili su 1720)",
     "Bell": "bellhelmets.eu blocca con Cloudflare (Just a moment...)",
     "Scorpion": "scorpion-helmets.eu blocca con Cloudflare",
     "LS2": "ls2helmets.com ha i prezzi EUR ma niente disponibilità/negozio",
     "Caberg": "caberg.it solo catalogo, niente prezzi",
     "Suomy": "suomy.com solo catalogo",
     "X-lite": "x-lite.it è lo stesso negozio di Nolan: già coperto da Nolan",
-    "Dainese": "caschi = AGV; giacche sul sito Salesforce (non Shopify): da fare a mano"
+    "Dainese": "caschi = AGV; giacche sul sito Salesforce (non Shopify): da fare a mano",
+    "Klim": "eu.klim.com blocca ('Verifying your connection'); klim.com è in USD",
+    "Airoh/Givi/Premier": "nessun negozio Shopify leggibile (products.json assente)"
   },
   "comandi_notte": {
     "Nolan": "python3 agenti/shopify.py --dominio nolan-helmets.com --collezione tutti-i-caschi --marca Nolan --modelli agenti/modelli/nolan.json --out /tmp/nolan.json",
@@ -43,9 +46,11 @@
     "MT": "python3 agenti/shopify.py --dominio www.mthelmets.com --collezione full-face,open-face,modular,off-road-1,kids --marca MT --modelli agenti/modelli/mt.json --codice-colore --out /tmp/mt.json",
     "Alpinestars caschi": "python3 agenti/shopify.py --dominio eu.alpinestars.com --collezione motorcycle-helmets,mx-helmets --marca Alpinestars --modelli agenti/modelli/alpinestars.json --colore-da-opzione --solo-titoli Helmet --togli ' Helmet ECE 22.06| Helmet' --ordine-foto 5,1,0 --out /tmp/as-caschi.json",
     "Alpinestars tute": "python3 agenti/shopify.py --dominio eu.alpinestars.com --collezione road-one-piece-suits,road-two-piece-suits --categoria tute --marca Alpinestars --modelli agenti/modelli/alpinestars-tute.json --colore-da-opzione --togli ® --solo-titoli 'Leather Suit' --foto-preferite _FR.,_BA. --senza-mono --certificazione 'EN 17092' --out /tmp/as-tute.json",
-    "Alpinestars giacche": "python3 agenti/shopify.py --dominio eu.alpinestars.com --collezione moto-jackets --categoria giacche --marca Alpinestars --modelli agenti/modelli/alpinestars-giacche.json --colore-da-opzione --togli ® --solo-titoli 'Jacket|Shell' --foto-preferite _FR.,_BA. --senza-mono --certificazione 'EN 17092' --out /tmp/as-giacche.json  (ATTENZIONE: carica solo se c'è spazio nel database)",
-    "_nota": "Ogni comando vuole MN_CHIAVE. Le giacche e le tute usano file modelli separati: shopify.py considera solo i prodotti dei modelli del file, quindi un giro non tocca le altre categorie della stessa marca."
+    "Alpinestars giacche": "python3 agenti/shopify.py --dominio eu.alpinestars.com --collezione moto-jackets --categoria giacche --marca Alpinestars --modelli agenti/modelli/alpinestars-giacche.json --colore-da-opzione --togli ® --solo-titoli 'Jacket|Shell' --foto-preferite _FR.,_BA. --senza-mono --certificazione 'EN 17092' --out /tmp/as-giacche.json",
+    "_nota": "Ogni comando vuole MN_CHIAVE. Le giacche e le tute usano file modelli separati: shopify.py considera solo i prodotti dei modelli del file, quindi un giro non tocca le altre categorie della stessa marca.",
+    "REV'IT! giacche": "python3 agenti/shopify.py --dominio www.revitsport.com --collezione all --categoria giacche --marca \"REV'IT!\" --modelli agenti/modelli/revit-giacche.json --colore-da-opzione --taglia-titolo ' | ' --escludi-tag OutletEU --solo-tipi Jackets --foto 2 --ordine-foto 0,1 --senza-mono --certificazione 'EN 17092' --out /tmp/revit-giacche.json  (DA CARICARE quando c'è spazio: ~25 MB)",
+    "REV'IT! tute": "python3 agenti/shopify.py --dominio www.revitsport.com --collezione all --categoria tute --marca \"REV'IT!\" --modelli agenti/modelli/revit-tute.json --colore-da-opzione --taglia-titolo ' | ' --escludi-tag OutletEU --solo-tipi Suits --foto 2 --ordine-foto 0,1 --senza-mono --certificazione 'EN 17092' --out /tmp/revit-tute.json"
   },
-  "spazio_db": "346 MB a fine giro del 22/11 (limite di lavoro 400 MB): le foto stanno nel database (tabella Media, ~100 kB per foto). Prima di altre marche serve spazio (foto su storage esterno o piano Supabase superiore).",
-  "prossima": "Giacche Alpinestars (blocchi restanti) e REV'IT! (Shopify revitsport.com, EUR) appena c'è spazio; caschi Shoei/Arai/HJC/LS2/Caberg in attesa di decisione di Zeyad (siti senza negozio/disponibilità)"
+  "spazio_db": "400 MB a fine giro del 23/11 (limite di lavoro 400 MB raggiunto: giro fermato). Ogni foto = 2 righe Media (foto + miniatura), ~45 kB in tutto. Per altre marche serve spazio: foto su storage esterno (Supabase Storage / Vercel Blob) o piano Supabase superiore.",
+  "prossima": "REV'IT! giacche (piano pronto, ~25 MB) e tute appena c'è spazio; poi Spidi, Dainese (a mano), guanti/stivali (REV'IT!, Alpinestars, TCX, Sidi)"
 }

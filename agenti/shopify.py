@@ -29,6 +29,10 @@ a.add_argument("--codice-colore", action="store_true", help="titoli 'Modello Gra
 a.add_argument("--foto-preferite", default="", help="pezzi del nome file delle foto da mettere per prime, separati da virgola (es. _FR.,_BA.)")
 a.add_argument("--senza-mono", action="store_true", help="prodotti senza grafica: nome = modello (niente 'Mono'); per abbigliamento")
 a.add_argument("--ordine-foto", default="", help="indici delle foto da usare, la prima è la principale (es. 5,1,0)")
+# Negozi con titoli "Jacket Modello | Colore" (es. www.revitsport.com): si tiene solo la parte prima del separatore
+a.add_argument("--taglia-titolo", default="", help="separatore dopo cui il titolo viene tagliato (es. ' | '), da usare con --colore-da-opzione")
+a.add_argument("--escludi-tag", default="", help="salta i prodotti con uno di questi tag, separati da | (es. OutletEU: prezzo d'outlet, non di listino)")
+a.add_argument("--solo-tipi", default="", help="tieni solo questi product_type, separati da | (es. Jackets|Suits)")
 x = a.parse_args()
 
 ps, visti = [], set()
@@ -53,6 +57,7 @@ def titolo(p):
         if m: return m.group(1).rstrip(" /").upper() + " " + m.group(3)[:1].upper() + m.group(3)[1:] + " " + m.group(2)
         return t.upper()
     if not x.colore_da_opzione: return t
+    if x.taglia_titolo: t = t.split(x.taglia_titolo)[0].strip()
     for z in [z for z in x.togli.split("|") if z]: t = t.replace(z, "")
     t = re.sub(r"^Limited Edition (.*)$", r"\1 Limited Edition", t).strip()
     opt = next((o for o in p["options"] if o["name"].lower() in ("color", "colore", "colour")), None)
@@ -76,6 +81,8 @@ def foto_di(p):
 righe = []
 for p in ps:
     if x.solo_titoli and not any(w in p["title"] for w in x.solo_titoli.split("|")): continue
+    if x.escludi_tag and set(x.escludi_tag.split("|")) & set(p.get("tags", [])): continue
+    if x.solo_tipi and p.get("product_type") not in x.solo_tipi.split("|"): continue
     t = titolo(p)
     pref = next((k for k in MOD if t.upper().startswith(k + " ") or t.upper() == k), None)
     if not pref: print("SENZA MODELLO:", t, file=sys.stderr); continue
@@ -86,8 +93,9 @@ for p in ps:
     # taglia = valore dell'opzione Size/Taglia (se la variante ha anche il colore, il titolo sarebbe "M / Black")
     i_tg = next((i for i, o in enumerate(p.get("options", [])) if o["name"].lower() in ("size", "taglia", "talla", "taille", "größe")), None)
     disp = [(v.get(f"option{i_tg + 1}") if i_tg is not None else None) or v["title"] for v in p["variants"] if v["available"]]
+    disp = list(dict.fromkeys(disp))  # stessa taglia in più lunghezze (standard/short/long) = una taglia
     imgs = foto_di(p)
-    if not disp or len(imgs) < 3: continue
+    if not disp or len(imgs) < min(3, x.foto): continue
     colore = (tc(graf) + " " + col).strip() if graf else col
     if any(r["pref"] == pref and r["colore"] == colore for r in righe): continue
     listino = max(float(v["compare_at_price"] or v["price"]) for v in p["variants"])
