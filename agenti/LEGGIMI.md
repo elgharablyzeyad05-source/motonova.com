@@ -70,8 +70,8 @@ Scopo: ogni pezzo preso da Vinted deve sapere **esattamente che prodotto è** e 
 7. Resoconto: pezzi riconosciuti, colori rinominati, foto riusate/caricate, modelli errati, cose non risolte.
 
 ## Agente 4 — Controllo qualità (ogni mattina, nel cloud)
-Non serve la chiave: lavora con query SQL di sola lettura (Supabase MCP), stesse informazioni di `daRiconoscere`.
-Scopo: controllare il lavoro dei Riconoscimenti e **avvisarlo** (tramite `agenti/coda.json`) di quello che ha saltato o sbagliato. Non corregge da solo, salvo errori evidenti e sicuri.
+Regola di Zeyad (23/11/2026): **corregge da solo** e mette lui le foto ai pezzi che non le hanno. Crea la chiave come gli altri agenti (`python3 agenti/mn.py chiave` + insert con Supabase MCP).
+Scopo: trovare quello che Vinted/Riconoscimento hanno saltato o sbagliato e **sistemarlo**; in `agenti/coda.json` restano solo le cose che non è riuscito a sistemare.
 1. `python3 agenti/mn.py api '{"op":"daRiconoscere"}'` e query SQL di controllo (Supabase MCP). Cerca:
    - pezzi disponibili senza foto del loro colore (`fotoDelColore = 0`), soprattutto i **più vecchi** (caricati da più di 24 ore);
    - colori ancora generici o «Da verificare», taglie «DA VERIFICARE»;
@@ -79,9 +79,19 @@ Scopo: controllare il lavoro dei Riconoscimenti e **avvisarlo** (tramite `agenti
    - prodotti usati che contengono **più colorazioni** (devono essere uno per colorazione) → voce in coda per ogni pezzo da spostare;
    - incoerenze fra note/titolo dell'annuncio e prodotto (es. note che citano «K3 SV» in un prodotto K3, «Pista GP R» dentro «Pista GP RR»);
    - foto sospette: scarica le immagini (`https://motonova.online/media/<percorso>`) e guardale: devono essere foto da catalogo, sfondo bianco, del modello e del colore giusti, non foto di annunci.
-2. Scrivi in `agenti/coda.json` → `da_sistemare` una voce per problema: `{ "varianteId": "...", "motivo": "...", "quando": "AAAA-MM-GG" }` (niente doppioni; se una voce è lì da più di 3 giorni, segnalala come «ignorata» nel resoconto). Commit + push (solo `agenti/`).
-3. Controlla anche gli agenti: se l'ultimo giro di Vinted/Riconoscimento non risulta (nessun pezzo nuovo da giorni, `coda.json` mai svuotata), scrivilo.
-4. Resoconto per Zeyad: quanti pezzi a posto / da sistemare, i problemi più gravi con link all'annuncio, e cosa deve decidere lui.
+2. **Correggi da solo**, dai pezzi più vecchi:
+   - colore sbagliato o generico, taglia da verificare, colorazioni divise in due prodotti, pezzo nel prodotto della colorazione sbagliata → op `variante` (colore ufficiale; il server sposta il pezzo nel prodotto giusto) o `spostaPezzo`, come l'Agente 3, punto 4;
+   - modello sbagliato → note «[MODELLO ERRATO → …]» e resoconto (lo sposta Zeyad).
+3. **Foto per i pezzi senza foto del loro colore:**
+   a. `python3 agenti/annuncio.py <fonteUrl> <cartella-scratch> --cerca`: legge l'annuncio (titolo, descrizione, colore) e scarica le foto del venditore. Pagina 404/venduto → `python3 agenti/mn.py venduto <url>`. Pagina «Ci siamo quasi…» (blocco anti-bot) → aspetta 60 s e riprova una volta; se si blocca di nuovo, fermati con Vinted per quel giro.
+   b. **Guarda le foto del venditore** (e i risultati della ricerca per immagine in `cerca.json`, che sono solo indizi) per riconoscere marca, modello esatto e colorazione ufficiale. Google Lens dal cloud chiede il captcha: usa la ricerca per immagine di Yandex dello script, la tua lettura delle foto e la ricerca per nome sul sito ufficiale.
+   c. Trova la foto **ufficiale** del prodotto nuovo in quel colore: prima il catalogo nuovo (`op: fotoCatalogo` → `copiaFoto`), poi il sito del marchio, poi rivenditori ufficiali con la foto del marchio. 3/4 come principale, fino a 3 foto. Caricala con `python3 agenti/mn.py foto <prodottoId> "<colore>" <url-o-file> 1`: il server la ritaglia e mette lo sfondo bianco.
+   d. **Mai caricare le foto del venditore**, nemmeno ritagliate. Se non esiste una foto ufficiale: note «[foto ufficiale non trovata]» e resoconto.
+   e. Controlla il risultato: scarica la foto caricata da `https://motonova.online/media/<percorso>` e guardala (sfondo bianco, modello e colore giusti).
+4. Alla fine lancia `python3 agenti/mn.py api '{"op":"prezzi"}'`.
+5. In `agenti/coda.json` → `da_sistemare` restano solo i problemi non risolti, una voce per pezzo: `{ "varianteId": "...", "motivo": "...", "quando": "AAAA-MM-GG" }` (niente doppioni; se una voce è lì da più di 3 giorni, segnalala come «ignorata» nel resoconto). Commit + push (solo `agenti/`).
+6. Controlla anche gli agenti: se l'ultimo giro di Vinted/Riconoscimento non risulta (nessun pezzo nuovo da giorni, `coda.json` mai svuotata), scrivilo.
+7. Resoconto per Zeyad: pezzi corretti, foto caricate, pezzi a posto / ancora da sistemare, i problemi più gravi con link all'annuncio, e cosa deve decidere lui.
 
 ## Agente 5 — Prezzi (dopo ogni giro del Riconoscimento, nel cloud)
 Regola di Zeyad (23/11/2026) per ogni pezzo preso da Vinted, nuovo di zecca o usato:
