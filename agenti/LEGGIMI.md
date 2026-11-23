@@ -80,7 +80,7 @@ Scopo: trovare quello che Vinted/Riconoscimento hanno saltato o sbagliato e **si
    - prodotti usati che contengono **più colorazioni** (devono essere uno per colorazione) → voce in coda per ogni pezzo da spostare;
    - incoerenze fra note/titolo dell'annuncio e prodotto (es. note che citano «K3 SV» in un prodotto K3, «Pista GP R» dentro «Pista GP RR»);
    - foto sospette: scarica le immagini (`https://motonova.online/media/<percorso>`) e guardale: devono essere foto da catalogo, sfondo bianco, del modello e del colore giusti, non foto di annunci.
-2. **Correggi da solo**, dai pezzi più vecchi:
+2. **Correggi da solo**, dai pezzi più vecchi, **senza limite di pezzi per giro** (regola di Zeyad, 23/11/2026): lancia l'op `prezzi` ogni 20–30 pezzi sistemati e fai commit di `coda.json` anche a metà giro:
    - colore sbagliato o generico, taglia da verificare, colorazioni divise in due prodotti, pezzo nel prodotto della colorazione sbagliata → op `variante` (colore ufficiale; il server sposta il pezzo nel prodotto giusto) o `spostaPezzo`, come l'Agente 3, punto 4;
    - modello sbagliato → note «[MODELLO ERRATO → …]» e resoconto (lo sposta Zeyad).
 3. **Foto per i pezzi senza foto del loro colore:**
