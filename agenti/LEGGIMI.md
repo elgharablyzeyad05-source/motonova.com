@@ -55,7 +55,7 @@ Usa **solo** Claude in Chrome (la sessione Vinted di Zeyad). Un solo agente, a r
 
 ## Agente 3 — Riconoscimento e foto dell'usato (13:20 e 22:20, sul Chrome di Zeyad, dopo l'agente Vinted)
 Scopo: ogni pezzo preso da Vinted deve sapere **esattamente che prodotto è** e avere **foto ufficiali pulite, a sfondo bianco, del suo colore**.
-1. Leggi prima `agenti/coda.json` (voci segnalate dal Controllo qualità): sistemale per prime.
+1. Leggi prima `agenti/coda.json` (voci segnalate dal Controllo qualità): sistemale per prime, cominciando da quelle «[da guardare su Chrome]» (annunci che il Controllo qualità non ha potuto aprire dal cloud).
 2. Poi `python3 agenti/mn.py api '{"op":"daRiconoscere"}'`: considera i pezzi con `fotoDelColore = 0`, colore generico (es. «Nero / Rosso», «Da verificare»), taglia «DA VERIFICARE» o note che dicono «verificare».
 3. Per ogni pezzo apri l'annuncio (`fonteUrl`) con Claude in Chrome, a ritmo umano: leggi titolo, descrizione, etichette e **guarda le foto** (screenshot/zoom). Riconosci marca, modello esatto (es. K3 vs K3 SV, Pista GP R vs RR), grafica/colorazione ufficiale e, se si vede, la taglia sull'etichetta interna.
    Se l'annuncio è venduto/rimosso: `python3 agenti/mn.py venduto <url>` e passa oltre.
@@ -64,6 +64,7 @@ Scopo: ogni pezzo preso da Vinted deve sapere **esattamente che prodotto è** e 
 5. Foto del colore:
    - Se la stessa colorazione è nel catalogo nuovo (`op: fotoCatalogo` per marca): **riusa** le foto con `op: copiaFoto` (fotoId → prodottoId del pezzo, colore = colore del pezzo). Prima la 3/4 come principale, poi le altre 2.
    - Altrimenti cerca la versione nuova online, **solo foto ufficiali** (sito del marchio, o rivenditori ufficiali con la foto del marchio) e caricala con `python3 agenti/mn.py foto <prodottoId> "<colore>" <url-o-file> 1` (il server fa solo ritaglio / cambio sfondo). Mai foto dell'annuncio Vinted.
+   - Modelli/colorazioni fuori produzione (non più sul sito del marchio): **vanno bene le foto ufficiali del marchio prese dai rivenditori** (es. Motoblouz `media-imgproxy.motoblouz.com/_/rs1920/images/catalogue/...`, negozi Shopify dei marchi), purché siano le foto da catalogo su sfondo bianco, non foto fatte dal negozio (regola di Zeyad, 23/11/2026).
    - Se non esiste nessuna foto ufficiale (edizioni rarissime), scrivi nelle note «[foto ufficiale non trovata]» e mettilo nel resoconto.
 6. Lancia i prezzi: `python3 agenti/mn.py api '{"op":"prezzi"}'` (vedi Agente 5).
 7. Togli da `agenti/coda.json` le voci sistemate, commit + push (solo `agenti/`).
@@ -86,6 +87,7 @@ Scopo: trovare quello che Vinted/Riconoscimento hanno saltato o sbagliato e **si
    a. `python3 agenti/annuncio.py <fonteUrl> <cartella-scratch> --cerca`: legge l'annuncio (titolo, descrizione, colore) e scarica le foto del venditore. Pagina 404/venduto → `python3 agenti/mn.py venduto <url>`. Pagina «Ci siamo quasi…» (blocco anti-bot) → aspetta 60 s e riprova una volta; se si blocca di nuovo, fermati con Vinted per quel giro.
    b. **Guarda le foto del venditore** (e i risultati della ricerca per immagine in `cerca.json`, che sono solo indizi) per riconoscere marca, modello esatto e colorazione ufficiale. Google Lens dal cloud chiede il captcha: usa la ricerca per immagine di Yandex dello script, la tua lettura delle foto e la ricerca per nome sul sito ufficiale.
    c. Trova la foto **ufficiale** del prodotto nuovo in quel colore: prima il catalogo nuovo (`op: fotoCatalogo` → `copiaFoto`), poi il sito del marchio, poi rivenditori ufficiali con la foto del marchio. 3/4 come principale, fino a 3 foto. Caricala con `python3 agenti/mn.py foto <prodottoId> "<colore>" <url-o-file> 1`: il server la ritaglia e mette lo sfondo bianco.
+   **Lettura degli annunci (regola di Zeyad, 23/11/2026):** dal cloud Vinted blocca spesso. Il Controllo qualità legge dal cloud solo finché non viene bloccato; i pezzi che non è riuscito a guardare li lascia in `coda.json` con motivo che inizia con «[da guardare su Chrome]». L'Agente 3 (Riconoscimento, sul Chrome di Zeyad) apre per primi questi annunci, guarda le foto e sistema colore/taglia/foto come al punto 3–5 del suo ruolo.
    d. **Mai caricare le foto del venditore**, nemmeno ritagliate. Se non esiste una foto ufficiale: note «[foto ufficiale non trovata]» e resoconto.
    e. Controlla il risultato: scarica la foto caricata da `https://motonova.online/media/<percorso>` e guardala (sfondo bianco, modello e colore giusti).
 4. Alla fine lancia `python3 agenti/mn.py api '{"op":"prezzi"}'`.
