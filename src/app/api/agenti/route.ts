@@ -228,24 +228,33 @@ export async function POST(req: Request) {
       const ps = await db.prodotto.findMany({ where: { marca: { nome: String(b.marca) }, tipo: "NUOVO" }, select: { id: true, nome: true, foto: { select: { id: true, colore: true, principale: true, grande: true }, orderBy: { ordine: "asc" } } } });
       return Response.json({ ok: true, prodotti: ps.map((p) => ({ id: p.id, nome: p.nome, colori: Object.values(p.foto.reduce((m, f) => { (m[f.colore] ??= { colore: f.colore, foto: [] as { id: string; principale: boolean; url: string }[] }).foto.push({ id: f.id, principale: f.principale, url: `/media/${f.grande}` }); return m; }, {} as Record<string, { colore: string; foto: { id: string; principale: boolean; url: string }[] }>)) })) });
     }
-    // Prezzi dei pezzi presi da Vinted (regola di Zeyad, 23/11/2026):
-    //   prezzo = euro dell'annuncio × 62 + 2.000 + 7.000 EGP; minimo trattabile = euro × 62 + 2.000 + 4.000 EGP.
+    // Prezzi dei pezzi presi da Vinted (regola di Zeyad, 24/11/2026):
+    //   prezzo = euro dell'annuncio × 62 + 3.000 + 10.000 EGP; minimo trattabile = euro × 62 + 2.000 + 4.000 EGP (invariato).
+    //   I prezzi messi con la formula vecchia (euro × 62 + 9.000) si aggiornano alla nuova; quelli messi a mano non si toccano.
     // Il prezzo si mette solo ai pezzi pronti: foto ufficiale del loro colore e taglia verificata. I prezzi già presenti non si toccano.
     // Un prodotto USATO va online quando ha almeno un pezzo pronto e disponibile; il suo prezzo è il più basso dei pezzi pronti.
     if (b.op === "prezzi") {
       const vs = await db.variante.findMany({ where: { fonteUrl: { not: null }, giacenza: { gt: 0 } }, include: { prodotto: { select: { id: true, tipo: true, foto: { select: { colore: true } } } } } });
       let prezzati = 0, nonPronti = 0, senzaPrezzoAnnuncio = 0;
+      let aggiornati = 0;
       for (const v of vs) {
-        if (v.prezzo != null) continue;
         const m = (v.prezzoAnnuncio ?? "").replace(/\s/g, "").match(/(\d+(?:[.,]\d{1,2})?)/);
+        if (v.prezzo != null) {
+          if (m && v.prezzo === Math.round(Number(m[1].replace(",", ".")) * 62 + 9000) * 100) {
+            await db.variante.update({ where: { id: v.id }, data: { prezzo: Math.round(Number(m[1].replace(",", ".")) * 62 + 13000) * 100 } });
+            aggiornati++;
+          }
+          continue;
+        }
         if (!m) { senzaPrezzoAnnuncio++; continue; }
         const euro = Number(m[1].replace(",", "."));
         const pronto = v.prodotto.foto.some((f) => f.colore === v.colore) && v.taglia.trim() !== "" && !/verific/i.test(v.taglia);
         if (!pronto) { nonPronti++; continue; }
-        await db.variante.update({ where: { id: v.id }, data: { prezzo: Math.round(euro * 62 + 9000) * 100, prezzoMinimo: Math.round(euro * 62 + 6000) * 100 } });
+        await db.variante.update({ where: { id: v.id }, data: { prezzo: Math.round(euro * 62 + 13000) * 100, prezzoMinimo: Math.round(euro * 62 + 6000) * 100 } });
         prezzati++;
       }
-      const usati = await db.prodotto.findMany({ where: { tipo: "USATO" }, select: { id: true, attivo: true, prezzo: true, foto: { select: { colore: true } }, varianti: { select: { prezzo: true, giacenza: true, impegnati: true, colore: true } } } });
+      // anche i prodotti NUOVO fatti solo di pezzi presi da annunci (nuovo di zecca senza modello a catalogo): stessa regola di pubblicazione
+      const usati = await db.prodotto.findMany({ where: { OR: [{ tipo: "USATO" }, { tipo: "NUOVO", AND: [{ varianti: { some: {} } }, { varianti: { every: { fonteUrl: { not: null } } } }] }] }, select: { id: true, tipo: true, attivo: true, prezzo: true, foto: { select: { colore: true } }, varianti: { select: { prezzo: true, giacenza: true, impegnati: true, colore: true } } } });
       let pubblicati = 0;
       for (const p of usati) {
         const conFoto = new Set(p.foto.map((f) => f.colore));
@@ -253,11 +262,11 @@ export async function POST(req: Request) {
         if (!pronti.length) { if (p.attivo) await db.prodotto.update({ where: { id: p.id }, data: { attivo: false } }); continue; }
         const min = Math.min(...pronti);
         if (!p.attivo || p.prezzo !== min) {
-          await db.prodotto.update({ where: { id: p.id }, data: { attivo: true, prezzo: min, trattabile: true } });
+          await db.prodotto.update({ where: { id: p.id }, data: p.tipo === "USATO" ? { attivo: true, prezzo: min, trattabile: true } : { attivo: true, prezzo: min } });
           if (!p.attivo) pubblicati++;
         }
       }
-      return Response.json({ ok: true, prezzati, nonPronti, senzaPrezzoAnnuncio, pubblicati });
+      return Response.json({ ok: true, prezzati, aggiornati, nonPronti, senzaPrezzoAnnuncio, pubblicati });
     }
     // Usato: un prodotto per ogni colorazione (regola di Zeyad, 23/11/2026). Sposta un pezzo nel prodotto della sua colorazione,
     // creandolo se manca (stessa marca, categoria, modello). Le foto di quel colore vanno con lui.
