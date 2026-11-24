@@ -88,19 +88,38 @@ async function prodotto(p: P) {
 const nomeBase = (n: string) => n.replace(/\s+(special|limited)\s+edition\b.*$/i, "").trim();
 const slugColore = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-async function spostaInColorazione(varianteId: string, slug: string, nome: string, edizione?: string | null) {
-  const v = await db.variante.findUniqueOrThrow({ where: { id: varianteId }, include: { prodotto: { include: { foto: true } } } });
+// Nome del modello di un prodotto usato: dalla sottocategoria «Marca Modello» (es. «AGV K3 SV» → «K3 SV»).
+const pulisci = (s: string) => s.replace(/\s+/g, " ").trim();
+function modelloDi(sottocategoria: string | null, marca: string, nomeFallback: string) {
+  const sc = pulisci(sottocategoria ?? "");
+  if (sc) return sc.toLowerCase().startsWith(marca.toLowerCase() + " ") ? sc.slice(marca.length + 1) : sc;
+  return nomeBase(pulisci(nomeFallback));
+}
+
+// Sposta un pezzo usato nel prodotto della sua colorazione. Nome e slug si ricavano dal MODELLO (sottocategoria) e dal colore,
+// mai dal nome del prodotto di partenza (che può contenere un colore generico vecchio, es. «K3 Nero Matt Black»).
+// Se esiste già un prodotto usato dello stesso modello con quella sola colorazione, il pezzo va lì (niente doppioni).
+// `modello` (opzionale) = nuova sottocategoria «Marca Modello», per i pezzi finiti nel modello sbagliato.
+async function spostaInColorazione(varianteId: string, slug: string, nome: string, edizione?: string | null, modello?: string) {
+  const v = await db.variante.findUniqueOrThrow({ where: { id: varianteId }, include: { prodotto: { include: { foto: true, marca: true } } } });
   const src = v.prodotto;
-  const base = nomeBase(src.nome).replace(new RegExp(`\\s+${v.colore.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`), "");
-  const modelloSlug = src.slug.replace(/-used$/, "").replace(/-(special|limited)$/, "");
-  slug = slug || `${modelloSlug}-${slugColore(v.colore) || "da-riconoscere"}-used`;
-  nome = nome || `${base} ${v.colore}`.trim();
+  const sottocategoria = pulisci(modello || src.sottocategoria || "") || null;
+  const mod = modelloDi(sottocategoria, src.marca.nome, src.nome);
+  const ed = edizione === undefined ? src.edizione : edizione;
+  if (!slug) {
+    const gemello = (await db.prodotto.findMany({ where: { tipo: "USATO", sottocategoria, marcaId: src.marcaId, id: { not: src.id } }, select: { id: true, slug: true, varianti: { select: { colore: true } } } }))
+      .find((p) => p.varianti.length > 0 && p.varianti.every((x) => x.colore === v.colore));
+    if (gemello) slug = gemello.slug;
+  }
+  const base = slugColore(sottocategoria || `${src.marca.nome} ${mod}`);
+  slug = slug || `${base}-${slugColore(v.colore) || "da-riconoscere"}${ed === "special" || ed === "limited" ? `-${ed}` : ""}-used`;
+  nome = nome || pulisci(`${mod} ${v.colore}`);
   let dest = await db.prodotto.findUnique({ where: { slug } });
   let creato = false;
   if (!dest) {
     dest = await db.prodotto.create({ data: {
       id: nuovoId(), slug, marcaId: src.marcaId, nome, sottotitolo: src.sottotitolo, categoria: src.categoria, stili: src.stili, tipo: "USATO",
-      prezzo: 0, trattabile: true, edizione: edizione === undefined ? src.edizione : edizione, sottocategoria: src.sottocategoria, genere: src.genere,
+      prezzo: 0, trattabile: true, edizione: ed, sottocategoria, genere: src.genere,
       materiale: src.materiale, certificazione: src.certificazione, descrizione: src.descrizione, attivo: false,
     } });
     creato = true;
@@ -245,8 +264,41 @@ export async function POST(req: Request) {
     if (b.op === "spostaPezzo") {
       const v = await db.variante.findUnique({ where: { id: String(b.varianteId) }, include: { prodotto: true } });
       if (!v || v.prodotto.tipo !== "USATO") throw new Error("si spostano solo pezzi dell'usato");
-      const r = await spostaInColorazione(v.id, String(b.slug ?? ""), String(b.nome ?? ""), b.edizione ?? undefined);
+      const r = await spostaInColorazione(v.id, String(b.slug ?? ""), String(b.nome ?? ""), b.edizione ?? undefined, typeof b.modello === "string" ? b.modello : undefined);
       return Response.json({ ok: true, ...r });
+    }
+    // Riordina l'usato: riunisce i prodotti dello stesso modello con la stessa colorazione (un prodotto per colorazione)
+    // e rimette i nomi nella forma «Modello Colorazione». Gli slug (link) non cambiano. { op: "sistemaUsato", prova?: true }
+    if (b.op === "sistemaUsato") {
+      const prova = !!b.prova;
+      const ps = await db.prodotto.findMany({ where: { tipo: "USATO" }, include: { marca: true, foto: { select: { colore: true } }, varianti: { select: { id: true, colore: true } } }, orderBy: { creato: "asc" } });
+      const riuniti: string[] = [], rinominati: string[] = [];
+      const gruppi = new Map<string, typeof ps>();
+      for (const p of ps) {
+        const col = [...new Set(p.varianti.map((x) => x.colore))];
+        if (col.length !== 1 || !col[0]) continue;
+        const k = `${p.marcaId}|${pulisci(p.sottocategoria ?? "")}|${col[0]}`;
+        gruppi.set(k, [...(gruppi.get(k) ?? []), p]);
+      }
+      for (const g of gruppi.values()) {
+        if (g.length < 2) continue;
+        // resta il prodotto con le foto di quel colore (a parità: il più vecchio)
+        const col = g[0].varianti[0].colore;
+        const dest = [...g].sort((a, c) => Number(c.foto.some((f) => f.colore === col)) - Number(a.foto.some((f) => f.colore === col)))[0];
+        for (const p of g) {
+          if (p.id === dest.id) continue;
+          riuniti.push(`${p.slug} → ${dest.slug}`);
+          if (!prova) for (const x of p.varianti) await spostaInColorazione(x.id, dest.slug, "", undefined);
+        }
+      }
+      const dopo = prova ? ps : await db.prodotto.findMany({ where: { tipo: "USATO" }, include: { marca: true, varianti: { select: { colore: true } } } });
+      for (const p of dopo) {
+        const col = [...new Set(p.varianti.map((x) => x.colore))];
+        if (col.length !== 1 || !col[0]) continue;
+        const n = pulisci(`${modelloDi(p.sottocategoria, p.marca.nome, p.nome)} ${pulisci(col[0])}`);
+        if (n !== p.nome) { rinominati.push(`${p.nome} → ${n}`); if (!prova) await db.prodotto.update({ where: { id: p.id }, data: { nome: n } }); }
+      }
+      return Response.json({ ok: true, prova, riuniti, rinominati });
     }
     // Divide in blocco ogni prodotto usato con più colorazioni: un prodotto per colorazione.
     if (b.op === "dividiUsato") {
