@@ -19,10 +19,32 @@ BASE = os.environ.get("MN_BASE", "https://motonova.online")
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120 Safari/537.36"
 
 
+# Tabella di Zeyad (24/11/2026) per il nuovo: listino in euro -> prezzo in EGP.
+# Fra due punti si interpola in linea retta; sotto 1.000 EUR 85 EGP per euro; sopra 1.400 EUR lo stesso rapporto di 1.400 (130.000/1.400).
+TABELLA_NUOVO = [(0, 0), (1000, 85000), (1100, 87000), (1150, 90000), (1200, 92000), (1300, 110000), (1400, 130000)]
+
+
 def prezzo_egp(euro: float) -> int:
-    """Formula di MotoNova per il nuovo: 62 x listino in euro (arrotondato all'euro sopra) + 7.388 EGP. Restituisce PIASTRE."""
+    """Prezzo del nuovo dal listino in euro (arrotondato all'euro sopra), con la TABELLA_NUOVO. Restituisce PIASTRE (EGP x 100), arrotondato a 10 EGP."""
     import math
-    return (62 * math.ceil(euro) + 7388) * 100
+    e = math.ceil(euro)
+    t = TABELLA_NUOVO
+    if e >= t[-1][0]:
+        egp = e * t[-1][1] / t[-1][0]
+    else:
+        for (e0, p0), (e1, p1) in zip(t, t[1:]):
+            if e0 <= e <= e1:
+                egp = p0 + (p1 - p0) * (e - e0) / (e1 - e0)
+                break
+    return int(round(egp / 10)) * 10 * 100
+
+
+def euro_da_vecchio_prezzo(piastre: int):
+    """Inverte la formula vecchia del nuovo ((62 x euro + 7.388) EGP): restituisce gli euro, o None se il prezzo non viene da quella formula."""
+    egp = piastre // 100
+    if piastre % 100 or egp <= 7388 or (egp - 7388) % 62:
+        return None
+    return (egp - 7388) // 62
 
 
 def _post(path, data=None, files=None):
