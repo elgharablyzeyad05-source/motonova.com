@@ -1,5 +1,5 @@
 {
-  "aggiornato": "2026-11-24",
+  "aggiornato": "2026-11-25",
   "categoria_corrente": "caschi finiti per le marche con negozio ufficiale; giacche/tute: Alpinestars completa, REV'IT! pronta (piano fatto) ma non caricata per lo spazio",
   "marche_fatte": {
     "caschi": [
@@ -23,7 +23,7 @@
     "Nolan": "Shopify nolan-helmets.com, collezione tutti-i-caschi, modelli in agenti/modelli/nolan.json; include le linee X (X-804, X-904, X-1005) col marchio Nolan; il CDN Shopify rifiuta le richieste dal server Vercel: le foto vanno scaricate dall'agente e inviate come file (mn.py lo fa già)",
     "Shark": "Shopify www.shark-helmets.com (EUR), collezione tous-les-casques, modelli agenti/modelli/shark.json; prima foto = 3/4. Spartan GT Carbon e Spartan GT BCL. Micr. sono sul sito Shark ma tutte esaurite (non in modelli/shark.json)",
     "Alpinestars": "Shopify eu.alpinestars.com (EUR); il colore è un'opzione della variante (--colore-da-opzione). Caschi: modelli/alpinestars.json; tute: modelli/alpinestars-tute.json; giacche: modelli/alpinestars-giacche.json (generati dai titoli). Il prodotto 'Supertech R10' (slug alpinestars-supertech-r10) viene da Vinted: non toccarlo. Giacche complete il 23/11 (78 prodotti nuovi); il 24/11 caricate 3 foto mancanti di una colorazione giacche (probabilmente 'Dark Blue Black' di alpinestars-dice-jacket)",
-    "MT": "Shopify www.mthelmets.com (sito spagnolo, EUR), titoli 'Modello Grafica C5 Brillo' (--codice-colore), modelli agenti/modelli/mt.json; il prodotto 'Thunder 4 SV' viene da Vinted. 24/11: sul sito MT 8 prodotti nuovi (9 colorazioni: Streetfighter SV S Hellish, Thunder 4 SV Solid Mate A7 / Fade Brillo B2, Genesis SV Cave, Jarama SV Wild, Cosmo SV Solid Azul / Cruiser, Street S Solid) NON caricati: oltre il 10% dei 41 prodotti MT (regola anti-doppioni) e database pieno; da controllare a mano gli abbinamenti",
+    "MT": "Shopify www.mthelmets.com (sito spagnolo, EUR), titoli 'Modello Grafica C5 Brillo' (--codice-colore), modelli agenti/modelli/mt.json; il prodotto 'Thunder 4 SV' viene da Vinted. 25/11: il piano non ha più prodotti nuovi (le 9 colorazioni segnalate il 24/11 non risultano più nuove/disponibili); solo aggiornamenti.",
     "REV'IT!": "Shopify www.revitsport.com (prezzi EUR, negozio europeo): titoli 'Jacket Modello | Colore', colore = opzione Color; escludere i tag OutletEU (prezzo d'outlet senza barrato). Solo le prime 2 foto sono del colore giusto (3/4 davanti, 3/4 dietro): le foto indossate mostrano spesso un altro colore, quindi --foto 2. /it-it/ e /cart.js bloccati da 'Verifying your connection'; /products.json e /collections/all/products.json funzionano. Modelli: modelli/revit-giacche.json (68), modelli/revit-tute.json (4, esclusi gli X_101/201/301 su misura). Piano del 23/11: 68 giacche (179 colorazioni, 358 foto, ~25 MB) + 4 tute (8 colorazioni)"
   },
   "marche_saltate": {
@@ -51,6 +51,6 @@
     "REV'IT! giacche": "python3 agenti/shopify.py --dominio www.revitsport.com --collezione all --categoria giacche --marca \"REV'IT!\" --modelli agenti/modelli/revit-giacche.json --colore-da-opzione --taglia-titolo ' | ' --escludi-tag OutletEU --solo-tipi Jackets --foto 2 --ordine-foto 0,1 --senza-mono --certificazione 'EN 17092' --out /tmp/revit-giacche.json  (DA CARICARE quando c'è spazio: ~25 MB)",
     "REV'IT! tute": "python3 agenti/shopify.py --dominio www.revitsport.com --collezione all --categoria tute --marca \"REV'IT!\" --modelli agenti/modelli/revit-tute.json --colore-da-opzione --taglia-titolo ' | ' --escludi-tag OutletEU --solo-tipi Suits --foto 2 --ordine-foto 0,1 --senza-mono --certificazione 'EN 17092' --out /tmp/revit-tute.json"
   },
-  "spazio_db": "401 MB al giro della notte del 23-24/11 (Media 374 MB): sopra il limite di lavoro di 400 MB, nessuna marca nuova caricata. Fatti solo gli aggiornamenti di taglie/prezzi delle marche già presenti. Per continuare serve spazio: foto su storage esterno (Supabase Storage / Vercel Blob) o piano Supabase superiore.",
-  "prossima": "Bloccato dallo spazio (401 MB). Appena c'è spazio: REV'IT! giacche (piano pronto, ~25 MB) e tute; MT 8 prodotti nuovi da verificare; poi Spidi, Dainese (a mano), guanti/stivali (REV'IT!, Alpinestars, TCX, Sidi)"
+  "spazio_db": "412 MB al giro della notte del 24-25/11 (Media 384 MB; era 411 MB a inizio giro): sopra il limite di lavoro di 400 MB, nessuna marca nuova caricata, solo aggiornamenti taglie/prezzi di Nolan, Shark, MT, Alpinestars (caschi, tute, giacche). Per continuare serve spazio: foto su storage esterno (Supabase Storage / Vercel Blob) o piano Supabase superiore.",
+  "prossima": "Bloccato dallo spazio (412 MB). Appena c'è spazio: REV'IT! giacche (piano pronto, ~25 MB) e tute; poi Spidi, Dainese (a mano), guanti/stivali (REV'IT!, Alpinestars, TCX, Sidi)"
 }
