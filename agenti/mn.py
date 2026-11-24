@@ -36,7 +36,7 @@ def prezzo_egp(euro: float) -> int:
             if e0 <= e <= e1:
                 egp = p0 + (p1 - p0) * (e - e0) / (e1 - e0)
                 break
-    return int(round(egp / 10)) * 10 * 100
+    return int(egp / 10 + 0.5) * 10 * 100  # arrotondamento per eccesso a .5, come l aggiornamento SQL del 24/11
 
 
 def euro_da_vecchio_prezzo(piastre: int):
