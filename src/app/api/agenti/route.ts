@@ -93,6 +93,9 @@ const slugColore = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g,
 
 // Nome del modello di un prodotto usato: dalla sottocategoria «Marca Modello» (es. «AGV K3 SV» → «K3 SV»).
 const pulisci = (s: string) => s.replace(/\s+/g, " ").trim();
+// colori generici (dati da chi ha caricato l'annuncio, non nomi ufficiali delle colorazioni)
+const BASE = "nero|bianco|rosso|blu|grigio|argento|giallo|verde|arancione|azzurro|beige|rosa|oro|viola|marrone|multi|multicolore|carbonio|chiaro|scuro|opaco|lucido|perlato|fluo";
+const GENERICO = new RegExp(`^(da (verificare|riconoscere).*|((${BASE})( (${BASE}))?)( / ((${BASE})( (${BASE}))?))*)$`, "i");
 function modelloDi(sottocategoria: string | null, marca: string, nomeFallback: string) {
   const sc = pulisci(sottocategoria ?? "");
   if (sc) return sc.toLowerCase().startsWith(marca.toLowerCase() + " ") ? sc.slice(marca.length + 1) : sc;
@@ -289,7 +292,9 @@ export async function POST(req: Request) {
       for (const p of ps) {
         const col = [...new Set(p.varianti.map((x) => x.colore))];
         if (col.length !== 1 || !col[0]) continue;
-        const k = `${p.marcaId}|${pulisci(p.sottocategoria ?? "")}|${col[0]}`;
+        // solo colorazioni con nome ufficiale: due «Nero» o «Bianco / Rosso» possono essere grafiche diverse
+        if (GENERICO.test(col[0])) continue;
+        const k = `${p.marcaId}|${pulisci(p.sottocategoria ?? "")}|${col[0]}|${p.edizione || ""}`;
         gruppi.set(k, [...(gruppi.get(k) ?? []), p]);
       }
       for (const g of gruppi.values()) {
