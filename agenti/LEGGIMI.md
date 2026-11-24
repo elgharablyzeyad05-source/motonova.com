@@ -11,6 +11,7 @@ Regole decise da Zeyad il 22/11/2026. Ogni agente parte da zero: leggi tutto que
 ## Regole comuni
 - Foto: solo foto ufficiali dei marchi. Sfondo già bianco/trasparente → solo ritaglio; sfondo colorato → cambia solo lo sfondo. Lo fa il server (`pulisciFoto`): non ritoccare, non specchiare, non ruotare.
 - Foto principale di ogni colore: la 3/4 (preferibilmente verso destra; se il marchio le ha tutte verso sinistra, va bene così). 3 foto per colore.
+- **Anteprima nel negozio (regola di Zeyad, 24/11/2026):** la prima foto di ogni colore (ordine più basso, `principale`) deve essere il casco **di 3/4 davanti o di profilo**. Mai di schiena, mai dall'alto, mai frontale. Attenzione: Nolan (X-804, X-904, «Verniciatura speciale») e alcune Alpinestars mettono per prima la 3/4 posteriore o la vista dall'alto: carica prima la 3/4 anteriore. Niente riquadri grigi attorno al casco.
 - Prezzo del nuovo: `prezzo_egp(euro)` in `agenti/mn.py` = (62 × euro arrotondato in su + 7.388) EGP. Euro = prezzo di listino pieno del sito ufficiale italiano/europeo (se c'è uno sconto, il prezzo barrato).
 - Nomi e colori come sul sito ufficiale (il sito traduce da solo con il glossario).
 - Mai cancellare prodotti, ordini o foto. Mai toccare ordini, utenti, coupon, aste.
@@ -79,6 +80,7 @@ Scopo: trovare quello che Vinted/Riconoscimento hanno saltato o sbagliato e **si
    - prodotti USATO senza nessuna foto; foto con `colore` che non corrisponde a nessun pezzo del prodotto;
    - prodotti usati che contengono **più colorazioni** (devono essere uno per colorazione) → voce in coda per ogni pezzo da spostare;
    - incoerenze fra note/titolo dell'annuncio e prodotto (es. note che citano «K3 SV» in un prodotto K3, «Pista GP R» dentro «Pista GP RR»);
+   - anteprime sbagliate: per ogni prodotto la prima foto di ogni colore deve essere 3/4 davanti o profilo (non schiena, non dall'alto, non frontale); se no scambia `ordine`/`principale` con la foto giusta dello stesso colore (SQL di sola lettura per trovarla, poi correggi con l'API o segnalalo nel resoconto);
    - foto sospette: scarica le immagini (`https://motonova.online/media/<percorso>`) e guardale: devono essere foto da catalogo, sfondo bianco, del modello e del colore giusti, non foto di annunci.
 2. **Correggi da solo**, dai pezzi più vecchi, **senza limite di pezzi per giro** (regola di Zeyad, 23/11/2026): lancia l'op `prezzi` ogni 20–30 pezzi sistemati e fai commit di `coda.json` anche a metà giro:
    - colore sbagliato o generico, taglia da verificare, colorazioni divise in due prodotti, pezzo nel prodotto della colorazione sbagliata → op `variante` (colore ufficiale; il server sposta il pezzo nel prodotto giusto) o `spostaPezzo`, come l'Agente 3, punto 4;

@@ -71,9 +71,29 @@ export async function cerca(f: Filtri): Promise<ProdottoLista[]> {
     case "prezzo-desc": lista.sort((a, b) => b.prezzo - a.prezzo); break;
     case "sconto": lista.sort((a, b) => scontoNum(b) - scontoNum(a)); break;
     case "novita": break;
-    default: lista.sort((a, b) => Number(!!b.prezzoPrima) - Number(!!a.prezzoPrima) || a.nome.localeCompare(b.nome));
+    default: {
+      // "Consigliati": prima i caschi sportivi/racing (premium, repliche, integrali sport), in fondo jet, urban e bambino
+      const s = new Map(lista.map((p) => [p.id, punteggio(p)]));
+      lista.sort((a, b) => s.get(b.id)! - s.get(a.id)! || b.prezzo - a.prezzo || a.nome.localeCompare(b.nome));
+    }
   }
   return lista;
+}
+
+const RACING = /\b(pista|corsa|rr|r10|r7|x-?804|x-?904|rpha 1|x-spr|rx-7|race|racing|carbon|gp)\b/i;
+const BAMBINO = /\b(youth|junior|kid|kids|bambino)\b/i;
+function punteggio(p: { categoria: string; nome: string; sottocategoria: string | null; stili: string[]; edizione: string | null; prezzoPrima: number | null }) {
+  let n = p.prezzoPrima ? 5 : 0;
+  if (p.categoria !== "caschi") return n;
+  const testo = `${p.nome} ${p.sottocategoria ?? ""}`;
+  n += 200; // nel negozio misto i caschi vengono prima
+  if (CASCHI_PREMIUM.some((m) => testo.toLowerCase().includes(m.toLowerCase()) || testo.toLowerCase().includes(m.split(" ").slice(1).join(" ").toLowerCase()))) n += 100;
+  if (p.stili.includes("sport")) n += p.stili[0] === "sport" ? 60 : 50;
+  if (RACING.test(testo)) n += 25;
+  if (p.edizione === "limited" || p.edizione === "special") n += 30;
+  if (p.stili.length && p.stili.every((x) => x === "urban" || x === "touring")) n -= 40;
+  if (BAMBINO.test(testo)) n -= 80;
+  return n;
 }
 
 function scontoNum(p: { prezzo: number; prezzoPrima: number | null }) {

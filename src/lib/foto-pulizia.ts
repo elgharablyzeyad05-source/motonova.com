@@ -32,6 +32,31 @@ export async function pulisciFoto(buf: Buffer): Promise<{ img: sharp.Sharp; sfon
       }
     }
   }
+  // foto "incorniciata": bordo bianco ma dentro un riquadro grigio chiaro uniforme (es. Alpinestars S-M5) -> anche il riquadro diventa bianco
+  if (sfondo === "bianco") {
+    let bx0 = W, by0 = H, bx1 = -1, by1 = -1;
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const i = at(x, y); if (px[i + 3] > 200 && Math.min(px[i], px[i + 1], px[i + 2]) < 252) { if (x < bx0) bx0 = x; if (x > bx1) bx1 = x; if (y < by0) by0 = y; if (y > by1) by1 = y; } }
+    if (bx1 > bx0 + 10 && by1 > by0 + 10) {
+      const cam: number[][] = [];
+      for (let x = bx0; x <= bx1; x += 3) for (const y of [by0, by1]) { const i = at(x, y); cam.push([px[i], px[i + 1], px[i + 2]]); }
+      for (let y = by0; y <= by1; y += 3) for (const x of [bx0, bx1]) { const i = at(x, y); cam.push([px[i], px[i + 1], px[i + 2]]); }
+      const med = [0, 1, 2].map((c) => cam.map((p) => p[c]).sort((a, b) => a - b)[cam.length >> 1]);
+      const uguali = cam.filter((p) => Math.abs(p[0] - med[0]) <= 4 && Math.abs(p[1] - med[1]) <= 4 && Math.abs(p[2] - med[2]) <= 4).length;
+      if (Math.min(...med) >= 225 && Math.max(...med) < 252 && uguali > cam.length * 0.85) {
+        sfondo = "colorato";
+        const vicino = (i: number) => px[i + 3] > 200 && ((Math.abs(px[i] - med[0]) <= 6 && Math.abs(px[i + 1] - med[1]) <= 6 && Math.abs(px[i + 2] - med[2]) <= 6) || Math.min(px[i], px[i + 1], px[i + 2]) >= 252);
+        const visto = new Uint8Array(W * H), coda = new Int32Array(W * H); let t = 0, h = 0;
+        const metti = (x: number, y: number) => { const k = y * W + x; if (!visto[k] && vicino(k * 4)) { visto[k] = 1; coda[t++] = k; } };
+        for (let x = 0; x < W; x++) { metti(x, 0); metti(x, H - 1); }
+        for (let y = 0; y < H; y++) { metti(0, y); metti(W - 1, y); }
+        while (h < t) {
+          const k = coda[h++], x = k % W, y = (k / W) | 0, i = k * 4;
+          px[i] = px[i + 1] = px[i + 2] = 255;
+          if (x > 0) metti(x - 1, y); if (x < W - 1) metti(x + 1, y); if (y > 0) metti(x, y - 1); if (y < H - 1) metti(x, y + 1);
+        }
+      }
+    }
+  }
   // su bianco, poi riquadro del prodotto
   const rgb = Buffer.alloc(W * H * 3);
   let x0 = W, y0 = H, x1 = -1, y1 = -1;
