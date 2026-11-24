@@ -1,204 +1,19 @@
 {
- "_nota": "Scritta dall'agente Controllo qualità, letta per prima dall'agente Riconoscimento (prima le voci «[da guardare su Chrome]»). Ogni voce: varianteId, motivo, quando. Ordinata dai più vecchi. Il Riconoscimento toglie le voci che ha sistemato. Aggiornata dal Controllo qualità il 2026-11-24.",
+ "_nota": "Scritta dall'agente Controllo qualità, letta per prima dall'agente Riconoscimento (prima le voci «[da guardare su Chrome]»). Ogni voce: varianteId, motivo, quando. Ordinata dai più vecchi. Il Riconoscimento toglie le voci che ha sistemato. Aggiornata dal Controllo qualità il 2026-11-24 (giro su richiesta di Zeyad).",
  "da_sistemare": [
   {
-   "varianteId": "cb646af01b1e4811174c3d20e",
-   "motivo": "K3 SV Celebr8 Black (dall'etichetta della scatola): foto ufficiale non trovata dal cloud — https://www.vinted.it/items/1951108861",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c81f4cba7ca7a3c40d42d27f0",
-   "motivo": "Corsa R Casanova (dal titolo): foto ufficiale non trovata dal cloud — https://www.vinted.it/items/9959203073",
+   "varianteId": "c0417dfda378a40b51d66b0b2",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso / Bianco» — https://www.vinted.it/items/8550850844",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "c0b19975cf33a84f637dbcf25",
-   "motivo": "Supertech R10 Dragon Limited Edition: foto ufficiale non trovata (alpinestars.com blocca dal cloud) — https://www.vinted.it/items/10410671113",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c51b5ad0246ebecb875617142",
-   "motivo": "EXO-R1 Air replica Aron Canet Misano 2026: foto ufficiale non trovata — https://www.vinted.it/items/10754045451",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c3c557c76a17c47ed5a42c025",
-   "motivo": "colore corretto in «Luminence D5 Matt Red»: manca la foto ufficiale — https://www.vinted.it/items/9713240442",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c2b456ea4208efd86cefd0776",
-   "motivo": "Shoei NXR2 grafica nero/bianco con filetti rossi (non è Prologue TC-1): grafica da riconoscere e foto — https://www.vinted.it/items/10609907664",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce08bb3397c4e8f7fa9f035a8",
-   "motivo": "Arai RX-7V Evo Yuki Okamoto: manca la foto ufficiale — https://www.vinted.it/items/10717361418",
+   "motivo": "annuncio letto: R10 bianca/nera/oro con drago, edizione limitata; sito Alpinestars bloccato dal cloud, foto ufficiale non trovata; nessuna foto del colore «Dragon Limited» — https://www.vinted.it/items/10410671113",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "c0bcf86a341376e4be68f3fc6",
-   "motivo": "K5 Jet nero opaco con strisce tono su tono sul retro: grafica da riconoscere e foto — https://www.vinted.it/items/10172918885",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c9c7c6b393a56d017d8ee66f4",
-   "motivo": "colore corretto in «Mono Matt Black»: manca la foto ufficiale (pagine AGV del K5 Jet E2205 tolte) — https://www.vinted.it/items/9929182720",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c14182bf0ec33985ef6ee0fd3",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rossi Soleluna» — https://www.vinted.it/items/10727009416",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c30a89ec1e58bea637e435193",
-   "motivo": "Pista GP R replica Iannone (Ducati, «The Maniac»): nome esatto della grafica e foto — https://www.vinted.it/items/10492563140",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c8e7d705bfdc0657ca29c9772",
-   "motivo": "Pista GP R Rossi Winter Test 2018 (limited): manca la foto ufficiale — https://www.vinted.it/items/4683138355",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c262a60c324960c13ba6a3a6d",
-   "motivo": "colore corretto in «Mono Black»: manca la foto ufficiale dell'AX9 nero lucido — https://www.vinted.it/items/8519130408",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c5ec2e402bdfaf9e50601e823",
-   "motivo": "[MODELLO ERRATO → AGV K3 SV] è un K3 SV Birdy (foto ufficiali già messe): lo sposta Zeyad — https://www.vinted.it/items/10486437385",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c751f09114f097241473d0081",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10870496907",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c75c38a12b69d0a0ad18e8740",
-   "motivo": "colore corretto in «Mono Black»: manca la foto ufficiale dell'AX9 nero lucido — https://www.vinted.it/items/10108944105",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c78a55a4838c53d696b7c155a",
-   "motivo": "K3 E2206 nero opaco con banda tricolore e scacchi: grafica da riconoscere e foto — https://www.vinted.it/items/10352533324",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c7a15f6fd1b718c6186fe2c38",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10067928895",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c8715614b39e1f8e343c9ac22",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/9059252442",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c99d126e891b5cb68a0fbeb3b",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco»: serve il nome ufficiale — https://www.vinted.it/items/8943985075",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c9efec204563fc274b471fb8c",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10262484479",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ca7e016c911d61048fdf38974",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/10622809759",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ca8a965e3b0f39f7ffd1da83b",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10297798427",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ca97a105a499106cab3110afd",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10873171888",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cbeb6f9a971a4158df2b79801",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10879215960",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cc46ec1682304b8b0949cc301",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco»: serve il nome ufficiale — https://www.vinted.it/items/7046654464",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cc75982ae1adf904a9ee4605d",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10624780969",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cd8ce65bc23dfe3349f60843d",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10357995792",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cdfec8b337e577747c2761efb",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/10379848614",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce0bc35000d58889ff6974593",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10883278026",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cf7eda26e4a63ddc50783ced9",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10429421053",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c6319779905c5c29322932299",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Hurricane 2.0» — https://www.vinted.it/items/8696105377",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cfc4cf5747b5944c8c648bbbd",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rossi» — https://www.vinted.it/items/9298388157",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c8dc5f2f8bc1569330f2abbaf",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/9645904341",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c960510616e5e6840e53bb963",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco»: serve il nome ufficiale — https://www.vinted.it/items/10559613120",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cda7b381f83733f9522ceb3e7",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «VR46» — https://www.vinted.it/items/8758458655",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c37ae9f5c6069cdc4a3f4a142",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «VR46» — https://www.vinted.it/items/10211105438",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ca26f2a091cd6776512b9305a",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Espargaro Suzuka 2015» — https://www.vinted.it/items/9518170373",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c9ac39e75024ec44bf0447cb4",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Giallo»; colore generico «Giallo»: serve il nome ufficiale — https://www.vinted.it/items/9030350663",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c8a635d1d901cd32cd6021161",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero carbonio»; colore generico «Nero carbonio»: serve il nome ufficiale — https://www.vinted.it/items/10773876978",
+   "motivo": "annuncio letto: K-5 Jet nero opaco (Mono Matt Black); foto ufficiale del K-5 Jet (fuori produzione) non trovata; nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10172918885",
    "quando": "2026-11-22"
   },
   {
@@ -207,13 +22,158 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c3e87adaffa3687bd60eeeef6",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero opaco»; colore generico «Nero opaco»: serve il nome ufficiale — https://www.vinted.it/items/10649010886",
+   "varianteId": "c12c27a066f69aab4228ba042",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/9413240774",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cf3e4ddc8272c0c865a837e01",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Quartararo» — https://www.vinted.it/items/10538199134",
+   "varianteId": "c13e2ebff3af148289f0c689f",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/10668206267",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c14182bf0ec33985ef6ee0fd3",
+   "motivo": "annuncio letto: Pista GP R Soleluna in carbonio giallo/arancio/blu, anno da confermare; foto ufficiale non trovata; nessuna foto del colore «Soleluna 2015» — https://www.vinted.it/items/10727009416",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c1495b3cc5227355bc7cc6ce5",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Argento» — https://www.vinted.it/items/10561448942",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c1bc96cd29a886faa28977da9",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso»; colore generico «Rosso» — https://www.vinted.it/items/9353871789",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c225ab78987914526de23c3ef",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu / Grigio» — https://www.vinted.it/items/10750920757",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c262a60c324960c13ba6a3a6d",
+   "motivo": "annuncio letto: AX9 nero lucido (Mono Black, fuori produzione); foto ufficiale non trovata; nessuna foto del colore «Mono Black» — https://www.vinted.it/items/8519130408",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c2b223e81efefa0fda75e93e9",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Rosa» — https://www.vinted.it/items/10248123525",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c2b456ea4208efd86cefd0776",
+   "motivo": "annuncio letto: NXR2 con grafica nera/bianca/rossa, nome grafica da identificare; nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10609907664",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c2ca851905731cbccf3ecd0a6",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Grigio»; colore generico «Grigio» — https://www.vinted.it/items/10515915746",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c2f50cde80f841544308120ce",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Verde scuro» — https://www.vinted.it/items/10233474265",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c314d29dca54d65107f92c01a",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multi / Bianco» — https://www.vinted.it/items/10302723016",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c37ae9f5c6069cdc4a3f4a142",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «VR46» — https://www.vinted.it/items/10211105438",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c37ea106befbe17cbcb42e590",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso»; taglia da verificare; colore generico «Rosso» — https://www.vinted.it/items/4847913244",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c382d7257b20a5dacceb0ec9e",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/10700356113",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c3c557c76a17c47ed5a42c025",
+   "motivo": "annuncio letto: Thunder 4 SV Luminence D5 Matt Red confermato; foto ufficiale MT non trovata dal cloud; nessuna foto del colore «Luminence D5 Matt Red» — https://www.vinted.it/items/9713240442",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c3e87adaffa3687bd60eeeef6",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero opaco»; colore generico «Nero opaco» — https://www.vinted.it/items/10649010886",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c44a2650b582bd450c30eed5f",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/10638609111",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c46788548929e818a5b585980",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Mono Matt Sand/Lime» — https://www.vinted.it/items/9372735123",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c57926bd476cc6b3345d64590",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Grigio»; colore generico «Grigio» — https://www.vinted.it/items/10795169644",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c5c660eea440e78ad352344ec",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Beige / Nero» — https://www.vinted.it/items/10531594427",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c5d7869610788bf4b842ab4b8",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Argento»; taglia da verificare — https://www.vinted.it/items/8005781292",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c6319779905c5c29322932299",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Hurricane 2.0» — https://www.vinted.it/items/8696105377",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c677a915ad880097333d7b5e7",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco» — https://www.vinted.it/items/10522333062",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c67956e2bb42e5fc119dd2ae0",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco» — https://www.vinted.it/items/9775730033",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c6f2c9593c83d3123e4291cf9",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Grigio» — https://www.vinted.it/items/8971742530",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c73ca20eae3d488068b3e7c0d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Giallo» — https://www.vinted.it/items/10725231633",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c75c38a12b69d0a0ad18e8740",
+   "motivo": "annuncio letto: AX9 nero lucido (Mono Black, fuori produzione); foto ufficiale non trovata; nessuna foto del colore «Mono Black» — https://www.vinted.it/items/10108944105",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c7de76fc59a5316a94e73f8c8",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Azzurro» — https://www.vinted.it/items/10780213113",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c7f0f6aaaa434a236fca51382",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; taglia da verificare; colore generico «Bianco» — https://www.vinted.it/items/10557743025",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c7f167ba044ef77c6b784636b",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10572163384",
    "quando": "2026-11-22"
   },
   {
@@ -222,13 +182,68 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c8d485f5198faca27788401c3",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco perlato»; colore generico «Bianco perlato»: serve il nome ufficiale — https://www.vinted.it/items/10735320559",
+   "varianteId": "c81f4cba7ca7a3c40d42d27f0",
+   "motivo": "annuncio letto: Corsa R Casanova confermato; foto ufficiale non trovata dal cloud; nessuna foto del colore «Casanova» — https://www.vinted.it/items/9959203073",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c571f9b7c57a392a8e9394183",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Arius» — https://www.vinted.it/items/10764450074",
+   "varianteId": "c85c5de9fdc15e6afd4b152e5",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Chiaro»; taglia da verificare — https://www.vinted.it/items/10330396822",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8715614b39e1f8e343c9ac22",
+   "motivo": "taglia da verificare — https://www.vinted.it/items/9059252442",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8a635d1d901cd32cd6021161",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero carbonio» — https://www.vinted.it/items/10773876978",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8ad57cf18548cf32bf645a06",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/10512269449",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8c363c96863b83a97b20acee",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Beige»; taglia da verificare — https://www.vinted.it/items/9919965837",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8d485f5198faca27788401c3",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco perlato» — https://www.vinted.it/items/10735320559",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8dc5f2f8bc1569330f2abbaf",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/9645904341",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c8e7d705bfdc0657ca29c9772",
+   "motivo": "annuncio letto: Pista GP R Winter Test 2018 confermato; foto ufficiale non trovata dal cloud; nessuna foto del colore «Rossi Winter Test 2018» — https://www.vinted.it/items/4683138355",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c946befe7a546fee45e9471b1",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu / Grigio» — https://www.vinted.it/items/9602590278",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c960510616e5e6840e53bb963",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco» — https://www.vinted.it/items/10559613120",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c98d421341b61fec8dc2c33a2",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/9883512508",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c9ac39e75024ec44bf0447cb4",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Giallo»; colore generico «Giallo» — https://www.vinted.it/items/9030350663",
    "quando": "2026-11-22"
   },
   {
@@ -237,233 +252,143 @@
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c7f167ba044ef77c6b784636b",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore»: serve il nome ufficiale — https://www.vinted.it/items/10572163384",
+   "varianteId": "c9c7c6b393a56d017d8ee66f4",
+   "motivo": "annuncio letto: K-5 Jet nero opaco (Mono Matt Black); foto ufficiale del K-5 Jet (fuori produzione) non trovata; nessuna foto del colore «Mono Matt Black» — https://www.vinted.it/items/9929182720",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c8c363c96863b83a97b20acee",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Beige»; colore generico «Nero / Beige»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/9919965837",
+   "varianteId": "c9efec204563fc274b471fb8c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10262484479",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c67956e2bb42e5fc119dd2ae0",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco»: serve il nome ufficiale — https://www.vinted.it/items/9775730033",
+   "varianteId": "ca26f2a091cd6776512b9305a",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Espargaro Suzuka 2015» — https://www.vinted.it/items/9518170373",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c946befe7a546fee45e9471b1",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu / Grigio»; colore generico «Blu / Grigio»: serve il nome ufficiale — https://www.vinted.it/items/9602590278",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce0cebda7b15caa99c56af7fe",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Arancione / Nero»; colore generico «Arancione / Nero»: serve il nome ufficiale — https://www.vinted.it/items/5792324843",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cfff2b3a288f936ccd041393d",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Nero»; colore generico «Bianco / Nero»: serve il nome ufficiale — https://www.vinted.it/items/9775396059",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c57926bd476cc6b3345d64590",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Grigio»; colore generico «Grigio»: serve il nome ufficiale — https://www.vinted.it/items/10795169644",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c225ab78987914526de23c3ef",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu / Grigio»; colore generico «Blu / Grigio»: serve il nome ufficiale — https://www.vinted.it/items/10750920757",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c73ca20eae3d488068b3e7c0d",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Giallo»; colore generico «Bianco / Giallo»: serve il nome ufficiale — https://www.vinted.it/items/10725231633",
+   "varianteId": "ca7e016c911d61048fdf38974",
+   "motivo": "[MODELLO ERRATO → AGV K3 SV] nero opaco con adesivi, taglia non scritta: da verificare; taglia da verificare — https://www.vinted.it/items/10622809759",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "cac8568cb42905e9153fbfcab",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Giallo»; colore generico «Bianco / Giallo»: serve il nome ufficiale — https://www.vinted.it/items/10439584698",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Giallo» — https://www.vinted.it/items/10439584698",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "cf6648f13cfb2586d8a89dc57",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco»; colore generico «Nero / Bianco»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/10674787392",
+   "varianteId": "cb646af01b1e4811174c3d20e",
+   "motivo": "annuncio letto: K3 SV Celebr8 Black (certificato AGV); foto ufficiale non trovata dal cloud; nessuna foto del colore «Celebr 8» — https://www.vinted.it/items/1951108861",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "cb8b4f89046d0ac993f06721c",
-   "motivo": "[da guardare su Chrome] colore corretto in «Rodio Grey Matt» (dal titolo); taglia da verificare — https://www.vinted.it/items/10589773132",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c1495b3cc5227355bc7cc6ce5",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Argento»; colore generico «Argento»: serve il nome ufficiale — https://www.vinted.it/items/10561448942",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c677a915ad880097333d7b5e7",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco»: serve il nome ufficiale — https://www.vinted.it/items/10522333062",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c7f0f6aaaa434a236fca51382",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/10557743025",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cbf57f012315d0518c9e22856",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco»: serve il nome ufficiale — https://www.vinted.it/items/10203871057",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ccfc66c47acac5d834aeacc3a",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso / Nero»; colore generico «Rosso / Nero»: serve il nome ufficiale — https://www.vinted.it/items/10514497050",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c85c5de9fdc15e6afd4b152e5",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Chiaro»; colore generico «Nero / Chiaro»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/10330396822",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cf746a7627c4968977653e706",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso»; colore generico «Rosso»: serve il nome ufficiale — https://www.vinted.it/items/10292159740",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cfc82f8dcb415d0bc7ec58860",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso»; colore generico «Rosso»: serve il nome ufficiale — https://www.vinted.it/items/10205299108",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c314d29dca54d65107f92c01a",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multi / Bianco»; colore generico «Multi / Bianco»: serve il nome ufficiale — https://www.vinted.it/items/10302723016",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c2b223e81efefa0fda75e93e9",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Rosa»; colore generico «Bianco / Rosa»: serve il nome ufficiale; [MODELLO ERRATO] da spostare (Zeyad) — https://www.vinted.it/items/10248123525",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c6f2c9593c83d3123e4291cf9",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Grigio»; colore generico «Nero / Grigio»: serve il nome ufficiale — https://www.vinted.it/items/8971742530",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "cd6f525a47851ee0d8abf4144",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Nero»; colore generico «Bianco / Nero»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/10575193702",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c5c660eea440e78ad352344ec",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Beige / Nero»; colore generico «Beige / Nero»: serve il nome ufficiale — https://www.vinted.it/items/10531594427",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c2ca851905731cbccf3ecd0a6",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Grigio»; colore generico «Grigio»: serve il nome ufficiale — https://www.vinted.it/items/10515915746",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c2f50cde80f841544308120ce",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Verde scuro»; colore generico «Verde scuro»: serve il nome ufficiale — https://www.vinted.it/items/10233474265",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "ce0254088a2258a3ed3beec5d",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/8404050977",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c5d7869610788bf4b842ab4b8",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Argento»; colore generico «Argento»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/8005781292",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c7de76fc59a5316a94e73f8c8",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Azzurro»; colore generico «Azzurro»: serve il nome ufficiale — https://www.vinted.it/items/10780213113",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c46788548929e818a5b585980",
-   "motivo": "[da guardare su Chrome] colore corretto in «Mono Matt Sand/Lime» (dal titolo): manca la foto ufficiale — https://www.vinted.it/items/9372735123",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c1bc96cd29a886faa28977da9",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso»; colore generico «Rosso»: serve il nome ufficiale; [MODELLO ERRATO] da spostare (Zeyad) — https://www.vinted.it/items/9353871789",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c37ea106befbe17cbcb42e590",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso»; colore generico «Rosso»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/4847913244",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c0417dfda378a40b51d66b0b2",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso / Bianco»; colore generico «Rosso / Bianco»: serve il nome ufficiale — https://www.vinted.it/items/8550850844",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c12c27a066f69aab4228ba042",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/9413240774",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c13e2ebff3af148289f0c689f",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/10668206267",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c382d7257b20a5dacceb0ec9e",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/10700356113",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c44a2650b582bd450c30eed5f",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/10638609111",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c8ad57cf18548cf32bf645a06",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/10512269449",
-   "quando": "2026-11-22"
-  },
-  {
-   "varianteId": "c98d421341b61fec8dc2c33a2",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/9883512508",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/10589773132",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "cba1d91d600c6a9366bf8b326",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/10307930933",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/10307930933",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cbf57f012315d0518c9e22856",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco» — https://www.vinted.it/items/10203871057",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ccfc66c47acac5d834aeacc3a",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso / Nero» — https://www.vinted.it/items/10514497050",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "cd39fee27419eec8a8923c9bc",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/10445983584",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/10445983584",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "cd630da6164fe64bad56a2a1a",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/5729679193",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/5729679193",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cd6f525a47851ee0d8abf4144",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Nero»; taglia da verificare — https://www.vinted.it/items/10575193702",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cd8ce65bc23dfe3349f60843d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10357995792",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cda7b381f83733f9522ceb3e7",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «VR46» — https://www.vinted.it/items/8758458655",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cdfec8b337e577747c2761efb",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/10379848614",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ce0254088a2258a3ed3beec5d",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/8404050977",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "ce0cebda7b15caa99c56af7fe",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Arancione / Nero» — https://www.vinted.it/items/5792324843",
    "quando": "2026-11-22"
   },
   {
    "varianteId": "ce3f407f7613dd043636de7f0",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/10282551018",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/10282551018",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c226db492df17601d1a324726",
-   "motivo": "AX9 grigio opaco con fascia giallo fluo (dalle foto): non sembra Pacific Road, riconoscere la grafica — https://www.vinted.it/items/9327170724",
+   "varianteId": "cf3e4ddc8272c0c865a837e01",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Quartararo» — https://www.vinted.it/items/10538199134",
    "quando": "2026-11-22"
   },
   {
-   "varianteId": "c7988178f88245cf1641deb6b",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Iannone Mugello» — https://www.vinted.it/items/10918695104",
+   "varianteId": "cf6648f13cfb2586d8a89dc57",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco»; taglia da verificare — https://www.vinted.it/items/10674787392",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cf746a7627c4968977653e706",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso»; colore generico «Rosso» — https://www.vinted.it/items/10292159740",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cf7eda26e4a63ddc50783ced9",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10429421053",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cfc4cf5747b5944c8c648bbbd",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rossi» — https://www.vinted.it/items/9298388157",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cfc82f8dcb415d0bc7ec58860",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso»; colore generico «Rosso» — https://www.vinted.it/items/10205299108",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "cfff2b3a288f936ccd041393d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Nero» — https://www.vinted.it/items/9775396059",
+   "quando": "2026-11-22"
+  },
+  {
+   "varianteId": "c1d09e3338d2655ca0525736d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Grigio»; taglia da verificare — https://www.vinted.it/items/10920230996",
+   "quando": "2026-11-23"
+  },
+  {
+   "varianteId": "c20acbda0e33da338b3814f01",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/9082759337",
    "quando": "2026-11-23"
   },
   {
@@ -472,13 +397,13 @@
    "quando": "2026-11-23"
   },
   {
-   "varianteId": "ce1e20f984c8dff748ba121ba",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso»; colore generico «Rosso»: serve il nome ufficiale — https://www.vinted.it/items/10922135565",
+   "varianteId": "c462e6a5c0f1380e3548d1537",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/9500183424",
    "quando": "2026-11-23"
   },
   {
-   "varianteId": "c82a6250cf021d7cd218fb451",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10920189612",
+   "varianteId": "c557e77dc03873ab747d65669",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Grigio» — https://www.vinted.it/items/10912755399",
    "quando": "2026-11-23"
   },
   {
@@ -487,38 +412,38 @@
    "quando": "2026-11-23"
   },
   {
-   "varianteId": "c1d09e3338d2655ca0525736d",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Grigio»; colore generico «Nero / Grigio»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/10920230996",
-   "quando": "2026-11-23"
-  },
-  {
-   "varianteId": "c9efa14d93031f2730f8a154d",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Da verificare (multicolore)»; colore generico «Da verificare (multicolore)»: serve il nome ufficiale — https://www.vinted.it/items/10929659403",
-   "quando": "2026-11-23"
-  },
-  {
    "varianteId": "c637587b00d4e2f22aa3d7fc3",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/10913386800",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/10913386800",
+   "quando": "2026-11-23"
+  },
+  {
+   "varianteId": "c6799d29fda9adc910751fda7",
+   "motivo": "[da guardare su Chrome] colore generico «Nero» — https://www.vinted.it/items/10930171305",
+   "quando": "2026-11-23"
+  },
+  {
+   "varianteId": "c7988178f88245cf1641deb6b",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Iannone Mugello» — https://www.vinted.it/items/10918695104",
+   "quando": "2026-11-23"
+  },
+  {
+   "varianteId": "c82a6250cf021d7cd218fb451",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10920189612",
+   "quando": "2026-11-23"
+  },
+  {
+   "varianteId": "c865862f416ff58380854defe",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/6138887851",
    "quando": "2026-11-23"
   },
   {
    "varianteId": "c8a0febd127fa7e3aa35a4a05",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Giallo»; colore generico «Giallo»: serve il nome ufficiale — https://www.vinted.it/items/10926869823",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Giallo»; colore generico «Giallo» — https://www.vinted.it/items/10926869823",
    "quando": "2026-11-23"
   },
   {
-   "varianteId": "ca65b4b46ac8c7f14a05d2ee8",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu / Rosso»; colore generico «Blu / Rosso»: serve il nome ufficiale — https://www.vinted.it/items/10919674105",
-   "quando": "2026-11-23"
-  },
-  {
-   "varianteId": "cd95c9361aee5643ca981da67",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Vital Grigio / Bianco / Rosso»; taglia DA VERIFICARE — https://www.vinted.it/items/10912989334",
-   "quando": "2026-11-23"
-  },
-  {
-   "varianteId": "ce6e536b408e18b17ffa1e824",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rossi Wake Up Misano 2010» — https://www.vinted.it/items/10921567586",
+   "varianteId": "c9efa14d93031f2730f8a154d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Da verificare (multicolore)»; colore generico «Da verificare (multicolore)» — https://www.vinted.it/items/10929659403",
    "quando": "2026-11-23"
   },
   {
@@ -527,83 +452,1038 @@
    "quando": "2026-11-23"
   },
   {
-   "varianteId": "c557e77dc03873ab747d65669",
-   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Grigio»; colore generico «Nero / Grigio»: serve il nome ufficiale — https://www.vinted.it/items/10912755399",
-   "quando": "2026-11-23"
-  },
-  {
-   "varianteId": "c20acbda0e33da338b3814f01",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/9082759337",
-   "quando": "2026-11-23"
-  },
-  {
-   "varianteId": "c462e6a5c0f1380e3548d1537",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/9500183424",
-   "quando": "2026-11-23"
-  },
-  {
-   "varianteId": "c6799d29fda9adc910751fda7",
-   "motivo": "[da guardare su Chrome] colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10930171305",
-   "quando": "2026-11-23"
-  },
-  {
-   "varianteId": "c865862f416ff58380854defe",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/6138887851",
-   "quando": "2026-11-23"
-  },
-  {
    "varianteId": "ca1ef2ed8ec6c64b8c07b70e6",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/8264890992",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/8264890992",
+   "quando": "2026-11-23"
+  },
+  {
+   "varianteId": "ca65b4b46ac8c7f14a05d2ee8",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu / Rosso» — https://www.vinted.it/items/10919674105",
    "quando": "2026-11-23"
   },
   {
    "varianteId": "cb50da047b5135405b116d23e",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/9974751845",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/9974751845",
    "quando": "2026-11-23"
   },
   {
    "varianteId": "cc9fedc78e66966a00e4cefa3",
-   "motivo": "[da guardare su Chrome] taglia DA VERIFICARE — https://www.vinted.it/items/7204768792",
+   "motivo": "[da guardare su Chrome] taglia da verificare — https://www.vinted.it/items/7204768792",
+   "quando": "2026-11-23"
+  },
+  {
+   "varianteId": "cd95c9361aee5643ca981da67",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Vital Grigio / Bianco / Rosso»; taglia da verificare — https://www.vinted.it/items/10912989334",
+   "quando": "2026-11-23"
+  },
+  {
+   "varianteId": "ce1e20f984c8dff748ba121ba",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso»; colore generico «Rosso» — https://www.vinted.it/items/10922135565",
    "quando": "2026-11-23"
   },
   {
    "varianteId": "ce2dbba76652da8550f782fe7",
-   "motivo": "[da guardare su Chrome] colore generico «Bianco»: serve il nome ufficiale; taglia DA VERIFICARE — https://www.vinted.it/items/10913129373",
+   "motivo": "[da guardare su Chrome] taglia da verificare; colore generico «Bianco» — https://www.vinted.it/items/10913129373",
    "quando": "2026-11-23"
   },
   {
+   "varianteId": "ce6e536b408e18b17ffa1e824",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rossi Wake Up Misano 2010» — https://www.vinted.it/items/10921567586",
+   "quando": "2026-11-23"
+  },
+  {
+   "varianteId": "c0131ced4dae48adbd21bb11f",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10880561432",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c03bcef19e47057538d69dc82",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; taglia da verificare; colore generico «Nero» — https://www.vinted.it/items/10876773105",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c0533824f55d0a8e052027c56",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Carnage» — https://www.vinted.it/items/10902804092",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c0565678b3ff9366695eeeb72",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso fluo / Nero» — https://www.vinted.it/items/10898374906",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c0585ec335d601e4a21b740f7",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10942124438",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c05cf287514197d04e422b56f",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blank» — https://www.vinted.it/items/10936695601",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c06c482f01a83b92b37d06880",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; taglia da verificare; colore generico «Nero» — https://www.vinted.it/items/10935816453",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c071b56429069fb2cf9ff64e3",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu»; taglia da verificare; colore generico «Blu» — https://www.vinted.it/items/10920482017",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c0849bd1695c5517f98265614",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10879059292",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c08abe7a9b51b671c0ee1b847",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosso» — https://www.vinted.it/items/10924345271",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c0bb73abd51e40554d94b39a9",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu»; colore generico «Blu» — https://www.vinted.it/items/10894177077",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c0cd750639a79cf22e5122226",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; taglia da verificare; colore generico «Nero» — https://www.vinted.it/items/10907226154",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c0daa80bdda16d6e585fc6808",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10942172804",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c0fb4ad453a563a09b6d021dc",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10873151795",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c0fbd70620157b2c21c9636f8",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10941615069",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c1323859fe2dd6822bcf9e02d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10909975069",
+   "quando": "2026-11-24"
+  },
+  {
    "varianteId": "c13cbb8a54b05313c125e7005",
-   "motivo": "[da guardare su Chrome] colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10748551547-agv-k1-s-motorradhelm-schwarz-ungetragen-top-zustand",
+   "motivo": "[da guardare su Chrome] colore generico «Nero» — https://www.vinted.it/items/10748551547-agv-k1-s-motorradhelm-schwarz-ungetragen-top-zustand",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c141173f9056fdc9b0a2fc3c4",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10945088585",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c146ed315f4e077f206c695ce",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10888668189",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c1747efbe4d64cf45a04bc651",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Grigio» — https://www.vinted.it/items/10904650489",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c17b205ee08abf3f901051153",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10879332580",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c18ffc6387f53d238781956aa",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Shawn» — https://www.vinted.it/items/10929371220",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c19d3ca003e6f29aed08ec3dc",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Futuro Carbonio Forgiato» — https://www.vinted.it/items/10909006633",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c1a2eef9f5d79680c0335d245",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Replica Lorenzo» — https://www.vinted.it/items/10918860216",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c1d8a6ed0c0e2accc42a229ea",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10904794331",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c20eea0f0d7632af8bf5fdac3",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10910219131",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c2150236b718b761608bd1696",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10902192702",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c24518e331779d4bf1fe74f45",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Carbonio Forgiato» — https://www.vinted.it/items/10897329923",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c24628e439aff4af64a6a524c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Lurv» — https://www.vinted.it/items/10889846044",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c250e2c29fa73e3e6c1f12b11",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Monster» — https://www.vinted.it/items/10875863805",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c251d163ae67e9509aaba403b",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10867509764",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c27fa85ac1ebe8744d7b07df6",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Char's Zaku II TC-1» — https://www.vinted.it/items/10902396236",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c2856ce7031085cf3928b8759",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso / Nero» — https://www.vinted.it/items/10885280838",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c28f2c8b0c8f9a1fa7a88fcea",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rossi Soleluna 2023» — https://www.vinted.it/items/10902789006",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c298eb186e4ff2dbb300a6437",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10890755670",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c29c8e426a7570b5c4e463bb9",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blank» — https://www.vinted.it/items/10936751961",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c2dd95dcbca2737d09b6eca09",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; taglia da verificare; colore generico «Nero» — https://www.vinted.it/items/10906712557",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c30143e1a455b632095a4e362",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10945425275",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c312b31ffad93efa755ddcaec",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10885007003",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c371fe72f906a339ffc67f1e7",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Carbon» — https://www.vinted.it/items/10887589239",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c389abeceeadd772803502387",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10872037653",
    "quando": "2026-11-24"
   },
   {
    "varianteId": "c3a170de40c6e141a36f2ef23",
-   "motivo": "[da guardare su Chrome] colore generico «Bianco»: serve il nome ufficiale — https://www.vinted.it/items/10761780431",
+   "motivo": "[da guardare su Chrome] colore generico «Bianco» — https://www.vinted.it/items/10761780431",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c3b7b07e54768e40785579055",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10903589659",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c3c38d5a78dd532b45ae4f90c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10904618827",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c3c812165254c86355fa17e24",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10945107886",
    "quando": "2026-11-24"
   },
   {
    "varianteId": "c3dd2dbf6969c0f40d535331f",
-   "motivo": "[da guardare su Chrome] colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10746730094-casque-agv-k1-s-noir-brillant",
+   "motivo": "[da guardare su Chrome] colore generico «Nero» — https://www.vinted.it/items/10746730094-casque-agv-k1-s-noir-brillant",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c3f17ade21bf40fe79ce1dacb",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10892216029",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c3fa4669424e83e8d2fc79b67",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Grigio / Nero» — https://www.vinted.it/items/10871052844",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c4036eefde9d81b4c36cd5134",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosso» — https://www.vinted.it/items/10861587065",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c40dd28a54c3ad94fcff2a497",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Grigio» — https://www.vinted.it/items/10861505443",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c418ea0122fe0535c3cc36cc4",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10896827534",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c420841da7225cc24fb99c207",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10910020691",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c43843a4d13c0e27d8add491e",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Grigio»; colore generico «Grigio» — https://www.vinted.it/items/10911133452",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c454b2b31888324a66b83fae0",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; taglia da verificare; colore generico «Nero» — https://www.vinted.it/items/10941329743",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c45e113a2d52ea97015fe49df",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10936214962",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c4600db64cdd7049fec15bd27",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Twin» — https://www.vinted.it/items/10874072177",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c460186c440dbe2ecb9e9e709",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso / Nero» — https://www.vinted.it/items/10935469635",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c4726dd619fa19901ffadcf98",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Grigio» — https://www.vinted.it/items/10870089995",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c47c1e527549c2829153cc557",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10871159062",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c4871644ce4e87ff3c5485b5b",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10900472478",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c48876c37cb35d80cde81edcf",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Prologue TC-10» — https://www.vinted.it/items/10885187062",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c48f055bb852f8d8b8d9475e2",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosso» — https://www.vinted.it/items/10897765622",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c49929778085fd916f36ef6e8",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10880286213",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c4b498dcadeaf5e2eefd04faa",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multi / Giallo» — https://www.vinted.it/items/10907506653",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c4c48aa4636a3e464c2575c08",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10939724795",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c4d5c9af50c631447dd6d30cb",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero opaco»; colore generico «Nero opaco» — https://www.vinted.it/items/10877880079",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c4f19b9d1191d05b6b414091d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Replica Zarco»; taglia da verificare — https://www.vinted.it/items/10877401108",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c51383e665f7dc53a5bfd7920",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu / Nero»; taglia da verificare — https://www.vinted.it/items/10866907000",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c51de527cc0be0216510bcd5d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10924591654",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c5218e91aca53dd9cb88c9e28",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «SP-Tech»; taglia da verificare — https://www.vinted.it/items/10923130949",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c55bf7637f31f5c420f17fd3d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10945225343",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c577dbf7f02cd7a36c8c1bf84",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10941938015",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c58f8bccb0423b3a33e28c6e4",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rossi Assen 2007» — https://www.vinted.it/items/10902793283",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c5ceb77154cc168c24c6fec70",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Giallo / Verde» — https://www.vinted.it/items/10906272589",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c5f967ae816d7148fb9f5afdb",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Viola / Nero» — https://www.vinted.it/items/10895872699",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c601278fb5d5691940cfdb809",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10925633753",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c61b6104f2f1bd61cffbbb37f",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Reptaria» — https://www.vinted.it/items/10868954950",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c62fd00332a0ba447d8593ab7",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Savage» — https://www.vinted.it/items/10878431577",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c6310fed2259f794bf69959d7",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10910422311",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c6383788b20ad74e0430e569f",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Taurax» — https://www.vinted.it/items/10890033073",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c679a98a77132480487262bfc",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10912339657",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c6824690daa125c8093d558d9",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso / Nero» — https://www.vinted.it/items/10872261364",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c686221c0c6f44bbd0862032b",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10883685784",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c696f0266089c9f0fb84db991",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco» — https://www.vinted.it/items/10890541021",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c6b446f3f393fe96191ff8cba",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10910512408",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c6dedbcc33122a06d9a61d692",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10908907663",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c6f1a50b4e82005a91ef394d3",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Honda Edition» — https://www.vinted.it/items/10872850968",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c6f4d0a5931001894e98456de",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10896656263",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c729d4d8e8255e676184a8da1",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10915552238",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c7327750fb9c883d088e8a218",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco» — https://www.vinted.it/items/10915053409",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c73a1fe10e64a4f39b674c5c8",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Arancione» — https://www.vinted.it/items/10890974690",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c7579ebf8ad1749c35a3f3f85",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10898321314",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c767c964b87a9164d8b1c6ed1",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Mayfer» — https://www.vinted.it/items/10906500119",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c77e4b28def242a790f9f904c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosa» — https://www.vinted.it/items/10939889828",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c79247ca3b79628e222135ea1",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10938646083",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c796db7756e49b771dcb8f9cf",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10909873621",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c7970f40ee69d07a1a417cd75",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero opaco»; taglia da verificare; colore generico «Nero opaco» — https://www.vinted.it/items/10927315936",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c7a045a50aa0d91c0909cf4cd",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Grigio» — https://www.vinted.it/items/10943667616",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c7e0b2ca79b8a66b749b1ad7c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Giallo»; taglia da verificare — https://www.vinted.it/items/10945038773",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c7e5540388ed4503d507320b7",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10909906230",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c7ebe87091a95f5d6bb5cae81",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10936920465",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c7f1b06b168823e36c9b8992b",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Giallo» — https://www.vinted.it/items/10906777364",
    "quando": "2026-11-24"
   },
   {
    "varianteId": "c7fb66ab85947c32380739389",
-   "motivo": "[da guardare su Chrome] colore generico «Bianco»: serve il nome ufficiale — https://www.vinted.it/items/10520559709",
+   "motivo": "[da guardare su Chrome] colore generico «Bianco» — https://www.vinted.it/items/10520559709",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c81141dd24808d6995239dadf",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; taglia da verificare; colore generico «Nero» — https://www.vinted.it/items/10939532453",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c817616cef2c8c4f9d136cf3c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10933154317",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c8351766624bd5d477c9516bb",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; taglia da verificare; colore generico «Multicolore» — https://www.vinted.it/items/10871591669",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c8545d25fbdfc7b94986b1524",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Snake Carbon» — https://www.vinted.it/items/10921047683",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c8730eaf665e256198bf652fb",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10885299132",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c88edcb668b1cc65af76fffe6",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10886858957",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c8a9b12c3e773b5357207b477",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosa» — https://www.vinted.it/items/10914791906",
    "quando": "2026-11-24"
   },
   {
    "varianteId": "c8c3e8c684e31a87421d8bc1b",
-   "motivo": "[da guardare su Chrome] colore generico «Bianco»: serve il nome ufficiale — https://www.vinted.it/items/10771928486-casco-integrale-agv-k1s-ece-2206-taglia-m",
+   "motivo": "[da guardare su Chrome] colore generico «Bianco» — https://www.vinted.it/items/10771928486-casco-integrale-agv-k1s-ece-2206-taglia-m",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c8f00c892d703ed25872e336e",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Venum» — https://www.vinted.it/items/10937842815",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c919b198ee23437a0b18b3477",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10872128019",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c92964488c57df516b0a5b39a",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco perlato» — https://www.vinted.it/items/10885227697",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c95816ca6b7f876ead5e4868e",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10910593480",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c995ddd683342711066197625",
+   "motivo": "[da guardare su Chrome] colore generico «Bianco» — https://www.vinted.it/items/10866324400",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c9b2ab88630fed61ed762ad58",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso / Nero» — https://www.vinted.it/items/10918032805",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c9da3b519fec3540b649f18fc",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10906882365",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c9f5dfec3b3c4b35a6de52f34",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10900140820",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "c9fc22ed9a281fdf504473089",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Mike Wazowski» — https://www.vinted.it/items/10944140760",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ca0867898375704f97eec2802",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Zaku II TC-4» — https://www.vinted.it/items/10878303504",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ca15e9d7b7896a43e8fb9b386",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10869768581",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ca21d1cd0125fdd432d4ab0e5",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Origami 2 TC-5» — https://www.vinted.it/items/10878265066",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ca45af1017d8ec4e634ae1e39",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10903036904",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ca50cee764eb63b936195047c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10866635758",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ca56059689d25c10d42a9cff6",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Linik Black Anthracite» — https://www.vinted.it/items/10904025089",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ca75d3e350639009acd28caff",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Ducati»; taglia da verificare — https://www.vinted.it/items/10891545659",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "caa48dc0bd58252374aa0e5d9",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosso» — https://www.vinted.it/items/10863504824",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "caa6ba4758e79620264124bab",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10907544858",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cab88716a0db2978ff1a95caf",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Verde»; colore generico «Verde» — https://www.vinted.it/items/10904943901",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cac307fc559b24e8654e6f62f",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10894500779",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "caff48fda9ec20608cd21c1bf",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco perlato» — https://www.vinted.it/items/10885158259",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cb161ac7053ce1528c2b674e9",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10896194950",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cb40577361d2604b0bfd6fbdc",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10903369237",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cb40c0b746289fea081bdb0b3",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Iridium» — https://www.vinted.it/items/10908818447",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cb50d3b8a6cfb9d743c959fb2",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco / Nero»; taglia da verificare — https://www.vinted.it/items/10935805858",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cb58d9440915a321756610159",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Arancione» — https://www.vinted.it/items/10942510949",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cb72afd62b94883aceb7f36d5",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Giallo» — https://www.vinted.it/items/10864859011",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cb93cb7b8c2a4eaf9fab8eaa8",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu / Bianco» — https://www.vinted.it/items/10880299176",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cb9f3b41fff893440fa24713e",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosso / Bianco» — https://www.vinted.it/items/10885250893",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cbd60876bd08154ba7f5a1f84",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10925977631",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cbe67bca935187137d8cb5d06",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10896082195",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cbe99b9a5eca06f7372caea71",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Fastlap Black/Purple/Pink» — https://www.vinted.it/items/10874220878",
    "quando": "2026-11-24"
   },
   {
    "varianteId": "cbf0dad3fb5477bc7e339ad5f",
-   "motivo": "[da guardare su Chrome] colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10599387281-agv-k1-s-e2206-casco-moto-integrale-xxl",
+   "motivo": "[da guardare su Chrome] colore generico «Nero» — https://www.vinted.it/items/10599387281-agv-k1-s-e2206-casco-moto-integrale-xxl",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cbf9329c091056962bdb2be8d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Grigio»; colore generico «Grigio» — https://www.vinted.it/items/10936630505",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cc04df60d4ef1972e04fd6472",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Multi» — https://www.vinted.it/items/10944329081",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cc341d83bdf780fc993325048",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10870775624",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cc35363baf103e74b33b2b129",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Corallo» — https://www.vinted.it/items/10932909279",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cc418662cf7cc268d6ce40586",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Tourist Trophy 2026» — https://www.vinted.it/items/10897425027",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cc4c7a2301fa3a21a682ea4d2",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10893011813",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cc895110b4cbd92499e69e13d",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosso» — https://www.vinted.it/items/10903454065",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ccb4a103be0a56dba93dba0b2",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10886527942",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ccc62279732a8d61b6756d8fb",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Minions» — https://www.vinted.it/items/10903072317",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ccd28570c5c43061cb001a01a",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu»; colore generico «Blu» — https://www.vinted.it/items/10903953209",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cce5e9b6e849381c3c70b0037",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10891918253",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ccf5a9e210cb2f72cfe838cbd",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10868407578",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cd1d23b0b3ad98cbf20d3f1c7",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosa» — https://www.vinted.it/items/10870598580",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cd1dea51cdaa85816d308cab4",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosa / Nero» — https://www.vinted.it/items/10933465600",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cd20e26d876cbe6d3455642a4",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Bianco» — https://www.vinted.it/items/10902196664",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cd22a014d5c5ed937b715ae6a",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu marino / Bianco» — https://www.vinted.it/items/10869810419",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cd8391cb5fe90fc29d055e7e8",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Marquez» — https://www.vinted.it/items/10866239243",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cd8b1fe1506e2c20fe1f34e9c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosa / Nero» — https://www.vinted.it/items/10943406608",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cdbe2e132bb28422e132573bf",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Edgy»; taglia da verificare — https://www.vinted.it/items/10944437530",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cddb6515b7ee7a65b14768938",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Bianco»; colore generico «Bianco» — https://www.vinted.it/items/10865142617",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cdfe0357bc6f891639dfd3611",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10907374968",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ce0ad0941b3c9933ba236755c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10891428325",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ce15d7ea3322d569732d05668",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso / Nero» — https://www.vinted.it/items/10871497932",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ce1ef125236734bb8537f58c6",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosso» — https://www.vinted.it/items/10872041791",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ce26452a2f7435bee8921cc87",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Phantom» — https://www.vinted.it/items/10908240397",
    "quando": "2026-11-24"
   },
   {
    "varianteId": "ce34de0cf82cd0ca2c4a0c4ab",
-   "motivo": "[da guardare su Chrome] colore generico «Nero»: serve il nome ufficiale — https://www.vinted.it/items/10775313356-agv-k1-s-xl",
+   "motivo": "[da guardare su Chrome] colore generico «Nero» — https://www.vinted.it/items/10775313356-agv-k1-s-xl",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ce6f1d840bcb3f8255847857b",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10943505402",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ce7e5f590e0513b22af6336e0",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10941566560",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ce8337ceeaf13c0a9b7324f04",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Blu» — https://www.vinted.it/items/10903571251",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ce85525d8273c033648541060",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «US Flag» — https://www.vinted.it/items/10904809574",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ceb18e1d8f3ee26648fbdbcfe",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10899192713",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ceb1f8f7f84a1295882a9dc9e",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Blu / Grigio» — https://www.vinted.it/items/10925525248",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "ceb512aed4f21c18b012611a5",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; taglia da verificare; colore generico «Nero» — https://www.vinted.it/items/10893174188",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cedad76f779b3d06aae503be9",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Mir World Champion 2020» — https://www.vinted.it/items/10902778844",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf1e28b4214833cb42b012519",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Rosso / Nero» — https://www.vinted.it/items/10931299657",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf226b4b84e620a270fe92420",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Replica Zarco Austin» — https://www.vinted.it/items/10912700555",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf2516cfd1ab4cdce17f43e49",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Puro»; taglia da verificare — https://www.vinted.it/items/10899688226",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf26992c968871827d972f174",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Multicolore»; colore generico «Multicolore» — https://www.vinted.it/items/10874483963",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf3d017045bafa0f741418275",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10910435436",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf65f749eafb0888be6e9a071",
+   "motivo": "[da guardare su Chrome] colore generico «Nero» — https://www.vinted.it/items/10872478695",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf68555fcb4177179a80dc565",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10861887734",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf69cf531d000c1919ec4c641",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Iannone Mugello»; taglia da verificare — https://www.vinted.it/items/10939177122",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf6d0f67a72f664faa325742e",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Oro»; taglia da verificare — https://www.vinted.it/items/10908144782",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf81161c564903846716c6e9c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10905025088",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf84222cea347cb4b79a87509",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10884037152",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf8cc0d8aa9a1020b8d27d932",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10884117493",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf8df445e0487755bb4ec6db3",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Char's Zaku II TC-1» — https://www.vinted.it/items/10878338621",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf938061e5d37963878c2ca84",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Akin» — https://www.vinted.it/items/10873175081",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf966574bb8912644f14b8c76",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Onyx Black» — https://www.vinted.it/items/10877811478",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cf9f3869b6de1878d8e97dbca",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10865354355",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cfa0a04bc8976932c08d7e011",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Arancione» — https://www.vinted.it/items/10879523372",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cfa0e0bbeb7ea38499f9e945b",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero / Rosso» — https://www.vinted.it/items/10920721164",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cfb82109aec8444d16a337b2c",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10894693874",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cfde2c896da5318d097b0a982",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10888043669",
+   "quando": "2026-11-24"
+  },
+  {
+   "varianteId": "cff42ec1dec9c8b51844440fc",
+   "motivo": "[da guardare su Chrome] nessuna foto del colore «Nero»; colore generico «Nero» — https://www.vinted.it/items/10870344988",
    "quando": "2026-11-24"
   }
  ]
