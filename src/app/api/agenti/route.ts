@@ -2,6 +2,9 @@ import { createHash, timingSafeEqual } from "node:crypto";
 import { db } from "@/lib/db";
 import { nuovoId } from "@/lib/id";
 import { slugDi } from "@/lib/regole";
+import { leggiMedia, r2Attivo, r2Leggi, r2Scrivi } from "@/lib/archivio";
+
+const leggiR2Controllo = async (p: string) => (await r2Leggi(p))?.length ?? -1;
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -135,10 +138,10 @@ async function spostaInColorazione(varianteId: string, slug: string, nome: strin
     for (const f of src.foto.filter((x) => x.colore === v.colore)) {
       if (!restano) await db.foto.update({ where: { id: f.id }, data: { prodottoId: dest.id } });
       else {
-        const [g, pc] = await Promise.all([db.media.findUnique({ where: { percorso: f.grande } }), db.media.findUnique({ where: { percorso: f.piccola } })]);
+        const [g, pc] = await Promise.all([leggiMedia(f.grande), leggiMedia(f.piccola)]);
         if (!g || !pc) continue;
         const n = nuovoId(), pg = `prodotti/${dest.id}/${n}.webp`, pp = `prodotti/${dest.id}/${n}-s.webp`;
-        await db.$transaction([db.media.create({ data: { percorso: pg, dati: g.dati } }), db.media.create({ data: { percorso: pp, dati: pc.dati } }),
+        await db.$transaction([db.media.create({ data: { percorso: pg, dati: g } }), db.media.create({ data: { percorso: pp, dati: pc } }),
           db.foto.create({ data: { id: nuovoId(), prodottoId: dest.id, grande: pg, piccola: pp, ordine: f.ordine, colore: f.colore, principale: f.principale } })]);
       }
     }
@@ -187,14 +190,14 @@ export async function POST(req: Request) {
       const f = await db.foto.findUnique({ where: { id: String(b.fotoId) } });
       const dest = await db.prodotto.findUnique({ where: { id: String(b.prodottoId) }, select: { id: true } });
       if (!f || !dest) throw new Error("foto o prodotto inesistente");
-      const [g, pc] = await Promise.all([db.media.findUnique({ where: { percorso: f.grande } }), db.media.findUnique({ where: { percorso: f.piccola } })]);
+      const [g, pc] = await Promise.all([leggiMedia(f.grande), leggiMedia(f.piccola)]);
       if (!g || !pc) throw new Error("file della foto mancante");
       const n = nuovoId(), pg = `prodotti/${dest.id}/${n}.webp`, pp = `prodotti/${dest.id}/${n}-s.webp`;
       const ordine = b.ordine != null ? Number(b.ordine) : await db.foto.count({ where: { prodottoId: dest.id } });
       const id = nuovoId();
       await db.$transaction([
-        db.media.create({ data: { percorso: pg, dati: g.dati } }),
-        db.media.create({ data: { percorso: pp, dati: pc.dati } }),
+        db.media.create({ data: { percorso: pg, dati: g } }),
+        db.media.create({ data: { percorso: pp, dati: pc } }),
         db.foto.create({ data: { id, prodottoId: dest.id, grande: pg, piccola: pp, ordine, colore: String(b.colore ?? f.colore), principale: !!b.principale } }),
       ]);
       return Response.json({ ok: true, id });
@@ -329,6 +332,27 @@ export async function POST(req: Request) {
         if (resta) await db.prodotto.update({ where: { id: p.id }, data: { nome: `${nomeBase(p.nome)} ${resta}` } });
       }
       return Response.json({ ok: true, creati, spostati });
+    }
+    // Sposta le foto dalla tabella Media a Cloudflare R2, a blocchi: copia i byte su R2, li rilegge per controllo,
+    // poi svuota i byte nel database (la riga resta: dati vuoti = foto su R2). { op: "spostaFotoR2", quante?: 40 }
+    if (b.op === "spostaFotoR2") {
+      if (!r2Attivo()) throw new Error("R2 non configurato (R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET su Vercel)");
+      const quante = Math.min(Math.max(Number(b.quante ?? 40), 1), 200);
+      const righe = await db.$queryRaw<{ percorso: string }[]>`select percorso from "Media" where length(dati) > 0 order by creato limit ${quante}`;
+      let spostate = 0; const errori: string[] = [];
+      for (const { percorso } of righe) {
+        try {
+          const m = await db.media.findUnique({ where: { percorso } });
+          if (!m || m.dati.length === 0) continue;
+          await r2Scrivi(percorso, new Uint8Array(m.dati));
+          const controllo = await leggiR2Controllo(percorso);
+          if (controllo !== m.dati.length) throw new Error(`controllo fallito (${controllo} ≠ ${m.dati.length} byte)`);
+          await db.media.update({ where: { percorso }, data: { dati: new Uint8Array(0) } });
+          spostate++;
+        } catch (e) { errori.push(`${percorso}: ${(e as Error).message}`); if (errori.length >= 5) break; }
+      }
+      const [{ restano }] = await db.$queryRaw<{ restano: bigint }[]>`select count(*) as restano from "Media" where length(dati) > 0`;
+      return Response.json({ ok: true, spostate, restano: Number(restano), errori });
     }
     if (b.op === "esiste") {
       if (b.fonteUrl) return Response.json({ ok: true, esiste: !!(await db.variante.findFirst({ where: { fonteUrl: String(b.fonteUrl) }, select: { id: true } })) });

@@ -1,5 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
+import { leggiMedia } from "@/lib/archivio";
 import { redirect } from "next/navigation";
 import { pulisciFoto } from "@/lib/foto-pulizia";
 import { db } from "@/lib/db";
@@ -315,11 +316,10 @@ async function mettiNelNuovo(tx: Tx, z: PezzoNuovo): Promise<{ pid: string; crea
     if (z.fotoDa) {
       const foto = await tx.foto.findMany({ where: { prodottoId: z.fotoDa }, orderBy: { ordine: "asc" } });
       for (const [i, f] of foto.entries()) {
-        const media = await tx.media.findMany({ where: { percorso: { in: [f.grande, f.piccola] } } });
-        const g = media.find((m) => m.percorso === f.grande), pc = media.find((m) => m.percorso === f.piccola);
+        const [g, pc] = await Promise.all([leggiMedia(f.grande), leggiMedia(f.piccola)]);
         if (!g || !pc) continue;
         const n = nuovoId(), pg = `prodotti/${pid}/${n}.webp`, pp = `prodotti/${pid}/${n}-s.webp`;
-        await tx.media.createMany({ data: [{ percorso: pg, dati: g.dati }, { percorso: pp, dati: pc.dati }] });
+        await tx.media.createMany({ data: [{ percorso: pg, dati: g }, { percorso: pp, dati: pc }] });
         await tx.foto.create({ data: { id: nuovoId(), prodottoId: pid, grande: pg, piccola: pp, ordine: i, colore: f.colore, principale: f.principale } });
       }
     }
