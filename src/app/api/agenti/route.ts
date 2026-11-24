@@ -130,7 +130,11 @@ async function spostaInColorazione(varianteId: string, slug: string, nome: strin
     } });
     creato = true;
   }
-  if (dest.id === src.id) return { creato, prodotto: dest.slug };
+  if (dest.id === src.id) {
+    // stesso prodotto ma modello corretto: si aggiorna il modello (e il nome) del prodotto
+    if (modello && sottocategoria !== src.sottocategoria) await db.prodotto.update({ where: { id: src.id }, data: { sottocategoria, nome } });
+    return { creato, prodotto: dest.slug };
+  }
   let pz = 0;
   while (await db.variante.findFirst({ where: { prodottoId: dest.id, colore: v.colore, taglia: v.taglia, pezzo: pz }, select: { id: true } })) pz++;
   await db.variante.update({ where: { id: v.id }, data: { prodottoId: dest.id, pezzo: pz } });
