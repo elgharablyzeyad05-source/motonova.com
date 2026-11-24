@@ -192,6 +192,24 @@ export async function conteggiModelli(cat: string): Promise<Record<string, numbe
   return Object.fromEntries(r.map((x) => [(x.sottocategoria ?? "").toLowerCase(), x._count]));
 }
 
+/** Per ogni modello (es. «AGV K1»): la foto principale (3/4) di un prodotto di quel modello, prima il nuovo poi l'usato. */
+export async function fotoModelli(cat: string, modelli: string[]): Promise<Record<string, string>> {
+  if (!modelli.length) return {};
+  const ps = await db.prodotto.findMany({
+    where: { categoria: cat, foto: { some: {} } },
+    orderBy: [{ tipo: "asc" }, { creato: "asc" }],
+    select: { tipo: true, nome: true, sottocategoria: true, marca: { select: { nome: true } }, foto: { orderBy: [{ principale: "desc" }, { ordine: "asc" }], take: 1, select: { piccola: true } } },
+  });
+  const out: Record<string, string> = {};
+  for (const m of modelli) {
+    const k = m.toLowerCase();
+    const di = (p: (typeof ps)[number]) => { const n = `${p.marca.nome} ${p.nome}`.toLowerCase(); return n === k || n.startsWith(k + " ") || (p.sottocategoria ?? "").toLowerCase() === k; };
+    const p = ps.find((p) => p.tipo === "NUOVO" && di(p)) ?? ps.find(di);
+    if (p?.foto[0]) out[k] = `/media/${p.foto[0].piccola}`;
+  }
+  return out;
+}
+
 /** Foto da catalogo del modello, usata quando il prodotto non ha foto proprie. */
 export function fotoCatalogo(p: { categoria: string; sottocategoria: string | null }): string | undefined {
   if (!p.sottocategoria) return undefined;

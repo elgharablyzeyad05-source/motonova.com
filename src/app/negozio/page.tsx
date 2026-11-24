@@ -2,7 +2,7 @@ import { negozioChiuso } from "@/lib/lancio";
 import Prossimamente from "@/componenti/Prossimamente";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { cerca, opzioniFiltri, conteggiModelli, ETICHETTA_CAT, ETICHETTA_STILE, CATEGORIE, STILI } from "@/lib/catalogo";
+import { cerca, opzioniFiltri, conteggiModelli, fotoModelli, ETICHETTA_CAT, ETICHETTA_STILE, CATEGORIE, STILI } from "@/lib/catalogo";
 import { lingua, tx } from "@/lib/contesto";
 import { href, tr, tc } from "@/lib/i18n";
 import { Scheda } from "@/componenti/Scheda";
@@ -31,7 +31,7 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
   const [lista, opz, u] = await Promise.all([cerca(f), opzioniFiltri(f.cond), utenteCorrente()]);
   const usato = f.cond === "usato";
   const modelliCat = usato && f.cat ? ((MODELLI as unknown as Record<string, string[]>)[f.cat] ?? []) : [];
-  const conteggi = usato && f.cat ? await conteggiModelli(f.cat) : {};
+  const [conteggi, fotoDb] = usato && f.cat ? await Promise.all([conteggiModelli(f.cat), fotoModelli(f.cat, modelliCat)]) : [{} as Record<string, number>, {} as Record<string, string>];
   const q = (extra: Record<string, string>) => { const p = new URLSearchParams(extra); return href(l, "/negozio") + (p.toString() ? "?" + p.toString() : ""); };
   const pref = u ? new Set((await db.preferito.findMany({ where: { utenteId: u.id }, select: { prodotto: { select: { slug: true } } } })).map((x) => x.prodotto.slug)) : new Set<string>();
   const attivi = [f.q, f.cat, f.stile, f.marca, f.taglia, f.max, f.solo ? "1" : "", f.sotto, f.colore, f.genere, f.materiale, f.cert, f.moto, f.cond, f.ed].filter(Boolean).length;
@@ -93,10 +93,11 @@ export default async function Negozio({ searchParams }: { searchParams: Promise<
                 const n = conteggi[m.toLowerCase()] ?? 0;
                 const slug = m.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
                 const propria = (FOTO as string[]).includes(`${f.cat}-${slug}.webp`);
-                const img = propria ? `/immagini/modelli/${f.cat}-${slug}.webp` : `/immagini/cat-${f.cat}.webp?v=4`;
+                // niente segnaposto generico della categoria: foto propria del modello, altrimenti la 3/4 del catalogo, altrimenti nessuna foto
+                const img = propria ? `/immagini/modelli/${f.cat}-${slug}.webp` : fotoDb[m.toLowerCase()];
                 return (
                   <Link key={m} href={q({ cond: "usato", cat: f.cat, sotto: m })} className={"modello-card" + (f.sotto.toLowerCase() === m.toLowerCase() ? " on" : "") + (n === 0 ? " zero" : "")}>
-                    <span className="modello-img"><img src={img} alt={m} loading="lazy" /></span>
+                    <span className="modello-img">{img && <img src={img} alt={m} loading="lazy" />}</span>
                     <strong>{m}</strong>
                     <small>{n > 0 ? `${n} ${_("in asta", "at auction", "في المزاد")}` : _("Nessun pezzo ora", "None right now", "مفيش دلوقتي")}</small>
                   </Link>
