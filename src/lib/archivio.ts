@@ -38,6 +38,8 @@ async function r2(metodo: "GET" | "PUT" | "DELETE", percorso: string, corpo?: Ui
   intestazioni.authorization = `AWS4-HMAC-SHA256 Credential=${e.chiave}/${ambito}, SignedHeaders=${nomi.join(";")}, Signature=${firma}`;
   const { host: _h, ...h } = intestazioni;
   if (!/^[0-9a-f]{32}$/.test(e.conto)) throw new Error(`R2_ACCOUNT_ID non valido: servono 32 caratteri esadecimali (ora ${e.conto.length} caratteri)`);
+  if (e.chiave.length !== 32) throw new Error(`R2_ACCESS_KEY_ID non valido: servono 32 caratteri (ora ${e.chiave.length})`);
+  if (e.segreto.length !== 64) throw new Error(`R2_SECRET_ACCESS_KEY non valido: servono 64 caratteri (ora ${e.segreto.length})`);
   try {
     return await fetch(`https://${host}${chiaveOggetto}`, { method: metodo, headers: h, body: corpo ? payload : undefined });
   } catch (x) {
