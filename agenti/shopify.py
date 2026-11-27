@@ -165,5 +165,17 @@ for (pref, eur, spec), rs in sorted(gr.items(), key=lambda kv: (list(MOD).index(
                           edizione="special" if spec else None, attivo=True, aggiornaGiacenze=True, **({"genere": genere} if genere else {}),
                           varianti=[dict(colore=c["colore"], taglia=t, giacenza=1) for c in ch for t in c["taglie"]],
                           foto=[dict(src=u, colore=c["colore"], principale=(j == 0)) for c in ch for j, u in enumerate(c["imgs"])]))
+# due prodotti dello stesso modello non possono avere lo stesso nome (es. più di 6 colori, o prezzi diversi):
+# ai doppioni si aggiunge il primo colore del prodotto (e, se non basta, il secondo)
+usati = {e["nome"] for e in esistenti}
+from collections import Counter
+conta = Counter(q["nome"] for q in piano if "sottotitolo" in q)
+for q in piano:
+    if "sottotitolo" not in q or (conta[q["nome"]] < 2 and q["nome"] not in usati): continue
+    cols = list(dict.fromkeys(v["colore"] for v in q["varianti"]))
+    for k in range(1, len(cols) + 1):
+        nuovo = q["nome"] + " " + " / ".join(cols[:k])
+        if nuovo not in usati: break
+    q["nome"] = nuovo; usati.add(nuovo)
 json.dump(piano, open(x.out, "w"), ensure_ascii=False)
 print(f"{len(righe)} colorazioni: {len(righe) - len(righe_nuove)} già sul sito, {len(righe_nuove)} nuove -> {sum(1 for p in piano if 'sottotitolo' in p)} prodotti nuovi, {len(piano)} voci nel piano")

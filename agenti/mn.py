@@ -80,9 +80,15 @@ def _post(path, data=None, files=None):
 
 
 def scarica(src):
-    req = urllib.request.Request(src, headers={"User-Agent": UA, "Accept": "image/webp,image/*;q=0.9"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return r.read()
+    # il CDN Shopify a volte risponde 502 al ridimensionamento (?width=...): si riprova con l'originale
+    for u in dict.fromkeys([src, src.split("?")[0]]):
+        req = urllib.request.Request(u, headers={"User-Agent": UA, "Accept": "image/webp,image/*;q=0.9"})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return r.read()
+        except urllib.error.HTTPError as e:
+            if u == src.split("?")[0] or e.code < 500:
+                raise
 
 
 def carica(piano):
