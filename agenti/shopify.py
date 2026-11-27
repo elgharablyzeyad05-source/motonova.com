@@ -28,6 +28,7 @@ a.add_argument("--togli", default="", help="pezzi da togliere dal titolo, separa
 a.add_argument("--codice-colore", action="store_true", help="titoli 'Modello Grafica C5 Finitura' (es. mthelmets.com) -> 'MODELLO GRAFICA Finitura C5'")
 a.add_argument("--foto-preferite", default="", help="pezzi del nome file delle foto da mettere per prime, separati da virgola (es. _FR.,_BA.)")
 a.add_argument("--senza-mono", action="store_true", help="prodotti senza grafica: nome = modello (niente 'Mono'); per abbigliamento")
+a.add_argument("--richiedi-foto", default="", help="tieni solo le colorazioni con foto il cui nome file contiene uno di questi pezzi (es. _FR.,_BA.: foto del capo da solo, Alpinestars) e usa solo quelle")
 a.add_argument("--ordine-foto", default="", help="indici delle foto da usare, la prima è la principale (es. 5,1,0)")
 # Negozi con titoli "Jacket Modello | Colore" (es. www.revitsport.com): si tiene solo la parte prima del separatore
 a.add_argument("--taglia-titolo", default="", help="separatore dopo cui il titolo viene tagliato (es. ' | '), da usare con --colore-da-opzione")
@@ -67,6 +68,9 @@ def titolo(p):
 
 def foto_di(p):
     imgs = [i["src"].split("?")[0] + "?width=1800" for i in p["images"]]
+    if x.richiedi_foto:  # solo le foto richieste, nell'ordine dei pezzi indicati
+        pz = x.richiedi_foto.split(",")
+        return [u for k in pz for u in imgs if k in u.rsplit("/", 1)[-1]][: x.foto]
     if x.foto_preferite:
         pref = x.foto_preferite.split(",")
         prime = [next((u for u in imgs if k in u.rsplit("/", 1)[-1]), None) for k in pref]
@@ -95,7 +99,7 @@ for p in ps:
     disp = [(v.get(f"option{i_tg + 1}") if i_tg is not None else None) or v["title"] for v in p["variants"] if v["available"]]
     disp = list(dict.fromkeys(disp))  # stessa taglia in più lunghezze (standard/short/long) = una taglia
     imgs = foto_di(p)
-    if not disp or len(imgs) < min(3, x.foto): continue
+    if not disp or len(imgs) < (1 if x.richiedi_foto else min(3, x.foto)): continue
     colore = (tc(graf) + " " + col).strip() if graf else col
     if any(r["pref"] == pref and r["colore"] == colore for r in righe): continue
     listino = max(float(v["compare_at_price"] or v["price"]) for v in p["variants"])

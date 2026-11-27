@@ -11,7 +11,7 @@ Questo script, per ogni colore con meno foto del piano:
      (la prima foto del piano = principale). Eseguila con Supabase MCP (execute_sql).
 Non cancella niente.
 """
-import io, json, re, sys, concurrent.futures as cf
+import io, json, os, re, sys, concurrent.futures as cf
 
 sys.path.insert(0, __file__.rsplit("/", 1)[0])
 import mn  # noqa: E402
@@ -45,7 +45,8 @@ def main():
             for k, col in enumerate(dict.fromkeys(x["colore"] for x in q["foto"])):
                 pos[(p["id"], col)] = k
                 voluti = [x for x in q["foto"] if x["colore"] == col]
-                if 0 < len(sito.get(col, [])) < len(voluti):
+                # COMPLETA_TUTTI=1: anche i colori che hanno già abbastanza foto (per rimettere davanti le foto del piano)
+                if 0 < len(sito.get(col, [])) and (len(sito[col]) < len(voluti) or os.environ.get("COMPLETA_TUTTI")):
                     lavori.append((p["id"], col, voluti, sito[col]))
     print("colori da completare:", len(lavori))
 
@@ -73,7 +74,7 @@ def main():
     for pid, col, ids, avanzi, _ in ris:
         if ids is None:
             continue
-        base = pos[(pid, col)] * 3
+        base = pos[(pid, col)] * 10
         val += [f"('{fid}',{base + i},{'true' if i == 0 else 'false'})" for i, fid in enumerate(ids)]
         val += [f"('{fid}',{base + len(ids) + k},false)" for k, fid in enumerate(avanzi)]
     sql = ('update motonova."Foto" f set ordine=v.o, principale=v.p from (values ' + ",".join(val) + ") v(id,o,p) where f.id=v.id;") if val else ""
