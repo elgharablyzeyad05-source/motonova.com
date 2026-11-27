@@ -347,7 +347,9 @@ export async function POST(req: Request) {
     if (b.op === "spostaFotoR2") {
       if (!r2Attivo()) throw new Error("R2 non configurato (R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET su Vercel)");
       const quante = Math.min(Math.max(Number(b.quante ?? 40), 1), 200);
-      const righe = await db.$queryRaw<{ percorso: string }[]>`select percorso from "Media" where length(dati) > 0 order by creato limit ${quante}`;
+      // { parte, di }: divide il lavoro fra più chiamate in parallelo senza che prendano le stesse foto
+      const di = Math.min(Math.max(Number(b.di ?? 1), 1), 16), parte = Math.min(Math.max(Number(b.parte ?? 0), 0), di - 1);
+      const righe = await db.$queryRaw<{ percorso: string }[]>`select percorso from "Media" where length(dati) > 0 and mod(abs(hashtext(percorso)), ${di}) = ${parte} order by creato limit ${quante}`;
       let spostate = 0; const errori: string[] = [];
       for (const { percorso } of righe) {
         try {
