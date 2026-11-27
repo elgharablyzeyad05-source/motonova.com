@@ -7,10 +7,11 @@ import { db } from "@/lib/db";
 // e svuota i byte nel database (la riga resta, con dati vuoti = «la foto sta su R2»).
 
 const env = () => ({
-  conto: process.env.R2_ACCOUNT_ID ?? "",
-  chiave: process.env.R2_ACCESS_KEY_ID ?? "",
-  segreto: process.env.R2_SECRET_ACCESS_KEY ?? "",
-  secchio: process.env.R2_BUCKET ?? "",
+  // tollera l'indirizzo intero incollato al posto dell'Account ID (https://<id>.r2.cloudflarestorage.com/...)
+  conto: (process.env.R2_ACCOUNT_ID ?? "").trim().replace(/^https?:\/\//, "").replace(/\.r2\.cloudflarestorage\.com.*$/, "").replace(/[/\s].*$/, ""),
+  chiave: (process.env.R2_ACCESS_KEY_ID ?? "").trim(),
+  segreto: (process.env.R2_SECRET_ACCESS_KEY ?? "").trim(),
+  secchio: (process.env.R2_BUCKET ?? "").trim(),
 });
 
 export const r2Attivo = () => { const e = env(); return !!(e.conto && e.chiave && e.segreto && e.secchio); };
@@ -36,7 +37,13 @@ async function r2(metodo: "GET" | "PUT" | "DELETE", percorso: string, corpo?: Ui
   const firma = createHmac("sha256", kFirma).update(daFirmare).digest("hex");
   intestazioni.authorization = `AWS4-HMAC-SHA256 Credential=${e.chiave}/${ambito}, SignedHeaders=${nomi.join(";")}, Signature=${firma}`;
   const { host: _h, ...h } = intestazioni;
-  return fetch(`https://${host}${chiaveOggetto}`, { method: metodo, headers: h, body: corpo ? payload : undefined });
+  if (!/^[0-9a-f]{32}$/.test(e.conto)) throw new Error(`R2_ACCOUNT_ID non valido: servono 32 caratteri esadecimali (ora ${e.conto.length} caratteri)`);
+  try {
+    return await fetch(`https://${host}${chiaveOggetto}`, { method: metodo, headers: h, body: corpo ? payload : undefined });
+  } catch (x) {
+    const c = (x as { cause?: { code?: string; message?: string } }).cause;
+    throw new Error(`R2 non raggiungibile: ${c?.code ?? ""} ${c?.message ?? (x as Error).message}`.trim());
+  }
 }
 
 export async function r2Scrivi(percorso: string, dati: Uint8Array) {
