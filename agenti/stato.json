@@ -1,5 +1,5 @@
 {
-  "aggiornato": "2026-11-25",
+  "aggiornato": "2026-11-27",
   "categoria_corrente": "caschi finiti per le marche con negozio ufficiale; giacche/tute: Alpinestars completa, REV'IT! pronta (piano fatto) ma non caricata per lo spazio",
   "marche_fatte": {
     "caschi": [
@@ -14,6 +14,15 @@
       "Alpinestars"
     ],
     "giacche": [
+      "Alpinestars",
+      "REV'IT!"
+    ],
+    "pantaloni": [
+      "REV'IT!",
+      "Alpinestars (nascosti: foto indossate)"
+    ],
+    "stivali": [
+      "REV'IT!",
       "Alpinestars"
     ]
   },
@@ -22,9 +31,10 @@
     "Momodesign": "sul sito agv.com (open-face/fgtr-classic, fgtr-evo)",
     "Nolan": "Shopify nolan-helmets.com, collezione tutti-i-caschi, modelli in agenti/modelli/nolan.json; include le linee X (X-804, X-904, X-1005) col marchio Nolan; il CDN Shopify rifiuta le richieste dal server Vercel: le foto vanno scaricate dall'agente e inviate come file (mn.py lo fa già)",
     "Shark": "Shopify www.shark-helmets.com (EUR), collezione tous-les-casques, modelli agenti/modelli/shark.json; prima foto = 3/4. Spartan GT Carbon e Spartan GT BCL. Micr. sono sul sito Shark ma tutte esaurite (non in modelli/shark.json)",
-    "Alpinestars": "Shopify eu.alpinestars.com (EUR); il colore è un'opzione della variante (--colore-da-opzione). Caschi: modelli/alpinestars.json; tute: modelli/alpinestars-tute.json; giacche: modelli/alpinestars-giacche.json (generati dai titoli). Il prodotto 'Supertech R10' (slug alpinestars-supertech-r10) viene da Vinted: non toccarlo. Giacche complete il 23/11 (78 prodotti nuovi); il 24/11 caricate 3 foto mancanti di una colorazione giacche (probabilmente 'Dark Blue Black' di alpinestars-dice-jacket). 25/11 (richiesta di Zeyad): l'anteprima dev'essere di lato/3/4, mai da dietro, dall'alto o di fronte. Con --ordine-foto 5,1,0 alcuni caschi (Supertech R10 Acosta/Arius, S-M5 Sail, S-M7 Wolf Dust, M10 Deegan Monster) avevano come principale la foto da dietro/dall'alto/di fronte: corrette a mano. Per le colorazioni nuove controlla sempre la foto principale.",
+    "Alpinestars": "Shopify eu.alpinestars.com (EUR); il colore è un'opzione della variante (--colore-da-opzione). Caschi: modelli/alpinestars.json; tute: modelli/alpinestars-tute.json; giacche: modelli/alpinestars-giacche.json (generati dai titoli). Il prodotto 'Supertech R10' (slug alpinestars-supertech-r10) viene da Vinted: non toccarlo. Giacche complete il 23/11 (78 prodotti nuovi); il 24/11 caricate 3 foto mancanti di una colorazione giacche (probabilmente 'Dark Blue Black' di alpinestars-dice-jacket). 25/11 (richiesta di Zeyad): l'anteprima dev'essere di lato/3/4, mai da dietro, dall'alto o di fronte. Con --ordine-foto 5,1,0 alcuni caschi (Supertech R10 Acosta/Arius, S-M5 Sail, S-M7 Wolf Dust, M10 Deegan Monster) avevano come principale la foto da dietro/dall'alto/di fronte: corrette a mano. Per le colorazioni nuove controlla sempre la foto principale.. 27/11: stivali/scarpe 118 prodotti (foto r3/fr/r2, ok). Pantaloni 51 prodotti caricati ma NASCOSTI (attivo=false): la maggior parte ha solo foto indossate su sfondo grigio da studio che la pulizia rovina; solo 25 colori su 88 hanno le foto del capo da solo (_FR/_BA). Stesso problema per molte giacche.",
     "MT": "Shopify www.mthelmets.com (sito spagnolo, EUR), titoli 'Modello Grafica C5 Brillo' (--codice-colore), modelli agenti/modelli/mt.json; il prodotto 'Thunder 4 SV' viene da Vinted. 25/11: il piano non ha più prodotti nuovi (le 9 colorazioni segnalate il 24/11 non risultano più nuove/disponibili); solo aggiornamenti.",
-    "REV'IT!": "Shopify www.revitsport.com (prezzi EUR, negozio europeo): titoli 'Jacket Modello | Colore', colore = opzione Color; escludere i tag OutletEU (prezzo d'outlet senza barrato). Solo le prime 2 foto sono del colore giusto (3/4 davanti, 3/4 dietro): le foto indossate mostrano spesso un altro colore, quindi --foto 2. /it-it/ e /cart.js bloccati da 'Verifying your connection'; /products.json e /collections/all/products.json funzionano. Modelli: modelli/revit-giacche.json (68), modelli/revit-tute.json (4, esclusi gli X_101/201/301 su misura). Piano del 23/11: 68 giacche (179 colorazioni, 358 foto, ~25 MB) + 4 tute (8 colorazioni)"
+    "REV'IT!": "Shopify www.revitsport.com (prezzi EUR, negozio europeo): titoli 'Jacket Modello | Colore', colore = opzione Color; escludere i tag OutletEU (prezzo d'outlet senza barrato). Solo le prime 2 foto sono del colore giusto (3/4 davanti, 3/4 dietro): le foto indossate mostrano spesso un altro colore, quindi --foto 2. /it-it/ e /cart.js bloccati da 'Verifying your connection'; /products.json e /collections/all/products.json funzionano. Modelli: modelli/revit-giacche.json (68), modelli/revit-tute.json (4, esclusi gli X_101/201/301 su misura). Piano del 23/11: 68 giacche (179 colorazioni, 358 foto, ~25 MB) + 4 tute (8 colorazioni). 27/11: caricate giacche (68), pantaloni (31), stivali/scarpe (17): foto prodotto su sfondo chiaro, ok.",
+    "Shopify CDN": "cdn.shopify.com risponde a volte 502 (con Accept webp o ?width) e 429 se si scaricano troppe foto: mn.scarica riprova (jpeg, originale, pause); usa MN_PAUSA=1 e un solo caricamento alla volta."
   },
   "marche_saltate": {
     "Shoei": "shoei-europe.com è solo catalogo: niente prezzi né disponibilità",
@@ -55,6 +65,6 @@
     "REV'IT! pantaloni": "python3 agenti/shopify.py --dominio www.revitsport.com --collezione all --categoria pantaloni --marca \"REV'IT!\" --modelli agenti/modelli/revit-pantaloni.json --colore-da-opzione --taglia-titolo ' | ' --escludi-tag OutletEU --solo-tipi Pants --foto 2 --ordine-foto 0,1 --senza-mono --certificazione 'EN 17092' --out /tmp/revit-pant.json",
     "REV'IT! stivali": "python3 agenti/shopify.py --dominio www.revitsport.com --collezione all --categoria stivali --marca \"REV'IT!\" --modelli agenti/modelli/revit-stivali.json --colore-da-opzione --taglia-titolo ' | ' --escludi-tag OutletEU --solo-tipi 'Boots|Shoes' --foto 3 --senza-mono --certificazione 'EN 13634' --out /tmp/revit-stiv.json"
   },
-  "spazio_db": "412 MB al giro della notte del 24-25/11 (Media 384 MB; era 411 MB a inizio giro): sopra il limite di lavoro di 400 MB, nessuna marca nuova caricata, solo aggiornamenti taglie/prezzi di Nolan, Shark, MT, Alpinestars (caschi, tute, giacche). Per continuare serve spazio: foto su storage esterno (Supabase Storage / Vercel Blob) o piano Supabase superiore.",
-  "prossima": "27/11 (richiesta di Zeyad: giacche, pantaloni, stivali): piani pronti, da caricare appena le foto sono su R2 (DB 429 MB). REV'IT! giacche 68 prodotti (360 foto), REV'IT! pantaloni 31 (102), REV'IT! stivali/scarpe 17 (84), Alpinestars pantaloni 51 (264), Alpinestars stivali/scarpe 116 (843): circa 115 MB di foto. Poi: foto principali delle giacche Alpinestars (FR/BA invece delle foto indossate con riquadri grigi)."
+  "spazio_db": "27/11: foto spostate su Cloudflare R2 (bucket motonova-foto, variabili R2_* su Vercel). Database da 429 a 31 MB. Le foto nuove si salvano ancora in Media: dopo ogni caricamento lancia {\"op\":\"spostaFotoR2\",\"quante\":40} (anche in parallelo con \"parte\":k,\"di\":8) finché restano=0, poi VACUUM FULL motonova.\"Media\". Il limite dei 400 MB ora riguarda solo i dati.",
+  "prossima": "Completare le foto mancanti degli stivali Alpinestars e di alcuni colori REV'IT! (bloccati dal 429 di Shopify); poi pantaloni e giacche Alpinestars: tenere online solo i colori con foto del capo da solo (_FR/_BA). Poi: Spidi, Dainese (a mano), guanti (REV'IT!, Alpinestars), protezioni e airbag."
 }

@@ -80,15 +80,38 @@ def _post(path, data=None, files=None):
 
 
 def scarica(src):
-    # il CDN Shopify a volte risponde 502 al ridimensionamento (?width=...): si riprova con l'originale
-    for u in dict.fromkeys([src, src.split("?")[0]]):
-        req = urllib.request.Request(u, headers={"User-Agent": UA, "Accept": "image/webp,image/*;q=0.9"})
-        try:
-            with urllib.request.urlopen(req, timeout=60) as r:
-                return r.read()
-        except urllib.error.HTTPError as e:
-            if u == src.split("?")[0] or e.code < 500:
-                raise
+    # Il CDN Shopify risponde a volte 502 (a caso, o quando chiedi webp / ?width=...):
+    # si riprova chiedendo jpeg/png, poi l'originale senza parametri, per 4 giri con pause.
+    base = src.split("?")[0]
+    prove = list(dict.fromkeys([(src, "image/webp,image/*;q=0.9"), (src, "image/jpeg,image/png,image/*;q=0.8"), (base, "image/jpeg,image/png,image/*;q=0.8")]))
+    err = None
+    for giro in range(4):
+        for u, acc in prove:
+            try:
+                with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": UA, "Accept": acc}), timeout=60) as r:
+                    return r.read()
+            except urllib.error.HTTPError as e:
+                if e.code == 429:  # troppe richieste: pausa lunga e si riprova
+                    err = e; time.sleep(30 * (giro + 1)); break
+                if e.code < 500:
+                    raise
+                err = e
+        time.sleep(3 * (giro + 1))
+    raise err
+
+
+def riduci(blob, limite=4_000_000):
+    """Vercel rifiuta corpi oltre 4,5 MB: le foto troppo grandi (es. PNG Alpinestars) si ricomprimono in WebP, trasparenza inclusa."""
+    if len(blob) <= limite:
+        return blob
+    import io
+    from PIL import Image
+    im = Image.open(io.BytesIO(blob))
+    im = im.convert("RGBA") if im.mode in ("RGBA", "LA", "P") else im.convert("RGB")
+    im.thumbnail((2400, 2400))
+    out = io.BytesIO()
+    im.save(out, "WEBP", quality=92, method=4)
+    return out.getvalue()
 
 
 def carica(piano):
@@ -105,10 +128,11 @@ def carica(piano):
             if f.get("colore", "") in gia:
                 continue
             try:
-                blob = scarica(f["src"])
+                blob = riduci(scarica(f["src"]))
                 rr = _post("/api/agenti/foto", {"prodottoId": r["id"], "colore": f.get("colore", ""), "principale": "1" if f.get("principale") else "0", "ordine": str(ordine)}, {"f": ("f", blob)})
             except Exception as ex:
                 rr = {"ok": False, "errore": str(ex)}
+            time.sleep(float(os.environ.get("MN_PAUSA", "0")))
             if rr.get("ok"):
                 tot["foto"] += 1; ordine += 1
             else:
